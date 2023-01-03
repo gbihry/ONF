@@ -7,7 +7,7 @@
                         <a href='./?action=produitVet&id=".$uneCategorie['id']."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
                     </div>";
         }
-      
+    
     ?>
     </div>
 </div>

@@ -29,6 +29,14 @@
 
         // INFORMATIONS UTILISATEURS
 
+        public static function getMetierUtilisateur($login){
+            $req = Connexion::getInstance()->prepare(" SELECT idMetier FROM utilisateur WHERE utilisateur.login =:leLogin");
+            $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
         public static function getIdUtilisateur($login){
             $req = Connexion::getInstance()->prepare("SELECT id FROM utilisateur WHERE utilisateur.login =:leLogin");
             $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
@@ -342,11 +350,33 @@
             return $res;
         }
 
-        public static function getCatalogue(){
-            $req = Connexion::getInstance()->prepare("SELECT* FROM categorie");
+        public static function getCatalogue($id){
+            $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
+            FROM categorie
+            JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+            WHERE concerne_categorie_metier.idMetier = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
             return $res;
+            /*
+            Table neccessaire pour les page catalogue :
+            - categorie
+                - id
+                - libelle
+            - concerne_categorie_metier
+                - idCategorie (join avec categorie.id)
+                - idMetier
+            
+            Affichage :
+                - categorie.libelle
+
+            Requete :
+                SELECT categorie.id,categorie.libelle
+                FROM categorie
+                JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                WHERE concerne_categorie_metier.idMetier = :id
+            */
         }
 
         public static function getTaille($id){
@@ -580,6 +610,40 @@
         }
 
         public static function insertLigneCommandeEPI($id, $idProduit, $quantite, $idTaille){
+            // VERIFICATION SI ID PEUT AJOUTER CE PRODUIT
+            /*
+            Tableau utilisé pour la verification de l'ajout d'un produit dans le panier :
+            - produit
+                - id
+                - idType
+            - type
+                - id
+                - idCategorie
+            - concerne_categorie_metier
+                - idCategorie
+                - idMetier
+            
+            Requete :
+                SELECT produit.id FROM produit
+                JOIN type on type.id = produit.idType
+                JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = type.idCategorie
+                WHERE produit.id = :idProduit AND concerne_categorie_metier.idMetier = :idMetier
+            
+            */
+            $idMetier = ModeleObjetDAO::getMetierUtilisateur(ModeleObjetDAO::getNomUtilisateur($id['id'])['login']);
+
+            $query = Connexion::getInstance()->prepare("SELECT produit.id FROM produit
+            JOIN type on type.id = produit.idType
+            JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = type.idCategorie
+            WHERE produit.id = :idProduit AND concerne_categorie_metier.idMetier = :idMetier
+            ");
+            $query->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $query->bindValue(':idMetier', $idMetier['idMetier'], PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch();
+            if($result == false){
+                return false;
+            }
             // CREATION DU INSERT DANS LA TABLE lignecommandeepi
             $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id['id']);
             $query = Connexion::getInstance()->prepare("INSERT INTO lignecommandeepi (idProduit, quantite, idCommandeEPI, idTaille) VALUES (:idProduit, :quantite, :idCommandeEPI, :idTaille)");
