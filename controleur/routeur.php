@@ -13,6 +13,7 @@ class Routeur{
         'produitEpi' => 'ctrlProduitEpi.php',
         'panier' => 'ctrlPanier.php',
         'ajoutUtilisateur' => 'ctrlAjoutUtilisateur.php',
+        'ajoutPoint' => 'ctrlAjoutPoint.php',
         'recapPanier' => 'ctrlRecapPanier.php',
         'commandeReussie' => 'ctrlCommandeReussi.php',
         'newmdp' => 'ctrlNewMdp.php',

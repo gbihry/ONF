@@ -29,6 +29,13 @@
 
         // INFORMATIONS UTILISATEURS
 
+        public static function getAllUsersID() {
+            $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login FROM utilisateur LIMIT 50");
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
         public static function getMetierUtilisateur($login){
             $req = Connexion::getInstance()->prepare(" SELECT idMetier FROM utilisateur WHERE utilisateur.login =:leLogin");
             $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
