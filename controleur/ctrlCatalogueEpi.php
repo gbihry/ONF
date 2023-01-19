@@ -7,7 +7,7 @@
         header("location:./?action=login");
     }else{  
         
-        $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+        $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], $_SESSION['login']);
         include_once "$racine/vue/vueCatalogueEpi.php";
     }
     include_once "$racine/vue/vuePied.php";

@@ -357,15 +357,24 @@
             return $res;
         }
 
-        public static function getCatalogue($id){
-            $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
-            FROM categorie
-            JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-            WHERE concerne_categorie_metier.idMetier = :id");
-            $req->bindValue(':id',$id,PDO::PARAM_INT);
-            $req->execute();
-            $res = $req->fetchall();
-            return $res;
+        public static function getCatalogue($id, $login){
+            if (ModeleObjetDAO::getRole($login)['libelle'] == 'Administrateur'){
+                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
+                FROM categorie");
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
+            }else{
+                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
+                FROM categorie
+                JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                WHERE concerne_categorie_metier.idMetier = :id");
+                $req->bindValue(':id',$id,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
+            }
+            
             /*
             Table neccessaire pour les page catalogue :
             - categorie

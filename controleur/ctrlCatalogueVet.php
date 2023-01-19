@@ -6,7 +6,7 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }else{  
-        $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+        $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], $_SESSION['login']);
         include_once "$racine/vue/vueCatalogueVet.php";
     }
     include_once "$racine/vue/vuePied.php";
