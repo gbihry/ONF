@@ -4,12 +4,6 @@
         <div class="addUser_container">
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Login :</span>
-                </div>
-                <input type="text" class="form-control" name='login' aria-describedby="inputGroup-sizing-sm" required>
-            </div>
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Nom :</span>
                 </div>
                 <input type="text" class="form-control" name='nom' aria-describedby="inputGroup-sizing-sm" required>
