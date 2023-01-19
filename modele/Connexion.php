@@ -31,7 +31,7 @@
                     self::$connexion = new PDO($serveur.$bdd, $user, $mdp); 
                     self::$connexion->query("SET CHARACTER SET utf8");
                 } catch (PDOException $e) {
-                        throw new Exception("Erreur à  la connexion fffff \n" . $e->getMessage());
+                        throw new Exception("Erreur à  la connexion \n" . $e->getMessage());
                 }
             }
             return self::$connexion;
