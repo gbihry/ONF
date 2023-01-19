@@ -2,7 +2,6 @@
 
     include_once "$racine/modele/ModeleObjetDAO.php";
     include_once "$racine/vue/vueEntete.php";
-
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }else{  
@@ -16,10 +15,10 @@
             $listeQte = [
                 1 => 1, //CHAUSSURE
                 2 =>  1, //BOTTE
-                3 => 2, //PANTALON/FALSAR
+                3 => 2, //PANTALON
                 4 => 1, //CASQUE
                 5 => 2, //VESTE
-                6 => 1,
+                6 => 1, //  DEBARDEUR
             ];
 
                 break;
