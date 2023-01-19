@@ -23,11 +23,17 @@
             ];
 
                 break;
-            case 'Tronçonneuse':
-                $qte = 2;
-                break;
-            case 'Autre':
+            case 'Sylviculteur':
                 $qte = 3;
+                break;
+            case 'chauffeur débusqueur':
+                $qte = 1;
+                break;
+            case 'logiticien' :
+                $qte = 3;
+                break;
+            case 'chauffeur d engin' :
+                $qte = 4;
                 break;
             default:
                 $listeQte = [
