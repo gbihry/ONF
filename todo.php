@@ -21,17 +21,8 @@
 
 //TODO : Créé un administrateur qui puissent juste commander et ajouter un utilisateur 
 //TODO : Super-admin accès au Récapitulatif 
-//TODO : Récapitulatif au lieu de statistique 
 //TODO : Rajouter employeur 
 //TODO : Employeur sois onf sois syndicat
-
-// * Rajouter métier suivant : * //
-//TODO : Type:
-//TODO : Chauffeur débusquer 
-//TODO : Bûcheron 
-//TODO : Silvicuteur 
-//TODO : Logisticien 
-//TODO : chauffeur d'engin
 
 // ? Guillaume 
 //TODO : Quelle type de personnel peut voir le produit ( contrainte )
