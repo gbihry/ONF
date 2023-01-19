@@ -688,9 +688,8 @@
         //INSERT UTILISATEUR 
 
         public static function insertUtilisateur($login,$password,$prenom,$nom,$email,$tel,$idLieuLivraison,$id_chef,$idRole,$idMetier,$Agence){
-            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login, password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
+            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
             VALUES (:login, :password, :prenom,:nom,:email,:tel,:idLieuLivraison,:id_chef,:idRole,:idMetier,:Agence)");
-            $req->bindValue(':login',$login,PDO::PARAM_STR);
             $req->bindValue(':password',$password,PDO::PARAM_STR);
             $req->bindValue(':prenom',$prenom,PDO::PARAM_STR);
             $req->bindValue(':nom',$nom,PDO::PARAM_STR);

@@ -8,8 +8,7 @@
 //TODO : Tshirt logo forestier ou onf
 //TODO : Responsable au lieu de chef 
 //TODO : Marquer site onf achat à la place de decrouvez ONF
-//TODO : Antenne Colmar -> site Colmar 
-//TODO : Mettre une table avec des commentaires pour l'accueil 
+
 
 // ? Matthieu 
 //TODO : Maximum 1 modèle de botte on ne peut pas choisir les 2
@@ -19,7 +18,7 @@
 
 
 // ? Tristan 
-//TODO : Les login deviens l'email 
+
 //TODO : Créé un administrateur qui puissent juste commander et ajouter un utilisateur 
 //TODO : Super-admin accès au Récapitulatif 
 //TODO : Récapitulatif au lieu de statistique 
