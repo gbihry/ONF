@@ -357,15 +357,24 @@
             return $res;
         }
 
-        public static function getCatalogue($id){
-            $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
-            FROM categorie
-            JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-            WHERE concerne_categorie_metier.idMetier = :id");
-            $req->bindValue(':id',$id,PDO::PARAM_INT);
-            $req->execute();
-            $res = $req->fetchall();
-            return $res;
+        public static function getCatalogue($id, $login, $verifVet){
+            if ((ModeleObjetDAO::getRole($login)['libelle'] == 'Administrateur') || ($verifVet == true)){
+                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
+                FROM categorie");
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
+            }else{
+                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
+                FROM categorie
+                JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                WHERE concerne_categorie_metier.idMetier = :id");
+                $req->bindValue(':id',$id,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
+            }
+            
             /*
             Table neccessaire pour les page catalogue :
             - categorie
@@ -679,9 +688,8 @@
         //INSERT UTILISATEUR 
 
         public static function insertUtilisateur($login,$password,$prenom,$nom,$email,$tel,$idLieuLivraison,$id_chef,$idRole,$idMetier,$Agence){
-            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login, password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
+            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
             VALUES (:login, :password, :prenom,:nom,:email,:tel,:idLieuLivraison,:id_chef,:idRole,:idMetier,:Agence)");
-            $req->bindValue(':login',$login,PDO::PARAM_STR);
             $req->bindValue(':password',$password,PDO::PARAM_STR);
             $req->bindValue(':prenom',$prenom,PDO::PARAM_STR);
             $req->bindValue(':nom',$nom,PDO::PARAM_STR);

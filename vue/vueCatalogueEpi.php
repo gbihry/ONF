@@ -1,4 +1,7 @@
 <div class="catalogue">
+    <div class="text-center">
+        <p class="catalogue_title_type"> Catalogue EPI</p>
+    </div>
     <div class="contenue">
     <?php 
     
