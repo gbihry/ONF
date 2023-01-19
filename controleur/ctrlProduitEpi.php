@@ -23,16 +23,44 @@
 
                 break;
             case 'Sylviculteur':
-                $qte = 3;
+                $listeQte = [
+                    1 => 1, //CHAUSSURE
+                    2 =>  1, //BOTTE
+                    3 => 2, //PANTALON
+                    4 => 1, //CASQUE
+                    5 => 2, //VESTE
+                    6 => 1, //  DEBARDEUR
+                ];
                 break;
             case 'chauffeur débusqueur':
-                $qte = 1;
+                $listeQte = [
+                    1 => 1, //CHAUSSURE
+                    2 =>  1, //BOTTE
+                    3 => 2, //PANTALON
+                    4 => 1, //CASQUE
+                    5 => 2, //VESTE
+                    6 => 1, //  DEBARDEUR
+                ];
                 break;
             case 'logiticien' :
-                $qte = 3;
+                $listeQte = [
+                    1 => 1, //CHAUSSURE
+                    2 =>  1, //BOTTE
+                    3 => 2, //PANTALON
+                    4 => 1, //CASQUE
+                    5 => 2, //VESTE
+                    6 => 1, //  DEBARDEUR
+                ];
                 break;
             case 'chauffeur d engin' :
-                $qte = 4;
+                $listeQte = [
+                    1 => 1, //CHAUSSURE
+                    2 =>  1, //BOTTE
+                    3 => 2, //PANTALON
+                    4 => 1, //CASQUE
+                    5 => 2, //VESTE
+                    6 => 1, //  DEBARDEUR
+                ];
                 break;
             default:
                 $listeQte = [
