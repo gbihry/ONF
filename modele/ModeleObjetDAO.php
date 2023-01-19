@@ -729,4 +729,23 @@
             $res = $req->fetchall();
             return $res;
         }
+
+        //fonction qui retourne la quantite dans ligne commande epi en fonction du login
+
+        public static function getQuantiteEpi($login,$type){
+            $req = Connexion::getInstance()->prepare( "SELECT sum(quantite),type.id
+            from lignecommandeepi
+            JOIN commandeepi on lignecommandeepi.idCommandeEPI = commandeepi.id
+            JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id
+            JOIN produit on lignecommandeepi.idProduit = produit.id
+            join type on produit.idType = type.id
+            where login = :login
+            and type.id = :type
+            ");
+            $req->bindValue(':login', $login, PDO::PARAM_STR);
+            $req->bindValue(':type', $type, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
 } 

@@ -23,11 +23,17 @@
                 <select name="taille" class="custom-select" id="inputGroupSelect01">
                 <?php 
                         echo ("<option value=" . (ModeleObjetDAO::getTaille($detail['id']))['id'] .">" . (ModeleObjetDAO::getTaille($detail['id']))['libelle']. "</option>")
+                        
                 ?>
                 </select>
             </div>
             <?php
-                echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
+                if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < $listeQte[$detail['idType']]){
+                    echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
+                }
+                
+                
+                
                 echo "</form>";
                 echo "</div>";
                 echo "</div>";
