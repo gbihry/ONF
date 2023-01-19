@@ -357,8 +357,8 @@
             return $res;
         }
 
-        public static function getCatalogue($id, $login){
-            if (ModeleObjetDAO::getRole($login)['libelle'] == 'Administrateur'){
+        public static function getCatalogue($id, $login, $verifVet){
+            if ((ModeleObjetDAO::getRole($login)['libelle'] == 'Administrateur') || ($verifVet == true)){
                 $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
                 FROM categorie");
                 $req->execute();

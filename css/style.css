@@ -127,6 +127,12 @@ body{
     transform: scale(1.1);
 }
 
+.catalogue_title_type{
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--bouton);
+}
+
 
 /* PRODUIT */
 
