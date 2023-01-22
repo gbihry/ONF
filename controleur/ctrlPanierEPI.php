@@ -12,10 +12,9 @@
             ModeleObjetDAO::deleteLigneCommande($idUtilisateur['id'], $_POST['idLigne'],$_POST['type']);
         }
 
-        $ligneCommandeVET = ModeleObjetDAO::getLigneCommandeVetUtilisateur($idUtilisateur['id']);
         $ligneCommandeEPI = ModeleObjetDAO::getLigneCommandeEpiUtilisateur($idUtilisateur['id']);
 
-        include_once "$racine/vue/vuePanier.php";
+        include_once "$racine/vue/vuePanierEPI.php";
     }
     include_once "$racine/vue/vuePied.php";
 ?>

@@ -44,11 +44,13 @@
           <div class="nav_links">
             <?php
             if(isset($_SESSION['autorise'])) {
-              $NombreElementDansLePanier = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+              $NombreElementDansLePanierEPI = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'epi');
+              $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
             echo '
             <div class="nav_links_item"><a href="index.php?action=catalogueVet"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
             <div class="nav_links_item"><a href="index.php?action=catalogueEpi"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
-            <div class="nav_links_item"><a href="index.php?action=panier"><i class="fa-solid fa-bag-shopping"></i>Panier ('.$NombreElementDansLePanier.')</a></div>';
+            <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
+            <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
             } else {
               echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
             }

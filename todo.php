@@ -25,9 +25,7 @@
 //TODO : Employeur sois onf sois syndicat
 
 // ? Guillaume 
-//TODO : Quelle type de personnel peut voir le produit ( contrainte )
-//TODO : Garder le suivi du panier en lecture seul
-//TODO : Qu'une seul commande par compte !!!
+//TODO:: Enlever le prix des EPI
 //TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 
 //TODO : Rajouter un contact dans la table fournisseur( nom prénom email, fonctions ( commerciale, responsable ))pour décathlon par exemple 
 //TODO : Ajouter une fonctionnalité pour voir qui n'a pas commander encore 

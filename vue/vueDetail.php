@@ -11,6 +11,6 @@
             echo "<button type='button' class='btn btn-outline-success m-5'>Ajouter au panier</button>";
             echo "</div>";
         }
-       
+    
     ?>
 </div>

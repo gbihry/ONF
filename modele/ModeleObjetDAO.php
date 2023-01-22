@@ -8,16 +8,45 @@
 
         // INFORMATIONS NAV 
 
-        public static function getNbArticlePanier($id){
-            $req = Connexion::getInstance()->prepare("SELECT count(lignecommandevet.id) FROM lignecommandevet
-            JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-            WHERE commandevet.idUtilisateur = :leId 
-            UNION ALL
-            SELECT count(lignecommandeepi.id) FROM lignecommandeepi 
-            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            WHERE commandeepi.idUtilisateur = :leId"
-            );
-            $req->bindValue(':leId',$id,PDO::PARAM_INT);
+        public static function getNbArticlePanier($id, $type){
+            switch ($type) {
+                case 'vet':
+                    $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
+                    $req = Connexion::getInstance()->prepare("SELECT count(lignecommandevet.id) FROM lignecommandevet
+                    JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
+                    WHERE commandevet.id = :leId");
+                    if($commandeid == false) {
+                        return 0;
+                    }
+                    $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
+                    break;
+                case 'epi':
+                    $commandeid = ModeleObjetDAO::getIdEpiUtilisateur($id);
+                    $req = Connexion::getInstance()->prepare("SELECT count(lignecommandeepi.id) FROM lignecommandeepi 
+                    JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+                    WHERE commandeepi.id = :leId");
+                    if($commandeid == false) {
+                        return 0;
+                    }
+                    $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
+                    break;
+                default:
+                    $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
+                    $commandeid2 = ModeleObjetDAO::getIdEpiUtilisateur($id);
+                    $req = Connexion::getInstance()->prepare("SELECT count(lignecommandevet.id) FROM lignecommandevet
+                    JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
+                    WHERE commandevet.id = :leId
+                    UNION ALL
+                    SELECT count(lignecommandeepi.id) FROM lignecommandeepi 
+                    JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+                    WHERE commandeepi.id = :leId2");
+                    if($commandeid == false && $commandeid2 == false) {
+                        return 0;
+                    }
+                    $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
+                    $req->bindValue(':leId2',$commandeid2['id'],PDO::PARAM_INT);
+                    break;
+            }
             $req->execute();
             $res = $req->fetchAll();
             $nombretotal = 0;
@@ -110,29 +139,37 @@
         }
 
         public static function getIdEpiUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT id FROM commandeepi WHERE idUtilisateur = :leId");
+            $req = Connexion::getInstance()->prepare("SELECT id FROM commandeepi WHERE idUtilisateur = :leId AND terminer = :terminer");
             $req->bindValue(':leId',$id,PDO::PARAM_INT);
+            $req->bindValue(':terminer',0,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
             return $res;
         }
 
         public static function getIdVetUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT id FROM commandevet WHERE idUtilisateur = :leId");
+            $req = Connexion::getInstance()->prepare("SELECT id FROM commandevet WHERE idUtilisateur = :leId AND terminer = :terminer");
             $req->bindValue(':leId',$id,PDO::PARAM_INT);
+            $req->bindValue(':terminer',0,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
             return $res;
         }
 
         public static function getLigneCommandeEpiUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandeepi.quantite, taille.libelle FROM lignecommandeepi
+            $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id, lignecommandeepi.idProduit, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandeepi.quantite, taille.libelle FROM lignecommandeepi
             JOIN disponible on disponible.idProduit = lignecommandeepi.idProduit
             JOIN produit on produit.id = lignecommandeepi.idProduit
             JOIN taille on taille.id = lignecommandeepi.idTaille
             JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            WHERE commandeepi.idUtilisateur = :leId");
-            $req->bindValue(':leId',$id,PDO::PARAM_INT);
+            WHERE commandeepi.id = :leId");
+
+            $commandeid = ModeleObjetDAO::getIdEpiUtilisateur($id);
+            if($commandeid == false){
+                return false;
+            }
+
+            $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchAll();
             return $res;
@@ -171,19 +208,24 @@
                 JOIN produit on produit.id = lignecommandeepi.idProduit
                 JOIN taille on taille.id = lignecommandeepi.idTaille
                 JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-                WHERE commandeepi.idUtilisateur = :leId
-
+                WHERE commandeepi.id = :leId
             */
         }
 
         public static function getLigneCommandeVetUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandevet.quantite, taille.libelle FROM lignecommandevet
+            $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id,lignecommandevet.idProduit, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandevet.quantite, taille.libelle FROM lignecommandevet
             JOIN disponible on disponible.idProduit = lignecommandevet.idProduit
             JOIN produit on produit.id = lignecommandevet.idProduit
             JOIN taille on taille.id = lignecommandevet.idTaille
             JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-            WHERE commandevet.idUtilisateur = :leId");
-            $req->bindValue(':leId',$id,PDO::PARAM_INT);
+            WHERE commandevet.id = :leId");
+
+            $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
+            if($commandeid == false){
+                return false;
+            }
+
+            $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchAll();
             return $res;
@@ -195,15 +237,23 @@
             JOIN produit on produit.id = lignecommandevet.idProduit
             JOIN taille on taille.id = lignecommandevet.idTaille
             JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-            WHERE commandevet.idUtilisateur = :leId
+            WHERE commandevet.id = :leId
             UNION ALL
             SELECT lignecommandeepi.idProduit, produit.nom,  taille.libelle, lignecommandeepi.quantite, 0 FROM lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
             JOIN taille on taille.id = lignecommandeepi.idTaille
             JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            WHERE commandeepi.idUtilisateur = :leId";
+            WHERE commandeepi.id = :leId2";
             $req = Connexion::getInstance()->prepare($query);
-            $req->bindValue(':leId',$id,PDO::PARAM_INT);
+            
+            $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
+            $commandeid2 = ModeleObjetDAO::getIdEpiUtilisateur($id);
+            if($commandeid == false || $commandeid2 == false){
+                return false;
+            }
+
+            $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
+            $req->bindValue(':leId2',$commandeid2['id'],PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchAll();
             return $res;
@@ -467,7 +517,8 @@
                 }
             }
         }
-
+        
+        /*
         public static function deleteCommandeTOUT($id) {
             $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id);
             $idCommandeVet = ModeleObjetDAO::getIdVetUtilisateur($id);
@@ -490,16 +541,32 @@
                 $query->execute();
             }
         }
+        */
 
+        
 
         //COMMANDE PANIER 
-        public static function validerCommande($id) {
+        public static function validerCommande($id, $type) {
             date_default_timezone_set('Europe/Paris');
             $prix = ModeleObjetDAO::prixTotalCommande($id);
             $points = ModeleObjetDAO::getNbrPointUtilisateur($id)['point'];
             if(($points - $prix) > 0) {
-                $Commande = ModeleObjetDAO::getLigneCommandeTOUT($id);
-                $nomUtilisateur = ModeleObjetDAO::getNomUtilisateur($id)['login'];
+                // $Commande = ModeleObjetDAO::getLigneCommandeTOUT($id);
+                switch($type) {
+                    case "epi":
+                        $Commande = ModeleObjetDAO::getLigneCommandeEpiUtilisateur($id);
+                        $extrafile = "EPI";
+                        break;
+                    case "vet":
+                        $Commande = ModeleObjetDAO::getLigneCommandeVetUtilisateur($id);
+                        $extrafile = "VET";
+                        break;
+                    default:
+                        return false;
+                        break;
+                }
+                var_dump($Commande);
+                $nomUtilisateur = ModeleObjetDAO::getNomPrenom($id);
                 $nomUtilisateurSecure = ModeleObjetDAO::windowSecureFilename($nomUtilisateur);
                 $filename = "Commande_".$nomUtilisateurSecure."_".date("d-m-Y")."_".date("H-i-s").".csv";
                 $date = date("d/m/Y");
@@ -511,13 +578,13 @@
                 foreach($Commande as $ligne) {
                     $tmp_array[] = array("idProduit" => $ligne['idProduit'], "nom" => $ligne['nom'], "Taille" => $ligne['libelle'], "quantite" => $ligne['quantite'], "prix" => $ligne['prix']);
                 }
-                $fp = fopen('commandes/'.$filename, 'w');
+                $fp = fopen('commandes/'.$extrafile . '/' .$filename, 'w');
                 fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
                 foreach ($tmp_array as $fields) {
                     fputcsv($fp, $fields, ";");
                 }
                 fclose($fp);
-                ModeleObjetDAO::deleteCommandeTOUT($id);
+                ModeleObjetDAO::CommandeArchivage($id, $type);
 
                 if($prix != 0) {
                 $query = Connexion::getInstance()->prepare("UPDATE points SET points.point = points.point - :prix WHERE points.idUtilisateur = :id");
@@ -531,6 +598,35 @@
             } else {
                 header("location:./?action=panier");
             }
+        }
+
+        public static function CommandeArchivage($id, $type) {
+            switch($type) {
+                case "epi":
+                    $commandeid = ModeleObjetDAO::getIdEpiUtilisateur($id);
+                    $query = Connexion::getInstance()->prepare("UPDATE commandeepi SET commandeepi.terminer = 1 WHERE commandeepi.id = :id");
+                    break;
+                case "vet":
+                    $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
+                    $query = Connexion::getInstance()->prepare("UPDATE commandevet SET commandevet.terminer = 1 WHERE commandevet.id = :id");
+                    break;
+                default:
+                    return;
+                    break;
+            }
+            if($commandeid != false) { 
+                $query->bindValue(':id',$commandeid['id'],PDO::PARAM_INT);
+                $query->execute();
+                return;
+            }
+        }
+
+        public static function getNomPrenom($id) {
+            $query = Connexion::getInstance()->prepare("SELECT nom, prenom FROM utilisateur WHERE id = :id");
+            $query->bindValue(':id',$id,PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch();
+            return $result['nom']."_".$result['prenom'];
         }
 
         public static function windowSecureFilename($name) {
@@ -591,16 +687,18 @@
             $dateActuel = date("Y-m-d H:i:s");   
 
             //Verification si il y'a déjà une commandeEPI avec une id d'un utilisateur
-            $query = Connexion::getInstance()->prepare("SELECT * FROM commandeepi WHERE idUtilisateur = :idUtilisateur");
+            $query = Connexion::getInstance()->prepare("SELECT * FROM commandeepi WHERE idUtilisateur = :idUtilisateur AND terminer = :terminer");
             $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
+            $query->bindValue(':terminer', 0, PDO::PARAM_INT);
             $query->execute();
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeepi
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur) VALUES (:datecrea, :statut, :idUtilisateur)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
+                $query->bindValue(':terminer', 0, PDO::PARAM_INT);
                 $query->execute();
             }
         }
@@ -611,16 +709,18 @@
             $dateActuel = date("Y-m-d H:i:s");   
 
             //Verification si il y'a déjà une commandeVET avec une id d'un utilisateur
-            $query = Connexion::getInstance()->prepare("SELECT * FROM commandevet WHERE idUtilisateur = :idUtilisateur");
+            $query = Connexion::getInstance()->prepare("SELECT * FROM commandevet WHERE idUtilisateur = :idUtilisateur AND terminer = :terminer");
             $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
+            $query->bindValue(':terminer', 0, PDO::PARAM_INT);
             $query->execute();
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeVET
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur) VALUES (:datecrea, :statut, :idUtilisateur)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
+                $query->bindValue(':terminer', 0, PDO::PARAM_INT);
                 $query->execute();
             }
         }
