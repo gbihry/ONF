@@ -231,92 +231,134 @@
             return $res;
         }
 
-        public static function getLigneCommandeTOUT($id){
-            $query = "SELECT lignecommandevet.idProduit, produit.nom, taille.libelle, lignecommandevet.quantite, disponible.prix FROM lignecommandevet
-            JOIN disponible on disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
-            JOIN produit on produit.id = lignecommandevet.idProduit
-            JOIN taille on taille.id = lignecommandevet.idTaille
-            JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-            WHERE commandevet.id = :leId
-            UNION ALL
-            SELECT lignecommandeepi.idProduit, produit.nom,  taille.libelle, lignecommandeepi.quantite, 0 FROM lignecommandeepi
-            JOIN produit on produit.id = lignecommandeepi.idProduit
-            JOIN taille on taille.id = lignecommandeepi.idTaille
-            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            WHERE commandeepi.id = :leId2";
+        public static function getHistoriqueCommande($id){
+            $query = "SELECT
+                commandeepi.id,
+                commandeepi.dateCrea,
+                'EPI' AS origin,
+                'Aucun' AS prix
+            FROM
+                commandeepi
+            WHERE
+                commandeepi.terminer = 1 AND commandeepi.idUtilisateur = :leId
+            UNION
+            SELECT
+                commandevet.id,
+                commandevet.dateCrea,
+                'VET' AS origin,
+                SUM(disponible.prix * lignecommandevet.quantite) AS prix
+            FROM
+                commandevet
+            INNER JOIN lignecommandevet ON lignecommandevet.idCommandeVet = commandevet.id
+            INNER JOIN disponible ON disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
+            WHERE
+                commandevet.terminer = 1 AND commandevet.idUtilisateur = :leId
+            GROUP BY commandevet.id
+            ORDER BY dateCrea DESC
+            ";
             $req = Connexion::getInstance()->prepare($query);
-            
-            $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
-            $commandeid2 = ModeleObjetDAO::getIdEpiUtilisateur($id);
-            if($commandeid == false || $commandeid2 == false){
-                return false;
-            }
-
-            $req->bindValue(':leId',$commandeid['id'],PDO::PARAM_INT);
-            $req->bindValue(':leId2',$commandeid2['id'],PDO::PARAM_INT);
+            $req->bindValue(':leId',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchAll();
             return $res;
 
             /*
-                Table necessaire pour la requete :
-                - lignecommandevet
-                    - id
-                    - idProduit (join avec disponible)
-                    - quantite 
-                    - idCommandeVET (join avec commandevet)
-                    - idTaille (join avec disponible)
-                - lignecommandeepi
-                    - id
-                    - idProduit
-                    - quantite 
-                    - idCommandeEPI (join avec commandeepi)
-                    - idTaille
-                - disponible
-                    - idProduit
-                    - idTaille
-                    - prix
-                - commandeepi
-                    - id
-                    - idUtilisateur
-                - commandevet
-                    - id
-                    - idUtilisateur
-                - produit
-                    - id (join avec lignecommandeepi)
-                    - nom
-                    - type
-                - taille
-                    - id (join avec lignecommandeepi)
-                    - libelle
+                Table a utiliser:
+                commandeepi :
+                    id
+                    dateCrea
+                    idUtilisateur
+                    terminer
+                commandevet :
+                    id
+                    dateCrea
+                    idUtilisateur
+                    terminer
+                lignecommandevet :
+                    id
+                    idCommandeVet
+                    idProduit
+                    idTaille
+                    quantite
+                disponible :
+                    id
+                    idProduit
+                    idTaille
+                    prix
 
                 Affichage :
-                    - idProduit
-                    - nom
-                    - idTaille
-                    - quantite
-                    - prix
+                    id
+                    dateCrea
+                    origin
+                    Prix
 
-                Requete :
-                SELECT lignecommandevet.idProduit, produit.nom, taille.libelle, lignecommandevet.quantite, disponible.prix FROM lignecommandevet
-                JOIN disponible on disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
-                JOIN produit on produit.id = lignecommandevet.idProduit
-                JOIN taille on taille.id = lignecommandevet.idTaille
-                JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-                WHERE commandevet.idUtilisateur = :leId
-                UNION ALL
-                SELECT lignecommandeepi.idProduit, produit.nom,  taille.libelle, lignecommandeepi.quantite, null FROM lignecommandeepi
-                JOIN produit on produit.id = lignecommandeepi.idProduit
-                JOIN taille on taille.id = lignecommandeepi.idTaille
-                JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-                WHERE commandeepi.idUtilisateur = :leId
+                Requête :
+                SELECT
+                    commandeepi.id,
+                    commandeepi.dateCrea,
+                    'EPI' AS origin,
+                    '0' AS prix
+                FROM
+                    commandeepi
+                WHERE
+                    commandeepi.terminer = 1 AND commandeepi.idUtilisateur = :leId
+                UNION
+                SELECT
+                    commandevet.id,
+                    commandevet.dateCrea,
+                    'VET' AS origin,
+                    SUM(disponible.prix * lignecommandevet.quantite) AS prix
+                FROM
+                    commandevet
+                INNER JOIN lignecommandevet ON lignecommandevet.idCommandeVet = commandevet.id
+                INNER JOIN disponible ON disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
+                WHERE
+                    commandevet.terminer = 1 AND commandevet.idUtilisateur = :leId
+                GROUP BY commandevet.id
+                ORDER BY dateCrea DESC
 
 
-            
-            
             */
         }
 
+        public static function getHistoriqueCommandeDetail($idUtilisateur, $idCommande, $origin) {
+            switch($origin) {
+                case 'EPI':
+                    $database = 'commandeepi';
+                    $table = 'lignecommandeepi';
+                    break;
+                case 'VET':
+                    $database = 'commandevet';
+                    $table = 'lignecommandevet';
+                    break;
+                default:
+                    return false;
+            }
+            $query = "SELECT
+                $table.id,
+                $table.idProduit,
+                produit.fichierPhoto,
+                produit.type,
+                produit.nom,
+                disponible.prix,
+                $table.quantite,
+                taille.libelle
+            FROM
+                $table
+            INNER JOIN disponible ON disponible.idProduit = $table.idProduit AND disponible.idTaille = $table.idTaille
+            INNER JOIN produit ON produit.id = $table.idProduit
+            INNER JOIN taille ON taille.id = $table.idTaille
+            INNER JOIN $database ON $database.id = $table.idCommande$origin
+            WHERE
+                $table.idCommande$origin = :idCommande AND $database.idUtilisateur = :idUtilisateur
+            ";
+            $req = Connexion::getInstance()->prepare($query);
+            $req->bindValue(':idCommande',$idCommande,PDO::PARAM_INT);
+            $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
         public static function getStatut($login){ 
             $req = Connexion::getInstance()->prepare("SELECT statut
                 FROM metier
@@ -548,10 +590,9 @@
         //COMMANDE PANIER 
         public static function validerCommande($id, $type) {
             date_default_timezone_set('Europe/Paris');
-            $prix = ModeleObjetDAO::prixTotalCommande($id);
+            $prix = ModeleObjetDAO::prixTotalCommande($id,$type);
             $points = ModeleObjetDAO::getNbrPointUtilisateur($id)['point'];
             if(($points - $prix) > 0) {
-                // $Commande = ModeleObjetDAO::getLigneCommandeTOUT($id);
                 switch($type) {
                     case "epi":
                         $Commande = ModeleObjetDAO::getLigneCommandeEpiUtilisateur($id);
@@ -565,7 +606,6 @@
                         return false;
                         break;
                 }
-                var_dump($Commande);
                 $nomUtilisateur = ModeleObjetDAO::getNomPrenom($id);
                 $nomUtilisateurSecure = ModeleObjetDAO::windowSecureFilename($nomUtilisateur);
                 $filename = "Commande_".$nomUtilisateurSecure."_".date("d-m-Y")."_".date("H-i-s").".csv";
@@ -635,7 +675,17 @@
             return $name;
         }
 
-        public static function prixTotalCommande($id){
+        public static function prixTotalCommande($id,$type){
+            switch($type) {
+                case "epi":
+                    return 0;
+                    break;
+                case "vet":
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
             $idCommandeVet = ModeleObjetDAO::getIdVetUtilisateur($id);
             if($idCommandeVet != false) {
 
@@ -684,8 +734,14 @@
         public static function insertEPICommande($id, $statut){
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = $id;
-            $dateActuel = date("Y-m-d H:i:s");   
-
+            $dateActuel = date("Y-m-d H:i:s");
+            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur, "EPI");
+            if($nbCommande == false){
+                $nbCommande = 0;
+            }
+            if($nbCommande > 0) {
+                return false;
+            }
             //Verification si il y'a déjà une commandeEPI avec une id d'un utilisateur
             $query = Connexion::getInstance()->prepare("SELECT * FROM commandeepi WHERE idUtilisateur = :idUtilisateur AND terminer = :terminer");
             $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
@@ -701,6 +757,7 @@
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
                 $query->execute();
             }
+            return true;
         }
 
         public static function insertVETCommande($id, $statut){
@@ -723,6 +780,7 @@
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
                 $query->execute();
             }
+            return true;
         }
 
         public static function insertLigneCommandeEPI($id, $idProduit, $quantite, $idTaille){
@@ -847,5 +905,23 @@
             $req->execute();
             $res = $req->fetch();
             return $res;
+        }
+
+        public static function getUtilisateurCommandeTerminer($id,$type) {
+            switch($type){
+                case 'EPI':
+                    $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandeepi WHERE idUtilisateur = :id AND terminer = 1"); 
+                    break;
+                case 'VET':
+                    $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandevet WHERE idUtilisateur = :id AND terminer = 1"); 
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['nb'];
         }
 } 

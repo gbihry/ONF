@@ -19,14 +19,18 @@
             date_default_timezone_set('Europe/Paris');
 
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-            ModeleObjetDAO::insertVETCommande($idUtilisateur, $unStatut['statut']);
+            if(ModeleObjetDAO::insertVETCommande($idUtilisateur, $unStatut['statut']) != false) {
+                $quantite = $_POST['quantity'];
+                $taille = $_POST['taille'];
+                $idProduit = $_POST['submit'];
+
+                ModeleObjetDAO::insertLigneCommandeVET($idUtilisateur, $idProduit, $quantite, $taille);
+            } else {
+                echo "Erreur lors de l'insertion de la commande";
+            }
 
             
-            $quantite = $_POST['quantity'];
-            $taille = $_POST['taille'];
-            $idProduit = $_POST['submit'];
-
-            ModeleObjetDAO::insertLigneCommandeVET($idUtilisateur, $idProduit, $quantite, $taille);
+            
             
         }
 
