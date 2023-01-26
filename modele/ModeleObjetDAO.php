@@ -219,6 +219,23 @@
             */
         }
 
+        public static function getAllProduitCatalogue($id, $type){
+            $req = Connexion::getInstance()->prepare(" SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+            from produit
+            join type on type.id = produit.idType
+            JOIN categorie on categorie.id = type.idCategorie
+            JOIN disponible on disponible.idProduit = produit.id
+            JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+            WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+
+            $req->bindValue(':leType',$type,PDO::PARAM_STR);
+            $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
+        
         public static function getLigneCommandeVetUtilisateur($id){
             $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id,lignecommandevet.idProduit, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandevet.quantite, taille.libelle FROM lignecommandevet
             JOIN disponible on disponible.idProduit = lignecommandevet.idProduit
