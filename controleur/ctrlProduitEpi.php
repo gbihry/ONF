@@ -42,7 +42,7 @@
                     6 => 1, //  DEBARDEUR
                 ];
                 break;
-            case 'logiticien' :
+            case 'logisticien' :
                 $listeQte = [
                     1 => 1, //CHAUSSURE
                     2 =>  1, //BOTTE
