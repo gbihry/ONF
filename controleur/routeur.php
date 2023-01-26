@@ -17,6 +17,7 @@ class Routeur{
         'ajoutUtilisateur' => 'ctrlAjoutUtilisateur.php',
         'historiquecommandedetail' => 'ctrlHistoriqueCommandeDetail.php',
         'ajoutPoint' => 'ctrlAjoutPoint.php',
+        'aCommander' => 'ctrlAcommander.php',
         'recapPanier' => 'ctrlRecapPanier.php',
         'commandeReussie' => 'ctrlCommandeReussi.php',
         'newmdp' => 'ctrlNewMdp.php',
