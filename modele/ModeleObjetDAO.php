@@ -840,6 +840,7 @@
             $query->execute();
             $result = $query->fetch();
             if($result == false){
+                
                 return false;
             }
             // CREATION DU INSERT DANS LA TABLE lignecommandeepi
