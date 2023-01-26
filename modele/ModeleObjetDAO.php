@@ -759,7 +759,7 @@
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = $id;
             $dateActuel = date("Y-m-d H:i:s");
-            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur, "EPI");
+            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur['id'], "EPI");
             if($nbCommande == false){
                 $nbCommande = 0;
             }
@@ -851,6 +851,7 @@
             $query->bindValue(':idCommandeEPI',$idCommandeEPI['id'], PDO::PARAM_INT);
             $query->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
             $query->execute();
+            return false;
         }
 
         public static function insertLigneCommandeVET($id, $idProduit, $quantite, $idTaille){
