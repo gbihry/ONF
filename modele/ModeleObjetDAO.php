@@ -89,12 +89,28 @@
             return $res['tel'];
         }
 
-        public static function getUtilisateurCommander (){
-            $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea FROM utilisateur LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id");
-            $req->execute();
-            $res = $req->fetchAll();
+        public static function getUtilisateurCommander ($etat){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE commandeepi.terminer = 1");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE dateCrea is null or terminer = 0");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
             return $res;
         }
+
 
         public static function updateMdp($login, $mdpActuel,$mdpNew) {
             $verifmdp = ModeleObjetDAO::getMdp($login);

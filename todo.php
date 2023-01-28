@@ -29,8 +29,6 @@
 //TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 
 //TODO : Rajouter un contact dans la table fournisseur( nom prénom email, fonctions ( commerciale, responsable ))pour décathlon par exemple 
 //TODO : Créé la table log avec tout les logs
-//TODO : Mettre un bouton dans catégorie pour voir tout les produits disponible dans VET 
-//TODO : régler problème ajout article avec compte admin catalogue
 
 
 
