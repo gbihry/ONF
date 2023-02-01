@@ -933,6 +933,18 @@
             return $res;
         }
 
+        public static function getQuantiteEpiMax($metier,$idType){
+            $req = Connexion::getInstance()->prepare("SELECT idType,quantiteMax
+            from concerne 
+            join metier on metier.id = concerne.idStatut
+            where statut = :metier and idType = :idType");
+            $req->bindValue(':metier',$metier,PDO::PARAM_STR);
+            $req->bindValue(':idType',$idType,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['quantiteMax'];
+        }
+
         public static function getUtilisateurCommandeTerminer($id,$type) {
             switch($type){
                 case 'EPI':

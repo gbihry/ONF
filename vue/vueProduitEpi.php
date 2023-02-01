@@ -14,7 +14,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                 </div>
-                <input type="number" class="form-control" name='quantity' min='0' max='<?php echo $listeQte[$detail['idType']]; ?>' aria-describedby="inputGroup-sizing-sm">
+                <input type="number" class="form-control" name='quantity' min='0' max='<?php echo ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']);   ?>' aria-describedby="inputGroup-sizing-sm">
+                
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -28,7 +29,7 @@
                 </select>
             </div>
             <?php
-                if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < $listeQte[$detail['idType']]){
+                if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                     echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                 }
                 

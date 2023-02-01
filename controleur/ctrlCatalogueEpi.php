@@ -10,70 +10,8 @@
         $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], $_SESSION['login'], $verifVet);
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
-        switch ($unStatut['statut']) {
-            case 'Bucheron':
-                
-            $listeQte = [
-                1 => 1, //CHAUSSURE
-                2 =>  1, //BOTTE
-                3 => 2, //PANTALON
-                4 => 1, //CASQUE
-                5 => 2, //VESTE
-                6 => 1, //  DEBARDEUR
-            ];
-
-                break;
-            case 'Sylviculteur':
-                $listeQte = [
-                    1 => 1, //CHAUSSURE
-                    2 =>  1, //BOTTE
-                    3 => 2, //PANTALON
-                    4 => 1, //CASQUE
-                    5 => 2, //VESTE
-                    6 => 1, //  DEBARDEUR
-                ];
-                break;
-            case 'chauffeur débusqueur':
-                $listeQte = [
-                    1 => 1, //CHAUSSURE
-                    2 =>  1, //BOTTE
-                    3 => 2, //PANTALON
-                    4 => 1, //CASQUE
-                    5 => 2, //VESTE
-                    6 => 1, //  DEBARDEUR
-                ];
-                break;
-            case 'logisticien' :
-                $listeQte = [
-                    1 => 1, //CHAUSSURE
-                    2 =>  1, //BOTTE
-                    3 => 2, //PANTALON
-                    4 => 1, //CASQUE
-                    5 => 2, //VESTE
-                    6 => 1, //  DEBARDEUR
-                ];
-                break;
-            case 'chauffeur d engin' :
-                $listeQte = [
-                    1 => 1, //CHAUSSURE
-                    2 =>  1, //BOTTE
-                    3 => 2, //PANTALON
-                    4 => 1, //CASQUE
-                    5 => 2, //VESTE
-                    6 => 1, //  DEBARDEUR
-                ];
-                break;
-            default:
-                $listeQte = [
-                    1 => 1, //CHAUSSURE
-                    2 =>  1, //BOTTE
-                    3 => 2, //PANTALON/FALSAR
-                    4 => 1, //CASQUE
-                    5 => 2, //VESTE
-                    6 => 1,
-                ];
-                break;
-        }
+        
+        
 
         
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
