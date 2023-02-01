@@ -4,7 +4,8 @@
 
     
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
-        $AllUsers = ModeleObjetDAO::getUtilisateurCommander();
+        $AllUsersAcommander = ModeleObjetDAO::getUtilisateurCommander(1);
+        $AllUsersNoncommander = ModeleObjetDAO::getUtilisateurCommander(0);
     } else {
         header("location:./?action=accueil");
     }

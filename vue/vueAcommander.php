@@ -8,17 +8,17 @@
             <th>Id utilisateurs</th>
             <th>Nom et prénom</th>
             <th>Mail</th>
+            <th>Date de création panier</th>
         </tr>
     ');
-    foreach ($AllUsers as $key => $value) {
-        if ($value['dateCrea'] == null){
-            echo ('
-                <tr>
-                    <td>'.$value['id'].'</td>
-                    <td>'.$value['nom'].'_'.$value['prenom'].'</td>
-                    <td>'.$value['email'].'</td>
-                </tr>');
-            }
+    foreach ($AllUsersNoncommander as $key => $value) {
+        echo ('
+            <tr>
+                <td>'.$value['id'].'</td>
+                <td>'.$value['nom'].'_'.$value['prenom'].'</td>
+                <td>'.$value['email'].'</td>
+                <td>'.$value['dateCrea'].'</td>
+            </tr>');
         }
     ?>
     </table>
@@ -30,18 +30,18 @@
             <th>Id utilisateurs</th>
             <th>Nom et prénom</th>
             <th>Mail</th>
+            <th>Date de création</th>
         </tr>
     ');
-    foreach ($AllUsers as $key => $value) {
-        if ($value['dateCrea'] != null){
-            echo ('
-                <tr>
-                    <td>'.$value['id'].'</td>
-                    <td>'.$value['nom'].'_'.$value['prenom'].'</td>
-                    <td>'.$value['email'].'</td>
-                </tr>
-                ');
-            }
+    foreach ($AllUsersAcommander as $key => $value) {
+        echo ('
+            <tr>
+                <td>'.$value['id'].'</td>
+                <td>'.$value['nom'].'_'.$value['prenom'].'</td>
+                <td>'.$value['email'].'</td>
+                <td>'.$value['dateCrea'].'</td>
+            </tr>
+            ');
         }
     ?>
     </table>
