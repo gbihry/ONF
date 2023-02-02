@@ -1026,4 +1026,33 @@
             $res = $req->fetchall();
             return $res;
         }
+
+        public static function getRecapCommandeEpi(){
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
+            from lignecommandeepi
+            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+            JOIN produit on lignecommandeepi.idProduit = produit.id
+            JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
+            JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+            GROUP by produit.nom,lieulivraion.nom
+            ORDER by lieulivraion.nom;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getRecapCommandeVet(){
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
+            from lignecommandevet
+            JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
+            JOIN produit on lignecommandevet.idProduit = produit.id
+            JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
+            JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+            GROUP by produit.nom,lieulivraion.nom
+            ORDER by lieulivraion.nom;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
 } 

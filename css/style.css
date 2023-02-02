@@ -665,3 +665,40 @@ table.historiquecommande th {
 h1.Acommander {
     margin: 25px 0px;
 }
+
+/* tab recapitulatif commande epi et vet */
+
+table.recapCommandeEpi {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+
+}
+
+table.recapCommandeEpi tr, table.recapCommandeEpi td, table.recapCommandeEpi th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table.recapCommandeEpi tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.recapCommandeEpi tr:hover {
+    background-color: #ddd;
+}
+
+table.recapCommandeEpi tr td:last-child {
+    text-align: center;
+}
+
+table.recapCommandeEpi th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #353a40;
+    color: white;
+}
+
+/* tab recapitulatif commande epi et vet */
