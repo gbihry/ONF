@@ -65,7 +65,7 @@
             return $res;
         }
 
-        public static function getResponsable($id){
+        public static function getResponsableCommande($id){
             $req = Connexion::getInstance()->prepare("SELECT id_responsable
             from utilisateur
             WHERE idRole = 2 and id = :id");
