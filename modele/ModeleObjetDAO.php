@@ -888,8 +888,9 @@
         //INSERT UTILISATEUR 
 
         public static function insertUtilisateur($login,$password,$prenom,$nom,$email,$tel,$idLieuLivraison,$id_chef,$idRole,$idMetier,$Agence){
-            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
+            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login,password,prenom,nom,email,tel,idLieuLivraison,id_chef,idRole,idMetier,Agence)
             VALUES (:login, :password, :prenom,:nom,:email,:tel,:idLieuLivraison,:id_chef,:idRole,:idMetier,:Agence)");
+            $req->bindValue(':login',$email,PDO::PARAM_STR);
             $req->bindValue(':password',$password,PDO::PARAM_STR);
             $req->bindValue(':prenom',$prenom,PDO::PARAM_STR);
             $req->bindValue(':nom',$nom,PDO::PARAM_STR);
@@ -902,7 +903,7 @@
             $req->bindValue(':Agence',$Agence,PDO::PARAM_STR);
             $req->execute();
 
-            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($login)['id'], 0);
+            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($email)['id'], 0);
         }
 
         public static function insertPoints($idUtilisateur, $points){
@@ -977,5 +978,12 @@
             $req->execute();
             $res = $req->fetch();
             return $res['nb'];
+        }
+
+        public static function getAgence(){
+            $req =  Connexion::getInstance()->prepare("select DISTINCT agence from utilisateur");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
         }
 } 

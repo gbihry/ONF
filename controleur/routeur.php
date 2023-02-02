@@ -21,7 +21,8 @@ class Routeur{
         'recapPanier' => 'ctrlRecapPanier.php',
         'commandeReussie' => 'ctrlCommandeReussi.php',
         'newmdp' => 'ctrlNewMdp.php',
-        'detail' => 'ctrlDetailObjet.php'
+        'detail' => 'ctrlDetailObjet.php',
+        'recapCommande' => 'ctrlRecapCommande.php'
     );   
     
         

@@ -75,11 +75,18 @@
                 ?>
                 </select>
             </div>
-            <div class="input-group input-group-sm mb-3">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Agence : </span>
+                    <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                 </div>
-                <input type="text" class="form-control" name='agence' aria-describedby="inputGroup-sizing-sm" required>
+                <select name="agence" class="custom-select" id="inputGroupSelect01">
+                <?php 
+                    foreach($lesAgences as $uneAgence){
+                        echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                    } 
+                    
+                ?>
+                </select>
             </div>
         </div>
         
