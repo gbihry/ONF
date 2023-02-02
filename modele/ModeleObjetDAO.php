@@ -438,7 +438,7 @@
             return $res;
         }
         public static function getStatut($login){ 
-            $req = Connexion::getInstance()->prepare("SELECT statut
+            $req = Connexion::getInstance()->prepare("SELECT metier.statut, metier.id
                 FROM metier
                 JOIN utilisateur on metier.id = utilisateur.idMetier
                 where utilisateur.login = :nom");
@@ -839,11 +839,12 @@
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeepi
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur, terminer, idLieuLivraison) VALUES (:datecrea, :statut, :idUtilisateur, :terminer, :idLieuLivraison)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
+                $query->bindValue(':idLieuLivraison', 0, PDO::PARAM_INT);
                 $query->execute();
             }
             return true;
@@ -862,11 +863,12 @@
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeVET
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur, terminer, idLieuLivraison) VALUES (:datecrea, :statut, :idUtilisateur, :terminer, :idLieuLivraison)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
+                $query->bindValue(':idLieuLivraison', 0, PDO::PARAM_INT);
                 $query->execute();
             }
             return true;
