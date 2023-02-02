@@ -7,8 +7,9 @@
         header("location:./?action=login");
     }else{  
         $verifVet = false;
-        $catalogue = ModeleObjetDAO::getCatalogue(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], $_SESSION['login'], $verifVet);
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
+        
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
         
         
