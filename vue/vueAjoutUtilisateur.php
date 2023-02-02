@@ -35,18 +35,29 @@
                     foreach($lesLieux as $unLieu){
                         echo ("<option value=" . ($unLieu['id']).">" . ($unLieu['nom']). "</option>");
                     }
-                        
                 ?>
                 </select>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" for="inputGroupSelect01">Chef :</span>
+                    <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                 </div>
-                <select name="chef" class="custom-select" id="inputGroupSelect01">
+                <select name="responsable" class="custom-select" id="inputGroupSelect01">
                 <?php 
-                    foreach($lesChef as $unChef){
-                        echo ("<option value=" . ($unChef['id']).">" . ($unChef['nom']). "</option>");
+                    foreach($lesResponsables as $unResponsable){
+                        echo ("<option value=" . ($unResponsable['id']).">" . ($unResponsable['nom']). "</option>");
+                    }     
+                ?>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" for="inputGroupSelect01">Employeur :</span>
+                </div>
+                <select name="employeur" class="custom-select" id="inputGroupSelect01">
+                <?php 
+                    foreach($lesEmployeur as $unEmployeur){
+                        echo ("<option value=" . ($unEmployeur['id']).">" . ($unEmployeur['nom']). ($unCEmployeur['prenom']) . "</option>");
                     }     
                 ?>
                 </select>
@@ -75,11 +86,18 @@
                 ?>
                 </select>
             </div>
-            <div class="input-group input-group-sm mb-3">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Agence : </span>
+                    <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                 </div>
-                <input type="text" class="form-control" name='agence' aria-describedby="inputGroup-sizing-sm" required>
+                <select name="agence" class="custom-select" id="inputGroupSelect01">
+                <?php 
+                    foreach($lesAgences as $uneAgence){
+                        echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                    } 
+                    
+                ?>
+                </select>
             </div>
         </div>
         

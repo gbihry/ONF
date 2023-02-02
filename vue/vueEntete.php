@@ -63,8 +63,9 @@
           </div>
       </nav>
           <?php
-            if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
-              include_once "$racine/vue/vueSousEntete.php";} 
+            if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || 
+            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+              include_once "$racine/vue/vueSousEntete.php";}
             ?>
           
         <div class="container-fluid">

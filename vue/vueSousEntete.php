@@ -1,6 +1,6 @@
 <div class="linenav">
     <div class="linenav_item" data-navname="stat">
-        <a href="#"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
+        <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
     </div>
     <div class="linenav_item" data-navname="stat">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>

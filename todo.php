@@ -12,17 +12,13 @@
 
 
 // ? Matthieu 
-//TODO : Maximum 1 modèle de botte on ne peut pas choisir les 2
 //TODO : Regrouper le Récapitulatif par site de livraison 
-//TODO : Liste pour les lieux de livraison 
-//TODO : lier lieu livraison aux commandes
+
 
 
 // ? Tristan 
 
 //TODO : Créé un administrateur qui puissent juste commander et ajouter un utilisateur 
-//TODO : Super-admin accès au Récapitulatif 
-//TODO : Rajouter employeur 
 //TODO : Employeur sois onf sois syndicat
 //TODO : Mettre la pointure a la place de taille pour les chaussures (Merci la maman de tristan)
 
@@ -37,4 +33,5 @@
 //TODO : Qu'un seul bon de commande et une sorte de date butoirs ou on ne peut plus commander 
 //TODO : Date de validation dans commandeEpi 
 //TODO : Mettre une date buttoir 
+//TODO : enlever SUPER ADMINISTRATEUR des roles dans AddUser après en avoir crée un 
 
