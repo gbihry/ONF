@@ -96,12 +96,28 @@
             return $res['tel'];
         }
 
-        public static function getUtilisateurCommander (){
-            $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea FROM utilisateur LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id");
-            $req->execute();
-            $res = $req->fetchAll();
+        public static function getUtilisateurCommander ($etat){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE commandeepi.terminer = 1");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE dateCrea is null or terminer = 0");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
             return $res;
         }
+
 
         public static function updateMdp($login, $mdpActuel,$mdpNew) {
             $verifmdp = ModeleObjetDAO::getMdp($login);
@@ -226,6 +242,23 @@
             */
         }
 
+        public static function getAllProduitCatalogue($id, $type){
+            $req = Connexion::getInstance()->prepare(" SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+            from produit
+            join type on type.id = produit.idType
+            JOIN categorie on categorie.id = type.idCategorie
+            JOIN disponible on disponible.idProduit = produit.id
+            JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+            WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+
+            $req->bindValue(':leType',$type,PDO::PARAM_STR);
+            $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
+        
         public static function getLigneCommandeVetUtilisateur($id){
             $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id,lignecommandevet.idProduit, produit.fichierPhoto, produit.type, produit.nom, disponible.prix, lignecommandevet.quantite, taille.libelle FROM lignecommandevet
             JOIN disponible on disponible.idProduit = lignecommandevet.idProduit
@@ -749,7 +782,7 @@
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = $id;
             $dateActuel = date("Y-m-d H:i:s");
-            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur, "EPI");
+            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur['id'], "EPI");
             if($nbCommande == false){
                 $nbCommande = 0;
             }
@@ -830,6 +863,7 @@
             $query->execute();
             $result = $query->fetch();
             if($result == false){
+                
                 return false;
             }
             // CREATION DU INSERT DANS LA TABLE lignecommandeepi
@@ -840,6 +874,7 @@
             $query->bindValue(':idCommandeEPI',$idCommandeEPI['id'], PDO::PARAM_INT);
             $query->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
             $query->execute();
+            return false;
         }
 
         public static function insertLigneCommandeVET($id, $idProduit, $quantite, $idTaille){
@@ -920,6 +955,18 @@
             $req->execute();
             $res = $req->fetch();
             return $res;
+        }
+
+        public static function getQuantiteEpiMax($metier,$idType){
+            $req = Connexion::getInstance()->prepare("SELECT idType,quantiteMax
+            from concerne 
+            join metier on metier.id = concerne.idStatut
+            where statut = :metier and idType = :idType");
+            $req->bindValue(':metier',$metier,PDO::PARAM_STR);
+            $req->bindValue(':idType',$idType,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['quantiteMax'];
         }
 
         public static function getUtilisateurCommandeTerminer($id,$type) {
