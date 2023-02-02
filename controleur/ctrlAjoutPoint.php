@@ -3,7 +3,8 @@
     include_once "$racine/vue/vueEntete.php";
 
     
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||  
+    ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
         if(!empty($_POST)){
             $idUtilisateur = $_POST['user'];
             $points = $_POST['nombrepoint'];
@@ -12,6 +13,7 @@
     } else {
         header("location:./?action=accueil");
     }
+    
 
     $AllUsers = ModeleObjetDAO::getAllUsersID();
 
