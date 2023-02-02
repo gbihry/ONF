@@ -18,9 +18,8 @@
 
 // ? Tristan 
 
-//TODO : Créé un administrateur qui puissent juste commander et ajouter un utilisateur 
 //TODO : Employeur sois onf sois syndicat
-//TODO : Mettre la pointure a la place de taille pour les chaussures (Merci la maman de tristan)
+
 
 // ? Guillaume 
 //TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 

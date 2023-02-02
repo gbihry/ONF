@@ -18,9 +18,22 @@
                 
             </div>
             <div class="input-group mb-3">
+                
+                <?php
+                if (ModeleObjetDAO::getType($detail['id']) == 1 || ModeleObjetDAO::getType($detail['id']) == 2) {
+                ?>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" for="inputGroupSelect01">Pointure :</span>
+                    </div>
+                <?php
+                }else{
+                ?>
                 <div class="input-group-prepend">
                     <span class="input-group-text" for="inputGroupSelect01">Taille :</span>
                 </div>
+                <?php
+                }
+                ?>
                 <select name="taille" class="custom-select" id="inputGroupSelect01">
                 <?php 
                         echo ("<option value=" . (ModeleObjetDAO::getTaille($detail['id']))['id'] .">" . (ModeleObjetDAO::getTaille($detail['id']))['libelle']. "</option>")
