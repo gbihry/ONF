@@ -573,6 +573,17 @@
             return $res;
         }
 
+        public static function getType($id){
+            $req = Connexion::getInstance()->prepare("SELECT produit.id
+            FROM produit
+            join type on type.id = produit.idType
+            WHERE type.id = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res ['id'];
+        }
+
         //DELETE PANIER 
 
         public static function deleteLigneCommande($id,$idLigne,$type){
