@@ -65,6 +65,37 @@
             return $res;
         }
 
+        public static function getResponsable($id){
+            $req = Connexion::getInstance()->prepare("SELECT id_responsable
+            from utilisateur
+            WHERE idRole = 2 and id = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
+        public static function getCommanderPour($idResponsable) {
+            $req = Connexion::getInstance()->prepare("SELECT email 
+            from utilisateur
+            JOIN role on role.id = utilisateur.idRole
+            WHERE idRole = 1 and id_responsable = :idResponsable");
+            $req->bindValue(':idResponsable',$idResponsable,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
+        public static function getCommanderPourTous() {
+            $req = Connexion::getInstance()->prepare("SELECT email 
+            from utilisateur
+            JOIN role on role.id = utilisateur.idRole
+            WHERE idRole = 1");
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
         public static function getMetierUtilisateur($login){
             $req = Connexion::getInstance()->prepare(" SELECT idMetier FROM utilisateur WHERE utilisateur.login =:leLogin");
             $req->bindValue(':leLogin',$login,PDO::PARAM_STR);

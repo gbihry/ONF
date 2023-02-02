@@ -28,6 +28,27 @@
                 ?>
                 </select>
             </div>
+            <?php 
+            if (isset($commanderPour)){
+                
+            ?>
+                <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Commander pour :</span>
+                </div>
+                <select name="commanderPour" class="custom-select" id="inputGroupSelect01">
+                <?php 
+                foreach($commanderPour as $unSubordonnee){
+                        echo ("<option value=" . $unSubordonnee['email'] .">" . $unSubordonnee['email']. "</option>");
+                }
+                ?>
+                </select>
+                
+                </div>
+            <?php
+            }
+            ?>
+            
             <?php
                 if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                     echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";

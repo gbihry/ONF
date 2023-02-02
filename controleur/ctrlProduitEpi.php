@@ -11,6 +11,16 @@
 
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
 
+        $role = ModeleObjetDAO::getRole($_SESSION['login']);
+        switch($role['libelle']){
+            case 'Responsable' : 
+                $responsable = ModeleObjetDAO::getResponsable(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+                $commanderPour = ModeleObjetDAO::getCommanderPour($responsable['id_responsable']);
+                break;
+            case 'Administrateur' : 
+                $commanderPour = ModeleObjetDAO::getCommanderPourTous();
+                break;
+        }
         
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 

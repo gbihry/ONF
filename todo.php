@@ -15,6 +15,7 @@
 //TODO : Maximum 1 modèle de botte on ne peut pas choisir les 2
 //TODO : Regrouper le Récapitulatif par site de livraison 
 //TODO : Liste pour les lieux de livraison 
+//TODO : lier lieu livraison aux commandes
 
 
 // ? Tristan 
