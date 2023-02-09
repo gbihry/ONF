@@ -274,18 +274,36 @@
         }
 
         public static function getAllProduitCatalogue($id, $type){
-            $req = Connexion::getInstance()->prepare(" SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
-            from produit
-            join type on type.id = produit.idType
-            JOIN categorie on categorie.id = type.idCategorie
-            JOIN disponible on disponible.idProduit = produit.id
-            JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-            WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+            switch($type){
+                case 'EPI':
+                    $req = Connexion::getInstance()->prepare(" SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN disponible on disponible.idProduit = produit.id
+                    JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+                    WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+        
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
 
-            $req->bindValue(':leType',$type,PDO::PARAM_STR);
-            $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
-            $req->execute();
-            $res = $req->fetchAll();
+                case 'VET':
+                    $req = Connexion::getInstance()->prepare(" SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN disponible on disponible.idProduit = produit.id
+                    WHERE type = :leType");
+        
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            
             return $res;
         }
 
@@ -824,7 +842,7 @@
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = $id;
             $dateActuel = date("Y-m-d H:i:s");
-            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur['id'], "EPI");
+            $nbCommande = ModeleObjetDAO::getUtilisateurCommandeTerminer($idUtilisateur['id'], "EPI");  
             if($nbCommande == false){
                 $nbCommande = 0;
             }
@@ -839,12 +857,11 @@
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeepi
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur, terminer, idLieuLivraison) VALUES (:datecrea, :statut, :idUtilisateur, :terminer, :idLieuLivraison)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandeepi (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
-                $query->bindValue(':idLieuLivraison', 0, PDO::PARAM_INT);
                 $query->execute();
             }
             return true;
@@ -863,12 +880,11 @@
             $result = $query->fetch();
             if($result == false){
                 // CREATION DU INSERT DANS LA TABLE commandeVET
-                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur, terminer, idLieuLivraison) VALUES (:datecrea, :statut, :idUtilisateur, :terminer, :idLieuLivraison)");
+                $query = Connexion::getInstance()->prepare("INSERT INTO commandevet (datecrea, statut, idUtilisateur, terminer) VALUES (:datecrea, :statut, :idUtilisateur, :terminer)");
                 $query->bindValue(':datecrea', $dateActuel, PDO::PARAM_STR);
                 $query->bindValue(':statut', $statut, PDO::PARAM_STR);
                 $query->bindValue(':idUtilisateur', $idUtilisateur['id'], PDO::PARAM_STR);
                 $query->bindValue(':terminer', 0, PDO::PARAM_INT);
-                $query->bindValue(':idLieuLivraison', 0, PDO::PARAM_INT);
                 $query->execute();
             }
             return true;
@@ -896,6 +912,7 @@
             
             */
             $idMetier = ModeleObjetDAO::getMetierUtilisateur(ModeleObjetDAO::getNomUtilisateur($id['id'])['login']);
+            $login = 
 
             $query = Connexion::getInstance()->prepare("SELECT produit.id FROM produit
             JOIN type on type.id = produit.idType
@@ -910,14 +927,21 @@
                 
                 return false;
             }
-            // CREATION DU INSERT DANS LA TABLE lignecommandeepi
-            $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id['id']);
-            $query = Connexion::getInstance()->prepare("INSERT INTO lignecommandeepi (idProduit, quantite, idCommandeEPI, idTaille) VALUES (:idProduit, :quantite, :idCommandeEPI, :idTaille)");
-            $query->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
-            $query->bindValue(':quantite', $quantite, PDO::PARAM_INT);
-            $query->bindValue(':idCommandeEPI',$idCommandeEPI['id'], PDO::PARAM_INT);
-            $query->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
-            $query->execute();
+            // CREATION DU INSERT DANS LA TABLE lignecommandeepi    
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == false){
+                ModeleObjetDAO::insertEPICommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login']), ModeleObjetDAO::getStatut($_SESSION['login'])['statut']);
+            }
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == true){
+                $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id)['id'];
+                $query = Connexion::getInstance()->prepare("INSERT INTO lignecommandeepi (idProduit, quantite, idCommandeEPI, idTaille) VALUES (:idProduit, :quantite, :idCommandeEPI, :idTaille)");
+                $query->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+                $query->bindValue(':quantite', $quantite, PDO::PARAM_INT);
+                $query->bindValue(':idCommandeEPI',$idCommandeEPI, PDO::PARAM_INT);
+                $query->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
+                $query->execute();
+            }
+            
+            
             return false;
         }
 

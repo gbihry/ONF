@@ -3,7 +3,7 @@
     include_once "$racine/vue/vueEntete.php";
 
     
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
         $AllUsersAcommander = ModeleObjetDAO::getUtilisateurCommander(1);
         $AllUsersNoncommander = ModeleObjetDAO::getUtilisateurCommander(0);
     } else {
