@@ -14,8 +14,6 @@
 // ? Matthieu 
 //TODO : Regrouper le Récapitulatif par site de livraison 
 
-
-
 // ? Tristan 
 
 //TODO : Employeur sois onf sois syndicat
