@@ -1,5 +1,9 @@
+
 <div class="container-fluid text-center">
-    <h1 class="recapCommandeEpi">Récap commande EPI</h1>
+    <h1 class="recapCommandeEpi mt-3">Récap commande EPI</h1>
+    <form action="./?action=pdfEpi" method="post">
+        <button type='submit' name='submit' class='btn btn-success mt-2' value='epi'>Pdf epi</button>
+    
     <table class="recapCommandeEpi">
         <thead>
             <tr>
@@ -21,9 +25,12 @@
             
         </tbody>
     </table>
-
-    <h1 class="recapCommandeEpi">Récap commande VET</h1>
-    <table class="recapCommandeEpi">
+    </form>
+    <form action="./?action=pdfVet" method="post">
+        
+        <h1 class="recapCommandeEpi mt-3">Récap commande VET</h1>
+        <button type='submit' name='submit' class='btn btn-success mt-2' value='vet'>Pdf vet</button>
+        <table class="recapCommandeEpi">
         <thead>
             <tr>
                 <th>Produit</th>
@@ -42,11 +49,16 @@
                 <?php   } ?>
             
             
-        </tbody>
-    </table>
-
-
+            </tbody>
+        </table>
+    </form>
+                    
     
 </div>
+
+
+
+
+
         
 
