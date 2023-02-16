@@ -28,6 +28,17 @@
             }
         }
 
+        $role = ModeleObjetDAO::getRole($_SESSION['login']);
+        switch($role['libelle']){
+            case 'Responsable' : 
+                $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+                $commanderPour = ModeleObjetDAO::getCommanderPour($responsable['id_responsable']);
+                break;
+            case 'Administrateur' : 
+                $commanderPour = ModeleObjetDAO::getCommanderPourTous();
+                break;
+        }
+
         include_once "$racine/vue/vueCatalogueVet.php";
     }
     include_once "$racine/vue/vuePied.php";

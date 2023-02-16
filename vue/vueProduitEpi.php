@@ -51,6 +51,7 @@
                 </div>
                 <select name="commanderPour" class="custom-select" id="inputGroupSelect01">
                 <?php 
+                echo ("<option value=" . $_SESSION['login'] ."> Moi même </option>");
                 foreach($commanderPour as $unSubordonnee){
                         echo ("<option value=" . $unSubordonnee['email'] .">" . $unSubordonnee['email']. "</option>");
                 }

@@ -1,7 +1,7 @@
 
 <div class="container-fluid text-center">
     <h1 class="recapCommandeEpi mt-3">Récap commande EPI</h1>
-    <form action="./?action=pdfEpi" method="post">
+    <form action="./?action=pdfEpi" method="post" target="_blank">
         <button type='submit' name='submit' class='btn btn-success mt-2' value='epi'>Pdf epi</button>
     
     <table class="recapCommandeEpi">
@@ -26,7 +26,7 @@
         </tbody>
     </table>
     </form>
-    <form action="./?action=pdfVet" method="post">
+    <form action="./?action=pdfVet" method="post" target="_blank">
         
         <h1 class="recapCommandeEpi mt-3">Récap commande VET</h1>
         <button type='submit' name='submit' class='btn btn-success mt-2' value='vet'>Pdf vet</button>
