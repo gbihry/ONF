@@ -1090,5 +1090,36 @@
             return $res;
         }
 
+        public static function getFournisseur(){
+            $req = Connexion::getInstance()->prepare("SELECT id,nom
+            from fournisseur;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
 
+        public static function getTypeProduit(){
+            $req = Connexion::getInstance()->prepare("SELECT id,libelle
+            from type;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function insertProduit($referenceFournisseur,$fichierPhoto,$nom,$type,$description,$idFournisseur,$idType){
+            $req = Connexion::getInstance()->prepare("INSERT INTO produit (referenceFournisseur,fichierPhoto,nom,type,description,idFournisseur,idType)
+            VALUES (:referenceFournisseur, :fichierPhoto, :nom,:type,:description,:idFournisseur,:idType)");
+            $req->bindValue(':referenceFournisseur',$referenceFournisseur,PDO::PARAM_STR);
+            $req->bindValue(':fichierPhoto',$fichierPhoto,PDO::PARAM_STR);
+            $req->bindValue(':nom',$nom,PDO::PARAM_STR);
+            $req->bindValue(':type',$type,PDO::PARAM_STR);
+            $req->bindValue(':description',$description,PDO::PARAM_STR);
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->bindValue(':idType',$idType,PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        
+
+        
 } 
