@@ -28,10 +28,17 @@
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }
+        }
 
-            
-            
-            
+        $role = ModeleObjetDAO::getRole($_SESSION['login']);
+        switch($role['libelle']){
+            case 'Responsable' : 
+                $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+                $commanderPour = ModeleObjetDAO::getCommanderPour($responsable['id_responsable']);
+                break;
+            case 'Administrateur' : 
+                $commanderPour = ModeleObjetDAO::getCommanderPourTous();
+                break;
         }
 
         include_once "$racine/vue/vueProduitVet.php";
