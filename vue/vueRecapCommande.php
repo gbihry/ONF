@@ -1,7 +1,7 @@
 
 <div class="container-fluid text-center">
     <h1 class="recapCommandeEpi mt-3">Récap commande EPI</h1>
-    <form action="./?action=pdfEpi" method="post">
+    <form action="./?action=pdfEpi" method="post" target="_blank">
         <button type='submit' name='submit' class='btn btn-success mt-2' value='epi'>Pdf epi</button>
     
     <table class="recapCommandeEpi">
