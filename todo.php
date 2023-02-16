@@ -4,6 +4,8 @@
 //!: faire toutes les contraintes EPI
 //!: Statistique qui récapitule la quantité de chaque produit à commander (la somme de quantité de produit de chaque utilisateur)
 
+//!: Gérer la sauvegarde 
+
 // ? Mickael 
 //TODO : Tshirt logo forestier ou onf
 //TODO : Responsable au lieu de chef 

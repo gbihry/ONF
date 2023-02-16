@@ -10,7 +10,7 @@
         header("location:./?action=accueil");
     }
 
-    
+
 
 
 
@@ -18,4 +18,4 @@
     include_once "$racine/vue/vueAcommander.php";
     include_once "$racine/vue/vuePied.php";
 
-?> 
+?>
