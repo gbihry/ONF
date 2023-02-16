@@ -88,7 +88,8 @@
                 <select name="role" class="custom-select" id="inputGroupSelect01">
                 <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
-                    foreach($lesRole as $unRole){
+                    foreach($lesRole as $unRole){ 
+                        if($unRole['libelle'] != "Super-Administrateur")                     
                         echo ("<option value=" . ($unRole['id']).">" . ($unRole['libelle']). "</option>");
                     }   
                 ?>
