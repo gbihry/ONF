@@ -1127,4 +1127,13 @@
             return $res;
         }
 
+        public static function changerCommentaire($message){
+            $req = Connexion::getInstance()->prepare("UPDATE commentaire
+            SET message = :message
+            where id = 1");
+             $req->bindValue(':message',$message,PDO::PARAM_STR);
+             $req->execute();
+
+        }   
+
 } 

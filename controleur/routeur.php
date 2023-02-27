@@ -25,7 +25,8 @@ class Routeur{
         'recapCommande' => 'ctrlRecapCommande.php',
         'pdfEpi' => 'ctrlImprimmerEpi.php',
         'pdfVet' => 'ctrlImprimmerVet.php',
-        'ajoutProduit' => 'ctrlAjoutProduit.php'
+        'ajoutProduit' => 'ctrlAjoutProduit.php',
+        'changerCommentaire' => 'ctrlChangerCommentaire.php'
     );   
     
         
