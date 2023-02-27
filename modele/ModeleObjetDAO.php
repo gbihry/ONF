@@ -1113,4 +1113,11 @@
             $req->execute();
         }
 
+        public static function getIdMessageCommentaire(){
+            $req = Connexion::getInstance()->prepare("select id,message from commentaire");
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
 } 
