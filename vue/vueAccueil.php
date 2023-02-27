@@ -7,6 +7,11 @@
         }else{
             echo ("<p class='text-muted'>Vous êtes connecté(e)s, vous pouvez désormais utiliser toutes les fonctionnalités</p>");
         }
+
+        echo(ModeleObjetDAO::getIdMessageCommentaire()[1]);
     ?>
+
+    
+
     
 </div>            

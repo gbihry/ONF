@@ -14,17 +14,12 @@
 // ? Matthieu 
 //TODO: ajout produit etc
 
-// ? Tristan 
-//TODO : Rajouter un contact dans la table fournisseur( nom prénom email, fonctions ( commerciale, responsable ))pour décathlon par exemple 
-//TODO : enlever SUPER ADMINISTRATEUR des roles dans AddUser après en avoir crée un 
-
 // ? Guillaume 
 //TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 
 //TODO : Créé la table log avec tout les logs
 
 
 
-//TODO : A réutiliser l'année prochaine 
 //TODO : Qu'un seul bon de commande et une sorte de date butoirs ou on ne peut plus commander 
 //TODO : Date de validation dans commandeEpi 
 //TODO : Mettre une date buttoir 
