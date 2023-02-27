@@ -1099,6 +1099,13 @@
             return $res;
         }
 
+        public static function getTypeProduit(){
+            $req = Connexion::getInstance()->prepare("SELECT id,libelle
+            from type;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
         
         public static function insertProduit($referenceFournisseur,$fichierPhoto,$nom,$type,$description,$idFournisseur,$idType){
             $req = Connexion::getInstance()->prepare("INSERT INTO produit (referenceFournisseur,fichierPhoto,nom,type,description,idFournisseur,idType)
