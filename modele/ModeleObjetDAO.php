@@ -1063,14 +1063,15 @@
         }
 
         public static function getRecapCommandeEpi(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
-            from lignecommandeepi
-            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            JOIN produit on lignecommandeepi.idProduit = produit.id
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom 
+            from lignecommandeepi 
+            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
+            JOIN produit on lignecommandeepi.idProduit = produit.id 
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
-            GROUP by produit.nom,lieulivraion.nom
-            ORDER by lieulivraion.nom;");
+            where terminer = 1 
+            GROUP by produit.nom,lieulivraion.nom 
+            ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -1083,8 +1084,9 @@
             JOIN produit on lignecommandevet.idProduit = produit.id
             JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+            where terminer = 1 
             GROUP by produit.nom,lieulivraion.nom
-            ORDER by lieulivraion.nom;");
+            ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
             return $res;

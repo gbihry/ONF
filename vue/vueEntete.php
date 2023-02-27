@@ -8,9 +8,10 @@
     <head>
         <meta charset="UTF-8">
         <!-- Lien vers l'URL Bootstrap -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
-        <script src="https://kit.fontawesome.com/f460dffe13.js" crossorigin="anonymous"></script>  
+        <link rel="stylesheet" href="css/bootstrap.css" crossorigin="anonymous">
+
+        <script src="js/all.js"></script>  
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {
             echo ('<title>ONF - Catalogue EPI</title>');

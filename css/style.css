@@ -8,6 +8,10 @@ button{
     transition: 0.2s;
 }
 
+svg {
+    margin: 0px 3px;
+}
+
 .notification {
     position: absolute;
     bottom: 0;
@@ -48,6 +52,29 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.password{
+    border: solid 1px #ced4da;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.password input{
+    border: none !important;
+}
+
+.password input:focus{
+    border: none !important;
+    box-shadow: none;
+}
+
+.password i {
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .login i {
@@ -581,7 +608,7 @@ body{
 
 /* NAVBAR RESPONSIVE */
 
-@media (max-width: 950px) {
+@media (max-width: 1400px) {
     .nav > .nav_btn {
         display: flex;
     }
