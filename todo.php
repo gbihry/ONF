@@ -1,8 +1,8 @@
 //!: faire la gestion des rôles (dashboard gestion)
 //!: faire les logs pour l'admin
-//!: ajout produit etc
 //!: faire toutes les contraintes EPI
 //!: Statistique qui récapitule la quantité de chaque produit à commander (la somme de quantité de produit de chaque utilisateur)
+//!: Gérer la sauvegarde 
 
 // ? Mickael 
 //TODO : Tshirt logo forestier ou onf
@@ -12,16 +12,10 @@
 
 
 // ? Matthieu 
-//TODO : Regrouper le Récapitulatif par site de livraison 
-
-
-
-// ? Tristan 
-
+//TODO: ajout produit etc
 
 // ? Guillaume 
 //TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 
-//TODO : Rajouter un contact dans la table fournisseur( nom prénom email, fonctions ( commerciale, responsable ))pour décathlon par exemple 
 //TODO : Créé la table log avec tout les logs
 
 

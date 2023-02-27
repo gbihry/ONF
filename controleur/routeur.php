@@ -22,7 +22,10 @@ class Routeur{
         'commandeReussie' => 'ctrlCommandeReussi.php',
         'newmdp' => 'ctrlNewMdp.php',
         'detail' => 'ctrlDetailObjet.php',
-        'recapCommande' => 'ctrlRecapCommande.php'
+        'recapCommande' => 'ctrlRecapCommande.php',
+        'pdfEpi' => 'ctrlImprimmerEpi.php',
+        'pdfVet' => 'ctrlImprimmerVet.php',
+        'ajoutProduit' => 'ctrlAjoutProduit.php'
     );   
     
         
