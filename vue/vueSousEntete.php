@@ -8,6 +8,9 @@
     <?php
     }
     ?>
+    <div class="linenav_item"   data-navname="users">
+        <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
+    </div>
     <div class="linenav_item"   data-navname="stat">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
     </div>

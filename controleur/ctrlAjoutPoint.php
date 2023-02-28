@@ -15,7 +15,7 @@
     }
     
 
-    $AllUsers = ModeleObjetDAO::getAllUsersID();
+    $AllUsers = ModeleObjetDAO::getAllUsers("Admin");
 
 
 

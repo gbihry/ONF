@@ -58,8 +58,34 @@
 
         // INFORMATIONS UTILISATEURS
 
-        public static function getAllUsersID() {
-            $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login FROM utilisateur LIMIT 50");
+        public static function getLieuLivraisonUtilisateurs($login){
+            $req = Connexion::getInstance()->prepare("Select lieulivraion.nom 
+            from lieulivraion
+            JOIN utilisateur ON utilisateur.idLieuLivraison = lieulivraion.id
+            WHERE utilisateur.login = :login");
+            $req->bindValue(':login',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['nom'];
+        }
+
+        public static function getAllUsers($role, $id) {
+            switch($role){
+                case 'Administrateur':
+                    $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel 
+                    FROM utilisateur 
+                    LIMIT 50");
+                    break;
+                case 'Responsable':
+                    $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.email, utilisateur.tel 
+                    FROM utilisateur 
+                    WHERE id_responsable = :id");
+                    $req->bindValue(':id',$id,PDO::PARAM_STR);
+                    break;
+                case 'Gestion': 
+                    break;
+            }
+            
             $req->execute();
             $res = $req->fetchAll();
             return $res;
@@ -1006,6 +1032,7 @@
             return $res;
         }
 
+
         //fonction qui retourne la quantite dans ligne commande epi en fonction du login
 
         public static function getQuantiteEpi($login,$type){
@@ -1133,8 +1160,8 @@
             $req = Connexion::getInstance()->prepare("UPDATE commentaire
             SET message = :message
             where id = 1");
-             $req->bindValue(':message',$message,PDO::PARAM_STR);
-             $req->execute();
+            $req->bindValue(':message',$message,PDO::PARAM_STR);
+            $req->execute();
 
         }   
 
