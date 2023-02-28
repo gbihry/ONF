@@ -10,8 +10,10 @@
         <!-- Lien vers l'URL Bootstrap -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.css" crossorigin="anonymous">
-
-        <script src="js/all.js"></script>  
+        <link rel="stylesheet" href="fontawesome/css/all.css">
+        <link rel="stylesheet" href="fontawesome/webfonts/fa-brands-400.ttf">
+        <link rel="stylesheet" href="fontawesome/webfonts/fa-solid-900.ttf">
+        
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {
             echo ('<title>ONF - Catalogue EPI</title>');
