@@ -10,7 +10,7 @@
         <!-- Lien vers l'URL Bootstrap -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.css" crossorigin="anonymous">
-
+        
         <script src="js/all.js"></script>  
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {

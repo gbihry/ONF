@@ -71,13 +71,13 @@ svg {
     box-shadow: none;
 }
 
-.password i {
+.password svg {
     font-size: 20px;
     margin-right: 10px;
     cursor: pointer;
 }
 
-.login i {
+.login svg {
     font-size: 1.5rem;
 }
 
@@ -498,7 +498,7 @@ body{
     height: 50px;
 }
 
-.nav > .nav_title > .nav_title_item > p > i {
+.nav > .nav_title > .nav_title_item > p > svg {
     margin-right: 5px;
 }
 
@@ -596,7 +596,7 @@ body{
     color: #353a40 !important;
 }
 
-.nav > .nav_links > .nav_links_item > a > i {
+.nav > .nav_links > .nav_links_item > a > svg {
     margin-right: 5px;
 }
 

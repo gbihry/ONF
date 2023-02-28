@@ -21,7 +21,6 @@
                     <input type="password" id="mdpLogin"class="form-control" name="mdpLogin" placeholder="Mot de passe"/>
                     <i class="fa-solid fa-eye" onclick="afficherMdp()" id="afficher"></i>
                 </div>
-           
             </div>
             <input type="submit" name="valider" class="btn btn-success" value="Se connecter" />
             <br/>
