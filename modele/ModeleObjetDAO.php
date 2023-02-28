@@ -1138,4 +1138,14 @@
 
         }   
 
+        public static function getSubordonnee($idUtilisateurConnecté){
+            $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
+            FROM utilisateur
+            WHERE id_responsable = :id ;");
+            $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
 } 

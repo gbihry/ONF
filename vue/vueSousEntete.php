@@ -5,24 +5,51 @@
     <div class="linenav_item" data-navname="stat">
         <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
     </div>
-    <?php
-    }
-    ?>
     <div class="linenav_item"   data-navname="stat">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
-    </div>
-    <div class="linenav_item" data-navname="ajoutUtilisateur">
-        <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
-    </div>
-    <div class="linenav_item" data-navname="ajoutPoint">
-        <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Add Point</a>
-    </div>
-    <div class="linenav_item" data-navname="ajoutProduit">
-        <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
-    </div>
+        </div>
+        <div class="linenav_item" data-navname="ajoutUtilisateur">
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutPoint">
+            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Add Point</a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutProduit">
+            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
+        </div>
+        <div class="linenav_item" data-navname="commanderPour">
+            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
+        </div>
+    <?php
+    }
+    elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
+
+        ?>
+        <div class="linenav_item"   data-navname="stat">
+        <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutUtilisateur">
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutPoint">
+            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Add Point</a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutProduit">
+            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
+        </div>
+        <div class="linenav_item" data-navname="commanderPour">
+            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
+        </div>
+    <?php
+    }
+    else{
+    ?>
+  
     <div class="linenav_item" data-navname="commanderPour">
         <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
     </div>
+
+    <?php } ?>
 </div>
 <script>
     urlp = new URLSearchParams(window.location.search); // on récupère l'url de la page
