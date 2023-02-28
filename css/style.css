@@ -8,7 +8,7 @@ button{
     transition: 0.2s;
 }
 
-svg {
+i {
     margin: 0px 3px;
 }
 
@@ -71,13 +71,13 @@ svg {
     box-shadow: none;
 }
 
-.password svg {
+.password i {
     font-size: 20px;
     margin-right: 10px;
     cursor: pointer;
 }
 
-.login svg {
+.login i {
     font-size: 1.5rem;
 }
 
@@ -498,7 +498,7 @@ body{
     height: 50px;
 }
 
-.nav > .nav_title > .nav_title_item > p > svg {
+.nav > .nav_title > .nav_title_item > p > i {
     margin-right: 5px;
 }
 
@@ -596,7 +596,7 @@ body{
     color: #353a40 !important;
 }
 
-.nav > .nav_links > .nav_links_item > a > svg {
+.nav > .nav_links > .nav_links_item > a > i {
     margin-right: 5px;
 }
 
