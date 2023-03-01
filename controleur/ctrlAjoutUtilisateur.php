@@ -7,12 +7,27 @@
     $lesRole =  ModeleObjetDAO::getLesRole();
     $lesMetier = ModeleObjetDAO::getMetier();
     $lesAgences = ModeleObjetDAO::getAgence();
-   
     include_once "$racine/vue/vuePied.php";
 
-        if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
-         ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
-            if(!empty($_POST)){
+        if(isset($_SESSION['autorise']) && 
+            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
+            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ||
+            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+            if (isset($_POST["import"])) {
+    
+                $fileName = $_FILES["file"]["tmp_name"];
+                
+                if ($_FILES["file"]["size"] > 0) {
+                    
+                    $file = fopen($fileName, "r");
+                    
+                    while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+                        ModeleObjetDAO::insertUtilisateurCSV($column);
+                    }
+                }
+                $message = "test";
+            }
+            if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || $_POST['responsable'] == 'selectionner' || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
                     return false;
                 }else{

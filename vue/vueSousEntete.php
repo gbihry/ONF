@@ -5,9 +5,6 @@
     <div class="linenav_item" data-navname="stat">
         <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
     </div>
-    <?php
-    }
-    ?>
     <div class="linenav_item"   data-navname="users">
         <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
     </div>
@@ -31,6 +28,9 @@
     elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
 
         ?>
+        <div class="linenav_item"   data-navname="users">
+            <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
+        </div>
         <div class="linenav_item"   data-navname="stat">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
@@ -50,10 +50,15 @@
     }
     else{
     ?>
-  
-    <div class="linenav_item" data-navname="commanderPour">
-        <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
-    </div>
+        <div class="linenav_item"   data-navname="users">
+            <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
+        </div>
+        <div class="linenav_item" data-navname="commanderPour">
+            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
+        </div>
+        <div class="linenav_item" data-navname="ajoutUtilisateur">
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+        </div>
 
     <?php } ?>
 </div>

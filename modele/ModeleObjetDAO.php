@@ -80,7 +80,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.email, utilisateur.tel 
                     FROM utilisateur 
                     WHERE id_responsable = :id");
-                    $req->bindValue(':id',$id,PDO::PARAM_STR);
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
                     break;
                 case 'Gestion': 
                     break;
@@ -1007,11 +1007,21 @@
             ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($email)['id'], 0);
         }
 
+        public static function insertUtilisateurCSV($column){
+            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login,password,prenom,nom,email,tel,idLieuLivraison,id_responsable,idRole,idMetier,Agence)
+            values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','"
+            . $column[4] . "','" . $column[5] . "','" . intval($column[6]) . "','" . intval($column[7]) . "','"
+            . intval($column[8]) . "','" . intval($column[9]) . "','" . $column[10] . "')");
+            $req->execute();
+                
+            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($column[0])['id'], 150);
+        }
+
         public static function insertPoints($idUtilisateur, $points){
             $req = Connexion::getInstance()->prepare("SELECT points.point FROM points WHERE points.idUtilisateur = :idUtilisateur");
             $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
             $req->execute();
-            $res = $req->fetch();
+            $res = $req->fetch();   
             if($res == false){
                 $req = Connexion::getInstance()->prepare("INSERT INTO points (idUtilisateur, points.point) VALUES (:idUtilisateur, :pointx)");
                 $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);

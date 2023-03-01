@@ -3,7 +3,7 @@
     include "$racine/vue/vueEntete.php";
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Utilisateurs'){
-        $allUsers = ModeleObjetDAO::getAllUsers(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'], ModeleObjetDAO::getIdUtilisateur($_SESSION['login']));
+        $allUsers = ModeleObjetDAO::getAllUsers(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'], ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
         include "$racine/vue/vueUsers.php";
 
     } else {

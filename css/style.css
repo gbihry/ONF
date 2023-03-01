@@ -762,3 +762,25 @@ table.utilisateurs th {
     background-color: #353a40;
     color: white;
 }
+
+/* ADD USER */
+
+.input_csv label, .input_csv p{
+    font-size: 1.5rem;
+}
+
+.input_csv #file{
+    border: none;
+    background-color: var(--bouton);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: 0.2s ease-in-out;
+}
+
+.input_csv #file:hover{
+    cursor: pointer;
+    background-color: #01813d;
+}
+
