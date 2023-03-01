@@ -10,7 +10,7 @@
             ?>
                 <div>
                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
-                    <label class="form-check-label" for="validerProduit">Voir tout les produits</label>
+                    <label class="form-check-label" for="validerProduit">Voir tous les produits</label>
                 </div>
                 <input type="submit" name="valideProduit" class="btn btn-success" value="Valider" />
             <?php
@@ -47,7 +47,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' min='0' max='20' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' min='1' max='20' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">

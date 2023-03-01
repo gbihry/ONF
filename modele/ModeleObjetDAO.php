@@ -1063,14 +1063,15 @@
         }
 
         public static function getRecapCommandeEpi(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
-            from lignecommandeepi
-            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
-            JOIN produit on lignecommandeepi.idProduit = produit.id
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom 
+            from lignecommandeepi 
+            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
+            JOIN produit on lignecommandeepi.idProduit = produit.id 
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
-            GROUP by produit.nom,lieulivraion.nom
-            ORDER by lieulivraion.nom;");
+            where terminer = 1 
+            GROUP by produit.nom,lieulivraion.nom 
+            ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -1083,8 +1084,9 @@
             JOIN produit on lignecommandevet.idProduit = produit.id
             JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+            where terminer = 1 
             GROUP by produit.nom,lieulivraion.nom
-            ORDER by lieulivraion.nom;");
+            ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -1099,6 +1101,13 @@
             return $res;
         }
 
+        public static function getTypeProduit(){
+            $req = Connexion::getInstance()->prepare("SELECT id,libelle
+            from type;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
         
         public static function insertProduit($referenceFournisseur,$fichierPhoto,$nom,$type,$description,$idFournisseur,$idType){
             $req = Connexion::getInstance()->prepare("INSERT INTO produit (referenceFournisseur,fichierPhoto,nom,type,description,idFournisseur,idType)
@@ -1112,5 +1121,21 @@
             $req->bindValue(':idType',$idType,PDO::PARAM_INT);
             $req->execute();
         }
+
+        public static function getIdMessageCommentaire(){
+            $req = Connexion::getInstance()->prepare("select id,message from commentaire");
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
+        public static function changerCommentaire($message){
+            $req = Connexion::getInstance()->prepare("UPDATE commentaire
+            SET message = :message
+            where id = 1");
+             $req->bindValue(':message',$message,PDO::PARAM_STR);
+             $req->execute();
+
+        }   
 
 } 

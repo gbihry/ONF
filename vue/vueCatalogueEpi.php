@@ -2,6 +2,7 @@
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue EPI</p>
     </div>
+
     <div class="form-check text-center">
         <form action="./?action=catalogueEpi" method ="POST">
         <?php
@@ -9,7 +10,7 @@
         ?>
             <div>
                 <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
-                <label class="form-check-label" for="validerProduit">Voir tout les produits</label>
+                <label class="form-check-label" for="validerProduit">Voir tous les produits</label>
             </div>
             <input type="submit" name="valideProduit" class="btn btn-success" value="Valider" />
         <?php
@@ -46,7 +47,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' min='0' max='<?php echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' value='0' min='0' max='<?php echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -81,6 +82,10 @@
                     }
                     if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
+                        
+                    }else{
+                        var_dump(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])));
+                        echo "<p>Vous avez déjà commandé cet article</p>";
                     }
                     echo "</form>";
                     echo "</div>";
