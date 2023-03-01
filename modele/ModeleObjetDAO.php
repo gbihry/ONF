@@ -1148,4 +1148,14 @@
             return $res;
         }
 
+        public static function getLoginById($id){
+            $req = Connexion::getInstance()->prepare("select login 
+            from utilisateur
+            where id = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
 } 
