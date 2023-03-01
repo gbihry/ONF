@@ -27,7 +27,8 @@ class Routeur{
         'pdfVet' => 'ctrlImprimmerVet.php',
         'ajoutProduit' => 'ctrlAjoutProduit.php',
         'changerCommentaire' => 'ctrlChangerCommentaire.php',
-        'commanderPour' => 'ctrlCommanderPour.php'
+        'commanderPour' => 'ctrlCommanderPour.php',
+        'users' => 'ctrlUsers.php'
     );   
     
         

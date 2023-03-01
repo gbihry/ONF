@@ -728,4 +728,59 @@ table.recapCommandeEpi th {
     color: white;
 }
 
-/* tab recapitulatif commande epi et vet */
+/* tab users */
+
+table.utilisateurs {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+
+}
+
+table.utilisateurs tr, table.utilisateurs td, table.utilisateurs th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table.utilisateurs tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.utilisateurs tr:hover {
+    background-color: #ddd;
+}
+
+table.utilisateurs tr td:last-child {
+    text-align: center;
+}
+
+table.utilisateurs th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #353a40;
+    color: white;
+}
+
+/* ADD USER */
+
+.input_csv label, .input_csv p{
+    font-size: 1.5rem;
+}
+
+.input_csv #file{
+    border: none;
+    background-color: var(--bouton);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: 0.2s ease-in-out;
+}
+
+.input_csv #file:hover{
+    cursor: pointer;
+    background-color: #01813d;
+}
+
