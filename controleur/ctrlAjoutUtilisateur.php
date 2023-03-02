@@ -27,12 +27,25 @@
                 }
             }
             if(!empty($_POST['submit'])){
-                if ($_POST['livraison'] == 'selectionner' || $_POST['responsable'] == 'selectionner' || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
+                var_dump($_POST);
+                if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
+                    var_dump($_POST['role']);
                     return false;
                 }else{
+                    if ($_POST['role'] == '2'){
+                        $_POST['responsable'] = 0;
+                    }
                     ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'], 
                     $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
-                    $reload = true;
+                    
+                    if ($_POST['responsable'] == 0){
+                        ModeleObjetDAO::updateResponsable($_POST['mail'], ModeleObjetDAO::getIdUtilisateur($_POST['mail'])['id']);
+                        $reload = true;
+                        
+                    }else{
+                        $reload = true;
+                    }
+                    
                 }
             }
         }else {

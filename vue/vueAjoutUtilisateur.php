@@ -62,16 +62,22 @@ if(isset($reload) && $reload == true) {
                     ?>
                     </select>
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 justify-content-center">
+                    <p>Ne modifier pas ce champ si le role est responsable <i class="fa-solid fa-arrow-down"></i></p>
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
                     <select name="responsable" class="custom-select" id="inputGroupSelect01">
                         <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
-                        foreach($lesResponsables as $unResponsable){
-                            echo ("<option value=" . ($unResponsable['id']).">" . ($unResponsable['nom']). "</option>");
-                        }     
+                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+                            echo ("<option value=" . (ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']).">Vous même</option>");
+                        }else{
+                            foreach($lesResponsables as $unResponsable){
+                                echo ("<option value=" . ($unResponsable['id']).">" . ($unResponsable['nom']). "</option>"); 
+                            } 
+                        }
+                            
                     ?>
                     </select>
                 </div>
@@ -146,7 +152,7 @@ if(isset($reload) && $reload == true) {
                 </div>
             
             
-                <button type='submit' name='submit' value="import" class='btn btn-success m-5'>Confirmer</button>
+                <button type='submit' name='submit' value="submit" class='btn btn-success m-5'>Confirmer</button>
             </form>
     </div>
 

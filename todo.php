@@ -17,7 +17,7 @@
 // ? Tristan 
 
 
-//TODO : responsable il peut ajouter un utilisateur dont-il sera forcément responsable
+
 
 //TODO : le responsable doit avoir tout le droit et voir tout sur ces subordonnés ( son compte ) sans devoir taper son mot de passe.
 

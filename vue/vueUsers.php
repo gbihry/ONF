@@ -37,7 +37,11 @@ if(isset($reload) && $reload == true) {
                                 if ($unUser ['id'] == $unUser['id_responsable']){
                                     echo ("<td>Est responsable</td>");
                                 }else{
-                                    echo ('<td> <div id="responsable" data-responsable="' . $responsable_id . '" data-data="' . $responsable . '" ><span>' . $responsable  . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
+                                    echo ('<td> <div id="responsable" data-responsable="' . $responsable_id . '" data-data="' . $responsable . '" ><span>' . $responsable  . '</span>');
+                                    if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
+                                        echo('<div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
+                                    }
+                                    
                                     ?>
                         </tr>
                     <?php   }} ?>

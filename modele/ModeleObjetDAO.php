@@ -523,7 +523,7 @@
         }
 
         public static function getResponsable(){
-            $req = Connexion::getInstance()->prepare("select id,nom,prenom from utilisateur where idRole = 2");
+            $req = Connexion::getInstance()->prepare("select id,login,nom,prenom from utilisateur where idRole = 2");
             $req->execute();
             $res = $req->fetchall();
             return $res;
