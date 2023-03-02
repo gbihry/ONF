@@ -114,11 +114,10 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Role :</span>
                     </div>
                     <select name="role" class="custom-select" id="inputGroupSelect01">
-                    <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                        <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
-                        foreach($lesRole as $unRole){ 
-                            if($unRole['libelle'] != "Super-Administrateur")                     
-                            echo ("<option value=" . ($unRole['id']).">" . ($unRole['libelle']). "</option>");
+                        foreach($lesLibelles as $unLibelle){
+                            echo ("<option value=" . ($unLibelle['id']).">" . ($unLibelle['libelle']). "</option>");
                         }   
                     ?>
                     </select>

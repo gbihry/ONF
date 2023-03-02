@@ -8,7 +8,7 @@
     $lesMetier = ModeleObjetDAO::getMetier();
     $lesAgences = ModeleObjetDAO::getAgence();
     $lesLibelles = ModeleObjetDAO::getRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])["idRole"]);
-   
+
     include_once "$racine/vue/vuePied.php";
 
         if(isset($_SESSION['autorise']) && 
@@ -29,9 +29,7 @@
                 }
             }
             if(!empty($_POST['submit'])){
-                var_dump($_POST);
                 if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
-                    var_dump($_POST['role']);
                     return false;
                 }else{
                     if ($_POST['role'] == '2'){

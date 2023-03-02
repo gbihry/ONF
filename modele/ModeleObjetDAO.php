@@ -1215,7 +1215,7 @@
         }
 
         public static function GetRoleInf($idRole){
-            $req = Connexion::getInstance()->prepare("SELECT libelle
+            $req = Connexion::getInstance()->prepare("SELECT id,libelle
             FROM role 
             WHERE id < :idRole");
             $req->bindValue(':idRole',$idRole,PDO::PARAM_INT);
