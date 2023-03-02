@@ -28,7 +28,10 @@ class Routeur{
         'ajoutProduit' => 'ctrlAjoutProduit.php',
         'changerCommentaire' => 'ctrlChangerCommentaire.php',
         'commanderPour' => 'ctrlCommanderPour.php',
-        'users' => 'ctrlUsers.php'
+        'users' => 'ctrlUsers.php',
+        'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
+        'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
+        'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php'
     );   
     
         

@@ -63,7 +63,7 @@ if(isset($reload) && $reload == true) {
                     </select>
                 </div>
                 <div class="input-group mb-3 justify-content-center">
-                    <p>Ne modifier pas ce champ si le role est responsable <i class="fa-solid fa-arrow-down"></i></p>
+                    <p>Ne modifier pas ce champ si le role est responsable </p>
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>

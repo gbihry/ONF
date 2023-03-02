@@ -72,6 +72,6 @@
             || 
             isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
               include_once "$racine/vue/vueSousEntete.php";}
-            ?>
+          ?>
           
         <div class="container-fluid">

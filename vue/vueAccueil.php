@@ -1,6 +1,6 @@
 <div class="container text-center">
     <br/>
-    <h1>Site d'achat de l'ONF</h1>
+    <h1>Site d'achat ONF EPI/VET</h1>
     <?php
         if (!isset($_SESSION['autorise'])){
             echo ("<p class='text-muted'>Veuillez vous connecter pour pouvoir utiliser toutes les fonctionnalités</p>");

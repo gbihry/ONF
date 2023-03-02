@@ -7,6 +7,8 @@
     $lesRole =  ModeleObjetDAO::getLesRole();
     $lesMetier = ModeleObjetDAO::getMetier();
     $lesAgences = ModeleObjetDAO::getAgence();
+    $lesLibelles = ModeleObjetDAO::getRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])["idRole"]);
+   
     include_once "$racine/vue/vuePied.php";
 
         if(isset($_SESSION['autorise']) && 

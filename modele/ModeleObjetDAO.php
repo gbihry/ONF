@@ -477,6 +477,7 @@
             $query = "SELECT
                 $table.id,
                 $table.idProduit,
+                $database.dateCreaFini,
                 produit.fichierPhoto,
                 produit.type,
                 produit.nom,
@@ -792,22 +793,33 @@
         }
 
         public static function CommandeArchivage($id, $type) {
+            date_default_timezone_set('Europe/Paris');
+            $dateActuel = date("Y-m-d H:i:s");   
             switch($type) {
                 case "epi":
                     $commandeid = ModeleObjetDAO::getIdEpiUtilisateur($id);
                     $query = Connexion::getInstance()->prepare("UPDATE commandeepi SET commandeepi.terminer = 1 WHERE commandeepi.id = :id");
+                    $req = Connexion::getInstance()->prepare("UPDATE commandeepi SET commandeepi.dateCreaFini = :dateCreaFini WHERE commandeepi.id = :id ");
                     break;
                 case "vet":
                     $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
                     $query = Connexion::getInstance()->prepare("UPDATE commandevet SET commandevet.terminer = 1 WHERE commandevet.id = :id");
+                    $req = Connexion::getInstance()->prepare("UPDATE commandevet SET commandevet.dateCreaFini = :dateCreaFini WHERE commandevet.id = :id ");
+ 
                     break;
                 default:
                     return;
                     break;
             }
+
             if($commandeid != false) { 
                 $query->bindValue(':id',$commandeid['id'],PDO::PARAM_INT);
                 $query->execute();
+
+                $req->bindValue(':id',$commandeid['id'],PDO::PARAM_INT);
+                $req->bindValue(':dateCreaFini',$dateActuel,PDO::PARAM_STR);
+                $req->execute();
+
                 return;
             }
         }
@@ -1190,12 +1202,32 @@
             $req->bindValue(':message',$message,PDO::PARAM_STR);
             $req->execute();
 
-        }   
+        } 
+        
+        public static function getIDRole($nom){
+            $req = Connexion::getInstance()->prepare("SELECT idRole 
+            FROM utilisateur
+            where login = :nom");
+            $req->bindValue(':nom',$nom,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
+        public static function GetRoleInf($idRole){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            FROM role 
+            WHERE id < :idRole");
+            $req->bindValue(':idRole',$idRole,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
 
         public static function getSubordonnee($idUtilisateurConnecté){
             $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
             FROM utilisateur
-            WHERE id_responsable = :id ;");
+            WHERE id_responsable = :id and idRole != 2;");
             $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1237,4 +1269,27 @@
             $res = $req->fetch();
             return $res;
         }
+
+        public static function getRecapEpiById($id){
+            $req = Connexion::getInstance()->prepare("SELECT idProduit,quantite,idTaille
+            from lignecommandeepi
+            JOIN commandeepi on lignecommandeepi.idCommandeEPI = commandeepi.id
+            WHERE commandeepi.idUtilisateur = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getRecapVetById($id){
+            $req = Connexion::getInstance()->prepare("SELECT idProduit,quantite,idTaille
+            from lignecommandevet
+            JOIN commandevet on lignecommandevet.idCommandeVET = commandevet.id
+            WHERE commandevet.idUtilisateur = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
 } 
