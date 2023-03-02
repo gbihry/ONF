@@ -13,7 +13,7 @@ if(isset($reload) && $reload == true) {
     </div>
     
     <div class="form-check text-center">
-        <form action="./?action=catalogueVet" method ="POST">
+        <form action="./?action=catalogueVet&&ref=<?php echo $id["id"];?>" method ="POST">
             <?php
                 if (isset($_POST['valideProduit']) != true){
             ?>
@@ -101,7 +101,7 @@ if(isset($reload) && $reload == true) {
         foreach($catalogue as $uneCategorie){
             echo "<div class='tuile'>
                     <p>" . $uneCategorie['libelle'] . "</p>
-                    <a href='./?action=produitVet&id=".$uneCategorie['id']."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
+                    <a href='./?action=produitVet&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
                 </div>";
         }
     }       

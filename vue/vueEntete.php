@@ -55,8 +55,8 @@
               echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Historique</a></div>';
               }
             echo '
-            <div class="nav_links_item"><a href="index.php?action=catalogueVet"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
-            <div class="nav_links_item"><a href="index.php?action=catalogueEpi"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+            <div class="nav_links_item"><a href="index.php?action=catalogueVet&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+            <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
             <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
             <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
             
