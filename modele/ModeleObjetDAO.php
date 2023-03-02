@@ -1178,7 +1178,7 @@
         public static function getSubordonnee($idUtilisateurConnecté){
             $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
             FROM utilisateur
-            WHERE id_responsable = :id ;");
+            WHERE id_responsable = :id and idRole != 2;");
             $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1192,6 +1192,28 @@
             $req->bindValue(':id',$id,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetch();
+            return $res;
+        }
+
+        public static function getRecapEpiById($id){
+            $req = Connexion::getInstance()->prepare("SELECT idProduit,quantite,idTaille
+            from lignecommandeepi
+            JOIN commandeepi on lignecommandeepi.idCommandeEPI = commandeepi.id
+            WHERE commandeepi.idUtilisateur = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getRecapVetById($id){
+            $req = Connexion::getInstance()->prepare("SELECT idProduit,quantite,idTaille
+            from lignecommandevet
+            JOIN commandevet on lignecommandevet.idCommandeVET = commandevet.id
+            WHERE commandevet.idUtilisateur = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
             return $res;
         }
 
