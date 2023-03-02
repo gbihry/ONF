@@ -8,9 +8,13 @@
     <head>
         <meta charset="UTF-8">
         <!-- Lien vers l'URL Bootstrap -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
-        <script src="https://kit.fontawesome.com/f460dffe13.js" crossorigin="anonymous"></script>  
+        <link rel="stylesheet" href="css/bootstrap.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="fontawesome/css/all.css">
+        <link rel="stylesheet" href="fontawesome/webfonts/fa-brands-400.ttf">
+        <link rel="stylesheet" href="fontawesome/webfonts/fa-solid-900.ttf">
+
+        <script src="js/action.js"></script>
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {
             echo ('<title>ONF - Catalogue EPI</title>');
@@ -51,8 +55,8 @@
               echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Historique</a></div>';
               }
             echo '
-            <div class="nav_links_item"><a href="index.php?action=catalogueVet"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
-            <div class="nav_links_item"><a href="index.php?action=catalogueEpi"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+            <div class="nav_links_item"><a href="index.php?action=catalogueVet&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+            <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
             <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
             <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
             
@@ -64,7 +68,9 @@
       </nav>
           <?php
             if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || 
-            isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+            isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'
+            || 
+            isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
               include_once "$racine/vue/vueSousEntete.php";}
           ?>
           

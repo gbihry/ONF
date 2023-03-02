@@ -11,11 +11,8 @@
 
 
 // ? Matthieu 
-//TODO: 
 
 // ? Guillaume 
-//TODO : Responsable ajouter une personne commander pour les autres et commander pour lui 
-//TODO : Créé la table log avec tout les logs
 
 // ? Tristan 
 

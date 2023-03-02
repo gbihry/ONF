@@ -40,7 +40,7 @@
                         ");
                 if($_GET['type'] == 'VET') {
                     echo (" <div class='prix'>
-                                <p class='panier_title'>Prix:</p>
+                                <p class='panier_title'>Points:</p>
                                 <p> " .$prix . "</p>
                             </div>");
                 }
@@ -48,7 +48,7 @@
         }
         if($_GET['type'] == 'VET') {
             echo (  "<div class='valide_panier'><div class='prixTotal'>
-                        <p>Prix total : <span class='prix_total_span'>".$prixTotal ." <i class='fa-solid fa-ticket'></i></span></p>
+                        <p>Points totaux : <span class='prix_total_span'>".$prixTotal ." <i class='fa-solid fa-ticket'></i></span></p>
                     </div></div>");
         }
     }

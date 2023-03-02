@@ -7,7 +7,9 @@
                     <span class="input-group-text" for="inputGroupSelect01">Commentaire :</span>
                 </div>
                     <input type="text" name="message" maxlength="70">
-                    <button type='submit' name="BtnConfirmer" class='btn btn-success m-5'>Confirmer</button>
-</div>
-        </div>
+                    
+                    <button type='submit'  name="BtnConfirmer" class='btn btn-success m-5'>Confirmer</button>
             </div>
+        </div>
+</div>
+               
