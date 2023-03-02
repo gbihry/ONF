@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="catalogue">
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue VET</p>
@@ -10,7 +19,7 @@
             ?>
                 <div>
                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
-                    <label class="form-check-label" for="validerProduit">Voir tout les produits</label>
+                    <label class="form-check-label" for="validerProduit">Voir tous les produits</label>
                 </div>
                 <input type="submit" name="valideProduit" class="btn btn-success" value="Valider" />
             <?php
@@ -47,7 +56,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' min='0' max='20' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' min='1' max='20' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -61,8 +70,25 @@
                 </div>
 
                 <?php
-                  
-                echo "<div class='w-100 p-3'><h3 class='float-right'>Prix Unitaire : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
+                if (isset($commanderPour)){
+                
+                    ?>
+                        <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Commander pour :</span>
+                        </div>
+                        <select name="commanderPour" class="custom-select" id="inputGroupSelect01">
+                            <?php 
+                            echo ("<option value=" . $_SESSION['login'] ."> Moi même </option>");
+                            foreach($commanderPour as $unSubordonnee){
+                                    echo ("<option value=" . $unSubordonnee['email'] .">" . $unSubordonnee['email']. "</option>");
+                            }
+                            ?>
+                        </select>
+                        </div>
+                    <?php
+                }
+                echo "<div class='w-100 p-3'><h3 class='float-right'>Points : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
                 echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button></div>";
                 echo "</form>";
                 echo "</div>";

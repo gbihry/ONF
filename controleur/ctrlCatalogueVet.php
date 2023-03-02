@@ -54,6 +54,7 @@
                 $idProduit = $_POST['submit'];
 
                 ModeleObjetDAO::insertLigneCommandeVET($idUtilisateur, $idProduit, $quantite, $taille);
+                $reload = true;
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }

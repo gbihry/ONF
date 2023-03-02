@@ -1,5 +1,14 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5 produit">
-    <?php 
+    <?php  
         foreach($unProduit as $detail){
             echo "<div class ='unProduit'>";
             echo "<div class='main-produit'>";
@@ -14,7 +23,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                 </div>
-                <input type="number" class="form-control" name='quantity' min='0' max='<?php echo ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']);   ?>' aria-describedby="inputGroup-sizing-sm">
+                <input type="number" class="form-control" name='quantity' min='0' value='0' max='<?php echo ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']);   ?>' aria-describedby="inputGroup-sizing-sm">
                 
             </div>
             <div class="input-group mb-3">
@@ -45,6 +54,8 @@
             <?php
                 if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                     echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
+                }else{
+                    echo "<p id='dejaCommander'>Vous avez déjà commandé cet article</p>";
                 }
                 
                 

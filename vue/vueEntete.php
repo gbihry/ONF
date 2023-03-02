@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="fontawesome/webfonts/fa-brands-400.ttf">
         <link rel="stylesheet" href="fontawesome/webfonts/fa-solid-900.ttf">
 
-          
+        <script src="js/action.js"></script>
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {
             echo ('<title>ONF - Catalogue EPI</title>');
@@ -72,6 +72,6 @@
             || 
             isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
               include_once "$racine/vue/vueSousEntete.php";}
-            ?>
+          ?>
           
         <div class="container-fluid">

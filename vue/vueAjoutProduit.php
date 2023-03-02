@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5">
     <h1>Ajout d'un produit</h1>
     <form  method="post">
@@ -60,7 +69,13 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Fichier photo :</span>
                 </div>
-                <input type="text" placeholder = "Renseigner le lien de la photo" class="form-control" name='photo' aria-describedby="inputGroup-sizing-sm" required>
+                <input type="text" placeholder = "Renseigner nom de la photo" class="form-control" name='photo' aria-describedby="inputGroup-sizing-sm" required>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Prix :</span>
+                </div>
+                <input type="number" placeholder = "Renseigner le prix de l'article " class="form-control" name='prix' aria-describedby="inputGroup-sizing-sm" required>
             </div>
         <button type='submit' class='btn btn-success m-5'>Confirmer</button>
     </form>

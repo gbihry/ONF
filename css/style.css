@@ -215,6 +215,11 @@ body{
     border: 1px solid #ced4da;
 }
 
+.main-desc #dejaCommander{
+    background-color: #D83066;
+    color: white;
+}
+
 .main-desc {
     width: 25%;
     min-width: 400px;
@@ -752,9 +757,16 @@ table.utilisateurs tr:hover {
     background-color: #ddd;
 }
 
-table.utilisateurs tr td:last-child {
-    text-align: center;
+table.utilisateurs tr td div {
+    width: 100%;
+    display: flex;
+    white-space: nowrap;
 }
+
+table.utilisateurs tr td div .clear {
+    width: 100%;
+}
+
 
 table.utilisateurs th {
     padding-top: 12px;
@@ -784,3 +796,33 @@ table.utilisateurs th {
     background-color: #01813d;
 }
 
+/* edit */
+
+.edit_btn {
+    background-color: #1470e0;
+    color: white !important;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit_btn:hover {
+    background-color: #0e4e9c;
+}
+
+.edit_btn.green {
+    background-color: #01813d;
+}
+
+.edit_btn.green:hover {
+    background-color: #01612b;
+}
+
+.edit_btn.red {
+    background-color: #e01414;
+}
+
+.edit_btn.red:hover {
+    background-color: #9c0e0e;
+}

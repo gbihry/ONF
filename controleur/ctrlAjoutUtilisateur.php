@@ -7,6 +7,8 @@
     $lesRole =  ModeleObjetDAO::getLesRole();
     $lesMetier = ModeleObjetDAO::getMetier();
     $lesAgences = ModeleObjetDAO::getAgence();
+    $lesLibelles = ModeleObjetDAO::getRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])["idRole"]);
+   
     include_once "$racine/vue/vuePied.php";
 
         if(isset($_SESSION['autorise']) && 
@@ -25,19 +27,15 @@
                         ModeleObjetDAO::insertUtilisateurCSV($column);
                     }
                 }
-                $message = "test";
             }
             if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || $_POST['responsable'] == 'selectionner' || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
                     return false;
                 }else{
-                    ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'],
+                    ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'], 
                     $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
+                    $reload = true;
                 }
-                
-                
-                
-                
             }
         }else {
             header("location:./?action=accueil");

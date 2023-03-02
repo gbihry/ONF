@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5">
     <h1>Ajout point a un utilisateur</h1>
     <form  method="post">
@@ -9,7 +18,8 @@
                 <select name="user" class="custom-select" id="inputGroupSelect01">
                 <?php 
                     foreach($AllUsers as $user){
-                        echo ("<option value=" . ($user['id']).">" . ($user['login']). "</option>");
+                        $points = ModeleObjetDAO::getNbrPointUtilisateur($user['id'])['point'];
+                        echo ("<option value=" . ($user['id']).">" . ($user['login']). " (" . $points . ") " . "</option>");
                     }     
                 ?>
                 </select>
