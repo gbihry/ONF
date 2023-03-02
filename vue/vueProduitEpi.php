@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5 produit">
     <?php 
         foreach($unProduit as $detail){

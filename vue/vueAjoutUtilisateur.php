@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5">
     <h1>Ajout d'un utilisateur</h1>
     
@@ -8,7 +17,7 @@
                 <label for="file" class="custom-file-upload"></label>
                 <input type="file" name="file" id="file" accept=".csv">
                 <br />
-                <button type="submit" id="submit" name="import" class="btn btn-success m-3">Import</button>
+                <button type="submit" id="submit" name="import" value="import" class="btn btn-success m-3">Import</button>
                 <br />
                 <br />
                 <br />
@@ -137,7 +146,7 @@
                 </div>
             
             
-                <button type='submit' name='submit' class='btn btn-success m-5'>Confirmer</button>
+                <button type='submit' name='submit' value="import" class='btn btn-success m-5'>Confirmer</button>
             </form>
     </div>
 

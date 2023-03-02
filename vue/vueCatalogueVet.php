@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="catalogue">
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue VET</p>
@@ -79,7 +88,7 @@
                         </div>
                     <?php
                 }
-                echo "<div class='w-100 p-3'><h3 class='float-right'>Prix Unitaire : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
+                echo "<div class='w-100 p-3'><h3 class='float-right'>Points : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
                 echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button></div>";
                 echo "</form>";
                 echo "</div>";

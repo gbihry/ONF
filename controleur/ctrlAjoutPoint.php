@@ -9,13 +9,14 @@
             $idUtilisateur = $_POST['user'];
             $points = $_POST['nombrepoint'];
             ModeleObjetDAO::insertPoints($idUtilisateur, $points);
+            $reload = true;
         }
     } else {
         header("location:./?action=accueil");
     }
     
 
-    $AllUsers = ModeleObjetDAO::getAllUsers("Admin");
+    $AllUsers = ModeleObjetDAO::getAllUsers("Administrateur",0);
 
 
 

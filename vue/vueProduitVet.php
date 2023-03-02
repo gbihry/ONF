@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5 produit">
     <?php 
         foreach($unProduit as $detail){
@@ -46,7 +55,7 @@
                     </div>
                 <?php
             }
-            echo "<div class='w-100 p-3'><h3 class='float-right'>Prix Unitaire : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3></div>";
+            echo "<div class='w-100 p-3'><h3 class='float-right'>Points totaux : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3></div>";
             echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
             echo "</form>";
             echo "</div>";
