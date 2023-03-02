@@ -215,6 +215,11 @@ body{
     border: 1px solid #ced4da;
 }
 
+.main-desc #dejaCommander{
+    background-color: #D83066;
+    color: white;
+}
+
 .main-desc {
     width: 25%;
     min-width: 400px;

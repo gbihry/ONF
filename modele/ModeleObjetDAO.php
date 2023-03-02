@@ -1227,6 +1227,7 @@
             $req->bindValue(':responsable', $responsable, PDO::PARAM_INT);
             $req->bindValue(':id', $id, PDO::PARAM_INT);
             $req->execute();
+        }
         public static function getLoginById($id){
             $req = Connexion::getInstance()->prepare("select login 
             from utilisateur
@@ -1236,5 +1237,4 @@
             $res = $req->fetch();
             return $res;
         }
-
 } 
