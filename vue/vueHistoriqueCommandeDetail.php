@@ -9,6 +9,7 @@
         $prixTotal = 0;
         foreach ($HistoriqueCommandeDetail as $HistoriqueCommandeDetailUnique) {
             $idLigne = $HistoriqueCommandeDetailUnique['id'];
+            $date = $HistoriqueCommandeDetailUnique['dateCreaFini'];
             $type = $HistoriqueCommandeDetailUnique['type'];
             $fichierPhoto = $HistoriqueCommandeDetailUnique['fichierPhoto'];
             $nom = $HistoriqueCommandeDetailUnique['nom'];
@@ -31,6 +32,10 @@
                         <div class='taille'>
                             <p class='panier_title'>Taille:</p>
                             <p> " .$taille . "</p>
+                        </div>
+                        <div class='date'>
+                            <p class='panier_title'>Date:</p>
+                            <p> " .$date . "</p>
                         </div>
                         ");
                 if($_GET['type'] == 'VET') {

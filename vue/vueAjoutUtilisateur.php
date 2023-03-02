@@ -1,5 +1,7 @@
 <div class="container-fluid text-center mt-5">
     <h1>Ajout d'un utilisateur</h1>
+    <?php
+    ?>
     <form  method="post">
         <div class="addUser_container">
             <div class="input-group input-group-sm mb-3">
@@ -88,9 +90,8 @@
                 <select name="role" class="custom-select" id="inputGroupSelect01">
                 <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
-                    foreach($lesRole as $unRole){ 
-                        if($unRole['libelle'] != "Super-Administrateur")                     
-                        echo ("<option value=" . ($unRole['id']).">" . ($unRole['libelle']). "</option>");
+                    foreach($lesLibelles as $unLibelle){
+                        echo ("<option value=" . ($unLibelle['id']).">" . ($unLibelle['libelle']). "</option>");
                     }   
                 ?>
                 </select>
@@ -124,9 +125,11 @@
             </div>
         </div>
         
+        
         <button type='submit' class='btn btn-success m-5'>Confirmer</button>
 
             
     </form>
+    
 
 </div>
