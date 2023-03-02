@@ -5,11 +5,46 @@
 
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
-    }else{  
+    }
+    if($_GET["ref"] != "0"){
+        $verifVet = false;
+        $array = array(
+            "id" => $_GET["ref"],
+        );
+        $id = $array;
+        $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
+        $unStatut = ModeleObjetDAO::getStatut($login["login"]);
+        $catalogue = ModeleObjetDAO::getCatalogue($_GET["ref"], $login["login"], $verifVet);
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
+
+        include_once "$racine/vue/vueCatalogueEpi.php";
+        if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
+
+            date_default_timezone_set('Europe/Paris');
+            
+            if(ModeleObjetDAO::insertEPICommande($id, $unStatut['statut']) != false) {
+                $quantite = $_POST['quantity'];
+                $taille = $_POST['taille'];
+                $idProduit = $_POST['submit'];
+                
+                
+                echo ModeleObjetDAO::insertLigneCommandeEPI($id, $idProduit, $quantite, $taille);
+
+            } else {
+                echo "Erreur lors de l'insertion de la commande";
+            }
+            
+        }
+
+    }elseif($_GET["ref"] == "0"){  
+        
         $verifVet = false;
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
-        
+        $array = array(
+            "id" => "0",
+        );
+        $id = $array;
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
         
         
@@ -25,7 +60,8 @@
                 $idProduit = $_POST['submit'];
     
                 
-                echo ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);
+                ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);
+                $reload = true;
 
             } else {
                 echo "Erreur lors de l'insertion de la commande";
@@ -33,16 +69,7 @@
             
         }
 
-        $role = ModeleObjetDAO::getRole($_SESSION['login']);
-        switch($role['libelle']){
-            case 'Responsable' : 
-                $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
-                $commanderPour = ModeleObjetDAO::getCommanderPour($responsable['id_responsable']);
-                break;
-            case 'Administrateur' : 
-                $commanderPour = ModeleObjetDAO::getCommanderPourTous();
-                break;
-        }
+
 
 
         

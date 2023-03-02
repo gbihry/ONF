@@ -17,13 +17,28 @@
         <form action="" method="POST">
             <div class="form-group">
                 <input type="text" class="form-control" name="nomLogin" placeholder="Nom"/><br />
-                <input type="password" class="form-control" name="mdpLogin" placeholder="Mot de passe" /><br />
+                <div class="password">
+                    <input type="password" id="mdpLogin"class="form-control" name="mdpLogin" placeholder="Mot de passe"/>
+                    <i class="fa-solid fa-eye" onclick="afficherMdp()" id="afficher"></i>
+                </div>
             </div>
             <input type="submit" name="valider" class="btn btn-success" value="Se connecter" />
             <br/>
         </form>
         <br/><br/>
         <script>
+
+            function afficherMdp() {
+                var x = document.getElementById("mdpLogin");
+                if (x.type === "password") {
+                    x.type = "text";
+                    document.getElementById('afficher').className = "fa-solid fa-eye-slash"; 
+                } else {
+                    x.type = "password";
+                    document.getElementById('afficher').className = "fa-solid fa-eye"; 
+                }
+            }
+
             // localhost/OVH/?action=newmdp&msg=token
             $urlP = new URLSearchParams(window.location.search);
             if ($urlP.get('msg')) {

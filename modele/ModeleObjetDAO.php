@@ -58,10 +58,54 @@
 
         // INFORMATIONS UTILISATEURS
 
-        public static function getAllUsersID() {
-            $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login FROM utilisateur LIMIT 50");
+        public static function getLieuLivraisonUtilisateurs($login){
+            $req = Connexion::getInstance()->prepare("Select lieulivraion.nom, lieulivraion.id 
+            from lieulivraion
+            JOIN utilisateur ON utilisateur.idLieuLivraison = lieulivraion.id
+            WHERE utilisateur.login = :login");
+            $req->bindValue(':login',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
+        public static function getAllUsers($role, $id) {
+            switch($role){
+                case 'Administrateur':
+                    $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
+                    FROM utilisateur 
+                    LIMIT 50");
+                    break;
+                    case 'Super-Administrateur':
+                        $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
+                        FROM utilisateur 
+                        LIMIT 50");
+                        break;
+                case 'Responsable':
+                    $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
+                    FROM utilisateur 
+                    WHERE id_responsable = :id AND idRole != 2");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    break;
+                case 'Gestion': 
+                    break;
+            }
+            
             $req->execute();
             $res = $req->fetchAll();
+            return $res;
+        }
+
+        public static function getResponsableUtilisateur ($id, $idResponsable){
+            $req = Connexion::getInstance()->prepare("SELECT id ,nom, prenom
+            FROM utilisateur
+            WHERE id IN (SELECT id_responsable
+                        FROM utilisateur
+                        WHERE id_responsable = :idResponsable AND id = :id)");
+            $req->bindValue(':idResponsable',$idResponsable,PDO::PARAM_INT);
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
             return $res;
         }
 
@@ -161,7 +205,7 @@
 
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*., ?]).{8,}$/
             */
-            if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*., ?]).{8,}$/', $mdpNew)) {
+            if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $mdpNew)) {
                 return 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial';
             }
             if(password_verify($mdpActuel,$verifmdp['password'])) {
@@ -479,7 +523,7 @@
         }
 
         public static function getResponsable(){
-            $req = Connexion::getInstance()->prepare("select id,nom from utilisateur where idRole = 2");
+            $req = Connexion::getInstance()->prepare("select id,nom,prenom from utilisateur where idRole = 2");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -977,15 +1021,24 @@
             $req->bindValue(':idMetier',$idMetier,PDO::PARAM_INT);
             $req->bindValue(':Agence',$Agence,PDO::PARAM_STR);
             $req->execute();
+            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($email)['id'], 150);
+        }
 
-            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($email)['id'], 0);
+        public static function insertUtilisateurCSV($column){
+            $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login,password,prenom,nom,email,tel,idLieuLivraison,id_responsable,idRole,idMetier,Agence)
+            values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','"
+            . $column[4] . "','" . $column[5] . "','" . intval($column[6]) . "','" . intval($column[7]) . "','"
+            . intval($column[8]) . "','" . intval($column[9]) . "','" . $column[10] . "')");
+            $req->execute();
+                
+            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($column[0])['id'], 150);
         }
 
         public static function insertPoints($idUtilisateur, $points){
             $req = Connexion::getInstance()->prepare("SELECT points.point FROM points WHERE points.idUtilisateur = :idUtilisateur");
             $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
             $req->execute();
-            $res = $req->fetch();
+            $res = $req->fetch();   
             if($res == false){
                 $req = Connexion::getInstance()->prepare("INSERT INTO points (idUtilisateur, points.point) VALUES (:idUtilisateur, :pointx)");
                 $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
@@ -1005,6 +1058,7 @@
             $res = $req->fetchall();
             return $res;
         }
+
 
         //fonction qui retourne la quantite dans ligne commande epi en fonction du login
 
@@ -1133,9 +1187,54 @@
             $req = Connexion::getInstance()->prepare("UPDATE commentaire
             SET message = :message
             where id = 1");
-             $req->bindValue(':message',$message,PDO::PARAM_STR);
-             $req->execute();
+            $req->bindValue(':message',$message,PDO::PARAM_STR);
+            $req->execute();
 
         }   
 
+        public static function getSubordonnee($idUtilisateurConnecté){
+            $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
+            FROM utilisateur
+            WHERE id_responsable = :id ;");
+            $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+
+        /* UPDATE */
+        
+        public static function updateTel($login, $tel) {
+            $id = self::getIdUtilisateur($login)['id'];
+            $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET tel = :tel WHERE id = :id");
+            $req->bindValue(':tel', $tel, PDO::PARAM_STR);
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updateLivraison($login, $livraison) {
+            $id = self::getIdUtilisateur($login)['id'];
+            $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET idLieuLivraison = :livraison WHERE id = :id");
+            $req->bindValue(':livraison', $livraison, PDO::PARAM_INT);
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updateResponsable($login, $responsable) {
+            $id = self::getIdUtilisateur($login)['id'];
+            $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET id_responsable = :responsable WHERE id = :id");
+            $req->bindValue(':responsable', $responsable, PDO::PARAM_INT);
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+        }
+        public static function getLoginById($id){
+            $req = Connexion::getInstance()->prepare("select login 
+            from utilisateur
+            where id = :id;");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
 } 

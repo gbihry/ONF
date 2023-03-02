@@ -8,6 +8,10 @@ button{
     transition: 0.2s;
 }
 
+i {
+    margin: 0px 3px;
+}
+
 .notification {
     position: absolute;
     bottom: 0;
@@ -48,6 +52,29 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.password{
+    border: solid 1px #ced4da;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.password input{
+    border: none !important;
+}
+
+.password input:focus{
+    border: none !important;
+    box-shadow: none;
+}
+
+.password i {
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .login i {
@@ -586,7 +613,7 @@ body{
 
 /* NAVBAR RESPONSIVE */
 
-@media (max-width: 950px) {
+@media (max-width: 1400px) {
     .nav > .nav_btn {
         display: flex;
     }
@@ -706,4 +733,96 @@ table.recapCommandeEpi th {
     color: white;
 }
 
-/* tab recapitulatif commande epi et vet */
+/* tab users */
+
+table.utilisateurs {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+
+}
+
+table.utilisateurs tr, table.utilisateurs td, table.utilisateurs th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table.utilisateurs tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.utilisateurs tr:hover {
+    background-color: #ddd;
+}
+
+table.utilisateurs tr td div {
+    width: 100%;
+    display: flex;
+    white-space: nowrap;
+}
+
+table.utilisateurs tr td div .clear {
+    width: 100%;
+}
+
+
+table.utilisateurs th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #353a40;
+    color: white;
+}
+
+/* ADD USER */
+
+.input_csv label, .input_csv p{
+    font-size: 1.5rem;
+}
+
+.input_csv #file{
+    border: none;
+    background-color: var(--bouton);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: 0.2s ease-in-out;
+}
+
+.input_csv #file:hover{
+    cursor: pointer;
+    background-color: #01813d;
+}
+
+/* edit */
+
+.edit_btn {
+    background-color: #1470e0;
+    color: white !important;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit_btn:hover {
+    background-color: #0e4e9c;
+}
+
+.edit_btn.green {
+    background-color: #01813d;
+}
+
+.edit_btn.green:hover {
+    background-color: #01612b;
+}
+
+.edit_btn.red {
+    background-color: #e01414;
+}
+
+.edit_btn.red:hover {
+    background-color: #9c0e0e;
+}

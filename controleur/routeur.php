@@ -26,7 +26,9 @@ class Routeur{
         'pdfEpi' => 'ctrlImprimmerEpi.php',
         'pdfVet' => 'ctrlImprimmerVet.php',
         'ajoutProduit' => 'ctrlAjoutProduit.php',
-        'changerCommentaire' => 'ctrlChangerCommentaire.php'
+        'changerCommentaire' => 'ctrlChangerCommentaire.php',
+        'commanderPour' => 'ctrlCommanderPour.php',
+        'users' => 'ctrlUsers.php'
     );   
     
         

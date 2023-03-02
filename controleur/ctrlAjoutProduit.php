@@ -12,6 +12,7 @@
             }else{
                 ModeleObjetDAO::insertProduit($_POST['reference'],$_POST['photo'],$_POST['nom'],$_POST['type'],$_POST['description'],
                 $_POST['fournisseur'],$_POST['typeProduit']);
+                $reload = true;
             }
             
             

@@ -24,7 +24,7 @@
                         </div>
                         <div class="desc">
                             <p>' . $nom . '</p>
-                            <p class="sub">Taille: ' . $taille . ' | Quantité : '. $quantite.' | Prix Unitaire : '. $prix.'</p>
+                            <p class="sub">Taille: ' . $taille . ' | Quantité : '. $quantite.' | Points totaux : '. $prix.'</p>
                         </div>
                     </div>');
                 }
@@ -61,7 +61,7 @@
             ?>
             <div class="row_text">
                 <p class="text">Points actuel : <?php echo($points); ?></p>
-                <p class="text">Prix total : <?php echo($prixTotal); ?></p>
+                <p class="text">Points totaux : <?php echo($prixTotal); ?></p>
                 <p class="text">Points restants : <?php 
                     if($pointsRestant < 0) {
                         echo('<span style="color:red">'.$pointsRestant.'</span>');

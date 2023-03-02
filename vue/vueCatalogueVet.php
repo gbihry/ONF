@@ -1,10 +1,19 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="catalogue">
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue VET</p>
     </div>
     
     <div class="form-check text-center">
-        <form action="./?action=catalogueVet" method ="POST">
+        <form action="./?action=catalogueVet&&ref=<?php echo $id["id"];?>" method ="POST">
             <?php
                 if (isset($_POST['valideProduit']) != true){
             ?>
@@ -79,7 +88,7 @@
                         </div>
                     <?php
                 }
-                echo "<div class='w-100 p-3'><h3 class='float-right'>Prix Unitaire : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
+                echo "<div class='w-100 p-3'><h3 class='float-right'>Points : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3>";
                 echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button></div>";
                 echo "</form>";
                 echo "</div>";
@@ -92,7 +101,7 @@
         foreach($catalogue as $uneCategorie){
             echo "<div class='tuile'>
                     <p>" . $uneCategorie['libelle'] . "</p>
-                    <a href='./?action=produitVet&id=".$uneCategorie['id']."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
+                    <a href='./?action=produitVet&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
                 </div>";
         }
     }       

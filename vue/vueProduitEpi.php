@@ -1,3 +1,12 @@
+<?php
+if(isset($reload) && $reload == true) {
+    echo '<script>
+    if(window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    </script>';
+}
+?>
 <div class="container-fluid text-center mt-5 produit">
     <?php  
         foreach($unProduit as $detail){
@@ -41,27 +50,6 @@
                 ?>
                 </select>
             </div>
-            <?php 
-            if (isset($commanderPour)){
-                
-            ?>
-                <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Commander pour :</span>
-                </div>
-                <select name="commanderPour" class="custom-select" id="inputGroupSelect01">
-                <?php 
-                echo ("<option value=" . $_SESSION['login'] ."> Moi même </option>");
-                foreach($commanderPour as $unSubordonnee){
-                        echo ("<option value=" . $unSubordonnee['email'] .">" . $unSubordonnee['email']. "</option>");
-                }
-                ?>
-                </select>
-                
-                </div>
-            <?php
-            }
-            ?>
             
             <?php
                 if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
