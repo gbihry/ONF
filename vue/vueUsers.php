@@ -1,14 +1,27 @@
 <?php
+
 if(isset($reload) && $reload == true) {
+    
     echo '<script>
     if(window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
     </script>';
 }
+
+
 ?>
 <div class="container-fluid text-center">
     <h1 class="utilisateurs mt-3">Utilisateurs</h1>
+    <?php 
+        if(isset($msg) && $msg != null) {
+            echo '<div class="row">';
+                echo '<div class="col-6 mx-auto text-center">';
+                    echo '<div class="alert alert-success" role="alert">' . $msg . '</div>';
+                echo '</div>';
+            echo '</div>';
+        }
+    ?>
     
         <table class="utilisateurs">
             <thead>
@@ -17,6 +30,12 @@ if(isset($reload) && $reload == true) {
                     <th>Tel</th>
                     <th>Lieu livraison</th>
                     <th>Responsable</th>
+                    <?php 
+                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
+                            echo('<th>Changer mdp</th>');
+                        }
+                    ?>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +60,15 @@ if(isset($reload) && $reload == true) {
                                     if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
                                         echo('<div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
                                     }
+                                }
+
+                                if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
+                                    echo ('<td class="text-center resetPwd"><a type="submit" href="./?action=newmdp&id='.$unUser['id'].'" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Changer</a></td>');
+                                }
                                     
-                                    ?>
+                            ?>
                         </tr>
-                    <?php   }} ?>
+                    <?php   } ?>
                 
                 
             </tbody>
@@ -65,4 +89,18 @@ if(isset($reload) && $reload == true) {
                 echo "</select>";
             }
         ?>
+        
 </div>
+
+<script>
+    function afficherMdp() {
+        var x = document.getElementById("mdpLogin");
+        if (x.type === "password") {
+            x.type = "text";
+            document.getElementById('afficher').className = "fa-solid fa-eye-slash"; 
+        } else {
+            x.type = "password";
+            document.getElementById('afficher').className = "fa-solid fa-eye"; 
+        }
+    }
+</script>

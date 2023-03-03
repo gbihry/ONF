@@ -8,12 +8,40 @@ $error = "";
 $valider = filter_input(INPUT_POST, 'valider');
 
 if($valider) {
-    $motDePasseActuel_INPUT= filter_input(INPUT_POST, 'mdpActuel');
+    if(!isset($_GET['id'])){
+        $motDePasseActuel_INPUT = filter_input(INPUT_POST, 'mdpActuel');
+    }else{
+        $motDePasseActuel = null;
+    }
     $nouveauMotDePasse_INPUT = filter_input(INPUT_POST, 'mdpNew');
     $nouveauMotDePasse2_INPUT = filter_input(INPUT_POST, 'mdpNewConfirm');
 
-    if($nouveauMotDePasse_INPUT == $nouveauMotDePasse2_INPUT && $_SESSION['login'] != null && $_SESSION['wait'] == 'newmdp') {
+    if(isset($_GET['id'])){
+        if($nouveauMotDePasse_INPUT == $nouveauMotDePasse2_INPUT && $_SESSION['login'] != null){
+            $login = ModeleObjetDAO::getLoginById($_GET['id'])['login'];
+            $try = ModeleObjetDAO::updateMdp($login, $motDePasseActuel, $nouveauMotDePasse_INPUT);
+            if($try === true) {
+                header("location:./?action=users&msg=" . urlencode('Mot de passe modifié à l\'utilisateur suivant : '.$login.' '));
+            } else {
+                $error = $try;
+            }
+        }
+    }elseif(isset($_GET['idUser'])){
+        if($nouveauMotDePasse_INPUT == $nouveauMotDePasse2_INPUT && $_SESSION['login'] != null){
+            $try = ModeleObjetDAO::updateMdp($_SESSION['login'], $motDePasseActuel_INPUT, $nouveauMotDePasse_INPUT);
+            if($try === true) {
+                session_destroy();
+                header("location:./?action=login&msg=" . urlencode('Mot de passe modifié, veuillez vous reconnecter.'));
+            } else {
+                $error = $try;
+            }
+        }
+    }elseif($nouveauMotDePasse_INPUT == $nouveauMotDePasse2_INPUT && $_SESSION['login'] != null && $_SESSION['wait'] == 'newmdp') {
+        
+            
         $try = ModeleObjetDAO::updateMdp($_SESSION['login'], $motDePasseActuel_INPUT, $nouveauMotDePasse_INPUT);
+        
+        
         if($try === true) {
             session_destroy();
             header("location:./?action=login&msg=" . urlencode('Mot de passe modifié, veuillez vous reconnecter.'));

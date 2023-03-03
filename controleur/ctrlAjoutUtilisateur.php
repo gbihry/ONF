@@ -15,6 +15,10 @@
             ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
             ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ||
             ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+            $nom = ModeleObjetDAO::getNomUtilisateur($id)['nom'];
+
             if (isset($_POST["import"])) {
     
                 $fileName = $_FILES["file"]["tmp_name"];
@@ -24,7 +28,11 @@
                     $file = fopen($fileName, "r");
                     
                     while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+                        if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+                            $column[7] = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+                        }
                         ModeleObjetDAO::insertUtilisateurCSV($column);
+                        $reload = true;
                     }
                 }
             }
@@ -39,6 +47,7 @@
                     $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
                     
                     if ($_POST['responsable'] == 0){
+                        
                         ModeleObjetDAO::updateResponsable($_POST['mail'], ModeleObjetDAO::getIdUtilisateur($_POST['mail'])['id']);
                         $reload = true;
                         
