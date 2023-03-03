@@ -826,3 +826,10 @@ table.utilisateurs th {
 .edit_btn.red:hover {
     background-color: #9c0e0e;
 }
+
+/* commander pour */
+
+.red{
+    background: red;
+}
+

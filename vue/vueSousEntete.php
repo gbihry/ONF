@@ -59,6 +59,9 @@
         <div class="linenav_item" data-navname="ajoutUtilisateur">
             <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
         </div>
+        <div class="linenav_item"   data-navname="stat">
+        <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
+        </div>
 
     <?php } ?>
 </div>

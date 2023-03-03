@@ -12,13 +12,14 @@
         </tr>
     ');
     foreach ($AllUsersNoncommander as $key => $value) {
-        echo ('
-            <tr>
-                <td>'.$value['id'].'</td>
-                <td>'.$value['nom'].'_'.$value['prenom'].'</td>
-                <td>'.$value['email'].'</td>
-                <td>'.$value['dateCrea'].'</td>
-            </tr>');
+            if($id != $value['id']){echo ('
+                <tr>
+                    <td>'.$value['id'].'</td>
+                    <td>'.$value['nom'].'_'.$value['prenom'].'</td>
+                    <td>'.$value['email'].'</td>
+                    <td>'.$value['dateCrea'].'</td>
+                </tr>');
+            }
         }
     ?>
     </table>

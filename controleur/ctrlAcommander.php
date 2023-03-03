@@ -5,9 +5,15 @@
     
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+        $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
         $AllUsersAcommander = ModeleObjetDAO::getUtilisateurCommander(1);
         $AllUsersNoncommander = ModeleObjetDAO::getUtilisateurCommander(0);
-    } else {
+    } elseif(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+        $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+        $AllUsersAcommander = ModeleObjetDAO::getUtilisateurCommanderSubordonne(1,$id);
+        $AllUsersNoncommander = ModeleObjetDAO::getUtilisateurCommanderSubordonne(0,$id);
+    }
+    else {
         header("location:./?action=accueil");
     }
 
