@@ -735,7 +735,7 @@ table.recapCommandeEpi tr:hover {
     background-color: #ddd;
 }
 
-table.recapCommandeEpi tr td:last-child {
+table.recapCommandeEpi tr {
     text-align: center;
 }
 
