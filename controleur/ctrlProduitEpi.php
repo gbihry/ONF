@@ -38,7 +38,9 @@
         
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
-
+        $login = array(
+            "login" => $leLogin,
+        );
     
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         
