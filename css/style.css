@@ -398,6 +398,10 @@ body{
     text-align: center;
 }
 
+#messageCreateResponsable {
+    width: 100%;
+}
+
 /* Navbar Dashboard */
 
 .linenav {
@@ -609,11 +613,20 @@ body{
     display: none;
 }
 
+.resetPassword {
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+
+.resetPassword:hover {
+    color: white !important;
+}
 
 
 /* NAVBAR RESPONSIVE */
 
-@media (max-width: 1400px) {
+@media (max-width: 1480px) {
     .nav > .nav_btn {
         display: flex;
     }
@@ -775,6 +788,9 @@ table.utilisateurs th {
     color: white;
 }
 
+.resetPwd a {
+    color: white !important;
+}
 /* ADD USER */
 
 .input_csv label, .input_csv p{

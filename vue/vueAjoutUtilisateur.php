@@ -63,7 +63,12 @@ if(isset($reload) && $reload == true) {
                     </select>
                 </div>
                 <div class="input-group mb-3 justify-content-center">
-                    <p>Ne modifier pas ce champ si le role est responsable </p>
+                    <?php 
+                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
+                            ?><p id="messageCreateResponsable">Ne modifier pas ce champ si le role est responsable <i class="fa-solid fa-arrow-down"></i></p> <?php
+                        }
+                    ?>
+                    
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
@@ -71,7 +76,7 @@ if(isset($reload) && $reload == true) {
                         <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
                         if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
-                            echo ("<option value=" . (ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']).">Vous même</option>");
+                            echo ("<option value=" . $id ."> ". $nom. "</option>");
                         }else{
                             foreach($lesResponsables as $unResponsable){
                                 echo ("<option value=" . ($unResponsable['id']).">" . ($unResponsable['nom']). "</option>"); 
