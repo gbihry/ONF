@@ -20,6 +20,7 @@
                 
                     <?php foreach($lesSubordonne as $unSubordonne){?>
                         <tr>
+                            
                             <td><?php echo $unSubordonne['nom'] ;?></td>
                             <td><?php echo $unSubordonne['prenom'] ;?></td>
                             <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueEpi&&ref= <?php echo $unSubordonne['id'];?> ';">acceder</button></td>
