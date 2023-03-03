@@ -21,7 +21,7 @@ if($valider) {
             $login = ModeleObjetDAO::getLoginById($_GET['id'])['login'];
             $try = ModeleObjetDAO::updateMdp($login, $motDePasseActuel, $nouveauMotDePasse_INPUT);
             if($try === true) {
-                header("location:./?action=users&msg=" . urlencode('Mot de passe modifié à l\'utilisateur suivant : '.$login.' '));
+                header("location:./?action=users&msgResp=" . urlencode('Mot de passe modifié à l\'utilisateur suivant : '.$login.' '));
             } else {
                 $error = $try;
             }

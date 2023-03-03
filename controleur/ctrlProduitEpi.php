@@ -39,13 +39,10 @@
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
         $login = array(
-            "login" => $leLogin,
+            "login" => $_SESSION['login'],
         );
     
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
-        
-        
-
         $role = ModeleObjetDAO::getRole($_SESSION['login']);
         switch($role['libelle']){
             case 'Responsable' : 
@@ -61,7 +58,6 @@
             
             date_default_timezone_set('Europe/Paris');
 
-          
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 
             if(ModeleObjetDAO::insertEPICommande($idUtilisateur, $unStatut['statut']) != false) {
@@ -84,7 +80,6 @@
         
     include_once "$racine/vue/vuePied.php";
 
-   
 
     
     

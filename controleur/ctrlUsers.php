@@ -3,8 +3,8 @@
     include "$racine/vue/vueEntete.php";
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Utilisateurs'){
-        if(isset($_GET['msg'])) {
-            $msg = $_GET['msg']; 
+        if(isset($_GET['msgResp'])) {
+            $msg = $_GET['msgResp']; 
             $reload = true;
         }
         if(isset($_POST) && !empty($_POST)) {

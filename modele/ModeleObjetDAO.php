@@ -990,15 +990,14 @@
             $query->execute();
             $result = $query->fetch();
             if($result == false){
-                
                 return false;
             }
             // CREATION DU INSERT DANS LA TABLE lignecommandeepi    
-            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == false){
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id['id']) == false){
                 ModeleObjetDAO::insertEPICommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login']), ModeleObjetDAO::getStatut($_SESSION['login'])['statut']);
             }
-            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == true){
-                $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id)['id'];
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id['id'])['id'] == true){
+                $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id['id'])['id'];
                 $query = Connexion::getInstance()->prepare("INSERT INTO lignecommandeepi (idProduit, quantite, idCommandeEPI, idTaille) VALUES (:idProduit, :quantite, :idCommandeEPI, :idTaille)");
                 $query->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
                 $query->bindValue(':quantite', $quantite, PDO::PARAM_INT);
