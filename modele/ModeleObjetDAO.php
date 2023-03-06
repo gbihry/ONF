@@ -193,8 +193,37 @@
             return $res;
         }
 
+        public static function getUtilisateurCommanderSubordonne ($etat,$id){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE commandeepi.terminer = 1 and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                    WHERE dateCrea is null or terminer = 0 and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
+
+        
+
+
 
         public static function updateMdp($login, $mdpActuel,$mdpNew) {
+
             $verifmdp = ModeleObjetDAO::getMdp($login);
             /*
             - 8 caractères minimum (?=.{8,})
@@ -206,9 +235,20 @@
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*., ?]).{8,}$/
             */
             if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $mdpNew)) {
-                return 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial';
+                return 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre';
             }
-            if(password_verify($mdpActuel,$verifmdp['password'])) {
+            if($mdpActuel == null){
+                $newHash = password_hash($mdpNew, PASSWORD_DEFAULT);
+                $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET utilisateur.password = :leMdp WHERE utilisateur.login = :leLogin");
+                $req->bindValue(':leMdp',$newHash,PDO::PARAM_STR);
+                $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
+                try {
+                    $req->execute();
+                    return true;
+                } catch (PDOException $e) {
+                    return 'Erreur lors de la modification du mot de passe';
+                }
+            }if(password_verify($mdpActuel,$verifmdp['password'])) {
                 $newHash = password_hash($mdpNew, PASSWORD_DEFAULT);
                 $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET utilisateur.password = :leMdp WHERE utilisateur.login = :leLogin");
                 $req->bindValue(':leMdp',$newHash,PDO::PARAM_STR);
@@ -225,7 +265,7 @@
         }
 
         public static function getNomUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT utilisateur.login FROM utilisateur WHERE id =:id");
+            $req = Connexion::getInstance()->prepare("SELECT utilisateur.login, utilisateur.nom FROM utilisateur WHERE id =:id");
             $req->bindValue(':id',$id,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetch();
@@ -968,8 +1008,6 @@
             
             */
             $idMetier = ModeleObjetDAO::getMetierUtilisateur(ModeleObjetDAO::getNomUtilisateur($id['id'])['login']);
-            $login = 
-
             $query = Connexion::getInstance()->prepare("SELECT produit.id FROM produit
             JOIN type on type.id = produit.idType
             JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = type.idCategorie
@@ -980,15 +1018,14 @@
             $query->execute();
             $result = $query->fetch();
             if($result == false){
-                
                 return false;
             }
             // CREATION DU INSERT DANS LA TABLE lignecommandeepi    
-            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == false){
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id['id']) == false){
                 ModeleObjetDAO::insertEPICommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login']), ModeleObjetDAO::getStatut($_SESSION['login'])['statut']);
             }
-            if (ModeleObjetDAO::getIdEpiUtilisateur($id) == true){
-                $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id)['id'];
+            if (ModeleObjetDAO::getIdEpiUtilisateur($id['id'])['id'] == true){
+                $idCommandeEPI = ModeleObjetDAO::getIdEpiUtilisateur($id['id'])['id'];
                 $query = Connexion::getInstance()->prepare("INSERT INTO lignecommandeepi (idProduit, quantite, idCommandeEPI, idTaille) VALUES (:idProduit, :quantite, :idCommandeEPI, :idTaille)");
                 $query->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
                 $query->bindValue(':quantite', $quantite, PDO::PARAM_INT);

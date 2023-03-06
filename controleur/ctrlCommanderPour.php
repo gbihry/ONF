@@ -3,7 +3,8 @@
     include "$racine/vue/vueEntete.php";
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
-
+        $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+        $AllUsersAcommander = ModeleObjetDAO::getUtilisateurCommanderSubordonne(1,$id);
         $lesSubordonne = ModeleObjetDAO::getSubordonnee(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
         include "$racine/vue/vueCommanderPour.php";
 

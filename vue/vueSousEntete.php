@@ -2,13 +2,13 @@
     <?php
     if (isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
     ?>
-    <div class="linenav_item" data-navname="stat">
+    <div class="linenav_item" data-navname="recapCommande">
         <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
     </div>
     <div class="linenav_item"   data-navname="users">
         <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
     </div>
-    <div class="linenav_item"   data-navname="stat">
+    <div class="linenav_item"   data-navname="aCommander">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
@@ -20,9 +20,7 @@
         <div class="linenav_item" data-navname="ajoutProduit">
             <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
         </div>
-        <div class="linenav_item" data-navname="commanderPour">
-            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
-        </div>
+        
     <?php
     }
     elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
@@ -31,7 +29,7 @@
         <div class="linenav_item"   data-navname="users">
             <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
         </div>
-        <div class="linenav_item"   data-navname="stat">
+        <div class="linenav_item"   data-navname="aCommander">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
@@ -58,6 +56,9 @@
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
             <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+        </div>
+        <div class="linenav_item"   data-navname="stat">
+        <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
 
     <?php } ?>

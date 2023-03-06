@@ -13,18 +13,21 @@
                     <th>Commande VET</th>
                     <th>Récap EPI</th>
                     <th>Récap VET</th>
+                    <th>Historique</th>
                 </tr>
             </thead>
             <tbody>
                 
                     <?php foreach($lesSubordonne as $unSubordonne){?>
                         <tr>
+                            
                             <td><?php echo $unSubordonne['nom'] ;?></td>
                             <td><?php echo $unSubordonne['prenom'] ;?></td>
                             <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueEpi&&ref= <?php echo $unSubordonne['id'];?> ';">acceder</button></td>
                             <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueVet&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
                             <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierEPISubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
                             <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierVETSubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
+                            <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=historiqueCommandeSubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
                         </tr>
                     <?php   } ?>
                 

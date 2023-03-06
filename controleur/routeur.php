@@ -31,7 +31,9 @@ class Routeur{
         'users' => 'ctrlUsers.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
-        'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php'
+        'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
+        'historiqueCommandeSubordonne' => 'ctrlHistoriqueCommandeSubordonne.php',
+        'historiquecommandedetailSubordonne' => 'ctrlHistoriqueCommandeDetailSubordonne.php'
     );   
     
         

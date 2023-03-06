@@ -7,6 +7,7 @@ if(isset($reload) && $reload == true) {
     </script>';
 }
 ?>
+
 <div class="catalogue">
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue EPI</p>
@@ -15,6 +16,7 @@ if(isset($reload) && $reload == true) {
     <div class="form-check text-center">
         <form action="./?action=catalogueEpi&&ref=<?php echo $id["id"];?>" method ="POST">
         <?php
+        
             if (isset($_POST['valideProduit']) != true){
         ?>
             <div>
@@ -56,7 +58,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' value='0' min='0' max='<?php echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' value='0' min='0' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -70,16 +72,19 @@ if(isset($reload) && $reload == true) {
                     </select>
                 </div>
                 <?php
-                    if(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
+                
+                
+                    if(ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                         
+                        
                     }else{
-                        var_dump(ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])));
                         echo "<p>Vous avez déjà commandé cet article</p>";
                     }
                     echo "</form>";
                     echo "</div>";
                     echo "</div>";
+                    
                 
             }
         }else{
