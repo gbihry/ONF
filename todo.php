@@ -35,6 +35,28 @@
 //TODO : recap de l'historique de commande par type/lieu //99
 //TODO : point au lieu de prix dans le catalogue VET
 
+//TODO :mettre site d'achat sur la page de login
+//TODO :mettre 1 par defaul pareil pour vet
+//TODO :rester sur tout les produits après validation
+//TODO :contrainte remplir la base de donnée
+//TODO :pouvoir modifier la quantité dans le panier epi/vet
+//TODO :pdf de son panier 
+//TODO :validé -> validée
+//TODO :historique -> commande passé
+//TODO :enelver epi dans la navbar si pas accès
+//TODO :créer une doc
+//TODO :pouvoir changer de taille
+//TODO :actualiser le nombre de point dans le panier 
+//TODO :date pour la commande vet dans l'historique 
+//TODO :recap pdf pour le panier
+//TODO :export base de donnée
+//TODO :csv 
+//TODO :log par date ou utilisateur
+//TODO :griser le boutton dejà commander dans commande subordonné
+//TODO :commandes voir que subordonné
+//TODO :gérer le passage à l'année suivante
+
+
 
 
 

@@ -20,9 +20,7 @@
         <div class="linenav_item" data-navname="ajoutProduit">
             <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
         </div>
-        <div class="linenav_item" data-navname="commanderPour">
-            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
-        </div>
+        
     <?php
     }
     elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
