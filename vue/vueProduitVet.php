@@ -35,12 +35,15 @@ if(isset($reload) && $reload == true) {
                 ?>
                 </select>
             </div>
-            <?php
-                echo "<div class='w-100 p-3'><h3 class='float-right'>Points totaux : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3></div>";
-                echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
-                echo "</form>";
-                echo "</div>";
-                echo "</div>";
+
+      
+                <?php
         }
+            echo "<div class='w-100 p-3'><h3 class='float-right'>Points totaux : <span class='produitvet_prix'>".$detail['prix']." <i class='fa-solid fa-ticket'></i></span></h3></div>";
+            echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
+            echo "</form>";
+            echo "</div>";
+            echo "</div>";
+
     ?>
 </div>
