@@ -815,7 +815,7 @@
                 $tmp_array_title = array("idProduit" => "ID", "nom" => "Nom", "Taille" => "Taille", "quantite" => "quantite", "prix" => "prix");
                 $tmp_array = array($tmp_array_header_title, $tmp_array_header, $tmp_array_title);
                 foreach($Commande as $ligne) {
-                    $tmp_array[] = array("idProduit" => $ligne['idProduit'], "nom" => $ligne['nom'], "Taille" => $ligne['libelle'], "quantite" => $ligne['quantite'], "prix" => $ligne['prix']);
+                    $tmp_array[] = array("idProduit" => $ligne['idProduit'], "nom" => $ligne['nom'], "Taille" => $ligne['libelle'], "quantite" => $ligne['quantite'], "prix" => $prix);
                 }
                 $fp = fopen('commandes/'.$extrafile . '/' .$filename, 'w');
                 fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
@@ -1162,7 +1162,7 @@
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandeepi WHERE idUtilisateur = :id AND terminer = 1"); 
-                    break;
+                    break;  
                 case 'VET':
                     $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandevet WHERE idUtilisateur = :id AND terminer = 1"); 
                     break;
