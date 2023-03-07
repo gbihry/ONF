@@ -188,13 +188,22 @@ body{
     aspect-ratio : 1/1;
 }
 
+.main-produit {
+    text-align: center;
+    justify-content: center;
+}
+
+.main-produit h1{
+    max-width: 300px !important;
+}
+
 .unProduit {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
-    
-    margin: 10vh;
+    justify-content: space-between;
+    text-align: center;
+    margin: 5vh 15vw;
 }
 
 .produit {

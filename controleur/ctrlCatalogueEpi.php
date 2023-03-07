@@ -56,7 +56,6 @@
         $id = $array;
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
         
-        
 
         
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){

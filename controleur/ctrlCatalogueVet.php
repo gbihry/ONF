@@ -48,11 +48,9 @@
         );
         $id = $array;
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET');
-
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
-           
 
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
             if(ModeleObjetDAO::insertVETCommande($idUtilisateur, $unStatut['statut']) != false) {
