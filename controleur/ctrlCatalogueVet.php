@@ -21,7 +21,6 @@
 
             date_default_timezone_set('Europe/Paris');
 
-         
             if(ModeleObjetDAO::insertVETCommande($id, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];

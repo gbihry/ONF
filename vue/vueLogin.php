@@ -1,5 +1,5 @@
 <br/>
-<h1 class="text-center">Login</h1>
+<h1 class="text-center">Page de connexion au site d'achat ONF EPI/VET</h1>
 <br/>
 
 <div class="row">

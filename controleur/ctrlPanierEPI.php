@@ -6,14 +6,40 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }else{  
-        
         $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+        isset($_POST['type']) ? $type = $_POST['type'] : $type = null;
+            switch($type) {
+                case 'quantiteEPI':
+                    
+                    $idType = ModeleObjetDAO::getIdTypeByLigneCommande($_POST['idLigne']);
+                    $unStatut = ModeleObjetDAO::getStatut($_SESSION['login'])['statut'];
+
+                    $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut,$idType);
+
+                    if ($max < $_POST['quantiteEPI']){
+                        $_POST['quantiteEPI'] = $max;
+                    }elseif($_POST['quantiteEPI'] <= 0){
+                        $_POST['quantiteEPI'] = 1;
+                    }
+                    ModeleObjetDAO::updateQuantite($idUtilisateur['id'], $_POST['idLigne'], $_POST['quantiteEPI'], 'EPI');
+                    $reload = true;
+                    break;
+                case 'tailleEPI':
+                    ModeleObjetDAO::updateTaille($idUtilisateur['id'], $_POST['idLigne'], $_POST['tailleEPI'], 'EPI');
+                    $reload = true;
+                    break;
+                default:
+                    $reload = false;
+                    break;
+            }
+            
+
+        
         if(isset($_POST['idLigne']) && isset($_POST['type'])){
             ModeleObjetDAO::deleteLigneCommande($idUtilisateur['id'], $_POST['idLigne'],$_POST['type']);
         }
 
         $ligneCommandeEPI = ModeleObjetDAO::getLigneCommandeEpiUtilisateur($idUtilisateur['id']);
-
         include_once "$racine/vue/vuePanierEPI.php";
     }
     include_once "$racine/vue/vuePied.php";

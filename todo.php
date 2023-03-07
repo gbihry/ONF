@@ -35,8 +35,8 @@
 //TODO : recap de l'historique de commande par type/lieu //99
 //TODO : point au lieu de prix dans le catalogue VET
 
-//TODO :mettre site d'achat sur la page de login
-//TODO :mettre 1 par defaul pareil pour vet
+
+
 //TODO :rester sur tout les produits après validation
 //TODO :contrainte remplir la base de donnée
 //TODO :pouvoir modifier la quantité dans le panier epi/vet

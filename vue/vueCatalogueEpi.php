@@ -58,7 +58,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' value='0' min='0' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' value='1' min='1' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -66,8 +66,10 @@ if(isset($reload) && $reload == true) {
                     </div>
                     <select name="taille" class="custom-select" id="inputGroupSelect01">
                     <?php 
-                            echo ("<option value=" . (ModeleObjetDAO::getTaille($detail['id']))['id'] .">" . (ModeleObjetDAO::getTaille($detail['id']))['libelle']. "</option>")
-                            
+                    $lesTailles = ModeleObjetDAO::getTaille($detail['id']);
+                    foreach ($lesTailles as $uneTaille){
+                        echo ("<option value=" . $uneTaille['id'] .">" . $uneTaille['libelle'] . "</option>");
+                    }
                     ?>
                     </select>
                 </div>

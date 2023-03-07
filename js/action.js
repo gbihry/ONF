@@ -11,6 +11,40 @@ function edit(el,type) {
             input.value = data;
             input.name = 'input_' + type;
             break;
+        case 'quantiteEPI':
+            console.log("quantiteEPI");
+            var input = document.createElement('input');
+            input.type = 'number';
+            input.value = data;
+            input.name = 'input_' + type;
+            console.log((input.value));
+            break;
+        case 'quantiteVET':
+            console.log("quantiteVET");
+            var input = document.createElement('input');
+            input.type = 'number';
+            input.value = data;
+            input.name = 'input_' + type;
+            console.log((input.name));
+            break;
+        case 'tailleVET':
+            console.log("tailleVET");
+            var input = document.getElementById('select_taillevet_blank').cloneNode(true);
+            input.id = 'select_taillevet';
+            console.log(parentN);
+            input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
+            input.name = 'input_' + type;
+            input.removeAttribute('style');
+            break;
+        case 'tailleEPI':
+            console.log("tailleEPI");
+            var input = document.getElementById('select_tailleepi_blank').cloneNode(true);
+            input.id = 'select_tailleepi';
+            console.log(parentN);
+            input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
+            input.name = 'input_' + type;
+            input.removeAttribute('style');
+            break;
         case 'livraison':
             console.log("livraison");
             var input = document.getElementById('select_lieulivraison_blank').cloneNode(true);
@@ -62,7 +96,24 @@ function save(parentN,type) {
     confirm('Voulez-vous vraiment sauvegarder ?');
     var from = document.createElement('form');
     from.method = 'POST';
-    from.action = 'index.php?action=users';
+    switch(type){
+        case 'quantiteVET':
+            from.action = 'index.php?action=panierVET';
+            break;
+        case 'quantiteEPI':
+            from.action = 'index.php?action=panierEPI';
+            break;
+        case 'tailleVET':
+            from.action = 'index.php?action=panierVET';
+            break;
+        case 'tailleEPI':
+            from.action = 'index.php?action=panierEPI';
+            break;
+        default: 
+            from.action = 'index.php?action=users';
+            break;
+    }
+    
 
     var input_type = document.createElement('input');
     input_type.type = 'hidden';
@@ -73,8 +124,22 @@ function save(parentN,type) {
     input.type = 'hidden';
     input.name = type; 
     switch(type) {
+        case 'quantiteEPI':
+            input.value = parentN.querySelector('input').value;
+            console.log(parentN);
+            console.log(input.value);
+            break;
+        case 'quantiteVET':
+            input.value = parentN.querySelector('input').value;
+            break;
         case 'tel':
             input.value = parentN.querySelector('input').value;
+            break;
+        case 'tailleVET':
+            input.value = parentN.querySelector('select').value;
+            break;
+        case 'tailleEPI':
+            input.value = parentN.querySelector('select').value;
             break;
         case 'livraison':
             input.value = parentN.querySelector('select').value;
@@ -84,10 +149,41 @@ function save(parentN,type) {
             break;
     }
 
-    var input_login = document.createElement('input');
-    input_login.type = 'hidden';
-    input_login.name = 'login';
-    input_login.value = parentN.parentNode.parentNode.dataset.login;
+    switch(type){
+        case 'quantiteEPI':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        case 'quantiteVET':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        case 'tailleVET':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        case 'tailleEPI':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        default:
+            var input_login = document.createElement('input');
+            input_login.type = 'hidden';
+            input_login.name = 'login';
+            input_login.value = parentN.parentNode.parentNode.dataset.login;
+            break;
+    }
+
+
+    
 
     var submit = document.createElement('input');
     submit.type = 'submit';
@@ -95,7 +191,23 @@ function save(parentN,type) {
 
     from.appendChild(input);
     from.appendChild(input_type);
-    from.appendChild(input_login);
+    switch(type){
+        case 'quantiteEPI':
+            from.appendChild(input_ligneCommande);
+            break;
+        case 'quantiteVET':
+            from.appendChild(input_ligneCommande);
+            break;
+        case 'tailleVET':
+            from.appendChild(input_ligneCommande);
+            break;
+        case 'tailleEPI':
+            from.appendChild(input_ligneCommande);
+            break;
+        default:
+            from.appendChild(input_login);
+            break;
+    }
     from.appendChild(submit);
     document.body.appendChild(from);
     from.submit();

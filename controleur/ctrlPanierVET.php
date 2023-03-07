@@ -8,6 +8,21 @@
     }else{  
         
         $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+        isset($_POST['type']) ? $type = $_POST['type'] : $type = null;
+            switch($type) {
+                case 'quantiteVET':
+                    ModeleObjetDAO::updateQuantite($idUtilisateur['id'], $_POST['idLigne'], $_POST['quantiteVET'], 'VET');
+                    $reload = true;
+                    break;
+                case 'tailleVET':
+                    ModeleObjetDAO::updateTaille($idUtilisateur['id'], $_POST['idLigne'], $_POST['tailleVET'], 'VET');
+                    $reload = true;
+                    break;
+                default:
+                    $reload = false;
+                    break;
+            }
+
         if(isset($_POST['idLigne']) && isset($_POST['type'])){
             ModeleObjetDAO::deleteLigneCommande($idUtilisateur['id'], $_POST['idLigne'],$_POST['type']);
         }
