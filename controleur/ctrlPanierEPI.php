@@ -35,7 +35,7 @@
             
 
         
-        if(isset($_POST['idLigne']) && isset($_POST['type'])){
+        if(isset($_POST['idLigne']) && isset($_POST['type']) && isset($_POST['idproduit'])){
             ModeleObjetDAO::deleteLigneCommande($idUtilisateur['id'], $_POST['idLigne'],$_POST['type']);
             date_default_timezone_set('Europe/Paris');
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);

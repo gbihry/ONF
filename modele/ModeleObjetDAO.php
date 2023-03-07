@@ -359,13 +359,14 @@
         public static function getAllProduitCatalogue($id, $type){
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
                     from produit
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
+                    JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+                    WHERE type = :leType AND concerne.idStatut = :idMetier;");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
@@ -604,15 +605,16 @@
 
         // INFORMATION SUR LES PRODUITS
 
-        public static function getProduit($id,$type){
-            $req = Connexion::getInstance()->prepare("SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
-                from produit
-                join type on type.id = produit.idType
-                JOIN categorie on categorie.id = type.idCategorie
-                JOIN disponible on disponible.idProduit = produit.id
-                WHERE categorie.id = :id and type = :type");
+        public static function getProduit($id,$idStatut){
+            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+            from produit
+            join type on type.id = produit.idType
+            JOIN concerne ON concerne.idType = type.id
+            JOIN categorie on categorie.id = type.idCategorie
+            JOIN disponible on disponible.idProduit = produit.id
+            WHERE categorie.id = :id and concerne.idStatut = :idStatut");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
-            $req->bindValue(':type',$type,PDO::PARAM_STR);
+            $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -691,7 +693,7 @@
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
-            return $res ['id'];
+            return $res;
         }
 
         //DELETE PANIER 
@@ -810,7 +812,7 @@
                 $filename = "Commande_".$nomUtilisateurSecure."_".date("d-m-Y")."_".date("H-i-s").".csv";
                 $date = date("d/m/Y");
                 $heure = date("H:i:s");
-                $tmp_array_header_title = array("date" => "Date", "heure" => "Heure", "prix" => "Prix", "nomUtilisateur" => "Nom Utilisateur", "id" => "ID");
+                $tmp_array_header_title = array("date" => "Date", "heure" => "Heure", "prix" => "prix", "nomUtilisateur" => "Nom Utilisateur", "id" => "ID");
                 $tmp_array_header = array("date" => $date, "heure" => $heure, "prix" => $prix, "nomUtilisateur" => $nomUtilisateur, "id" => $id);
                 $tmp_array_title = array("idProduit" => "ID", "nom" => "Nom", "Taille" => "Taille", "quantite" => "quantite", "prix" => "prix");
                 $tmp_array = array($tmp_array_header_title, $tmp_array_header, $tmp_array_title);
@@ -1393,6 +1395,36 @@
             $req->bindValue(':description',$description,PDO::PARAM_STR);
             $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
             $req->execute();
+        }
+
+        public static function getAllLogs(){
+            $req = Connexion::getInstance()->prepare("select date,description,login 
+            from log 
+            join utilisateur on log.idUtilisateur = utilisateur.id 
+            ORDER by date desc;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getLogByLogin($login){
+            $req = Connexion::getInstance()->prepare("select date,description,login 
+            from log 
+            join utilisateur on log.idUtilisateur = utilisateur.id 
+            WHERE login = :leLogin ;");
+            $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getLoginUser(){
+            $req = Connexion::getInstance()->prepare("SELECT login
+            from utilisateur;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+            
         }
 
 } 

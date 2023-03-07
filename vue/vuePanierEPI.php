@@ -44,10 +44,6 @@
                             <p class='panier_title'>Taille</p>
                             <div id='quantite' data-ligne='". $idLigne ."' data-taille='". $idTaille ."' data-data='". $taille . "'><span>" . $taille . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"tailleEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>
                         </div>
-                        <div class='taille'>
-                            <p class='panier_title'>Taille:</p>
-                            <p> " .$taille . "</p>
-                        </div>
                         <div class='supprimer'>
                             <form action='' method='post'>
                                 <input type='hidden' name='idproduit' value=".$idProduit.">
