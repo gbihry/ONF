@@ -26,6 +26,11 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." au panier par ".$_SESSION['login'];
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
     
                 ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);
 

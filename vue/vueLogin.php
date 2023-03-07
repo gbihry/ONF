@@ -5,6 +5,7 @@
 <div class="row">
     <div class="col-4 mx-auto text-center">
         <?php
+       
         if (isset($error)) {
             if($error != "") {
                 echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';

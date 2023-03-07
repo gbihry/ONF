@@ -20,13 +20,20 @@
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
-
             if(ModeleObjetDAO::insertVETCommande($id, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
 
+                $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
+
                 ModeleObjetDAO::insertLigneCommandeVET($id, $idProduit, $quantite, $taille);
+
+                
+
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }
@@ -45,12 +52,19 @@
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
+           
 
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
             if(ModeleObjetDAO::insertVETCommande($idUtilisateur, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+                
+
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." au panier par ".$_SESSION['login'];
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
 
                 ModeleObjetDAO::insertLigneCommandeVET($idUtilisateur, $idProduit, $quantite, $taille);
                 $reload = true;

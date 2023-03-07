@@ -37,6 +37,12 @@ if($valider){
                         $_SESSION['autorise'] = true;
                         $_SESSION['login'] = $login;
 
+                        date_default_timezone_set('Europe/Paris');
+                        $id = (ModeleObjetDAO::getIdUtilisateur($_SESSION['login']))["id"];
+                        $description = "Connexion de ".$_SESSION['login'];
+                        $date = date( "Y-m-d H:i:s");
+                        ModeleObjetDAO::insertLog($date,$description,$id);
+                        
                         //On redirige vers la page confidentielle
                         header("location:index.php");
                     }

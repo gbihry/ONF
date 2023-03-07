@@ -10,6 +10,7 @@
 
         foreach ($ligneCommandeEPI as $ligneCommandeUnique) {
             $idLigne = $ligneCommandeUnique['id'];
+            $idProduit = $ligneCommandeUnique['idProduit'];
             $type = $ligneCommandeUnique['type'];
             $fichierPhoto = $ligneCommandeUnique['fichierPhoto'];
             $nom = $ligneCommandeUnique['nom'];
@@ -43,14 +44,19 @@
                             <p class='panier_title'>Taille</p>
                             <div id='quantite' data-ligne='". $idLigne ."' data-taille='". $idTaille ."' data-data='". $taille . "'><span>" . $taille . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"tailleEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>
                         </div>
-                    <div class='supprimer'>
-                        <form action='' method='post'>
-                            <input type='hidden' name='type' value='EPI'>
-                            <input type='hidden' name='idLigne' value='".$idLigne."'>
-                            <button type='submit'>Supprimer</button>
-                        </form>
-                    </div>
-                </div> 
+                        <div class='taille'>
+                            <p class='panier_title'>Taille:</p>
+                            <p> " .$taille . "</p>
+                        </div>
+                        <div class='supprimer'>
+                            <form action='' method='post'>
+                                <input type='hidden' name='idproduit' value=".$idProduit.">
+                                <input type='hidden' name='type' value='EPI'>
+                                <input type='hidden' name='idLigne' value='".$idLigne."'>
+                                <button type='submit'>Supprimer</button>
+                            </form>
+                        </div>
+                    </div> 
                 ");
                 
         }

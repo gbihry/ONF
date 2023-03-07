@@ -27,6 +27,19 @@
         
         if(isset($_POST['validerCommande'])) {
             ModeleObjetDAO::validerCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], $_GET['type']);
+
+            date_default_timezone_set('Europe/Paris');
+            
+            if($_GET['type'] == "vet"){
+                $description = "Validation du panier VET par ".$_SESSION['login'];
+            }
+            else{
+                $description = "Validation du panier EPI par ".$_SESSION['login'];
+            }
+
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+            $date = date( "Y-m-d H:i:s");
+            ModeleObjetDAO::insertLog($date,$description,$id);
         }
 
         include_once "$racine/vue/vueRecapPanier.php";

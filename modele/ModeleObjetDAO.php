@@ -1387,4 +1387,12 @@
             return $res;
         }
 
+        public static function insertLog($date,$description,$idUtilisateur){
+            $req = Connexion::getInstance()->prepare("INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES (NULL, :date, :description, :idUtilisateur);");
+            $req->bindValue(':date',$date,PDO::PARAM_STR);
+            $req->bindValue(':description',$description,PDO::PARAM_STR);
+            $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
+            $req->execute();
+        }
+
 } 
