@@ -41,13 +41,15 @@
     }
     elseif($_GET["ref"] == "0"){  
         
+        $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+        $unIdStatut = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login']);
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut);
         $login = array(
             "login" => $_SESSION['login'],
         );
     
-        $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+        
         $role = ModeleObjetDAO::getRole($_SESSION['login']);
         switch($role['libelle']){
             case 'Responsable' : 

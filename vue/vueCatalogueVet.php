@@ -11,35 +11,8 @@ if(isset($reload) && $reload == true) {
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue VET</p>
     </div>
-    
-    <div class="form-check text-center">
-        <form action="./?action=catalogueVet&&ref=<?php echo $id["id"];?>" method ="POST">
-            <?php
-                if (isset($_POST['valideProduit']) != true){
-            ?>
-                <div>
-                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
-                    <label class="form-check-label" for="validerProduit">Voir tous les produits</label>
-                </div>
-                <input type="submit" name="valideProduit" class="btn btn-success" value="Valider" />
-            <?php
-                }else{
-            ?>
-                <div>
-                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" name='validerCatgorie' required>
-                    <label class="form-check-label" for="validerCategorie">Voir toutes les catégories</label>
-                </div>
-                <input type="submit" name="valideCategorie" class="btn btn-success" value="Valider" />
-            <?php
-                }
-            ?>
-        </form>
-    </div>
-        <div class="contenue">
 
-    <?php 
-    if (isset($_POST['valideProduit']) == true){
-        ?>
+    <div class="contenue">
         <div class="container-fluid text-center mt-5 produit">
             <?php 
             foreach($allProducts as $detail){
@@ -99,19 +72,6 @@ if(isset($reload) && $reload == true) {
             }
             ?>
         </div>
-    <?php
-    }else{
-        foreach($catalogue as $uneCategorie){
-            echo "<div class='tuile'>
-                    <p>" . $uneCategorie['libelle'] . "</p>
-                    <a href='./?action=produitVet&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
-                </div>";
-        }
-    }       
-    
-        
-    
-    ?>
     </div>
 </div>
 

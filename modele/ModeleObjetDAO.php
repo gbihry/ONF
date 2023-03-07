@@ -359,13 +359,14 @@
         public static function getAllProduitCatalogue($id, $type){
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
                     from produit
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
+                    JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne_categorie_metier.idMetier = :idMetier");
+                    WHERE type = :leType AND concerne.idStatut = :idMetier;");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
@@ -604,15 +605,16 @@
 
         // INFORMATION SUR LES PRODUITS
 
-        public static function getProduit($id,$type){
-            $req = Connexion::getInstance()->prepare("SELECT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
-                from produit
-                join type on type.id = produit.idType
-                JOIN categorie on categorie.id = type.idCategorie
-                JOIN disponible on disponible.idProduit = produit.id
-                WHERE categorie.id = :id and type = :type");
+        public static function getProduit($id,$idStatut){
+            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+            from produit
+            join type on type.id = produit.idType
+            JOIN concerne ON concerne.idType = type.id
+            JOIN categorie on categorie.id = type.idCategorie
+            JOIN disponible on disponible.idProduit = produit.id
+            WHERE categorie.id = :id and concerne.idStatut = :idStatut");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
-            $req->bindValue(':type',$type,PDO::PARAM_STR);
+            $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -691,7 +693,7 @@
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
-            return $res ['id'];
+            return $res;
         }
 
         //DELETE PANIER 

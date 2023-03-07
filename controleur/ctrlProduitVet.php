@@ -20,7 +20,6 @@
 
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
-
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
@@ -44,6 +43,7 @@
 
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        var_dump(substr(($_GET["action"]),-3));
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
