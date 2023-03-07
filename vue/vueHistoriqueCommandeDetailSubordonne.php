@@ -4,7 +4,7 @@
     <?php 
 
     if ($HistoriqueCommandeDetail == false){
-        var_dump($id);
+        
         echo ('<p class="empty_panier"> Erreur </p>');
     } else {
         $prixTotal = 0;

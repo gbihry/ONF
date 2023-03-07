@@ -369,7 +369,7 @@
                     WHERE type = :leType AND concerne.idStatut = :idMetier;");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
-                    $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
+                    $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
                     $req->execute();
                     $res = $req->fetchAll();
                     break;

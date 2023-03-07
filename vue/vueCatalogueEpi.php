@@ -75,7 +75,7 @@ if(isset($reload) && $reload == true) {
                 </div>
                 <?php
                 
-                var_dump($detail['idType']);
+                
                     if(ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                         
