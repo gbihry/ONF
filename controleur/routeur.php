@@ -33,7 +33,8 @@ class Routeur{
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
         'historiqueCommandeSubordonne' => 'ctrlHistoriqueCommandeSubordonne.php',
-        'historiquecommandedetailSubordonne' => 'ctrlHistoriqueCommandeDetailSubordonne.php'
+        'historiquecommandedetailSubordonne' => 'ctrlHistoriqueCommandeDetailSubordonne.php',
+        'log' => 'ctrlLog.php'
     );   
     
         

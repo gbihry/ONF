@@ -810,12 +810,12 @@
                 $filename = "Commande_".$nomUtilisateurSecure."_".date("d-m-Y")."_".date("H-i-s").".csv";
                 $date = date("d/m/Y");
                 $heure = date("H:i:s");
-                $tmp_array_header_title = array("date" => "Date", "heure" => "Heure", "prix" => "Prix", "nomUtilisateur" => "Nom Utilisateur", "id" => "ID");
+                $tmp_array_header_title = array("date" => "Date", "heure" => "Heure", "prix" => "prix", "nomUtilisateur" => "Nom Utilisateur", "id" => "ID");
                 $tmp_array_header = array("date" => $date, "heure" => $heure, "prix" => $prix, "nomUtilisateur" => $nomUtilisateur, "id" => $id);
                 $tmp_array_title = array("idProduit" => "ID", "nom" => "Nom", "Taille" => "Taille", "quantite" => "quantite", "prix" => "prix");
                 $tmp_array = array($tmp_array_header_title, $tmp_array_header, $tmp_array_title);
                 foreach($Commande as $ligne) {
-                    $tmp_array[] = array("idProduit" => $ligne['idProduit'], "nom" => $ligne['nom'], "Taille" => $ligne['libelle'], "quantite" => $ligne['quantite'], "prix" => $ligne['prix']);
+                    $tmp_array[] = array("idProduit" => $ligne['idProduit'], "nom" => $ligne['nom'], "Taille" => $ligne['libelle'], "quantite" => $ligne['quantite'], "prix" => $prix);
                 }
                 $fp = fopen('commandes/'.$extrafile . '/' .$filename, 'w');
                 fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
@@ -1393,6 +1393,36 @@
             $req->bindValue(':description',$description,PDO::PARAM_STR);
             $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
             $req->execute();
+        }
+
+        public static function getAllLogs(){
+            $req = Connexion::getInstance()->prepare("select date,description,login 
+            from log 
+            join utilisateur on log.idUtilisateur = utilisateur.id 
+            ORDER by date desc;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getLogByLogin($login){
+            $req = Connexion::getInstance()->prepare("select date,description,login 
+            from log 
+            join utilisateur on log.idUtilisateur = utilisateur.id 
+            WHERE login = :leLogin ;");
+            $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getLoginUser(){
+            $req = Connexion::getInstance()->prepare("SELECT login
+            from utilisateur;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+            
         }
 
 } 

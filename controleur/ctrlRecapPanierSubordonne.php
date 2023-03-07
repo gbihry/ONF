@@ -42,7 +42,7 @@
 
             $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
             $date = date( "Y-m-d H:i:s");
-            ModeleObjetDAO::insertLog($date,$description,$idChef["login"]);
+            ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
         }
 
         include_once "$racine/vue/vueRecapPanierSubordonne.php";

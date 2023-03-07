@@ -12,6 +12,7 @@
 
             foreach ($ligneCommandeVET as $ligneCommandeUnique) {
                 $idLigne = $ligneCommandeUnique['id'];
+                $idProduit = $ligneCommandeUnique['idProduit'];
                 $type = $ligneCommandeUnique['type'];
                 $fichierPhoto = $ligneCommandeUnique['fichierPhoto'];
                 $nom = $ligneCommandeUnique['nom'];
