@@ -17,7 +17,6 @@
         $catalogue = ModeleObjetDAO::getCatalogue($_GET["ref"], $login["login"], $verifVet);
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
         
-
         include_once "$racine/vue/vueCatalogueEpi.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
@@ -27,6 +26,11 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
                 
                 
                 echo ModeleObjetDAO::insertLigneCommandeEPI($id, $idProduit, $quantite, $taille);
@@ -63,6 +67,11 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." au panier par ".$_SESSION['login'];
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
     
                 
                 ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);

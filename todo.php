@@ -55,6 +55,7 @@
 //TODO :griser le boutton dejà commander dans commande subordonné
 //TODO :commandes voir que subordonné
 //TODO :gérer le passage à l'année suivante
+//TODO : affichage epi vous avez déjà commander parfois rouge parfois gris
 
 
 

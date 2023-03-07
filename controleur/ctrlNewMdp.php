@@ -22,6 +22,13 @@ if($valider) {
             $try = ModeleObjetDAO::updateMdp($login, $motDePasseActuel, $nouveauMotDePasse_INPUT);
             if($try === true) {
                 header("location:./?action=users&msgResp=" . urlencode('Mot de passe modifié à l\'utilisateur suivant : '.$login.' '));
+
+                date_default_timezone_set('Europe/Paris');
+
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+                $description = "L'utilisateur ".$_SESSION['login']." à changer le mdp de ".$login;
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
             } else {
                 $error = $try;
             }
@@ -32,6 +39,13 @@ if($valider) {
             if($try === true) {
                 session_destroy();
                 header("location:./?action=login&msg=" . urlencode('Mot de passe modifié, veuillez vous reconnecter.'));
+
+                date_default_timezone_set('Europe/Paris');
+
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $description = "L'utilisateur ".$_SESSION['login']." à changer de mdp";
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
             } else {
                 $error = $try;
             }

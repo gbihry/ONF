@@ -12,6 +12,7 @@
 
         foreach ($ligneCommandeVET as $ligneCommandeUnique) {
             $idLigne = $ligneCommandeUnique['id'];
+            $idProduit = $ligneCommandeUnique['idProduit'];
             $type = $ligneCommandeUnique['type'];
             $fichierPhoto = $ligneCommandeUnique['fichierPhoto'];
             $nom = $ligneCommandeUnique['nom'];
@@ -41,6 +42,7 @@
                         </div>
                         <div class='supprimer'>
                             <form action='' method='post'>
+                                <input type='hidden' name='idproduit' value=".$idProduit.">
                                 <input type='hidden' name='type' value='VET'>
                                 <input type='hidden' name='idLigne' value='".$idLigne."'>
                                 <button type='submit'>Supprimer</button>

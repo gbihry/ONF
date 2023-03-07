@@ -10,6 +10,13 @@
         $id = $_GET["ref"];
         if(isset($_POST['idLigne']) && isset($_POST['type'])){
             ModeleObjetDAO::deleteLigneCommande($id, $_POST['idLigne'],$_POST['type']);
+
+            date_default_timezone_set('Europe/Paris');
+            $login = ModeleObjetDAO::getLoginById($id);
+            $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+            $description = "Suppression de l'article ".$_POST['idproduit'] ." dans le panier de ". $login["login"]." par ".$_SESSION['login'];
+            $date = date( "Y-m-d H:i:s"); 
+            ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
         }
 
         $ligneCommandeVET = ModeleObjetDAO::getLigneCommandeVetUtilisateur($id);
