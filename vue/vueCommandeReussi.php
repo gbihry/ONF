@@ -1,6 +1,6 @@
 <div class="container text-center">
     <br/>
-    <h1>Commande Validé !</h1>
+    <h1>Commande Validée !</h1>
     <p class='text-muted'>Vous allez être redirigé vers la page d'accueil dans <span id="timer">3</span> sec</p>
 </div>            
 <script>

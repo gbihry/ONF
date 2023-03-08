@@ -6,12 +6,12 @@
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-        $AllUsersAcommanderEPI = ModeleObjetDAO::getUtilisateurCommander(1);
-        $AllUsersNoncommanderEPI = ModeleObjetDAO::getUtilisateurCommander(0);
+        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(1);
+        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(0);
     }elseif(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-        $AllUsersAcommanderEPI = ModeleObjetDAO::getUtilisateurCommanderSubordonne(1,$id);
-        $AllUsersNoncommanderEPI = ModeleObjetDAO::getUtilisateurCommanderSubordonne(0,$id);
+        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderSubordonneVET(1,$id);
+        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderSubordonneVET(0,$id);
         
     }
     else {
@@ -23,7 +23,7 @@
 
 
 
-    include_once "$racine/vue/vueAcommander.php";
+    include_once "$racine/vue/vueACommanderVET.php";
     include_once "$racine/vue/vuePied.php";
 
 ?>
