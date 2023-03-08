@@ -9,7 +9,7 @@
             echo('<p class="panier_title_type">VET</p>');
 
             $prixTotal = 0;
-
+            
             foreach ($ligneCommandeVET as $ligneCommandeUnique) {
                 $idLigne = $ligneCommandeUnique['id'];
                 $idProduit = $ligneCommandeUnique['idProduit'];
@@ -40,20 +40,33 @@
                             </div>
                             <div class='taille'>
                                 <p class='panier_title'>Taille</p>
-                                <div id='quantite' data-ligne='". $idLigne ."' data-taille='". $idTaille ."' data-data='". $taille . "'><span>" . $taille . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"tailleVET\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>
+                            ");
+
+                                if ($taille == "Taille Unique"){
+                                    echo ("<div id='quantite'><span>" . $taille . "</span></div>");
+                                }else{
+                                    echo ("<div id='quantite' data-produit='". $idProduit ."' data-ligne='". $idLigne ."' data-taille='". $idTaille ."' data-data='". $taille . "'><span>" . $taille . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"tailleVET\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
+                                }
+                            ?>
                             </div>
                             <div class='supprimer'>
                                 <form action='' method='post'>
-                                    <input type='hidden' name='idproduit' value=".$idProduit.">
+                                    <input type='hidden' name='idproduit' value="<?php echo($idProduit); ?>">
                                     <input type='hidden' name='type' value='VET'>
-                                    <input type='hidden' name='idLigne' value='".$idLigne."'>
+                                    <input type='hidden' name='idLigne' value="<?php echo($idLigne); ?>">
                                     <button type='submit'>Supprimer</button>
                                 </form>
                             </div>
                         </div> 
-                    ");
-            }
-            ?>
+            <?php 
+                if(isset($lesTailles)){
+                    echo "<select id='select_taillevet_".$idProduit."_blank' style='display:none'>";
+                    foreach($lesTailles as $taille){
+                        echo "<option value='".$taille['id']."'>".$taille['libelle']."</option>";
+                    }
+                    echo "</select>";
+                }
+            } ?>
             <div class='valide_panier'>
             <?php
                     echo("
@@ -68,14 +81,7 @@
                         <input type="submit" class="btn btn-success" value="Valider le panier">
                     </form>
                     ');
-            if(isset($lesTailles)){
-                echo "<select id='select_taillevet_blank' style='display:none'>";
-                foreach($lesTailles as $taille){
-                    echo "<option value='".$taille['id']."'>".$taille['libelle']."</option>";
-                }
-                echo "</select>";
             }
-        }
         ?>
         </div>
 

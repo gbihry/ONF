@@ -40,7 +40,7 @@ if(isset($reload) && $reload == true) {
     <div class="contenue">
         
     <?php 
-        if (isset($_POST['valideProduit']) == true){
+        if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
     ?>
             <div class="container-fluid text-center mt-5 produit">
             <?php

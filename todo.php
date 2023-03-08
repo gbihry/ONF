@@ -25,7 +25,6 @@
 //TODO : Date buttoir et envoie d'un e-mail si les utilisateurs ont pas encore valider le panier ou commander
 //TODO : 150 point de base pour tous les utilisateurs qui se reset tout les ans a 150
 //TODO : rendre ajout produit un peu plus propre //99
-//TODO : pas avoir besoin de refaire un nouveau mot de passe a la 1er connexion
 //TODO : Crée un bon de commande en excel, récap par site et par fournisseur, un bon de commande par article et par lieu pour les EPI, bon de commande = quantité d'article
 //TODO : Pour les VET un bon de commande par fournisseurs 
 //TODO : être direct sur le login donc pas de page d'acceuil  
@@ -37,27 +36,11 @@
 
 
 
-//TODO :rester sur tout les produits après validation
-//TODO :contrainte remplir la base de donnée
-//TODO :pouvoir modifier la quantité dans le panier epi/vet
 //TODO :pdf de son panier 
-//TODO :validé -> validée
-//TODO :historique -> commande passé
-//TODO :enelver epi dans la navbar si pas accès
 //TODO :créer une doc
-//TODO :pouvoir changer de taille
 //TODO :actualiser le nombre de point dans le panier 
 //TODO :date pour la commande vet dans l'historique 
 //TODO :recap pdf pour le panier
 //TODO :export base de donnée
-//TODO :csv 
-//TODO :log par date ou utilisateur
-//TODO :griser le boutton dejà commander dans commande subordonné
-//TODO :commandes voir que subordonné
-//TODO :gérer le passage à l'année suivante
-//TODO : affichage epi vous avez déjà commander parfois rouge parfois gris
-
-
-
 
 

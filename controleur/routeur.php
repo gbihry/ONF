@@ -35,7 +35,8 @@ class Routeur{
         'historiqueCommandeSubordonne' => 'ctrlHistoriqueCommandeSubordonne.php',
         'historiquecommandedetailSubordonne' => 'ctrlHistoriqueCommandeDetailSubordonne.php',
         'log' => 'ctrlLog.php',
-        'exportCSV' => 'ctrlExportCSV.php'
+        'exportCSV' => 'ctrlExportCSV.php',
+        'commandeVET' => 'ctrlACommandeVET.php'
     );   
     
         

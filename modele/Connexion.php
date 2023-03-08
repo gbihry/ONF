@@ -26,7 +26,7 @@
                     $serveur = 'mysql:host=localhost:3306;';
                     $bdd = 'dbname=onf';   		
                     $user = 'root' ; 
-                    $mdp = '' ;
+                    $mdp = 'root' ;
                     
                     self::$connexion = new PDO($serveur.$bdd, $user, $mdp); 
                     self::$connexion->query("SET CHARACTER SET utf8");

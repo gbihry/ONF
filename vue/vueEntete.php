@@ -1,4 +1,4 @@
-<?php
+  <?php
     session_start();
     include_once "$racine/modele/ModeleObjetDAO.php";
 ?>
@@ -51,14 +51,23 @@
               $NombreElementDansLePanierEPI = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'epi');
               $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
               
-              if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
+              
+            if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
               echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Historique</a></div>';
-              }
-            echo '
-            <div class="nav_links_item"><a href="index.php?action=catalogueVet&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
-            <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
-            <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
-            <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
+            }
+            
+            if(ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 5 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 6 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 7 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 8) {
+              echo '
+              <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+              <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
+              <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
+            }else{
+              echo '
+              <div class="nav_links_item"><a href="index.php?action=catalogueVet&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+              <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+              <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
+              <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
+            }
             
             if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Utilisateur'){
               echo '<div class="nav_links_item"><a type="submit" href="./?action=newmdp&idUser='.ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'].'"><i class="fa-solid fa-arrows-rotate"></i>Changer votre mdp</a></div>';

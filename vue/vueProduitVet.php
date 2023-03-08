@@ -9,7 +9,6 @@ if(isset($reload) && $reload == true) {
 ?>
 <div class="container-fluid text-center mt-5 produit">
     <?php 
-    var_dump($unProduit);
         foreach($unProduit as $detail){
             echo "<div class ='unProduit'>";
             echo "<div class='main-produit'>";

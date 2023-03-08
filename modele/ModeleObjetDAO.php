@@ -177,7 +177,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE commandeepi.terminer = 1");
+                    WHERE commandeepi.terminer = 1 and id_responsable = :id;");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -186,6 +186,28 @@
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
                     WHERE dateCrea is null or terminer = 0");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
+        public static function getUtilisateurCommanderVET ($etat){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE commandevet.terminer = 1 and id_responsable = :id;");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = 3");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -208,7 +230,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE dateCrea is null or terminer = 0 and id_responsable = :id;");
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
                     $req->bindValue(':id',$id,PDO::PARAM_INT);
                     $req->execute();
                     $res = $req->fetchAll();
@@ -216,6 +238,31 @@
             }
             return $res;
         }
+
+        public static function getUtilisateurCommanderSubordonneVET ($etat,$id){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE commandevet.terminer = 1 and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
 
 
         
@@ -369,7 +416,7 @@
                     WHERE type = :leType AND concerne.idStatut = :idMetier;");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
-                    $req->bindValue(':idMetier',$id,PDO::PARAM_INT);
+                    $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -1164,7 +1211,7 @@
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandeepi WHERE idUtilisateur = :id AND terminer = 1"); 
-                    break;
+                    break;  
                 case 'VET':
                     $req = Connexion::getInstance()->prepare("SELECT COUNT(id) AS nb FROM commandevet WHERE idUtilisateur = :id AND terminer = 1"); 
                     break;
