@@ -232,3 +232,23 @@ function abort(parentN,type) {
     parentN.appendChild(clear);
     parentN.appendChild(edit_btn);
 }
+
+function addResponsable(){
+    var responsable = document.getElementById("responsable");
+    var nonResponsable = document.getElementById("nonResponsable");
+    var responsableInput = document.getElementById("responsableInput");
+    
+    if (responsable.checked == true){
+        responsableInput.style.visibility = "hidden";
+    } else {
+        responsableInput.style.visibility = "visible";
+    }
+
+    if (nonResponsable.checked == true){
+        responsableInput.style.visibility = "visible";
+    } else {
+        responsableInput.style.visibility = "hidden";
+    }
+
+
+}

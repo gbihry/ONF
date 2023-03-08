@@ -416,6 +416,12 @@ body{
     width: 100%;
 }
 
+.radio_adduser{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
 /* Navbar Dashboard */
 
 .linenav {

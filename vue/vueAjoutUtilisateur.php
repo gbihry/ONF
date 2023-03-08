@@ -24,6 +24,22 @@ if(isset($reload) && $reload == true) {
             </div>
         </form>
             <form  method="post">
+                <?php if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){ ?>
+                    <div class="radio_adduser">
+                        <div class="form-check">
+                            <input class="form-check-input" id="responsable" onClick="addResponsable()" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Responsable
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="nonResponsable" onClick="addResponsable()" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Non responsable
+                            </label>
+                        </div>
+                    </div>
+                <?php } ?>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Nom :</span>
@@ -62,13 +78,7 @@ if(isset($reload) && $reload == true) {
                     ?>
                     </select>
                 </div>
-                <div class="input-group mb-3 justify-content-center">
-                    <?php 
-                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
-                            ?><p id="messageCreateResponsable">Ne modifier pas ce champ si le role est responsable <i class="fa-solid fa-arrow-down"></i></p> <?php
-                        }
-                    ?>
-                    
+                <div class="input-group mb-3 justify-content-center" id="responsableInput">
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
