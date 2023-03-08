@@ -1,5 +1,6 @@
 function edit(el,type) {
     var parentN = el.parentNode;
+    console.log(parentN);
     var data = parentN.dataset.data;
     parentN.innerHTML = '';
     console.log("type: " + type + " | data: " + data);
@@ -28,19 +29,16 @@ function edit(el,type) {
             console.log((input.name));
             break;
         case 'tailleVET':
-            console.log("tailleVET");
-            var input = document.getElementById('select_taillevet_blank').cloneNode(true);
+            var input = document.getElementById('select_taillevet_' + parentN.dataset.produit + '_blank').cloneNode(true);
             input.id = 'select_taillevet';
-            console.log(parentN);
             input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
             input.name = 'input_' + type;
             input.removeAttribute('style');
             break;
+            break;
         case 'tailleEPI':
-            console.log("tailleEPI");
-            var input = document.getElementById('select_tailleepi_blank').cloneNode(true);
+            var input = document.getElementById('select_tailleepi_' + parentN.dataset.produit + '_blank').cloneNode(true);
             input.id = 'select_tailleepi';
-            console.log(parentN);
             input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
             input.name = 'input_' + type;
             input.removeAttribute('style');
