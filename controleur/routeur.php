@@ -34,7 +34,8 @@ class Routeur{
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
         'historiqueCommandeSubordonne' => 'ctrlHistoriqueCommandeSubordonne.php',
         'historiquecommandedetailSubordonne' => 'ctrlHistoriqueCommandeDetailSubordonne.php',
-        'log' => 'ctrlLog.php'
+        'log' => 'ctrlLog.php',
+        'exportCSV' => 'ctrlExportCSV.php'
     );   
     
         
