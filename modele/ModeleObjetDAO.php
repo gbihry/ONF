@@ -177,7 +177,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE commandeepi.terminer = 1");
+                    WHERE commandeepi.terminer = 1 and id_responsable = :id;");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -186,6 +186,28 @@
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
                     WHERE dateCrea is null or terminer = 0");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
+        public static function getUtilisateurCommanderVET ($etat){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE commandevet.terminer = 1 and id_responsable = :id;");
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = 3");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -208,7 +230,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE dateCrea is null or terminer = 0 and id_responsable = :id;");
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
                     $req->bindValue(':id',$id,PDO::PARAM_INT);
                     $req->execute();
                     $res = $req->fetchAll();
@@ -216,6 +238,31 @@
             }
             return $res;
         }
+
+        public static function getUtilisateurCommanderSubordonneVET ($etat,$id){
+            switch ($etat){
+                case 1:
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE commandevet.terminer = 1 and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 0 : 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    FROM utilisateur 
+                    LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                    WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
 
 
         
@@ -1411,7 +1458,8 @@
             $req = Connexion::getInstance()->prepare("select date,description,login 
             from log 
             join utilisateur on log.idUtilisateur = utilisateur.id 
-            WHERE login = :leLogin ;");
+            WHERE login = :leLogin 
+            order by date desc;");
             $req->bindValue(':leLogin',$login,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetchall();
@@ -1427,4 +1475,75 @@
             
         }
 
+
+        public static function getAllLigneCommandeVet(){
+            $req = Connexion::getInstance()->prepare("SELECT nom,libelle,sum(quantite) as 'quantite'
+            from lignecommandevet
+            JOIN produit on produit.id = lignecommandevet.idProduit
+            JOIN taille on taille.id = lignecommandevet.idTaille
+            group by nom;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+            
+        }
+
+        public static function getAllLigneCommandeEpi(){
+            $req = Connexion::getInstance()->prepare("SELECT nom,libelle,sum(quantite) as 'quantite'
+            from lignecommandeepi
+            JOIN produit on produit.id = lignecommandeepi.idProduit
+            JOIN taille on taille.id = lignecommandeepi.idTaille
+            group by nom;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+            
+        }
+
+        public static function bonCommandeCsv($type){
+            date_default_timezone_set('Europe/Paris');
+
+            if($type == 'VET'){
+                $filename = "bonCommandes/bonDeCommandeVET-".date("d-m-Y")."-".date("H-i-s").".csv";
+
+                $Commande = ModeleObjetDAO::getAllLigneCommandeVet();
+
+            }
+            else{
+                $filename = "bonCommandes/bonDeCommandeEPI-".date("d-m-Y")."-".date("H-i-s").".csv";
+
+                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi();
+
+                
+            }
+
+            if(empty($Commande)){
+                $value = "Pas de commande";
+                $Commande = array(
+                    0 => array(
+                        'nom' => $value,
+                        0 => $value,
+                        'libelle' => $value,
+                        1 => $value,
+                        'quantite' => $value,
+                        2 => $value
+                    )
+                    );
+                
+            }
+
+            foreach($Commande as $ligne) {
+                $tmp_array[] = array("nom" => $ligne['nom'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
+            }
+
+            $fp = fopen($filename, 'w');
+            fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
+            foreach ($tmp_array as $fields) {
+                fputcsv($fp, $fields, ";");
+            }
+            fclose($fp);
+            
+        }
+
 } 
+
