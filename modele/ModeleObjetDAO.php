@@ -195,7 +195,7 @@
         public static function getUtilisateurCommanderVET ($etat){
             switch ($etat){
                 case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
                     FROM utilisateur 
                     JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
                     WHERE commandevet.terminer = 1");
@@ -203,7 +203,7 @@
                     $res = $req->fetchAll();
                     break;
                 case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
                     FROM utilisateur 
                     LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
                     WHERE dateCrea is null or terminer = 0");
