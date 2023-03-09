@@ -12,29 +12,55 @@
     include_once "$racine/vue/vuePied.php";
 
         if(isset($_SESSION['autorise']) && 
-            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
-            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ||
-            ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
+        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ||
+        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
 
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
             $nom = ModeleObjetDAO::getNomUtilisateur($id)['nom'];
+            
+            $idRole = ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole'];
+            $roleInf = ModeleObjetDAO::GetRoleInf($idRole);
 
             if (isset($_POST["import"])) {
     
                 $fileName = $_FILES["file"]["tmp_name"];
-                
-                if ($_FILES["file"]["size"] > 0) {
+                $fileVerif = explode(".", $_FILES['file']['name']);
+                if ($fileVerif[1] == 'csv'){
+                    if ($_FILES["file"]["size"] > 0) {
                     
-                    $file = fopen($fileName, "r");
-                    
-                    while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
-                        if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
-                            $column[7] = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+
+                        $file = fopen($fileName, "r");
+                        
+                        
+                        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+                            if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+                                $column[7] = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+                            }
+                            $verifRole = false;
+                            echo ('test1');
+                            foreach($roleInf as $unRole){
+                                if ($unRole['libelle'] == $column[8]){
+                                    echo ('test2');
+                                    $verifRole = true;
+                                }
+                            }
+                            if ($verifRole == true){
+                                echo ('test4');
+                                ModeleObjetDAO::insertUtilisateurCSV($column);
+                                echo ('test5');
+                                $verifFile = true;
+                                $reload = true;
+                            }else{
+                                $reload = true;
+                            }
                         }
-                        ModeleObjetDAO::insertUtilisateurCSV($column);
-                        $reload = true;
                     }
+                }else{
+                    $verifFile = false;
+                    $reload = true;
                 }
+                
             }
             if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){

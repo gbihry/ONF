@@ -4,7 +4,6 @@
 
     
     class ModeleObjetDAO{
-        
 
         // INFORMATIONS NAV 
 
@@ -312,7 +311,7 @@
         }
 
         public static function getNomUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("SELECT utilisateur.login, utilisateur.nom FROM utilisateur WHERE id =:id");
+            $req = Connexion::getInstance()->prepare("SELECT utilisateur.login, utilisateur.prenom, utilisateur.nom FROM utilisateur WHERE id =:id");
             $req->bindValue(':id',$id,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetch();
@@ -615,6 +614,22 @@
             $req->execute();
             $res = $req->fetchall();
             return $res;
+        }
+
+        public static function getResponsableInterfaceUser($idResponsable){
+            $req = Connexion::getInstance()->prepare("select login from utilisateur where id = :idResponsable");
+            $req->bindValue(':idResponsable',$idResponsable,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['login'];
+        }
+
+        public static function getIdResponsable($login){
+            $req = Connexion::getInstance()->prepare("select id_responsable from utilisateur where login = :login");
+            $req->bindValue(':login',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['id_responsable'];
         }
 
         public static function getLesRole(){
@@ -1105,6 +1120,13 @@
             $query->execute();
         }
 
+        public static function getLastIdUtilisateur(){
+            $query = Connexion::getInstance()->prepare("SELECT MAX(id) as maxID from utilisateur");
+            $query->execute();
+            $res = $query->fetch();
+            return $res['maxID'];
+        }
+
         //INSERT DES PRODUITS
 
 
@@ -1130,13 +1152,54 @@
         }
 
         public static function insertUtilisateurCSV($column){
+            $column[1] = password_hash($column[1], PASSWORD_DEFAULT);
+            $column[6] = self::getIdLieuLivraisonByName($column[6]);
+            if ($column[0] != $column[7]){
+                $column[7] = self::getIdResponsable($column[7]);
+            }
+            $column[8] = self::getIdRoleByNom($column[8]);
+            $column[9] = self::getIdMetierByNom($column[9]);
+            
+
             $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login,password,prenom,nom,email,tel,idLieuLivraison,id_responsable,idRole,idMetier,Agence)
             values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','"
             . $column[4] . "','" . $column[5] . "','" . intval($column[6]) . "','" . intval($column[7]) . "','"
             . intval($column[8]) . "','" . intval($column[9]) . "','" . $column[10] . "')");
             $req->execute();
-                
-            ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($column[0])['id'], 150);
+            
+            if ($column[0] == $column[7]){
+                $idUtilisateur = self::getIdUtilisateur($column[0])['id'];
+                $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET id_responsable = :idUtilisateur WHERE utilisateur.id = :idUtilisateur");
+                $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+                $req->execute();
+            }
+
+            self::insertPoints(self::getIdUtilisateur($column[0])['id'], 150);
+        }
+
+        public static function getIdMetierByNom($nomStatut){
+            $req = Connexion::getInstance()->prepare("SELECT id FROM metier WHERE statut = :statut");
+            
+            $req->bindValue(':statut', $nomStatut, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['id'];
+        }
+
+        public static function getIdLieuLivraisonByName($ville){
+            $req = Connexion::getInstance()->prepare("SELECT id FROM lieulivraion WHERE ville = :ville");
+            $req->bindValue(':ville', $ville, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['id'];
+        }
+
+        public static function getIdRoleByNom($nomRole){
+            $req = Connexion::getInstance()->prepare("SELECT id FROM role WHERE libelle = :nomRole");
+            $req->bindValue(':nomRole', $nomRole, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['id'];
         }
 
         public static function insertPoints($idUtilisateur, $points){

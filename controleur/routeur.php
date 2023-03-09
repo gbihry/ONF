@@ -37,7 +37,7 @@ class Routeur{
         'log' => 'ctrlLog.php',
         'exportCSV' => 'ctrlExportCSV.php',
         'commandeVET' => 'ctrlACommandeVET.php',
-        'exportBDD' => 'ctrlExportBDD.php'
+        'interfaceUser' => 'ctrlInterfaceUser.php'
     );   
     
         
