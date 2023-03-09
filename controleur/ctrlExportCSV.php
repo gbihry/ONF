@@ -4,17 +4,12 @@
 
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
-            
-            if(isset($_POST["exportCsv"])){
-                
-                switch($_POST["exportCsv"]){
-                    case "VET":
-                        ModeleObjetDAO::bonCommandeCsv('VET');
-                        break;
-                    case "EPI":
-                        ModeleObjetDAO::bonCommandeCsv('EPI');
-                        break;
-                }
+            $lesLieuLivraison = ModeleObjetDAO::getLieuLivraison();
+            $afficher = "Saisissez le lieu de livraison et le type de la commande";
+            if(isset($_POST["type"]) && isset($_POST["lieuLivraison"]) && $_POST["lieuLivraison"] != "selectionner" && $_POST["lieuLivraison"] != "selectionner"){
+                $afficher = "Export réussi !";
+                ModeleObjetDAO::bonCommandeCsv($_POST["type"],$_POST["lieuLivraison"]);
+                $reload = true;
             }
             
 
