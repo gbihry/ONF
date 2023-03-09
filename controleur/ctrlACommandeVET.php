@@ -6,8 +6,8 @@
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(1);
-        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(0);
+        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(1,$id);
+        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(0,$id);
     }elseif(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
         $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderSubordonneVET(1,$id);

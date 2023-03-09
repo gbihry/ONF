@@ -31,7 +31,7 @@
             <th>Id utilisateurs</th>
             <th>Nom et prénom</th>
             <th>Mail</th>
-            <th>Date de création</th>
+            <th>Date de confirmation de panier</th>
         </tr>
     ');
     foreach ($AllUsersAcommanderVET as $key => $value) {
@@ -40,7 +40,7 @@
                 <td>'.$value['id'].'</td>
                 <td>'.$value['nom'].'_'.$value['prenom'].'</td>
                 <td>'.$value['email'].'</td>
-                <td>'.$value['dateCrea'].'</td>
+                <td>'.$value['dateCreaFini'].'</td>
             </tr>
             ');
         }

@@ -38,6 +38,7 @@ class Routeur{
         'exportCSV' => 'ctrlExportCSV.php',
         'commandeVET' => 'ctrlACommandeVET.php',
         'imprimerRecapCommande' => 'ctrlImprimerRecapCommande.php'
+        'interfaceUser' => 'ctrlInterfaceUser.php'
     );   
     
         

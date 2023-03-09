@@ -15,7 +15,7 @@ foreach ($HistoriqueCommande as $key => $value) {
     echo ('
         <tr>
             <td>'.$value['origin'].'_'.$value['id'].'</td>
-            <td>'.$value['dateCrea'].'</td>
+            <td>'.$value['dateCreaFini'].'</td>
             <td>'.$value['prix'].'</td>
             <td>'.$value['origin'].'</td>
             <td><a href="./?action=historiquecommandedetail&id='.$value['id'].'&type='.$value['origin'].'" class="btn btn-success"><i class="fa-regular fa-eye"></i> Voir</a></td>

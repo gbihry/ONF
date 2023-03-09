@@ -32,15 +32,13 @@
 //TODO : confirmation par mail de la confirmation de commande avec en pdf la récap de la commande 
 //TODO : responsable peuvt crée un pdf de l'historique de commande pour chaqun de ces subordonnée
 //TODO : recap de l'historique de commande par type/lieu //99
-//TODO : point au lieu de prix dans le catalogue VET
-
-
-
 //TODO :pdf de son panier 
 //TODO :créer une doc
 //TODO :actualiser le nombre de point dans le panier 
-//TODO :date pour la commande vet dans l'historique 
 //TODO :recap pdf pour le panier
+
+
 //TODO :export base de donnée
+
 
 

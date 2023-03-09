@@ -12,5 +12,6 @@
 	$pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
 	$pdf->SetFont('DejaVu','',14);
 	$pdf->imprimerVet();
+	ob_end_clean();
 	$pdf->Output();
 ?>

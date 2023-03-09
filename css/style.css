@@ -600,6 +600,7 @@ body{
     position: relative;
 }
 
+
 .nav > .nav_links > .nav_links_item > a {
     z-index: 2;
     display: flex;
@@ -646,7 +647,7 @@ body{
 
 /* NAVBAR RESPONSIVE */
 
-@media (max-width: 1480px) {
+@media (max-width: 1580px) {
     .nav > .nav_btn {
         display: flex;
     }
@@ -868,6 +869,116 @@ table.utilisateurs th {
 
 #redBySFR{
     background: red;
+}
+
+/* INTERFACE UTILISATEUR */
+
+.interface-header{
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.interface-header img{
+    border: solid 3px var(--bouton);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+}
+
+.interface-header i {
+    color: var(--bouton);
+}
+
+.interface-header p {
+    font-size: 1.5rem;
+    margin: 10px;
+}
+
+.information-user{
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 0px;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.information-user h1{
+    margin-bottom: 25px;
+}
+
+.information-user h2{
+    margin-top: 25px;
+}
+
+.general-information {
+    padding: 50px;
+    max-width: 600px;
+    min-width: 600px;
+    border-radius: 15px;
+    background-color: #b5becf;
+    line-height: 50px;
+}
+
+.general-information p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.general-information a {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.general-information a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.commande-information {
+    padding: 50px;
+    max-width: 600px;
+    min-width: 600px;
+    border-radius: 15px;
+    background-color: #b5becf;
+    line-height: 50px;
+}
+
+.commande-information p {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+table.historiquecommandeInterface {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+}
+
+table.historiquecommandeInterface tr, table.historiquecommandeInterface td, table.historiquecommandeInterface th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table.historiquecommandeInterface tr {
+    background-color: #f2f2f2;
+}
+
+table.historiquecommandeInterface tr:hover {
+    background-color: #ddd;
+}
+
+table.historiqhistoriquecommandeInterfaceuecommande tr td:last-child {
+    text-align: center;
+}
+
+table.historiquecommandeInterface th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #353a40;
+    color: white;
 }
 
 
