@@ -39,6 +39,8 @@ if(isset($reload) && $reload == true) {
     </div>
     <div class="contenue">
         
+   
+        
     <?php 
         if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
     ?>

@@ -174,15 +174,15 @@
         public static function getUtilisateurCommander ($etat){
             switch ($etat){
                 case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea 
                     FROM utilisateur 
                     JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE commandeepi.terminer = 1 and id_responsable = :id;");
+                    WHERE commandeepi.terminer = 1");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
                 case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
                     WHERE dateCrea is null or terminer = 0");
@@ -199,7 +199,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
-                    WHERE commandevet.terminer = 1 and id_responsable = :id;");
+                    WHERE commandevet.terminer = 1");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -207,7 +207,7 @@
                     $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
                     FROM utilisateur 
                     LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
-                    WHERE (dateCrea is null or terminer = 0) and id_responsable = 3");
+                    WHERE dateCrea is null or terminer = 0");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -218,7 +218,7 @@
         public static function getUtilisateurCommanderSubordonne ($etat,$id){
             switch ($etat){
                 case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
                     FROM utilisateur 
                     JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
                     WHERE commandeepi.terminer = 1 and id_responsable = :id;");
@@ -227,7 +227,7 @@
                     $res = $req->fetchAll();
                     break;
                 case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini 
                     FROM utilisateur 
                     LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
                     WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
@@ -242,7 +242,7 @@
         public static function getUtilisateurCommanderSubordonneVET ($etat,$id){
             switch ($etat){
                 case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
                     FROM utilisateur 
                     JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
                     WHERE commandevet.terminer = 1 and id_responsable = :id;");
@@ -251,7 +251,7 @@
                     $res = $req->fetchAll();
                     break;
                 case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea 
+                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
                     FROM utilisateur 
                     LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
                     WHERE (dateCrea is null or terminer = 0) and id_responsable = :id;");
@@ -461,7 +461,7 @@
         public static function getHistoriqueCommande($id){
             $query = "SELECT
                 commandeepi.id,
-                commandeepi.dateCrea,
+                commandeepi.dateCreaFini,
                 'EPI' AS origin,
                 'Aucun' AS prix
             FROM
@@ -471,7 +471,7 @@
             UNION
             SELECT
                 commandevet.id,
-                commandevet.dateCrea,
+                commandevet.dateCreaFini,
                 'VET' AS origin,
                 SUM(disponible.prix * lignecommandevet.quantite) AS prix
             FROM
@@ -481,7 +481,7 @@
             WHERE
                 commandevet.terminer = 1 AND commandevet.idUtilisateur = :leId
             GROUP BY commandevet.id
-            ORDER BY dateCrea DESC
+            ORDER BY dateCreaFini DESC
             ";
             $req = Connexion::getInstance()->prepare($query);
             $req->bindValue(':leId',$id,PDO::PARAM_INT);
