@@ -1151,30 +1151,38 @@
             ModeleObjetDAO::insertPoints(ModeleObjetDAO::getIdUtilisateur($email)['id'], 150);
         }
 
-        public static function insertUtilisateurCSV($column){
-            $column[1] = password_hash($column[1], PASSWORD_DEFAULT);
-            $column[6] = self::getIdLieuLivraisonByName($column[6]);
-            if ($column[0] != $column[7]){
-                $column[7] = self::getIdResponsable($column[7]);
+        public static function insertUtilisateurCSV($row){
+            $row[1] = password_hash($row[1], PASSWORD_DEFAULT);
+            $row[6] = self::getIdLieuLivraisonByName($row[6]);
+            if (($row[0] != $row[7])){
+                $row[7] = self::getIdResponsable($row[7]);
             }
-            $column[8] = self::getIdRoleByNom($column[8]);
-            $column[9] = self::getIdMetierByNom($column[9]);
+            $row[8] = self::getIdRoleByNom($row[8]);
+            $row[9] = self::getIdMetierByNom($row[9]);
             
+            $query = Connexion::getInstance()->prepare("SELECT login FROM utilisateur WHERE login = :login");
+            $query->bindValue(':login', $row[0], PDO::PARAM_STR);
+            $query->execute();
+            $result = $query->fetch();
+            if($result == true){
+                return false;
+            }
 
             $req = Connexion::getInstance()->prepare("INSERT INTO utilisateur (login,password,prenom,nom,email,tel,idLieuLivraison,id_responsable,idRole,idMetier,Agence)
-            values ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','"
-            . $column[4] . "','" . $column[5] . "','" . intval($column[6]) . "','" . intval($column[7]) . "','"
-            . intval($column[8]) . "','" . intval($column[9]) . "','" . $column[10] . "')");
+            values ('" . $row[0] . "','" . $row[1] . "','" . $row[2] . "','" . $row[3] . "','"
+            . $row[4] . "','" . $row[5] . "','" . intval($row[6]) . "','" . intval($row[7]) . "','"
+            . intval($row[8]) . "','" . intval($row[9]) . "','" . $row[10] . "')");
             $req->execute();
             
-            if ($column[0] == $column[7]){
-                $idUtilisateur = self::getIdUtilisateur($column[0])['id'];
+            if ($row[0] == $row[7]){
+                $idUtilisateur = self::getIdUtilisateur($row[0])['id'];
                 $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET id_responsable = :idUtilisateur WHERE utilisateur.id = :idUtilisateur");
                 $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
                 $req->execute();
             }
 
-            self::insertPoints(self::getIdUtilisateur($column[0])['id'], 150);
+            self::insertPoints(self::getIdUtilisateur($row[0])['id'], 150);
+            return true;
         }
 
         public static function getIdMetierByNom($nomStatut){

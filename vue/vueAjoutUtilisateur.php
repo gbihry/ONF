@@ -12,7 +12,7 @@ if(isset($reload) && $reload == true) {
     
         <div class="addUser_container">
             <?php 
-                if (isset($verifFile) && $verifFile == true){
+                if (isset($verifFile) && $verifFile == true ){
                     echo ('<div class="alert alert-success" role="alert">Votre fichier à bien été traité</div>');
                 }elseif (isset($verifFile) && $verifFile != true){
                     echo ('<div class="alert alert-danger"> L\' extension de votre fichier n\'est pas un .csv </div>');
@@ -20,12 +20,30 @@ if(isset($reload) && $reload == true) {
                 if(isset($verifRole) && $verifRole != true){
                     echo ('<div class="alert alert-danger"> Vous avez essayer d\'ajouter un role supérieur ou égal au votre </div>');
                 }
+                if(!empty($verifLogin)){
+                    if(count($verifLogin) == 1){
+                        echo ('<div class="alert alert-danger"> Une email (login) sont déjà enregistrée(s) (ligne : '. $verifLogin[0] .')</div>');
+                    }else{
+                        echo ('<div class="alert alert-danger"> Les emails (login) sont déjà enregistrée(s) (ligne : ');
+                        foreach($verifLogin as $unLogin){
+                            echo ($unLogin . ' ');
+                        }
+                        echo (')</div>');
+                    }
+                }
+                
             ?>
             <form enctype="multipart/form-data" method="post">
                 <div class="input-row input_csv">
                     <p>Importer les utilisateurs grâce au csv</p>
-                    <label for="file" class="custom-file-upload"></label>
-                    <input type="file" name="file" id="file" accept=".csv">
+                    <div class="input-csv">
+                        <div>
+                            <label for="file" class="custom-file-upload"></label>
+                            <input type="file" name="file" id="file" accept=".csv">
+                        </div>
+                        <a href="comment_utiliser_import_csv.docx" download><i class="fa-solid fa-question"></i></a>
+                        <a href="exemple.csv" download>Exemple</a>
+                    </div>
                     <br />
                     <button type="submit" id="submit" name="import" value="import" class="btn btn-success m-3">Import</button>
                     <br />

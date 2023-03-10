@@ -8,7 +8,7 @@
             echo ("<p class='text-muted'>Vous êtes connecté(e)s, vous pouvez désormais utiliser toutes les fonctionnalités</p>");
         }
 
-        echo(ModeleObjetDAO::getIdMessageCommentaire()[1]);
+        echo('<p class="commentaireAccueil">' . ModeleObjetDAO::getIdMessageCommentaire()[1] .'</p>');
     ?>
     <?php
         if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){

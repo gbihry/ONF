@@ -1,10 +1,6 @@
-:root{
-    --bouton : #00A74F;
-    --danger : #d81832;
-}
 
 button{
-    color: var(--bouton);
+    color: var(--primary-color);
     transition: 0.2s;
 }
 
@@ -12,24 +8,29 @@ i {
     margin: 0px 3px;
 }
 
-.notification {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 25px;
-    margin-right: 10px;
-    margin-bottom: 20px;
-    padding: 10px;
-    animation: left 2s backwards;
-    visibility: hidden;
+body {
+    background-color: var(--background-color) !important;
 }
 
-.notification p i {
-    color: black;
+a,p,h1,h2,h3,label,td {
+    color: var(--extra-color) !important;
 }
 
+a[type="submit"] {
+    color: var(--text-color) !important;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+
+i.fa-solid {
+    color: var(--text-color);
+}
+
+.btn {
+    color: var(--text-color) !important;
+}
 @keyframes left {
     from {
         transform: translateX(360px);
@@ -82,7 +83,7 @@ i {
 }
 
 .login p {
-    color: white;
+    color: var(--text-color);
     font-size: 1.2rem;
     margin: 0px 10px;
 }
@@ -106,7 +107,7 @@ body{
 /* NAVBAR */
 
 .navbar_point_texte {
-    color: white;
+    color: var(--text-color);
     font-size: 1.5rem;
     margin: 0;
 }
@@ -157,7 +158,7 @@ body{
 .catalogue_title_type{
     font-size: 2rem;
     font-weight: 600;
-    color: var(--bouton);
+    color: var(--primary-color);
 }
 
 
@@ -195,6 +196,7 @@ body{
 
 .main-produit h1{
     max-width: 300px !important;
+    color: var;
 }
 
 .unProduit {
@@ -212,10 +214,13 @@ body{
 }
 
 .produitvet_prix {
-    color: var(--bouton);
+    color: var(--primary-color);
+}
+.produitvet_prix i {
+    color: var(--primary-color) !important;
 }
 .main-desc p {
-    background-color: #e9ecef;
+    background-color: var(--table-tertiary-background-color);
     margin: 50px 0px;
     padding: 25px;
     font-size: 1.3rem;
@@ -226,13 +231,17 @@ body{
 
 .main-desc #dejaCommander{
     background-color: #D83066;
-    color: white;
+    color: var(--text-color) !important;
 }
 
 .main-desc {
     width: 25%;
     min-width: 400px;
     border-radius: 50px;
+}
+
+.commentaireAccueil {
+    color: var(--extra-color);
 }
 
 /* PANIER */
@@ -251,8 +260,8 @@ body{
 }
 
 .panier .content {
-    border: solid 1px #353a40;
-    background-color: #e9ecef;
+    border: solid 1px var(--secondary-background-color);
+    background-color: var(--table-tertiary-background-color);
     border-radius: 10px;
     display: flex;
     max-height: 100px;
@@ -272,8 +281,8 @@ body{
 
 .panier button {
     border: none;
-    background-color: var(--bouton);
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     padding: 10px;
     border-radius: 5px;
     font-weight: 700;
@@ -295,7 +304,7 @@ body{
 .panier .panier_title_type{
     font-size: 2rem;
     font-weight: 600;
-    color: var(--bouton);
+    color: var(--primary-color);
 }
 
 .prixTotal{
@@ -307,7 +316,11 @@ body{
 }
 
 .prix_total_span {
-    color: var(--bouton);
+    color: var(--primary-color);
+}
+
+.prix_total_span i {
+    color: var(--primary-color) !important;
 }
 .valide_panier {
     display: flex;
@@ -323,6 +336,11 @@ body{
     justify-content: space-between;
     gap: 5px;
 }
+
+#quantite span {
+    color: var(--extra-color);
+}
+
 @media screen and (max-width: 900px) {
     .panier .content {
         display: contents;
@@ -359,7 +377,7 @@ body{
 .recap .tile .title {
     font-size: 2rem;
     font-weight: 600;
-    color: var(--bouton);
+    color: var(--primary-color);
 }
 
 .recap .tile .row {
@@ -405,6 +423,30 @@ body{
 
 /* AJOUT UTILISATEUR */
 
+.input_csv{
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.input_csv label, .input_csv p{
+    font-size: 1.5rem;
+}
+
+.input_csv #file{
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: 0.2s ease-in-out;
+}
+
+.input_csv #file:hover{
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
 .addUser_container{
     max-width: 30%;
     justify-content:center;
@@ -422,12 +464,31 @@ body{
     margin-bottom: 20px;
 }
 
+.input-csv {
+    display: flex;
+    align-items: center !important;
+    gap: 10px;
+}
+
+
+.input-csv a {
+    background-color: var(--primary-color);
+    color: var(--text-color) !important;
+    border-radius: 5px;
+    padding: 12px;
+}
+
+.input-csv a:hover{
+    color: var(--text-color);
+    text-decoration: none;
+}
+
 /* Navbar Dashboard */
 
 .linenav {
     width: 100%;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color: var(--text-color) !important;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -447,10 +508,14 @@ body{
     padding: 0 10px;
 }
 
+.linenav .linenav_item a i {
+    color: var(--primary-color);
+}
+
 .linenav .linenav_item a {
     z-index: 2;
     text-decoration: none;
-    color: white;
+    color: var(--text-color) !important;
 }
 
 .linenav .linenav_item:hover::before {
@@ -461,16 +526,16 @@ body{
     left: 5px;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color: white;
+    background-color: var(--text-color);
     border-radius: 5px;
 }
 
 .linenav .linenav_item:hover a {
-    color: #353a40 !important;
+    color: var(--secondary-background-color) !important;
 }
 
 .linenav .linenav_item.toggle a {
-    color: #353a40 !important;
+    color: var(--secondary-background-color) !important;
 }
 
 .linenav .linenav_item.toggle::before {
@@ -481,8 +546,8 @@ body{
     left: 5px;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color: white;
-    color: #353a40;
+    background-color: var(--text-color);
+    color: var(--secondary-background-color);
     border-radius: 5px;
 }
 
@@ -498,8 +563,8 @@ body{
 .nav {
     height: 50px;
     width: 100%;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color: var(--text-color);
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -527,14 +592,25 @@ body{
     height: 50px;
 }
 
+.nav > .nav_title > .nav_title_item > p {
+    color: var(--text-color) !important;
+} 
+
 .nav > .nav_title > .nav_title_item > p > i {
     margin-right: 5px;
+    color: var(--primary-color);
 }
 
 .nav > .nav_title > .nav_title_item.custombtn > a {
     z-index: 2;
     text-decoration: none;
-    color: white;
+    color: var(--text-color) !important;
+}
+
+
+
+.nav > .nav_title > .nav_title_item.custombtn > a > i {
+    color: var(--primary-color);
 }
 
 .nav > .nav_title > .nav_title_item.custombtn:hover::before {
@@ -545,12 +621,12 @@ body{
     left: 5px;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color: white;
+    background-color: var(--text-color);
     border-radius: 5px;
 }
 
 .nav > .nav_title > .nav_title_item.custombtn:hover > a {
-    color: #353a40 !important;
+    color: var(--secondary-background-color) !important;
 }
 
 .nav > .nav_title > .nav_title_item > p {
@@ -568,7 +644,7 @@ body{
     padding: 0px 10px;
     height: 50px;
     text-decoration: none;
-    color: white;
+    color: var(--text-color);
     justify-content: center;
     align-items: center;
 }
@@ -581,8 +657,8 @@ body{
 }
 
 .nav > .nav_btn > label:hover {
-    background-color: white;
-    color: #353a40;
+    background-color: var(--background-color);
+    color: var(--secondary-text-color);
 }
 
 .nav > .nav_links {
@@ -607,7 +683,7 @@ body{
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: white;
+    color: var(--text-color) !important;
 }
 
 .nav > .nav_links > .nav_links_item:hover::before {
@@ -618,16 +694,17 @@ body{
     left: 5px;
     width: calc(100% - 10px);
     height: calc(100% - 10px);
-    background-color: white;
+    background-color: var(--text-color);
     border-radius: 5px;
 }
 
 .nav > .nav_links > .nav_links_item:hover > a {
-    color: #353a40 !important;
+    color: var(--secondary-text-color) !important;
 }
 
 .nav > .nav_links > .nav_links_item > a > i {
     margin-right: 5px;
+    color: var(--primary-color);
 }
 
 .nav > #nav-check {
@@ -641,7 +718,7 @@ body{
 }
 
 .resetPassword:hover {
-    color: white !important;
+    color: var(--text-color) !important;
 }
 
 
@@ -657,7 +734,7 @@ body{
         top: 50px;
         left: -100%;
         width: 100%;
-        background-color: #353a40;
+        background-color: var(--secondary-background-color);
         transition: all 0.2s;
     }
 
@@ -703,16 +780,16 @@ table.historiquecommande {
 }
 
 table.historiquecommande tr, table.historiquecommande td, table.historiquecommande th {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-secondary-background-color);
     padding: 5px;
 }
 
 table.historiquecommande tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--table-tertiary-background-color);
 }
 
 table.historiquecommande tr:hover {
-    background-color: #ddd;
+    background-color: var(--table-secondary-background-color);
 }
 
 table.historiquecommande tr td:last-child {
@@ -722,8 +799,8 @@ table.historiquecommande tr td:last-child {
 table.historiquecommande th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color:  var(--text-color);
 }
 
 /* A commander */
@@ -745,16 +822,16 @@ table.recapCommandeEpi {
 }
 
 table.recapCommandeEpi tr, table.recapCommandeEpi td, table.recapCommandeEpi th {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-secondary-background-color);
     padding: 5px;
 }
 
 table.recapCommandeEpi tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--table-tertiary-background-color);
 }
 
 table.recapCommandeEpi tr:hover {
-    background-color: #ddd;
+    background-color: var(--table-secondary-background-color);
 }
 
 table.recapCommandeEpi tr {
@@ -764,8 +841,8 @@ table.recapCommandeEpi tr {
 table.recapCommandeEpi th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color: var(--text-color);
 }
 
 /* tab users */
@@ -780,16 +857,16 @@ table.utilisateurs {
 }
 
 table.utilisateurs tr, table.utilisateurs td, table.utilisateurs th {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-secondary-background-color);
     padding: 5px;
 }
 
 table.utilisateurs tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--table-tertiary-background-color);
 }
 
 table.utilisateurs tr:hover {
-    background-color: #ddd;
+    background-color: var(--table-secondary-background-color);
 }
 
 table.utilisateurs tr td div {
@@ -806,38 +883,18 @@ table.utilisateurs tr td div .clear {
 table.utilisateurs th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color: var(--text-color);
 }
 
 .resetPwd a {
-    color: white !important;
-}
-/* ADD USER */
-
-.input_csv label, .input_csv p{
-    font-size: 1.5rem;
-}
-
-.input_csv #file{
-    border: none;
-    background-color: var(--bouton);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: 700;
-    transition: 0.2s ease-in-out;
-}
-
-.input_csv #file:hover{
-    cursor: pointer;
-    background-color: #01813d;
+    color: var(--text-color) !important;
 }
 
 /* edit */
 
 .edit_btn {
-    background-color: #1470e0;
+    background-color: var(--primary-info);
     color: white !important;
     padding: 5px 10px;
     border-radius: 5px;
@@ -846,29 +903,29 @@ table.utilisateurs th {
 }
 
 .edit_btn:hover {
-    background-color: #0e4e9c;
+    background-color: var(--secondary-info)
 }
 
 .edit_btn.green {
-    background-color: #01813d;
+    background-color: var(--primary-color);
 }
 
 .edit_btn.green:hover {
-    background-color: #01612b;
+    background-color: var(--secondary-color);
 }
 
 .edit_btn.red {
-    background-color: #e01414;
+    background-color: var(--danger);
 }
 
 .edit_btn.red:hover {
-    background-color: #9c0e0e;
+    background-color: var(--secondary-danger);
 }
 
 /* commander pour */
 
 #redBySFR{
-    background: red;
+    background: var(--danger);
 }
 
 /* INTERFACE UTILISATEUR */
@@ -876,10 +933,15 @@ table.utilisateurs th {
 .interface-header{
     width: 100%;
     margin: 10px 0px;
+    position: relative;
 }
-
+.interface-header .switchtheme {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 .interface-header img{
-    border: solid 3px var(--bouton);
+    border: solid 3px var(--primary-color);
     border-radius: 50%;
     width: 200px;
     height: 200px;
@@ -887,7 +949,7 @@ table.utilisateurs th {
 }
 
 .interface-header i {
-    color: var(--bouton);
+    color: var(--primary-color);
 }
 
 .interface-header p {
@@ -916,7 +978,7 @@ table.utilisateurs th {
     max-width: 600px;
     min-width: 600px;
     border-radius: 15px;
-    background-color: #b5becf;
+    background-color: var(--table-tertiary-background-color);
     line-height: 50px;
 }
 
@@ -926,12 +988,12 @@ table.utilisateurs th {
 }
 
 .general-information a {
-    color: white;
+    color: var(--text-color);
     font-size: 1.2rem;
 }
 
 .general-information a:hover{
-    color: white;
+    color: var(--text-color);
     text-decoration: none;
 }
 
@@ -940,7 +1002,7 @@ table.utilisateurs th {
     max-width: 600px;
     min-width: 600px;
     border-radius: 15px;
-    background-color: #b5becf;
+    background-color: var(--table-tertiary-background-color);
     line-height: 50px;
 }
 
@@ -958,16 +1020,16 @@ table.historiquecommandeInterface {
 }
 
 table.historiquecommandeInterface tr, table.historiquecommandeInterface td, table.historiquecommandeInterface th {
-    border: 1px solid #ddd;
+    border: 1px solid var(--table-secondary-background-color);
     padding: 5px;
 }
 
 table.historiquecommandeInterface tr {
-    background-color: #f2f2f2;
+    background-color: var(--table-tertiary-background-color);
 }
 
 table.historiquecommandeInterface tr:hover {
-    background-color: #ddd;
+    background-color: var(--table-secondary-background-color);
 }
 
 table.historiqhistoriquecommandeInterfaceuecommande tr td:last-child {
@@ -977,8 +1039,8 @@ table.historiqhistoriquecommandeInterfaceuecommande tr td:last-child {
 table.historiquecommandeInterface th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #353a40;
-    color: white;
+    background-color: var(--secondary-background-color);
+    color: var(--text-color);
 }
 
 

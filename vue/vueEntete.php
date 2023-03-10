@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="fontawesome/webfonts/fa-solid-900.ttf">
 
         <script src="js/action.js"></script>
+        <script src="js/theme.js"></script>
         <?php 
           if (isset(($_GET['action'])) && ($_GET['action'] == "catalogue1")) {
             echo ('<title>ONF - Catalogue EPI</title>');
@@ -33,9 +34,9 @@
             <a href="index.php?action=accueil"><img src="images/onf.png" alt="logo ONF" class="logo"></a>
               <?php 
               if(isset($_SESSION['autorise'])) {
-                echo '<div class="nav_title_item custombtn"><a href="./?action=interfaceUser"><i class="fa-solid fa-user"></i>'. $_SESSION['login'] .'</a></div>';
-                echo '<div class="nav_title_item"><p><i class="fa-solid fa-wrench"></i>' . ModeleObjetDAO::getStatut($_SESSION['login'])['statut'] . '</p></div>';
-                echo '<div class="nav_title_item"><p><i class="fa-solid fa-ticket"></i>'.ModeleObjetDAO::getNbrPointUtilisateur(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'])['point']. '</p></div>';
+                echo '<div class="nav_title_item custombtn"><a href="./?action=interfaceUser"><i class="fa-solid fa-user"></i> '. $_SESSION['login'] .'</a></div>';
+                echo '<div class="nav_title_item"><p class="text-color"><i class="fa-solid fa-wrench"></i>' . ModeleObjetDAO::getStatut($_SESSION['login'])['statut'] . '</p></div>';
+                echo '<div class="nav_title_item"><p class="text-color"><i class="fa-solid fa-ticket"></i>'.ModeleObjetDAO::getNbrPointUtilisateur(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'])['point']. '</p></div>';
                 echo '<div class="nav_title_item custombtn"><a href="./?action=logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></div>';
               }
             ?>

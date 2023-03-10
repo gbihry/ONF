@@ -1,7 +1,8 @@
 
 <div class="text-center interface-header">
     <img src="images/user.png" alt="">
-    <p><?= $login ?> (Points : <?= $userPoints ?> <i class="fa-solid fa-ticket"></i> )</p>
+    <p><?= $login ?> ( Points : <?= $userPoints ?> <i class="fa-solid fa-ticket"></i> )</p>
+    <a class="switchtheme" id="switchtheme"><i class="fa-solid"></i></a>
 </div>
 <div class="information-user">
     <div class="general-information">
@@ -14,7 +15,7 @@
         <p>Votre responsable : <?= $responsable ?> </p>
         
         <?php
-            echo '<button type="button" class="btn btn-primary"><a type="submit" href="./?action=newmdp&idUser='.ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'].'"><i class="fa-solid fa-arrows-rotate"></i>Changer votre mdp</a></button>';
+            echo '<a type="submit" class="btn btn-primary" href="./?action=newmdp&idUser='.ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'].'"><i class="fa-solid fa-arrows-rotate"></i>Changer votre mdp</a>';
         ?> 
 
     </div>
@@ -36,7 +37,7 @@
                             echo ('
                             <tr>
                                 <td>'.$value['origin'].'_'.$value['id'].'</td>
-                                <td>'.$value['dateCrea'].'</td>
+                                <td>'.$value['dateCreaFini'].'</td>
                                 <td>'.$value['prix'].'</td>
                                 <td><a href="./?action=historiquecommandedetail&id='.$value['id'].'&type='.$value['origin'].'" class="btn btn-success"><i class="fa-regular fa-eye"></i> Voir</a></td>
                             </tr>');
@@ -66,7 +67,7 @@
                         echo ('
                             <tr>
                                 <td>'.$value['origin'].'_'.$value['id'].'</td>
-                                <td>'.$value['dateCrea'].'</td>
+                                <td>'.$value['dateCreaFini'].'</td>
                                 <td>'.$value['prix'].'</td>
                                 <td><a href="./?action=historiquecommandedetail&id='.$value['id'].'&type='.$value['origin'].'" class="btn btn-success"><i class="fa-regular fa-eye"></i> Voir</a></td>
                             </tr>');

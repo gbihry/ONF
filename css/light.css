@@ -1,0 +1,15 @@
+:root{
+    --primary-color : #00A74F;
+    --secondary-color : #01813d;
+    --danger : #d81832;
+    --secondary-danger : #9c0e0e;
+    --primary-info : #007bff;
+    --secondary-info : #0069db;
+    --background-color : white;
+    --table-secondary-background-color : #ddd;
+    --table-tertiary-background-color : #f2f2f2;
+    --secondary-background-color : #353a40;
+    --text-color : white;
+    --extra-color : black;
+    --secondary-text-color : #353a40;
+}

@@ -41,7 +41,7 @@
             }
 
             // localhost/OVH/?action=newmdp&msg=token
-            $urlP = new URLSearchParams(window.location.search);
+            $
             if ($urlP.get('msg')) {
                 RemoveParam('msg');
             }

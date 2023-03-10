@@ -10,11 +10,11 @@
     $lesLibelles = ModeleObjetDAO::getRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])["idRole"]);
 
     include_once "$racine/vue/vuePied.php";
-
+        $role_user = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         if(isset($_SESSION['autorise']) && 
-        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||
-        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ||
-        ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+        $role_user == 'Administrateur' ||
+        $role_user == 'Super-Administrateur' ||
+        $role_user == 'Responsable'){
 
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
             $nom = ModeleObjetDAO::getNomUtilisateur($id)['nom'];
@@ -28,27 +28,30 @@
                 $fileVerif = explode(".", $_FILES['file']['name']);
                 if ($fileVerif[1] == 'csv'){
                     if ($_FILES["file"]["size"] > 0) {
-                    
 
                         $file = fopen($fileName, "r");
                         
-                        
-                        while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+                        $i = 0;
+                        $verifLogin = array();
+                        while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
+                            if($i == 0){
+                                $i++;
+                                continue;
+                            }
+                            $i++;
                             if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
-                                $column[7] = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+                                $row[7] = $_SESSION['login'];
                             }
                             $verifRole = false;
-                            echo ('test1');
                             foreach($roleInf as $unRole){
-                                if ($unRole['libelle'] == $column[8]){
-                                    echo ('test2');
+                                if ($unRole['libelle'] == $row[8]){
                                     $verifRole = true;
                                 }
                             }
                             if ($verifRole == true){
-                                echo ('test4');
-                                ModeleObjetDAO::insertUtilisateurCSV($column);
-                                echo ('test5');
+                                if(ModeleObjetDAO::insertUtilisateurCSV($row) == false){
+                                    array_push($verifLogin, $i);
+                                }
                                 $verifFile = true;
                                 $reload = true;
                             }else{
