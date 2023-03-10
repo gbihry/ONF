@@ -1044,3 +1044,34 @@ table.historiquecommandeInterface th {
 }
 
 
+/* export csv */
+
+
+.export{
+    margin: auto ;
+    width: 80% ;
+    padding: 10px ;
+    margin-top: 10vh;
+}
+
+.export h1{
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    padding: 30px;
+}
+
+.export .input{
+    margin: auto ;
+    width: 50%;
+}
+
+.export button{ 
+    margin-top: 20px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
