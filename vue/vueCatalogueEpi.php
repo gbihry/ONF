@@ -44,7 +44,7 @@ if(isset($reload) && $reload == true) {
     <?php 
         if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
     ?>
-            <div class="container-fluid text-center mt-5 produit">
+            <div class="text-center mt-5 produit">
             <?php
             foreach($allProducts as $detail){
                 echo "<div class ='unProduit'>";

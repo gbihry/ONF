@@ -214,6 +214,17 @@
             return $res;
         }
 
+        public static function getDateCommandeFiniEpi($idUtilisateur){
+            $req = Connexion::getInstance()->prepare("SELECT dateCreaFini 
+            FROM utilisateur 
+            JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+            WHERE idUtilisateur = :idUtilisateur");
+            $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
         public static function getUtilisateurCommanderSubordonne ($etat,$id){
             switch ($etat){
                 case 1:
@@ -1671,11 +1682,6 @@
             $res = $req->fetchall();
             return $res;
         }
+    } 
 
-
-
-
-      
-
-} 
-
+?>

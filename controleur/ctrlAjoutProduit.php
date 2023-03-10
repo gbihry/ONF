@@ -10,6 +10,11 @@
             if ($_POST['type'] == 'selectionner' || $_POST['fournisseur'] == 'selectionner' || $_POST['typeProduit'] == 'selectionner'){
                 return false;
             }else{
+                $tmpName = $_FILES['file']['tmp_name'];
+                $name = $_FILES['file']['name'];
+                $size = $_FILES['file']['size'];
+                $error = $_FILES['file']['error'];
+                move_uploaded_file($tmpName, './images/'.$name);
                 ModeleObjetDAO::insertProduit($_POST['reference'],$_POST['photo'],$_POST['nom'],$_POST['type'],$_POST['description'],
                 $_POST['fournisseur'],$_POST['typeProduit']);
                 $reload = true;

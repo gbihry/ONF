@@ -5,22 +5,20 @@
 
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
             $lesLieuLivraison = ModeleObjetDAO::getLieuLivraison();
-            $afficher = "Saisissez le lieu de livraison et le type de la commande";
-            if(isset($_POST["type"]) && isset($_POST["lieuLivraison"]) && $_POST["lieuLivraison"] != "selectionner" && $_POST["lieuLivraison"] != "selectionner"){
-                $afficher = "Export réussi !";
+            if((isset($_POST["type"]) && isset($_POST["lieuLivraison"])) && ($_POST["lieuLivraison"] != "selectionner" && $_POST["type"] != "selectionner")){
                 ModeleObjetDAO::bonCommandeCsv($_POST["type"],$_POST["lieuLivraison"]);
+                $verifInput = true;
+                $reload = true;
+            }elseif((isset($_POST["type"]) && isset($_POST["lieuLivraison"])) && ($_POST["lieuLivraison"] == "selectionner" || $_POST["type"] == "selectionner")){
+                $verifInput = false;
                 $reload = true;
             }
-            
-
             include_once "$racine/vue/vueExportCSV.php";
     }
     else{
         header("location:./action=accueil");
     }
 
-
-    
     include_once "$racine/vue/vuePied.php";
 
 
