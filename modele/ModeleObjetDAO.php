@@ -1641,15 +1641,15 @@
         }
 
         public static function getRecapCommandeVetUtilisateur($id){
-            $req = Connexion::getInstance()->prepare("
-            SELECT produit.nom,quantite,taille.libelle,disponible.prix
-            FROM lignecommandevet
-            JOIN commandevet on lignecommandevet.idCommandeVet = commandevet.id
-            join produit on lignecommandevet.idProduit = produit.id
+            $req = Connexion::getInstance()->prepare("SELECT produit.nom,sum(lignecommandevet.quantite) as 'quantite',taille.libelle,SUM(disponible.prix * lignecommandevet.quantite) AS prix
+            FROM commandevet
+            JOIN lignecommandevet ON lignecommandevet.idCommandeVet = commandevet.id
+            JOIN produit on produit.id = lignecommandevet.idProduit
+            JOIN disponible ON disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
             JOIN taille on lignecommandevet.idTaille = taille.id
-            JOIN disponible on disponible.idProduit = produit.id
-            WHERE commandevet.idUtilisateur = :id
-            GROUP by produit.nom;");
+            WHERE commandevet.terminer = 1 AND commandevet.idUtilisateur = :id
+            GROUP BY produit.nom;
+           ");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1658,14 +1658,14 @@
 
         public static function getRecapCommandeEpiUtilisateur($id){
             $req = Connexion::getInstance()->prepare("
-            SELECT produit.nom,quantite,taille.libelle,disponible.prix
-            FROM lignecommandeepi
-            JOIN commandeepi on lignecommandeepi.idCommandeEPI = commandeepi.id
-            join produit on lignecommandeepi.idProduit = produit.id
+            SELECT produit.nom,sum(lignecommandeepi.quantite) as 'quantite',taille.libelle,SUM(disponible.prix * lignecommandeepi.quantite) AS prix
+            FROM commandeepi
+            JOIN lignecommandeepi ON lignecommandeepi.idCommandeEPI = commandeepi.id
+            JOIN produit on produit.id = lignecommandeepi.idProduit
+            JOIN disponible ON disponible.idProduit = lignecommandeepi.idProduit AND disponible.idTaille = lignecommandeepi.idTaille
             JOIN taille on lignecommandeepi.idTaille = taille.id
-            JOIN disponible on disponible.idProduit = produit.id
-            WHERE commandeepi.idUtilisateur = :id
-            GROUP by produit.nom;");
+            WHERE commandeepi.terminer = 1 AND commandeepi.idUtilisateur = :id
+            GROUP BY produit.nom;");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
