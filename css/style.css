@@ -8,6 +8,10 @@ i {
     margin: 0px 3px;
 }
 
+form {
+    padding: 15px !important;
+}
+
 body {
     background-color: var(--background-color) !important;
 }
@@ -25,7 +29,11 @@ a[type="submit"] {
 }
 
 i.fa-solid {
-    color: var(--text-color);
+    color: var(--primary-color);
+}
+
+i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate {
+    color: var(--text-color) !important;
 }
 
 .btn {
@@ -466,6 +474,8 @@ body{
 
 .input-csv {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center !important;
     gap: 10px;
 }
@@ -606,8 +616,6 @@ body{
     text-decoration: none;
     color: var(--text-color) !important;
 }
-
-
 
 .nav > .nav_title > .nav_title_item.custombtn > a > i {
     color: var(--primary-color);
@@ -895,7 +903,7 @@ table.utilisateurs th {
 
 .edit_btn {
     background-color: var(--primary-info);
-    color: white !important;
+    color: var(--text-color) !important;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -935,6 +943,7 @@ table.utilisateurs th {
     margin: 10px 0px;
     position: relative;
 }
+
 .interface-header .switchtheme {
     position: absolute;
     top: 5px;

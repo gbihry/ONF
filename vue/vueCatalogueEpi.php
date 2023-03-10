@@ -92,10 +92,12 @@ if(isset($reload) && $reload == true) {
             }
         }else{
             foreach($catalogue as $uneCategorie){
-                echo "<div class='tuile'>
+                if ($uneCategorie['libelle'] != 'Vêtements'){
+                    echo "<div class='tuile'>
                         <p>" . $uneCategorie['libelle'] . "</p>
                         <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
                     </div>";
+                }
             }
         }
         
