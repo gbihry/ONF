@@ -294,7 +294,7 @@ body{
 
 .panier .content img{
     max-height: 90px;
-    min-width: 90px;
+    max-width: 90px;
     aspect-ratio: 1/1;
     border-radius: 0.325rem;
 }

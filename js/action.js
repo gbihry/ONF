@@ -252,3 +252,15 @@ function addResponsable(){
 
 
 }
+
+function addProduit(){
+    var type = document.getElementById("addProduitType").value;
+    var prix = document.getElementById("addProduitPrix");
+    
+    if (type == 'EPI'){
+        prix.value = 0;
+        prix.setAttribute("disabled", false);
+    }else{
+        prix.removeAttribute("disabled");
+    }
+}

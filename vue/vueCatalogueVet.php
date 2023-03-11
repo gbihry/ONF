@@ -18,7 +18,11 @@ if(isset($reload) && $reload == true) {
             foreach($allProducts as $detail){
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
-                echo "<img class='img-produit' src='images/".($detail['fichierPhoto'])."'>";
+                if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                    echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                }else{
+                    echo "<img class='img-produit' src='images/error.png'>";
+                }
                 echo "<h1>".$detail['nom']."</h1>";
                 echo "</div>";
                 echo "<div class='main-desc'>";

@@ -9,6 +9,15 @@ if(isset($reload) && $reload == true) {
 ?>
 <div class="container-fluid text-center mt-5">
     <h1>Ajout d'un produit</h1>
+    <div class="alert-container">
+        <?php 
+            if (isset($verifFile) && $verifFile == true ){
+                echo ('<div class="alert alert-success" role="alert">Le produit à bien été ajouté</div>');
+            }elseif (isset($verifFile) && $verifFile != true){
+                echo ('<div class="alert alert-danger"> Votre photo n\'a pas l\'extension correspondante à .png</div>');
+            }
+        ?>
+    </div>
     <form  method="post" enctype="multipart/form-data">
         <div class="addUser_container">
             <div class="input-group input-group-sm mb-3">
@@ -21,7 +30,7 @@ if(isset($reload) && $reload == true) {
                 <div class="input-group-prepend">
                     <span class="input-group-text" for="inputGroupSelect01">Type :</span>
                 </div>
-                <select name="type" class="custom-select" id="inputGroupSelect01">
+                <select name="type" id="addProduitType" onClick="addProduit()" class="custom-select" id="inputGroupSelect01">
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <option class="text-center" value="EPI">EPI</option>
                     <option class="text-center" value="VET">VET</option>
@@ -67,15 +76,9 @@ if(isset($reload) && $reload == true) {
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Fichier photo :</span>
-                </div>
-                <input type="text" placeholder = "Renseigner nom de la photo" class="form-control" name='photo' aria-describedby="inputGroup-sizing-sm" required>
-            </div>
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Prix :</span>
                 </div>
-                <input type="number" placeholder = "Renseigner le prix de l'article " class="form-control" name='prix' aria-describedby="inputGroup-sizing-sm" required>
+                <input type="number" id="addProduitPrix" placeholder = "Renseigner le prix de l'article " class="form-control" name='prix' aria-describedby="inputGroup-sizing-sm" required>
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">

@@ -222,7 +222,10 @@
             $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
-            return $res;
+            if ($res == false){
+                return false;
+            }
+            return $res['dateCreaFini'];
         }
 
         public static function getUtilisateurCommanderSubordonne ($etat,$id){

@@ -10,17 +10,19 @@
             if ($_POST['type'] == 'selectionner' || $_POST['fournisseur'] == 'selectionner' || $_POST['typeProduit'] == 'selectionner'){
                 return false;
             }else{
+                $namePhoto = $_FILES['file']['name'];
                 $tmpName = $_FILES['file']['tmp_name'];
-                $name = $_FILES['file']['name'];
-                $size = $_FILES['file']['size'];
-                $error = $_FILES['file']['error'];
-                move_uploaded_file($tmpName, './images/'.$name);
-                ModeleObjetDAO::insertProduit($_POST['reference'],$_POST['photo'],$_POST['nom'],$_POST['type'],$_POST['description'],
-                $_POST['fournisseur'],$_POST['typeProduit']);
-                $reload = true;
+                $verifFileArray = explode('.', $_FILES['file']['name']);
+
+                if ($verifFileArray[1] != 'png'){
+                    $verifFile = false;
+                }else{
+                    ModeleObjetDAO::insertProduit($_POST['reference'],$namePhoto,$_POST['nom'],$_POST['type'],$_POST['description'],$_POST['fournisseur'],$_POST['typeProduit']);
+                    move_uploaded_file($tmpName, './images/produits/'.$namePhoto);
+                    $reload = true;
+                    $verifFile = true;
+                }
             }
-            
-            
         }
         include "$racine/vue/vueAjoutProduit.php";
 
