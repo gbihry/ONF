@@ -9,7 +9,8 @@
         $lesTailles =  ModeleObjetDAO::getAllTailles();
         if(!empty($_POST)){
             if ($_POST['type'] == 'selectionner' || $_POST['fournisseur'] == 'selectionner' || $_POST['typeProduit'] == 'selectionner'){
-                return false;
+                $verifInput = false;
+                $reload = true;
             }else{
                 $AllTailles = array();
                 foreach($_POST as $key => $value) {
@@ -25,23 +26,29 @@
                         ));
                     }
                 }
-                var_dump($AllTailles);
                 $namePhoto = $_FILES['file']['name'];
                 $tmpName = $_FILES['file']['tmp_name'];
                 $verifFileArray = explode('.', $_FILES['file']['name']);
 
-                if ($verifFileArray[1] != 'png'){
+                if ($verifFileArray[1] != 'png' || $verifFileArray[1] != 'jpg'){
                     $verifFile = false;
-                }else{
-                    if(!isset($_POST['prix'])){
-                        $prix = 0;
-                    } else {
-                        $prix = $_POST['prix'];
-                    }
-                    ModeleObjetDAO::insertProduit($_POST['reference'],$namePhoto,$_POST['nom'],$_POST['type'],$_POST['description'],$_POST['fournisseur'],$_POST['typeProduit'],$prix,$AllTailles);
-                    move_uploaded_file($tmpName, './images/produits/'.$namePhoto);
                     $reload = true;
-                    $verifFile = true;
+                }else{
+                    if (file_exists("images/produits/".$namePhoto)){
+                        $verifPhoto = false;
+                        $reload = true;
+                    }else{
+                        if(!isset($_POST['prix'])){
+                            $prix = 0;
+                        } else {
+                            $prix = $_POST['prix'];
+                        }
+                        ModeleObjetDAO::insertProduit($_POST['reference'],$namePhoto,$_POST['nom'],$_POST['type'],$_POST['description'],$_POST['fournisseur'],$_POST['typeProduit'],$prix,$AllTailles);
+                        move_uploaded_file($tmpName, './images/produits/'.$namePhoto);
+                        $reload = true;
+                        $verifFile = true;
+                    }
+                    
                 }
             }
         }

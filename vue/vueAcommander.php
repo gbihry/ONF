@@ -11,15 +11,21 @@
         </tr>
     ');
     foreach ($AllUsersNoncommanderEPI as $key => $value) {
-            if($id != $value['id']){echo ('
-                <tr>
-                    <td>'.$value['id'].'</td>
-                    <td>'.$value['nom'].'_'.$value['prenom'].'</td>
-                    <td>'.$value['email'].'</td>
-                    <td>'.$value['dateCrea'].'</td>
-                </tr>');
+        $roleUser = ModeleObjetDAO::getRole($value['login']);
+        foreach ($roleAcess as $unRole){
+            if ($unRole['libelle'] == $roleUser['libelle']){
+                if($id != $value['id']){
+                    echo ('
+                    <tr>
+                        <td>'.$value['id'].'</td>
+                        <td>'.$value['nom'].'_'.$value['prenom'].'</td>
+                        <td>'.$value['email'].'</td>
+                        <td>'.$value['dateCrea'].'</td>
+                    </tr>');
+                }
             }
         }
+    }
         
     ?>
     </table>
@@ -35,15 +41,21 @@
         </tr>
     ');
     foreach ($AllUsersAcommanderEPI as $key => $value) {
-        echo ('
-            <tr>
-                <td>'.$value['id'].'</td>
-                <td>'.$value['nom'].'_'.$value['prenom'].'</td>
-                <td>'.$value['email'].'</td>
-                <td>'.$value['dateCreaFini'].'</td>
-            </tr>
-            ');
+        $roleUser = ModeleObjetDAO::getRole($value['login']);
+        foreach ($roleAcess as $unRole){
+            if ($unRole['libelle'] == $roleUser['libelle']){
+                if($id != $value['id']){
+                    echo ('
+                    <tr>
+                        <td>'.$value['id'].'</td>
+                        <td>'.$value['nom'].'_'.$value['prenom'].'</td>
+                        <td>'.$value['email'].'</td>
+                        <td>'.$value['dateCrea'].'</td>
+                    </tr>');
+                }
+            }
         }
+    }
     ?>
     </table>
 

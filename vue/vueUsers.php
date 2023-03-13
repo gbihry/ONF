@@ -31,8 +31,9 @@ if(isset($reload) && $reload == true) {
                     <th>Lieu livraison</th>
                     <th>Responsable</th>
                     <?php 
-                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
+                        if($role != 'Responsable'){
                             echo('<th>Changer mdp</th>');
+                            echo('<th>Supprimer</th>');
                         }
                     ?>
                     
@@ -46,27 +47,36 @@ if(isset($reload) && $reload == true) {
 
                         $responsable_id = ModeleObjetDAO::getResponsableUtilisateur($unUser['id'], $unUser['id_responsable'])['id'];
                         $responsable =  ModeleObjetDAO::getResponsableUtilisateur($unUser['id'], $unUser['id_responsable'])['nom'] . " " . ModeleObjetDAO::getResponsableUtilisateur($unUser['id'], $unUser['id_responsable'])['prenom'];
-                        ?>
-                        
-                        <tr <?php echo('data-login="' . $unUser['login'] . '"') ?>>
-                            <td><?php echo $unUser['login'] ;?></td>
-                            <?php echo ('<td> <div id="tel" data-data="' . $unUser['tel'] . '"><span>' . $unUser['tel'] . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'tel\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
-                            <?php echo ('<td> <div id="livraison" data-lieu="' . $lieu_id . '" data-data="' . $lieux . '" ><span>' . $lieux  . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'livraison\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
-                            <?php
-                                if ($unUser ['id'] == $unUser['id_responsable']){
-                                    echo ("<td>Est responsable</td>");
-                                }else{
-                                    echo ('<td> <div id="responsable" data-responsable="' . $responsable_id . '" data-data="' . $responsable . '" ><span>' . $responsable  . '</span>');
-                                    if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
-                                        echo('<div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
-                                    }
-                                }
 
-                                if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){
-                                    echo ('<td class="text-center resetPwd"><a type="submit" href="./?action=newmdp&id='.$unUser['id'].'" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Changer</a></td>');
-                                }
-                                    
-                            ?>
+                        $roleUser = ModeleObjetDAO::getRole($unUser['login']);
+
+                        foreach ($roleAcess as $unRole){
+                            if ($unRole['libelle'] == $roleUser['libelle']){
+                                ?>
+                        
+                                <tr <?php echo('data-login="' . $unUser['login'] . '"') ?>>
+                                <td><?php echo $unUser['login'] ;?></td>
+                                <?php echo ('<td> <div id="tel" data-data="' . $unUser['tel'] . '"><span>' . $unUser['tel'] . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'tel\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
+                                <?php echo ('<td> <div id="livraison" data-lieu="' . $lieu_id . '" data-data="' . $lieux . '" ><span>' . $lieux  . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'livraison\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
+                                <?php
+                                    if ($unUser ['id'] == $unUser['id_responsable']){
+                                        echo ("<td>Est responsable</td>");
+                                    }else{
+                                        echo ('<td> <div id="responsable" data-responsable="' . $responsable_id . '" data-data="' . $responsable . '" ><span>' . $responsable  . '</span>');
+                                        if($role != 'Responsable'){
+                                            echo('<div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
+                                        }
+                                    }
+
+                                    if($role != 'Responsable'){
+                                        echo ('<td class="text-center resetPwd"><a type="submit" href="./?action=newmdp&id='.$unUser['id'].'" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Changer</a></td>');
+                                        echo ('<td class="text-center suppUser"><a type="submit" name="deleteUser" href="./?action=users&id='.$unUser['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
+                                    }
+                                        
+                            
+                            }
+                        }
+                        ?>
                         </tr>
                     <?php   } ?>
                 

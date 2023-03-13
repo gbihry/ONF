@@ -12,6 +12,13 @@ function edit(el,type) {
             input.value = data;
             input.name = 'input_' + type;
             break;
+        case 'description':
+            console.log("description");
+            var input = document.createElement('textarea');
+            input.type = 'textarea';
+            input.value = data;
+            input.name = 'input_' + type;
+            break;
         case 'quantiteEPI':
             console.log("quantiteEPI");
             var input = document.createElement('input');
@@ -107,6 +114,9 @@ function save(parentN,type) {
         case 'tailleEPI':
             from.action = 'index.php?action=panierEPI';
             break;
+        case 'description':
+            from.action = 'index.php?action=produits';
+            break;
         default: 
             from.action = 'index.php?action=users';
             break;
@@ -121,11 +131,11 @@ function save(parentN,type) {
     var input = document.createElement('input');
     input.type = 'hidden';
     input.name = type; 
+    
+    
     switch(type) {
         case 'quantiteEPI':
             input.value = parentN.querySelector('input').value;
-            console.log(parentN);
-            console.log(input.value);
             break;
         case 'quantiteVET':
             input.value = parentN.querySelector('input').value;
@@ -141,6 +151,9 @@ function save(parentN,type) {
             break;
         case 'livraison':
             input.value = parentN.querySelector('select').value;
+            break;
+        case 'description':
+            input.value = parentN.querySelector('textarea').value;
             break;
         case 'responsable':
             input.value = parentN.querySelector('select').value;
@@ -172,6 +185,12 @@ function save(parentN,type) {
             input_ligneCommande.name = 'idLigne';
             input_ligneCommande.value = parentN.dataset.ligne;
             break;
+        case 'description':
+            var input_description = document.createElement('textarea');
+            input_description.type = 'hidden';
+            input_description.name = 'idProduit';
+            input_description.value = parentN.dataset.idproduit;
+            break;
         default:
             var input_login = document.createElement('input');
             input_login.type = 'hidden';
@@ -202,6 +221,9 @@ function save(parentN,type) {
         case 'tailleEPI':
             from.appendChild(input_ligneCommande);
             break;
+        case 'description':
+            from.appendChild(input_description);
+            break;
         default:
             from.appendChild(input_login);
             break;
@@ -213,9 +235,15 @@ function save(parentN,type) {
 
 function abort(parentN,type) {
     confirm('Voulez-vous vraiment annuler ?');
-    var span = document.createElement('span');
+    if(type == 'description'){
+        var span = document.createElement('p');
+    }else{
+        var span = document.createElement('span');
+        
+    }
+    
     span.innerHTML = parentN.dataset.data;
-
+    
     var clear = document.createElement('div');
     clear.classList = 'clear';
 

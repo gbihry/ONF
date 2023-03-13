@@ -29,6 +29,7 @@ class Routeur{
         'changerCommentaire' => 'ctrlChangerCommentaire.php',
         'commanderPour' => 'ctrlCommanderPour.php',
         'users' => 'ctrlUsers.php',
+        'produits' => 'ctrlProduits.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',

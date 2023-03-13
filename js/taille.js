@@ -42,7 +42,7 @@ function Taille(id, libelle) {
     a.id = 'taille_row_del';
     a.setAttribute('data-cid', x);
     a.className = 'btn';
-    a.innerHTML = 'REMOVE';
+    a.innerHTML = 'SUPPRIMER';
     n.appendChild(a);
 
     if(x == 1) {
@@ -55,13 +55,13 @@ function Taille(id, libelle) {
 
     taille_table.appendChild(n);
 
-
-
     var inp = document.createElement('input');
     inp.type = 'hidden';
     inp.name = 'taille_inp_' + x;
     inp.value = id + ";" + libelle;
     taille_inp.appendChild(inp);
+
+    console.log(taille_inp.appendChild(inp));
 
     a.addEventListener('click', function() {
         var cid = this.getAttribute('data-cid');
