@@ -69,10 +69,33 @@ if(isset($reload) && $reload == true) {
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
                     foreach($lesType as $unType){
-                        echo ("<option value=" . ($unType['id']).">" . ($unType['1']). "</option>");
+                        echo ("<option value=" . $unType['id'] . ">" . $unType['1']. "</option>");
                     }     
                 ?>
                 </select>
+            </div>
+            <div class="taille_box">
+                <div class="taille_box_btn" id="taille_box_btn">
+                    <div>
+                        <select name="taille_blanks_select" id="taille_select">
+                            <?php 
+                            foreach($lesTailles as $uneTaille){
+                                echo ("<option value=" . $uneTaille['id'] . ">" . $uneTaille['libelle']. "</option>");
+                            }
+                            ?>
+                        </select>
+                        <a id="taille_add_b_select" class="btn">ADD</a>
+                    </div>
+                    <div>
+                        <input type="text" name="taille_blanks_input" id="taille_input">
+                        <a id="taille_add_b_input" class="btn">ADD</a>
+                    </div>
+                </div>
+                <div class="taille_box_table" id="taille_box_table">
+                </div>
+                <div class="taille_box_inp" id="taille_box_inp">
+                </div>
+                <script src="js/taille.js"></script>
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -88,5 +111,4 @@ if(isset($reload) && $reload == true) {
             </div>
         <button type='submit' class='btn btn-success m-5'>Confirmer</button>
     </form>
-
 </div>

@@ -1096,3 +1096,114 @@ form {
     justify-content: center;
 }
 
+/* TAILLE ADDPRODUCT */
+
+.taille_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+.taille_box_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 10px 0px;
+}
+
+.taille_box_btn > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.taille_box_btn > div > select, .taille_box_btn > div > input {
+    margin: 0px 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 50%;
+    
+    border-bottom: 1px solid #ced4da;
+}
+
+.taille_box_btn > div > .btn {
+    margin: 0px 5px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.taille_box_btn > div > .btn:hover {
+    background-color: var(--secondary-color);
+}
+.taille_table_title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #e9ecef;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    border: 1px solid #ced4da;
+}
+
+.taille_table_title > p {
+    margin: 0px 5px;
+    width: auto;
+    color: #495057 !important;
+    padding: 5px;
+}
+
+.taille_box_table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: black !important;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 0;
+}
+
+.taille_box_table:has(.taille_table_row) {
+    border: 1px solid #ced4da;
+}
+
+.taille_box_table > .taille_table_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.taille_box_table > .taille_table_row:not(:last-child) {
+    border-bottom: 1px solid #ced4da;
+}
+
+.taille_box_table > .taille_table_row > p {
+    margin: 0px 5px;
+    width: auto;
+    color: black !important;
+} 
+
+.taille_box_table > .taille_table_row > .btn {
+    margin: 0px 5px;
+    background-color: var(--danger);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.taille_box_table > .taille_table_row > .btn:hover {
+    background-color: var(--secondary-danger);
+}

@@ -753,6 +753,13 @@
             return $res['id'];
         }
 
+        public static function getAllTailles(){
+            $req = Connexion::getInstance()->prepare("select libelle, id from taille ORDER BY libelle ASC");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
         public static function getTaille($id){
             $req = Connexion::getInstance()->prepare("select libelle, taille.id from taille join disponible on disponible.idTaille = taille.id join produit on produit.id = disponible.idProduit where produit.id = :id");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
@@ -1364,7 +1371,25 @@
             return $res;
         }
         
-        public static function insertProduit($referenceFournisseur,$fichierPhoto,$nom,$type,$description,$idFournisseur,$idType){
+        public static function addTailleProduit($taille) {
+            $req = Connexion::getInstance()->prepare("SELECT libelle, id FROM taille WHERE libelle = :taille");
+            $req->bindValue(':taille', $taille, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            if($res == false) {
+                $req = Connexion::getInstance()->prepare("INSERT INTO taille (libelle) VALUES (:taille)");
+                $req->bindValue(':taille', $taille, PDO::PARAM_STR);
+                $req->execute();
+                $res = Connexion::getInstance()->lastInsertId();
+            } else {
+                $res = $res['id'];
+            }
+            return $res;
+        }
+
+
+
+        public static function insertProduit($referenceFournisseur,$fichierPhoto,$nom,$type,$description,$idFournisseur,$idType,$prix,$AllTaille){
             $req = Connexion::getInstance()->prepare("INSERT INTO produit (referenceFournisseur,fichierPhoto,nom,type,description,idFournisseur,idType)
             VALUES (:referenceFournisseur, :fichierPhoto, :nom,:type,:description,:idFournisseur,:idType)");
             $req->bindValue(':referenceFournisseur',$referenceFournisseur,PDO::PARAM_STR);
@@ -1375,6 +1400,18 @@
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->bindValue(':idType',$idType,PDO::PARAM_INT);
             $req->execute();
+
+            $idProduit = Connexion::getInstance()->lastInsertId();
+
+            $req = Connexion::getInstance()->prepare("INSERT INTO disponible (idProduit,idTaille, prix) VALUES (:idProduit, :idTaille, :prix)");
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req->bindValue(':prix', $prix, PDO::PARAM_INT);
+            foreach($AllTaille as $taille) {
+                $req->bindValue(':idTaille', $taille['id'], PDO::PARAM_INT);
+                $req->execute();
+            }
+
+
         }
 
         public static function getIdMessageCommentaire(){
