@@ -46,7 +46,7 @@
                 echo ('</table>');
             }else{
                 echo ('<p>Aucune commande VET</p>');
-                echo('<a href="./?action=catalogueVet&&ref=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue VET</a>');
+                echo('<a href="./?action=catalogueVet&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue VET</a>');
             }
                 
         ?>
