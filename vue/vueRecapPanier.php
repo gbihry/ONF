@@ -21,7 +21,7 @@
                     echo('<div class="row">
                         <div class="logo">
                     ');
-                    if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                    if (file_exists("images/produits/".($fichierPhoto))){
                         echo "<img src='images/produits/" . $fichierPhoto . "'>";
                     }else{
                         echo "<img class='img-produit' src='images/error.png'>";

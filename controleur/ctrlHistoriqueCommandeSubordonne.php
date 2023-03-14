@@ -4,7 +4,7 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }else{  
-        $id = $_GET["ref"];
+        $id = $_GET["id"];
         $HistoriqueCommande = ModeleObjetDAO::getHistoriqueCommande($id);
         include_once "$racine/vue/vueHistoriqueCommandeSubordonne.php";
     }

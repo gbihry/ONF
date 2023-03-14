@@ -6,15 +6,15 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
-    if($_GET["ref"] != "0"){
+    if($_GET["id"] != "0"){
         $verifVet = false;
         $array = array(
-            "id" => $_GET["ref"],
+            "id" => $_GET["id"],
         );
         $id = $array;
-        $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
+        $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["ref"], $login["login"], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet);
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
         
         include_once "$racine/vue/vueCatalogueEpi.php";
@@ -42,7 +42,7 @@
             
         }
 
-    }elseif($_GET["ref"] == "0"){  
+    }elseif($_GET["id"] == "0"){  
         
         $verifVet = false;
         $leLogin = $_SESSION['login'];

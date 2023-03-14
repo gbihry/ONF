@@ -23,18 +23,18 @@
                         <td><button type='submit' id ='redBySFR' name='submit' class='btn btn-success mt-2' <?php echo $unSubordonne['id'];?> >acceder</button></td>
 
                     <?php }else{ ?>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueVet&&ref= <?php echo $unSubordonne['id'] ?>';" >acceder</button></td>
+                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueVet&&id= <?php echo $unSubordonne['id'] ?>';" >acceder</button></td>
 
                     <?php } if((ModeleObjetDAO::getUtilisateurCommandeTerminer($unSubordonne['id'], 'EPI')) == 1){ ?>
                         <td><button type='submit' id ='redBySFR' name='submit' class='btn btn-success mt-2'  <?php echo $unSubordonne['id']; ?> >acceder</button></td>
 
                     <?php }else{ ?>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueEpi&&ref= <?php echo $unSubordonne['id']?>';" >acceder</button></td>
+                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueEpi&&id= <?php echo $unSubordonne['id']?>';" >acceder</button></td>
                                 
                     <?php } ?>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierEPISubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierVETSubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=historiqueCommandeSubordonne&&ref= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
+                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierEPISubordonne&&id= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
+                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierVETSubordonne&&id= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
+                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=historiqueCommandeSubordonne&&id= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
                     </tr>
                 <?php } ?>
         </tbody>

@@ -7,7 +7,7 @@
         header("location:./?action=login");
     }else{  
         
-        $id = $_GET["ref"];
+        $id = $_GET["id"];
         if(isset($_POST['idLigne']) && isset($_POST['type'])){
             ModeleObjetDAO::deleteLigneCommande($id, $_POST['idLigne'],$_POST['type']);
 

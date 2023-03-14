@@ -6,15 +6,15 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
-    if($_GET["ref"] != "0"){
+    if($_GET["id"] != "0"){
         $verifVet = true;
         $array = array(
-            "id" => $_GET["ref"],
+            "id" => $_GET["id"],
         );
         $id = $array;
-        $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
+        $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["ref"], $login["login"], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet);
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET');
         include_once "$racine/vue/vueCatalogueVet.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
@@ -40,7 +40,7 @@
             }
         }
     }
-    elseif($_GET["ref"] == "0"){  
+    elseif($_GET["id"] == "0"){  
         $verifVet = true;
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);

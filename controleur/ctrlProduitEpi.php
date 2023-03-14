@@ -7,9 +7,10 @@
     }
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
+        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut);
         $array = array(
             "id" => $_GET["ref"],
         );

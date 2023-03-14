@@ -76,7 +76,7 @@
                 echo ('</table>');
             }else{
                 echo ('<p>Aucune commande EPI</p>');
-                echo('<a href="./?action=catalogueEpi&&ref=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                echo('<a href="./?action=catalogueEpi&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
             }
             
         ?>
