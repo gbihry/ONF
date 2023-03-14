@@ -95,7 +95,7 @@
         }
 
         function FancyTable2($data){
-            $titre = array('Produit', 'Quantité', 'Taille', 'Prix');
+            $titre = array('Produit', 'Quantité', 'Taille','Total');
 
             // Colors, line width and bold font
             $this->SetFillColor(40,167,69);
@@ -103,7 +103,7 @@
             $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
             // Header
-            $w = array(100, 20, 30, 20);
+            $w = array(100, 20, 30,20);
             for($i=0;$i<count($titre);$i++)
                 $this->Cell($w[$i],7,$titre[$i],1,0,'C',true);
                 

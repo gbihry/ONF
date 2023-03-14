@@ -2,7 +2,12 @@
     <?php 
         foreach($unProduit as $detail){
             echo "<div class='main-produit'>";
-            echo "<img class='img-produit' src='images/".ModeleObjetDAO::getImage($detail['idImage'])['nom']. "'>";
+            $nomPhoto = ModeleObjetDAO::getImage($detail['idImage'])['nom'];
+            if (file_exists("images/produits/".$nomPhoto)){
+                echo "<img class='img-produit' src='images/produits/".$nomPhoto."'>";
+            }else{
+                echo "<img class='img-produit' src='images/error.png'>";
+            }
             echo "<h1>".$detail['nom']."</h1>";
             echo "</div>";
             echo "<div class='main-desc'>";

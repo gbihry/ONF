@@ -39,17 +39,19 @@ if(isset($reload) && $reload == true) {
     </div>
     <div class="contenue">
         
-   
-        
     <?php 
         if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
     ?>
-            <div class="container-fluid text-center mt-5 produit">
+            <div class="text-center mt-5 produit">
             <?php
             foreach($allProducts as $detail){
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
-                echo "<img class='img-produit' src='images/".($detail['fichierPhoto'])."'>";
+                if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                    echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                }else{
+                    echo "<img class='img-produit' src='images/error.png'>";
+                }
                 echo "<h1>".$detail['nom']."</h1>";
                 echo "</div>";
                 echo "<div class='main-desc'>";
@@ -92,10 +94,12 @@ if(isset($reload) && $reload == true) {
             }
         }else{
             foreach($catalogue as $uneCategorie){
-                echo "<div class='tuile'>
+                if ($uneCategorie['libelle'] != 'Vêtements'){
+                    echo "<div class='tuile'>
                         <p>" . $uneCategorie['libelle'] . "</p>
                         <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
                     </div>";
+                }
             }
         }
         

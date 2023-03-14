@@ -37,18 +37,16 @@ if(isset($reload) && $reload == true) {
                 <div class="input-row input_csv">
                     <p>Importer les utilisateurs grâce au csv</p>
                     <div class="input-csv">
+                        <a href="comment_utiliser_import_csv.docx" download><i class="fa-solid fa-question"></i></a>
+                        <a href="exemple.csv" download>Exemple</a>
                         <div>
                             <label for="file" class="custom-file-upload"></label>
                             <input type="file" name="file" id="file" accept=".csv">
                         </div>
-                        <a href="comment_utiliser_import_csv.docx" download><i class="fa-solid fa-question"></i></a>
-                        <a href="exemple.csv" download>Exemple</a>
+                        
                     </div>
-                    <br />
                     <button type="submit" id="submit" name="import" value="import" class="btn btn-success m-3">Import</button>
-                    <br />
-                    <br />
-                    <br />
+
                 </div>
             </form>
             <form  method="post">

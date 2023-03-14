@@ -29,6 +29,7 @@ class Routeur{
         'changerCommentaire' => 'ctrlChangerCommentaire.php',
         'commanderPour' => 'ctrlCommanderPour.php',
         'users' => 'ctrlUsers.php',
+        'produits' => 'ctrlProduits.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
@@ -41,6 +42,7 @@ class Routeur{
         'interfaceUser' => 'ctrlInterfaceUser.php',
         'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
         'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
+        
     );   
     
         

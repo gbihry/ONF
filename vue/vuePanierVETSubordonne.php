@@ -24,7 +24,13 @@
             $prixTotal += $ligneCommandeUnique['prix'] * $ligneCommandeUnique['quantite'];
                 echo ("<div class='content'>
                         <div class='image'>
-                            <img src='images/" . $fichierPhoto . "' alt=''>
+                        ");
+                        if (file_exists("images/produits/".($fichierPhoto))){
+                            echo "<img src='images/produits/" . $fichierPhoto . "'>";
+                        }else{
+                            echo "<img class='img-produit' src='images/error.png'>";
+                        }
+                        echo ("
                         </div>
                         <div class='libelle'>
                             <p class='panier_title'>Description produit</p>

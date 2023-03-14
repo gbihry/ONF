@@ -23,7 +23,7 @@
         <h1>Informations commandes</h1>
         <h2>Commandes VET</h2>
         <?php
-            if ($historiqueCommande != null){
+            if ($verifCommandeVet != 0){
                 echo ('
                 <table class="historiquecommandeInterface">
                     <tr>
@@ -53,7 +53,7 @@
         <hr>
         <h2>Commandes EPI</h2>
         <?php
-            if ($historiqueCommande != null){
+            if ($verifCommandeEpi != 0){
                 echo ('
                 <table class="historiquecommandeInterface">
                     <tr>

@@ -15,6 +15,9 @@
         $userStatut = ModeleObjetDAO::getStatut($login)['statut'];
         $userPoints = ModeleObjetDAO::getNbrPointUtilisateur($userId)['point'];
 
+        $verifCommandeVet = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer($userId, 'VET'));
+        $verifCommandeEpi = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer($userId, 'EPI'));
+
         $idResponsable = ModeleObjetDAO::getIdResponsable($login);
         $responsable = ModeleObjetDAO::getResponsableInterfaceUser($idResponsable);
         

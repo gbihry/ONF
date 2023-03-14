@@ -18,9 +18,15 @@
             $taille = $HistoriqueCommandeDetailUnique['libelle'];
             $HistoriqueCommandeDetailUnique['prix'] ? $prix = $HistoriqueCommandeDetailUnique['prix'] : $prix = 0;
             $prixTotal += $prix * $HistoriqueCommandeDetailUnique['quantite'];
-                echo ("<div class='content'>
-                        <div class='image'>
-                            <img src='images/" . $fichierPhoto . "' alt=''>
+            echo ("<div class='content'>
+                    <div class='image'>
+                    ");
+                    if (file_exists("images/produits/".($fichierPhoto))){
+                        echo "<img src='images/produits/" . $fichierPhoto . "'>";
+                    }else{
+                        echo "<img class='img-produit' src='images/error.png'>";
+                    }
+                    echo ("
                         </div>
                         <div class='libelle'>
                             <p class='panier_title'>Description produit</p>

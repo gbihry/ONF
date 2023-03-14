@@ -9,7 +9,20 @@ if(isset($reload) && $reload == true) {
 ?>
 <div class="container-fluid text-center mt-5">
     <h1>Ajout d'un produit</h1>
-    <form  method="post">
+    <div class="alert-container">
+        <?php 
+            if (isset($verifFile) && $verifFile == true ){
+                echo ('<div class="alert alert-success" role="alert">Le produit à bien été ajouté</div>');
+            }elseif (isset($verifInput) && $verifInput != true){
+                echo ('<div class="alert alert-danger"> Veuillez remplir tous les champs</div>');
+            }elseif (isset($verifFile) && $verifFile != true){
+                echo ('<div class="alert alert-danger"> Votre photo n\'a pas l\'extension correspondante à .png ou .jpg</div>');
+            }elseif (isset($verifPhoto) && $verifPhoto != true){
+                echo ('<div class="alert alert-danger">La photo existe déjà veuillez choisir un autre nom de photo</div>');
+            }
+        ?>
+    </div>
+    <form  method="post" enctype="multipart/form-data">
         <div class="addUser_container">
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -21,7 +34,7 @@ if(isset($reload) && $reload == true) {
                 <div class="input-group-prepend">
                     <span class="input-group-text" for="inputGroupSelect01">Type :</span>
                 </div>
-                <select name="type" class="custom-select" id="inputGroupSelect01">
+                <select name="type" id="addProduitType" onClick="addProduit()" class="custom-select" id="inputGroupSelect01">
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <option class="text-center" value="EPI">EPI</option>
                     <option class="text-center" value="VET">VET</option>
@@ -60,24 +73,46 @@ if(isset($reload) && $reload == true) {
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
                     foreach($lesType as $unType){
-                        echo ("<option value=" . ($unType['id']).">" . ($unType['1']). "</option>");
+                        echo ("<option value=" . $unType['id'] . ">" . $unType['1']. "</option>");
                     }     
                 ?>
                 </select>
             </div>
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Fichier photo :</span>
+            <div class="taille_box">
+                <div class="taille_box_btn" id="taille_box_btn">
+                    <div>
+                        <select name="taille_blanks_select" id="taille_select">
+                            <?php 
+                            foreach($lesTailles as $uneTaille){
+                                echo ("<option value=" . $uneTaille['id'] . ">" . $uneTaille['libelle']. "</option>");
+                            }
+                            ?>
+                        </select>
+                        <a id="taille_add_b_select" class="btn">AJOUTER</a>
+                    </div>
+                    <div>
+                        <input type="text" name="taille_blanks_input" id="taille_input">
+                        <a id="taille_add_b_input" class="btn">AJOUTER</a>
+                    </div>
                 </div>
-                <input type="text" placeholder = "Renseigner nom de la photo" class="form-control" name='photo' aria-describedby="inputGroup-sizing-sm" required>
+                <div class="taille_box_table" id="taille_box_table">
+                </div>
+                <div class="taille_box_inp" id="taille_box_inp">
+                </div>
+                <script src="js/taille.js"></script>
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Prix :</span>
                 </div>
-                <input type="number" placeholder = "Renseigner le prix de l'article " class="form-control" name='prix' aria-describedby="inputGroup-sizing-sm" required>
+                <input type="number" id="addProduitPrix" placeholder = "Renseigner le prix de l'article " class="form-control" name='prix' aria-describedby="inputGroup-sizing-sm" required>
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Upload fichier :</span>
+                </div>
+                    <input type="file" name="file" class="form-control" aria-describedby="inputGroup-sizing-sm" required>
             </div>
         <button type='submit' class='btn btn-success m-5'>Confirmer</button>
     </form>
-
 </div>

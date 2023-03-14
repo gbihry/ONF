@@ -20,11 +20,17 @@
                     $prixTotal += $ligneCommandeUnique['prix'] * $ligneCommandeUnique['quantite'];
                     echo('<div class="row">
                         <div class="logo">
-                            <img src="images/' . $fichierPhoto . '" alt="">
+                    ');
+                    if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                        echo "<img src='images/produits/" . $fichierPhoto . "'>";
+                    }else{
+                        echo "<img class='img-produit' src='images/error.png'>";
+                    }
+                    echo ('
                         </div>
                         <div class="desc">
                             <p>' . $nom . '</p>
-                            <p class="sub">Taille: ' . $taille . ' | Quantité : '. $quantite.' | Points totaux : '. $prix.'</p>
+                            <p class="sub">Taille: ' . $taille . ' | Quantité : '. $quantite.' | Prix Unitaire : '. $prix.'</p>
                         </div>
                     </div>');
                 }
@@ -42,7 +48,13 @@
                     $taille = $ligneCommandeUnique['libelle'];
                     echo('<div class="row">
                         <div class="logo">
-                            <img src="images/' . $fichierPhoto . '" alt="">
+                    ');
+                    if (file_exists("images/produits/".($fichierPhoto))){
+                        echo "<img src='images/produits/" . $fichierPhoto . "'>";
+                    }else{
+                        echo "<img class='img-produit' src='images/error.png'>";
+                    }
+                    echo ('
                         </div>
                         <div class="desc">
                             <p>' . $nom . '</p>

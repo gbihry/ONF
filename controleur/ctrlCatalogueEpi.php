@@ -28,7 +28,8 @@
                 $idProduit = $_POST['submit'];
 
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
+                $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
+                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
                 
@@ -68,7 +69,8 @@
                 $idProduit = $_POST['submit'];
 
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-                $description = "Ajout de ". $quantite ." produit(s) ".$idProduit." au panier par ".$_SESSION['login'];
+                $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
+                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$id);
     
