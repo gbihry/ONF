@@ -30,6 +30,7 @@ class Routeur{
         'commanderPour' => 'ctrlCommanderPour.php',
         'users' => 'ctrlUsers.php',
         'produits' => 'ctrlProduits.php',
+        'produitsVetModif' => 'ctrlProduitsVetModif.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',

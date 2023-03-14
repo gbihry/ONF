@@ -283,12 +283,23 @@ function addResponsable(){
 
 function addProduit(){
     var type = document.getElementById("addProduitType").value;
+    var typeProduit = document.getElementById("typeProduit");
+    var optionValue = document.getElementById("optionType");
+    var fournisseurProduit = document.getElementById("fournisseurProduit");
+    var optionFournisseur = document.getElementById("optionFournisseur");
+    console.log(typeProduit);
     var prix = document.getElementById("addProduitPrix");
     
     if (type == 'EPI'){
         prix.value = 0;
         prix.setAttribute("disabled", false);
-    }else{
+    }
+    
+    if(type == 'VET'){
         prix.removeAttribute("disabled");
+        fournisseurProduit.value = 10;
+        optionFournisseur.value = 10;
+        typeProduit.value = 17;
+        optionValue.value = 17;
     }
 }

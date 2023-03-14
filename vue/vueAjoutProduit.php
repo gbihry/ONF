@@ -50,11 +50,11 @@ if(isset($reload) && $reload == true) {
                 <div class="input-group-prepend">
                     <span class="input-group-text" for="inputGroupSelect01">Fournisseur :</span>
                 </div>
-                <select name="fournisseur" class="custom-select" id="inputGroupSelect01">
+                <select name="fournisseur" id="fournisseurProduit" class="custom-select" id="inputGroupSelect01">
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
                     foreach($lesFournisseur as $unFournisseur){
-                        echo ("<option value=" . ($unFournisseur['id']).">" . ($unFournisseur['nom']). "</option>");
+                        echo ("<option id='optionFournisseur' value=" . ($unFournisseur['id']).">" . ($unFournisseur['nom']). "</option>");
                     }
                 ?>
                 </select>
@@ -67,13 +67,13 @@ if(isset($reload) && $reload == true) {
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" for="inputGroupSelect01">Type :</span>
+                    <span class="input-group-text" for="inputGroupSelect01">Type produit :</span>
                 </div>
-                <select name="typeProduit" class="custom-select" id="inputGroupSelect01">
+                <select name="typeProduit" id="typeProduit" class="custom-select" id="inputGroupSelect01">
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                 <?php 
                     foreach($lesType as $unType){
-                        echo ("<option value=" . $unType['id'] . ">" . $unType['1']. "</option>");
+                        echo ("<option id='optionType' value=" . $unType['id'] . ">" . $unType['1']. "</option>");
                     }     
                 ?>
                 </select>

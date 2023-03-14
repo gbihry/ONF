@@ -22,9 +22,9 @@ if(isset($reload) && $reload == true) {
     ?>
 </div>
 <div class="container-fluid text-center mt-5 produit">
-<a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produitsVetModif" >Voir produits VET</a>
+<a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produits" >Voir produits EPI</a>
     <?php  
-        foreach($allProductsEPI as $detail){
+        foreach($allProductsVET as $detail){
             echo "<div class ='unProduitModif'>";
             echo "<div class='main-produit'>";
             if (file_exists("images/produits/".($detail['fichierPhoto']))){
@@ -36,31 +36,8 @@ if(isset($reload) && $reload == true) {
             echo "</div>";
             echo "<div class='main-desc-edit'>";
                 echo '<div id="description" data-idProduit="'.$detail['id'].'" data-data="' . $detail['description'] . '"><p>' . $detail['description'] . '</p><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'description\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div>';
-                ?>
-                <form method="POST" action="./?action=produits&idProduitType=<?=$detail['id']?>">
-                    <div class="modifType">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" for="inputGroupSelect01">Type :</span>
-                            </div>
-                            <select name="idType" class="custom-select" id="inputGroupSelect01">
-                                <option value="selectionner"><?= $detail['typeLibelle'] ?></option>
-                            <?php 
-                                foreach($allType as $unType){
-                                    if ($unType['libelle'] != $detail['typeLibelle']){
-                                        echo ("<option value=" . ($unType['id']).">" . ($unType['libelle']). "</option>");
-                                    }
-                                }
-                            ?>
-                            </select>
-                        </div>
-                        <div class="text-center editType"><input type="submit" name="editType" class="btn btn-success" value="valider"></div></form> 
-                    </div>
-                </form>
-                    
-                <?php
             echo "</div>";
-            echo ('<div class="text-center suppProduits"><a type="submit" name="deleteProduit" href="./?action=produits&idDelete='.$detail['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></div>');
+            echo ('<div class="text-center suppProduits"><a type="submit" name="deleteProduit" href="./?action=produitsVetModif&idDelete='.$detail['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></div>');
 
             echo "</div>";
             
