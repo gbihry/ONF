@@ -26,6 +26,9 @@
         <div class="linenav_item" data-navname="log">
             <a href="./?action=log&&ref=0"><i class="fa-solid fa-book"></i> log</a>
         </div>
+        <div class="linenav_item" data-navname="bdd">
+            <a href="./?action=bdd"><i class="fa-solid fa-database"></i> Base de donnée</a>
+        </div>
         
     <?php
     }

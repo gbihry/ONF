@@ -1973,6 +1973,34 @@
             $req->execute();
 
         }
+
+        public static function resetBdd(){
+            $req1 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandevet");
+            $req1->execute();
+
+            $req2 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandeepi");
+            $req2->execute();
+
+            $req3 =  Connexion::getInstance()->prepare("DELETE FROM commandevet");
+            $req3->execute();
+
+            $req4 =  Connexion::getInstance()->prepare("DELETE FROM commandeepi");
+            $req4->execute();
+
+            $req5 =  Connexion::getInstance()->prepare("UPDATE points SET point = 150");
+            $req5->execute();
+
+
+            $resultat = array(
+                "req1" => $req1->fetch(),
+                "req2" => $req2->fetch(),
+                "req3" => $req3->fetch(),
+                "req4" => $req4->fetch(),
+                "req5" => $req5->fetch(),
+            );
+            
+            return $resultat;
+        }
     } 
 
 ?>

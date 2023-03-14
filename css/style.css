@@ -1244,3 +1244,12 @@ form {
 .taille_box_table > .taille_table_row > .btn:hover {
     background-color: var(--secondary-danger);
 }
+
+/* btn reset de la base de données et des logs*/
+
+.btnBdd{
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
