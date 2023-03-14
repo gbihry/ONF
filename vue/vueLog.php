@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center mt-4">
+<div class="btnBdd">
     <button type='submit' name='submit' class='btn btn-success mt-3 mr-1' onclick="window.location.href = './?action=log&&ref=1';" >Tout les logs</button>
     <button type='submit' name='submit' class='btn btn-success mt-3' onclick="window.location.href = './?action=log&&ref=2';" >Log par utilisateur</button>
 </div>

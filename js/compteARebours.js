@@ -1,6 +1,6 @@
 var compte_a_rebours = document.getElementById("compte_a_rebours");
 var date_actuelle = new Date();
-var date_evenement = new Date("Apr 7 16:30:00 2023");
+var date_evenement = new Date("Apr 6 17:30:00 2023");
 var total_secondes = (date_evenement - date_actuelle) / 1000;
 var prefixe = "Il reste ";
 var suffixe = " secondes pour commander vos EPI";

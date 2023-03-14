@@ -42,7 +42,8 @@ class Routeur{
         'imprimerRecapCommande' => 'ctrlImprimerRecapCommande.php',
         'interfaceUser' => 'ctrlInterfaceUser.php',
         'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
-        'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
+        'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php',
+        'bdd' => 'ctrlBdd.php'
         
     );   
     
