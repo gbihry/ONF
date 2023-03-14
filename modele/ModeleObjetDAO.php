@@ -403,6 +403,7 @@
         }
 
         public static function getAllProduitCatalogue($id, $type){
+                
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
@@ -421,7 +422,21 @@
                     break;
 
                 case 'VET':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN disponible on disponible.idProduit = produit.id
+                    WHERE type = :leType GROUP BY produit.nom");
+        
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+
+                case 'EPINonOuvrier':
+
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
                     from produit
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
@@ -1267,6 +1282,7 @@
             return $res['quantiteMax'];
         }
 
+
         public static function getIdTypeByLigneCommande($idLigneCommande){
             $req = Connexion::getInstance()->prepare("SELECT idType 
             from produit 
@@ -1400,7 +1416,7 @@
         }
 
         public static function getSubordonnee($idUtilisateurConnecté){
-            $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
+            $req = Connexion::getInstance()->prepare("SELECT id,idMetier,nom,prenom
             FROM utilisateur
             WHERE id_responsable = :id and idRole != 2;");
             $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
@@ -1449,7 +1465,11 @@
                     $idCommande = self::getIdVetUtilisateur($idUtilisateur)['id'];
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET idTaille = :idTaille WHERE idCommandeVET = :idCommande and id = :idLigneCommande");
                     break;
-            }
+                case 'EPINonOuvrier':
+                    $idCommande = self::getIdEpiUtilisateur($idUtilisateur)['id'];
+                    $req = Connexion::getInstance()->prepare("UPDATE lignecommandeepiNonOuvrier SET idTaille = :idTaille WHERE idCommandeEPINonOuvrier = :idCommande and id = :idLigneCommande");
+                    break;
+            }          
             
             $req->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
             $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
@@ -1466,6 +1486,10 @@
                 case 'VET':
                     $idCommande = self::getIdVetUtilisateur($idUtilisateur)['id'];
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET quantite = :quantite WHERE idCommandeVET = :idCommande and id = :idLigneCommande");
+                    break;
+                case 'EPINonOuvrier':
+                    $idCommande = self::getIdEpiNonUtilisateur($idUtilisateur)['id'];
+                    $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET quantite = :quantite WHERE idCommandeEPINonOuvrier = :idCommande and id = :idLigneCommande");
                     break;
             }
             

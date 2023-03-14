@@ -5,10 +5,12 @@
 
         if ($ligneCommandeVET == false){
             echo ('<p class="empty_panier"> Aucun article dans le panier </p>');
+            
         } else {
             echo('<p class="panier_title_type">VET</p>');
 
         $prixTotal = 0;
+        
 
         foreach ($ligneCommandeVET as $ligneCommandeUnique) {
             $idLigne = $ligneCommandeUnique['id'];
@@ -50,6 +52,7 @@
                         </div>
                     </div> 
                 ");
+                
         }
         ?>
         <div class='valide_panier'>

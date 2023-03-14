@@ -926,6 +926,8 @@ table.utilisateurs th {
 
 #redBySFR{
     background: var(--danger);
+    border: 1px solid var(--danger);
+    
 }
 
 /* INTERFACE UTILISATEUR */

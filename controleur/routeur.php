@@ -37,8 +37,10 @@ class Routeur{
         'log' => 'ctrlLog.php',
         'exportCSV' => 'ctrlExportCSV.php',
         'commandeVET' => 'ctrlACommandeVET.php',
-        'imprimerRecapCommande' => 'ctrlImprimerRecapCommande.php'
-        'interfaceUser' => 'ctrlInterfaceUser.php'
+        'imprimerRecapCommande' => 'ctrlImprimerRecapCommande.php',
+        'interfaceUser' => 'ctrlInterfaceUser.php',
+        'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
+        'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
     );   
     
         
