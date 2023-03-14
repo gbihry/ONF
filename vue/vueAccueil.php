@@ -17,16 +17,17 @@
     <?php 
         }
     ?>
-    <div class="alert-container">
+    
         <?php 
             if (isset($dateCreaFiniEPI) && $dateCreaFiniEPI != null ){
-                $date = $dateCreaFiniDate[2] . '/' . $dateCreaFiniDate[1] . '/' . $dateCreaFiniDate[0];
-                $time = $dateCreaFiniTime[0] . 'h' . $dateCreaFiniTime[1] . 'm' . $dateCreaFiniTime[2] . 's';
-                echo ('<div class="alert alert-success" role="alert">Vous avez fait une commande EPI <br> le '.$date.' à '.$time.'</div>');
+                echo ('<div class="alert-container">');
+                    $date = $dateCreaFiniDate[2] . '/' . $dateCreaFiniDate[1] . '/' . $dateCreaFiniDate[0];
+                    $time = $dateCreaFiniTime[0] . 'h' . $dateCreaFiniTime[1] . 'm' . $dateCreaFiniTime[2] . 's';
+                    echo ('<div class="alert alert-success" role="alert">Vous avez fait une commande EPI <br> le '.$date.' à '.$time.'</div>');
+                echo ('</div>');
+            }else{
+                echo ('<h2 id="compte_a_rebours"></h2>');
             }
         ?>
-    </div>
-    
-
     
 </div>            

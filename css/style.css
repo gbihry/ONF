@@ -42,12 +42,21 @@ i.fa-solid {
     color: var(--primary-color);
 }
 
-i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-ellipsis-vertical {
+i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-ellipsis-vertical, i.fa-check {
     color: var(--text-color) !important;
 }
 
 .btn {
     color: var(--text-color) !important;
+}
+
+.commentaireAccueil {
+    color: var(--extra-color);
+}
+
+#compte_a_rebours{
+    margin-top: 50px;
+    color: var(--primary-color) !important;
 }
 @keyframes left {
     from {
@@ -184,6 +193,11 @@ body{
 
 /* PRODUIT */
 
+.modifType{
+    display: flex;
+    gap: 10px;
+}
+
 .card {
     width: 18rem; 
     margin-top: 10px;
@@ -226,6 +240,15 @@ body{
     justify-content: space-between;
     text-align: center;
     margin: 5vh 15vw;
+}
+
+.unProduitModif {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin: 5vh 5vw;
 }
 
 .produit {
@@ -276,6 +299,7 @@ body{
     color: var(--extra-color);
     font-size: 1.2rem;
     width: 100%;
+    padding: 10px;
 }
 
 .main-desc #dejaCommander{
@@ -289,9 +313,6 @@ body{
     border-radius: 50px;
 }
 
-.commentaireAccueil {
-    color: var(--extra-color);
-}
 
 /* PANIER */
 
