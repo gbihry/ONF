@@ -30,7 +30,7 @@
                 $tmpName = $_FILES['file']['tmp_name'];
                 $verifFileArray = explode('.', $_FILES['file']['name']);
 
-                if ($verifFileArray[1] != 'png' || $verifFileArray[1] != 'jpg'){
+                if ($verifFileArray[1] != 'png' && $verifFileArray[1] != 'jpg'){
                     $verifFile = false;
                     $reload = true;
                 }else{
