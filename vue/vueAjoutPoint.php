@@ -18,8 +18,13 @@ if(isset($reload) && $reload == true) {
                 <select name="user" class="custom-select" id="inputGroupSelect01">
                 <?php 
                     foreach($AllUsers as $user){
-                        $points = ModeleObjetDAO::getNbrPointUtilisateur($user['id'])['point'];
-                        echo ("<option value=" . ($user['id']).">" . ($user['login']). " (" . $points . ") " . "</option>");
+                        $roleUser = ModeleObjetDAO::getRole($user['login']);
+                        foreach ($roleAcess as $unRole){
+                            if ($unRole['libelle'] == $roleUser['libelle']){
+                                $points = ModeleObjetDAO::getNbrPointUtilisateur($user['id'])['point'];
+                                echo ("<option value=" . ($user['id']).">" . ($user['login']). " (" . $points . ") " . "</option>");
+                            }
+                        }
                     }     
                 ?>
                 </select>

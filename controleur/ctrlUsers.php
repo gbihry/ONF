@@ -28,10 +28,18 @@
             }
         }
 
+        if (isset($_GET['id']) && !empty($_GET['id'])){
+            ModeleObjetDAO::deleteUser($_GET['id']);
+            $reload = true;
+        }
+
         $lieulivraison_data = ModeleObjetDAO::getLieuLivraison();
         $responsable_data = ModeleObjetDAO::getResponsable();
 
-        $allUsers = ModeleObjetDAO::getAllUsers(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'], ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+        $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
+        $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
+
+        $allUsers = ModeleObjetDAO::getAllUsers($role, ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
         include "$racine/vue/vueUsers.php";
         
     } else {

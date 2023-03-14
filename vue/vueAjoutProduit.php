@@ -13,8 +13,12 @@ if(isset($reload) && $reload == true) {
         <?php 
             if (isset($verifFile) && $verifFile == true ){
                 echo ('<div class="alert alert-success" role="alert">Le produit à bien été ajouté</div>');
+            }elseif (isset($verifInput) && $verifInput != true){
+                echo ('<div class="alert alert-danger"> Veuillez remplir tous les champs</div>');
             }elseif (isset($verifFile) && $verifFile != true){
-                echo ('<div class="alert alert-danger"> Votre photo n\'a pas l\'extension correspondante à .png</div>');
+                echo ('<div class="alert alert-danger"> Votre photo n\'a pas l\'extension correspondante à .png ou .jpg</div>');
+            }elseif (isset($verifPhoto) && $verifPhoto != true){
+                echo ('<div class="alert alert-danger">La photo existe déjà veuillez choisir un autre nom de photo</div>');
             }
         ?>
     </div>
@@ -84,11 +88,11 @@ if(isset($reload) && $reload == true) {
                             }
                             ?>
                         </select>
-                        <a id="taille_add_b_select" class="btn">ADD</a>
+                        <a id="taille_add_b_select" class="btn">AJOUTER</a>
                     </div>
                     <div>
                         <input type="text" name="taille_blanks_input" id="taille_input">
-                        <a id="taille_add_b_input" class="btn">ADD</a>
+                        <a id="taille_add_b_input" class="btn">AJOUTER</a>
                     </div>
                 </div>
                 <div class="taille_box_table" id="taille_box_table">

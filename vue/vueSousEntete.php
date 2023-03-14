@@ -8,6 +8,9 @@
     <div class="linenav_item"   data-navname="users">
         <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
     </div>
+    <div class="linenav_item"   data-navname="produits">
+        <a href="./?action=produits"><i class="fa-solid fa-tag"></i> Produits </a>
+    </div>
     <div class="linenav_item"   data-navname="aCommander">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
@@ -34,6 +37,9 @@
         </div>
         <div class="linenav_item"   data-navname="users">
             <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
+        </div>
+        <div class="linenav_item"   data-navname="produits">
+            <a href="./?action=produits"><i class="fa-solid fa-tag"></i> Produits </a>
         </div>
         <div class="linenav_item"   data-navname="aCommander">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>

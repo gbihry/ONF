@@ -57,6 +57,9 @@
               echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Commande passée</a></div>';
             }
             if(ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 5 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 6 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 7 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 8) {
+              echo '
+              <div class="nav_links_item"><a href="index.php?action=catalogueEpiNonOuvrier&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+              <div class="nav_links_item"><a href="index.php?action=panierEPINonOuvrier"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
               if ($verifCommandeEPI == 0){
                 echo '
                 <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>

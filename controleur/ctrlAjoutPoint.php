@@ -15,7 +15,9 @@
         header("location:./?action=accueil");
     }
     
-
+    $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
+    $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
+    
     $AllUsers = ModeleObjetDAO::getAllUsers("Administrateur",0);
 
 

@@ -29,6 +29,7 @@ class Routeur{
         'changerCommentaire' => 'ctrlChangerCommentaire.php',
         'commanderPour' => 'ctrlCommanderPour.php',
         'users' => 'ctrlUsers.php',
+        'produits' => 'ctrlProduits.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
@@ -38,7 +39,10 @@ class Routeur{
         'exportCSV' => 'ctrlExportCSV.php',
         'commandeVET' => 'ctrlACommandeVET.php',
         'imprimerRecapCommande' => 'ctrlImprimerRecapCommande.php',
-        'interfaceUser' => 'ctrlInterfaceUser.php'
+        'interfaceUser' => 'ctrlInterfaceUser.php',
+        'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
+        'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
+        
     );   
     
         

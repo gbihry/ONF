@@ -42,7 +42,7 @@ i.fa-solid {
     color: var(--primary-color);
 }
 
-i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate {
+i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-ellipsis-vertical {
     color: var(--text-color) !important;
 }
 
@@ -239,14 +239,43 @@ body{
 .produitvet_prix i {
     color: var(--primary-color) !important;
 }
+
 .main-desc p {
     background-color: var(--table-tertiary-background-color);
-    margin: 50px 0px;
+    margin: 25px 0px;
     padding: 25px;
     font-size: 1.3rem;
     border-radius: 0.325rem;
     text-align: initial;
     border: 1px solid #ced4da;
+}
+
+.main-desc-edit{
+    width: 25%;
+    min-width: 400px;
+    border-radius: 50px;
+}
+
+#description {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--table-tertiary-background-color);
+    margin: 25px 0px;
+    padding: 25px;
+    font-size: 1.3rem;
+    border-radius: 0.325rem;
+    text-align: initial;
+    border: 1px solid #ced4da;
+}
+
+#description textarea{
+    border-radius: 5px;
+    background-color: var(--table-tertiary-background-color);
+    color: var(--extra-color);
+    font-size: 1.2rem;
+    width: 100%;
 }
 
 .main-desc #dejaCommander{
@@ -911,6 +940,12 @@ table.utilisateurs th {
     color: var(--text-color) !important;
 }
 
+.param_user{
+    right : 0;
+    padding: 10px;
+    visibility: hidden;
+}
+
 /* edit */
 
 .edit_btn {
@@ -946,6 +981,8 @@ table.utilisateurs th {
 
 #redBySFR{
     background: var(--danger);
+    border: 1px solid var(--danger);
+    
 }
 
 /* INTERFACE UTILISATEUR */
