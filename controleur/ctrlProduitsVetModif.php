@@ -5,7 +5,7 @@
 
     if(isset($_SESSION['autorise']) && $role == 'Administrateur' || isset($_SESSION['autorise']) && $role == 'Super-Administrateur'){
         
-        $allProductsEPI = ModeleObjetDAO::getAllProducts('EPI');
+        $allProductsVET = ModeleObjetDAO::getAllProducts('VET');
         $allType = ModeleObjetDAO::getTypeProduit();
 
         if (isset($_POST['idProduit']) && $_POST['idProduit'] != 'undefined'){
@@ -21,7 +21,7 @@
             if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){
                 $statusPhoto = unlink('images/produits/'.$nomPhoto); 
             } 
-            header("location:./?action=produits");
+            header("location:./?action=produitsVetModif");
         }
         $reload = true;
         }
@@ -38,7 +38,7 @@
             }
         }
 
-        include "$racine/vue/vueProduits.php";
+        include "$racine/vue/vueProduitsVetModif.php";
     } else {
         header("location:./?action=accueil");
     }
