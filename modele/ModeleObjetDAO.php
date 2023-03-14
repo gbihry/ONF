@@ -448,6 +448,7 @@
         }
 
         public static function getAllProduitCatalogue($id, $type){
+                
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
@@ -466,7 +467,21 @@
                     break;
 
                 case 'VET':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN disponible on disponible.idProduit = produit.id
+                    WHERE type = :leType GROUP BY produit.nom");
+        
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+
+                case 'EPINonOuvrier':
+
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
                     from produit
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
@@ -1329,6 +1344,7 @@
             return $res['quantiteMax'];
         }
 
+
         public static function getIdTypeByLigneCommande($idLigneCommande){
             $req = Connexion::getInstance()->prepare("SELECT idType 
             from produit 
@@ -1492,7 +1508,7 @@
         }
 
         public static function getSubordonnee($idUtilisateurConnecté){
-            $req = Connexion::getInstance()->prepare("SELECT id,nom,prenom
+            $req = Connexion::getInstance()->prepare("SELECT id,idMetier,nom,prenom
             FROM utilisateur
             WHERE id_responsable = :id and idRole != 2;");
             $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
@@ -1555,7 +1571,11 @@
                     $idCommande = self::getIdVetUtilisateur($idUtilisateur)['id'];
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET idTaille = :idTaille WHERE idCommandeVET = :idCommande and id = :idLigneCommande");
                     break;
-            }
+                case 'EPINonOuvrier':
+                    $idCommande = self::getIdEpiUtilisateur($idUtilisateur)['id'];
+                    $req = Connexion::getInstance()->prepare("UPDATE lignecommandeepiNonOuvrier SET idTaille = :idTaille WHERE idCommandeEPINonOuvrier = :idCommande and id = :idLigneCommande");
+                    break;
+            }          
             
             $req->bindValue(':idTaille', $idTaille, PDO::PARAM_INT);
             $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
@@ -1572,6 +1592,10 @@
                 case 'VET':
                     $idCommande = self::getIdVetUtilisateur($idUtilisateur)['id'];
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET quantite = :quantite WHERE idCommandeVET = :idCommande and id = :idLigneCommande");
+                    break;
+                case 'EPINonOuvrier':
+                    $idCommande = self::getIdEpiNonUtilisateur($idUtilisateur)['id'];
+                    $req = Connexion::getInstance()->prepare("UPDATE lignecommandevet SET quantite = :quantite WHERE idCommandeEPINonOuvrier = :idCommande and id = :idLigneCommande");
                     break;
             }
             
@@ -1687,25 +1711,85 @@
             
         }
 
-        public static function bonCommandeCsv($type,$idLieuLivraison){
+
+       
+
+        public static function getAllLigneCommandeVetFournisseur($idFournisseur){
+            $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
+            from lignecommandevet
+            JOIN produit on produit.id = lignecommandevet.idProduit
+            JOIN taille on taille.id = lignecommandevet.idTaille
+            join commandevet on commandevet.id = lignecommandevet.idCommandeVET
+            JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on produit.idFournisseur = fournisseur.id
+            WHERE fournisseur.id = :idFournisseur
+            group by produit.nom,lieulivraion.nom;");
+             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+             $req->execute();
+             $res = $req->fetchall();
+             return $res;
+        }
+
+        public static function getAllLigneCommandeEpiFournisseur($idFournisseur){
+            $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
+            from lignecommandeepi
+            JOIN produit on produit.id = lignecommandeepi.idProduit
+            JOIN taille on taille.id = lignecommandeepi.idTaille
+            join commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+            JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on produit.idFournisseur = fournisseur.id
+            WHERE fournisseur.id = :idFournisseur
+            group by produit.nom,lieulivraion.nom;");
+             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+             $req->execute();
+             $res = $req->fetchall();
+             return $res;
+        }
+
+        public static function bonCommandeCsv($type,$idLieuLivraison,$choix){
             date_default_timezone_set('Europe/Paris');
 
-            $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
             
-            if($type == 'VET'){
-                $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
+            if($choix == "lieuLivraison"){
+                if($type == 'VET'){
+                    $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $Commande = ModeleObjetDAO::getAllLigneCommandeVet($idLieuLivraison);
+                    $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
+    
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeVet($idLieuLivraison);
+                }
+                else{
+                    $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-
+                    $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
+    
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpi($idLieuLivraison);
+    
+                    
+                }
             }
             else{
-                $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                if($type == 'VET'){
 
-                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi($idLieuLivraison);
+                    $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
 
-                
+                    $filename = "bonCommandes/bonDeCommandeVET-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+    
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeVetFournisseur($idLieuLivraison);
+                }
+                else{
+                    $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+
+                    $filename = "bonCommandes/bonDeCommandeEPI-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+    
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpiFournisseur($idLieuLivraison);
+    
+                    
+                }
             }
+           
             
             if(empty($Commande)){
                 $value = "Pas de commande";
@@ -1722,9 +1806,18 @@
                 
             }
 
+            if($choix == "lieuLivraison"){
+                $tmp_array[] = array("lieu livraison" => "Lieu livraison : ",$nomLieuLivraison);
+            }
+            else{
+                $tmp_array[] = array("fournisseur " => "Fournisseur : ",$nomFournisseur);
+            } 
+
             foreach($Commande as $ligne) {
                 $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
             }
+
+           
 
             $fp = fopen($filename, 'w');
             fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
@@ -1777,6 +1870,25 @@
             $res = $req->fetchall();
             return $res;
         }
+        
+        public static function getAllFournisseur(){
+            $req =  Connexion::getInstance()->prepare("select id,nom 
+            from fournisseur;");
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
+        public static function getFournisseurById($id){
+            $req =  Connexion::getInstance()->prepare(" SELECT nom
+            from fournisseur WHERE id = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
+       
 
         //DELETE FROM lignecommandeepi WHERE id = :idL AND idCommandeEPI = :idCommandeEPI
         public static function deleteUser($idUtilisateur){

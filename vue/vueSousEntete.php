@@ -57,7 +57,7 @@
             <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
         </div>
         <div class="linenav_item" data-navname="exportCSV">
-            <a href="./?action=exportCSV"><i class="fa-solid fa-file-csv"></i> Export CSV</a>
+            <a href="./?action=exportCSV&&ref=0"><i class="fa-solid fa-file-csv"></i> Export CSV</a>
         </div>
 
     <?php

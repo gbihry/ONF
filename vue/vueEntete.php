@@ -62,15 +62,15 @@
             if(ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 5 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 6 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 7 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 8) {
               if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
                 echo '
-                <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+                <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
                 <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
               }
             }else{
-              echo '<div class="nav_links_item"><a href="index.php?action=catalogueVet&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>';
+              echo '<div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>';
 
               if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
                 echo '
-                  <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&ref=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+                  <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
                   <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
                 ';
               }

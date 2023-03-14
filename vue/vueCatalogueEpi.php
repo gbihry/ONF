@@ -14,7 +14,7 @@ if(isset($reload) && $reload == true) {
     </div>
 
     <div class="form-check text-center">
-        <form action="./?action=catalogueEpi&&ref=<?php echo $id["id"];?>" method ="POST">
+        <form action="./?action=catalogueEpi&&id=<?php echo $id["id"];?>" method ="POST">
         <?php
         
             if (isset($_POST['valideProduit']) != true){
@@ -62,7 +62,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' value='1' min='1' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType'])); ?>' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' value='1' min='1' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']) - ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)']); ?>' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -93,6 +93,7 @@ if(isset($reload) && $reload == true) {
                 
             }
         }else{
+
             foreach($catalogue as $uneCategorie){
                 if ($uneCategorie['libelle'] != 'Vêtements'){
                     echo "<div class='tuile'>

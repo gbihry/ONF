@@ -8,7 +8,7 @@
             <?php
             if(isset($ligneCommandeVET) && $ligneCommandeVET != false) {
                 echo('<p class="title">VET</p>');
-
+                
                 foreach ($ligneCommandeVET as $ligneCommandeUnique) {
                     $idLigne = $ligneCommandeUnique['id'];
                     $type = $ligneCommandeUnique['type'];
@@ -35,6 +35,7 @@
                     </div>');
                 }
             }
+            
 
             if(isset($ligneCommandeEPI) && $ligneCommandeEPI != false) {
                 echo('<p class="title">EPI</p>');

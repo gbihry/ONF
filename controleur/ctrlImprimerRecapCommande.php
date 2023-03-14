@@ -3,7 +3,7 @@
 	require("$racine/modele/PDF.php");
     $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
 
-    $type = $_GET["ref"];
+    $type = $_GET["id"];
     switch($type){
         case 'EPI':
             $pdf = new PDF();

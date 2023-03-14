@@ -50,6 +50,9 @@
                             }
                             if ($verifRole == true){
                                 if(ModeleObjetDAO::insertUtilisateurCSV($row) == false){
+
+                                    
+
                                     array_push($verifLogin, $i);
                                 }
                                 $verifFile = true;
@@ -57,6 +60,13 @@
                             }else{
                                 $reload = true;
                             }
+                        }
+                        if($verifFile == true && $verifRole == true && $verifLogin == true){
+                            date_default_timezone_set('Europe/Paris');
+                            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                            $description = "Ajout d'utilisateurs avec un fichier CSV par ".$_SESSION['login'];
+                            $date = date( "Y-m-d H:i:s"); 
+                            ModeleObjetDAO::insertLog($date,$description,$id);
                         }
                     }
                 }else{
@@ -74,6 +84,12 @@
                     }
                     ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'], 
                     $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
+
+                    date_default_timezone_set('Europe/Paris');
+                    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                    $description = "Ajout d'un utilisateur par ".$_SESSION['login'];
+                    $date = date( "Y-m-d H:i:s"); 
+                    ModeleObjetDAO::insertLog($date,$description,$id);
                     
                     if ($_POST['responsable'] == 0){
                         
