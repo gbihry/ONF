@@ -53,9 +53,6 @@
         <div class="linenav_item" data-navname="ajoutProduit">
             <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
         </div>
-        <div class="linenav_item" data-navname="commanderPour">
-            <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
-        </div>
         <div class="linenav_item" data-navname="exportCSV">
             <a href="./?action=exportCSV&&ref=0"><i class="fa-solid fa-file-csv"></i> Export CSV</a>
         </div>
