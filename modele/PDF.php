@@ -13,7 +13,7 @@
             $this->Cell(40,10,'Récapitulatif commande VET');
             
             $this->Image("./images/onf.png",10,6,50);
-            $this->SetXY(20,50);
+            $this->SetXY(10,50);
             
             $this->FancyTable($laCommande);
             
@@ -36,7 +36,7 @@
             $this->Cell(40,10,'Récapitulatif commande');
             
             $this->Image("./images/onf.png",10,6,50);
-            $this->SetXY(20,50);
+            $this->SetXY(10,50);
             
             $this->FancyTable2($laCommande);
             
@@ -53,7 +53,7 @@
             $this->Cell(40,10,'Récapitulatif commande EPI');
             
             $this->Image("./images/onf.png",10,6,50);
-            $this->SetXY(20,50);
+            $this->SetXY(10,50);
             
             $this->FancyTable($laCommande);
             
@@ -67,12 +67,12 @@
             $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
             // Header
-            $w = array(70, 40, 60);
+            $w = array(125, 20, 40);
             for($i=0;$i<count($titre);$i++)
                 $this->Cell($w[$i],7,$titre[$i],1,0,'C',true);
                 
             $this->Ln();
-            $this->SetX(20);
+            $this->SetX(10);
             // Color and font restoration
             $this->SetFillColor(224,235,255);
             $this->SetTextColor(0);
@@ -85,7 +85,7 @@
                 $this->Cell($w[1],10,$row[1],'LR',0,'C',$fill);
                 $this->Cell($w[2],10,$row[2],'LR',0,'C',$fill);
                 $this->Ln();
-                $this->SetX(20);
+                $this->SetX(10);
                 $fill = !$fill;
             }
             // Closing line
@@ -103,12 +103,12 @@
             $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
             // Header
-            $w = array(100, 20, 30,20);
+            $w = array(125, 20, 30,20);
             for($i=0;$i<count($titre);$i++)
                 $this->Cell($w[$i],7,$titre[$i],1,0,'C',true);
                 
             $this->Ln();
-            $this->SetX(20);
+            $this->SetX(10);
             // Color and font restoration
             $this->SetFillColor(224,235,255);
             $this->SetTextColor(0);
@@ -122,7 +122,7 @@
                 $this->Cell($w[2],10,$row[2],'LR',0,'C',$fill);
                 $this->Cell($w[3],10,$row[3],'LR',0,'C',$fill);
                 $this->Ln();
-                $this->SetX(20);
+                $this->SetX(10);
                 $fill = !$fill;
             }
             // Closing line

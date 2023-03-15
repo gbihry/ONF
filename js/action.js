@@ -290,7 +290,7 @@ function addProduit(){
     console.log(typeProduit);
     var prix = document.getElementById("addProduitPrix");
     
-    if (type == 'EPI'){
+    if (type == 'EPI' || type == 'EPINonOuvrier'){
         prix.value = 0;
         prix.setAttribute("disabled", false);
     }

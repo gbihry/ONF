@@ -12,14 +12,32 @@
             switch($type) {
                 case 'tel':
                     ModeleObjetDAO::updateTel($_POST['login'], $_POST['tel']);
+
+                    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+                    $description = "L'utilisateur ".$_SESSION['login']." à modifier le tel de ".$_POST['login'];
+                    $date = date( "Y-m-d H:i:s");
+                    ModeleObjetDAO::insertLog($date,$description,$id);
+
                     $reload = true;
                     break;
                 case 'livraison':
                     ModeleObjetDAO::updateLivraison($_POST['login'], $_POST['livraison']);
+
+                    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+                    $description = "L'utilisateur ".$_SESSION['login']." à modifier le lieu de livraison de ".$_POST['login'];
+                    $date = date( "Y-m-d H:i:s");
+                    ModeleObjetDAO::insertLog($date,$description,$id);
+
                     $reload = true;
                     break;
                 case 'responsable':
                     ModeleObjetDAO::updateResponsable($_POST['login'], $_POST['responsable']);
+
+                    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+                    $description = "L'utilisateur ".$_SESSION['login']." à modifier le responsable de ".$_POST['login'];
+                    $date = date( "Y-m-d H:i:s");
+                    ModeleObjetDAO::insertLog($date,$description,$id);
+
                     $reload = true;
                     break;
                 default:
@@ -29,7 +47,15 @@
         }
 
         if (isset($_GET['id']) && !empty($_GET['id'])){
+            $login = ModeleObjetDAO::getLoginById($_GET['id'])['login'];
+
             ModeleObjetDAO::deleteUser($_GET['id']);
+            
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+            $description = "L'utilisateur ".$_SESSION['login']." à supprimer l'utilisateur ".$login;
+            $date = date( "Y-m-d H:i:s");
+            ModeleObjetDAO::insertLog($date,$description,$id);
+
             $reload = true;
         }
 

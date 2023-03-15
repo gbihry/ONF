@@ -31,6 +31,7 @@ class Routeur{
         'users' => 'ctrlUsers.php',
         'produits' => 'ctrlProduits.php',
         'produitsVetModif' => 'ctrlProduitsVetModif.php',
+        'produitsEpiNonOuvrier' => 'ctrlProduitsEpiNonOuvrier.php',
         'panierVETSubordonne' => 'ctrlPanierVETSubordonne.php',
         'panierEPISubordonne' => 'ctrlPanierEPISubordonne.php',
         'recapPanierSubordonne' => 'ctrlRecapPanierSubordonne.php',
