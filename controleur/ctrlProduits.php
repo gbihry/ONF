@@ -16,6 +16,13 @@
         if(isset($_GET['idDelete']) && !empty($_GET['idDelete'])){
         $nomPhoto = ModeleObjetDAO::getPhoto($_GET['idDelete']);
         if ($nomPhoto != null){
+            $idProduit = $_POST['idProduit'];
+            $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+            $description = "L'utilisateur ".$_SESSION['login']." à supprimer le produit ".$nomProduit;
+            $date = date( "Y-m-d H:i:s");
+            ModeleObjetDAO::insertLog($date,$description,$id);
+
             ModeleObjetDAO::deleteProduits($_GET['idDelete']);
             $supprimer = true;
             if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){

@@ -8,12 +8,12 @@
         if(isset($_GET["ref"])){
             if($_GET["ref"] == 1){
                 $resultat = ModeleObjetDAO::resetBdd();
-                foreach($resultat as $unResultat){
-                    if($unResultat == true){
-                        $reussite = false;
-                    }
+                if($resultat == true){
+                    $reussite = false;
                 }
-                $reussite = true;
+                else{
+                    $reussite = true;
+                }
             }
         }
         

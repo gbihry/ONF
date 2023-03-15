@@ -1992,31 +1992,54 @@
         }
 
         public static function resetBdd(){
-            $req1 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandevet");
-            $req1->execute();
+            $verifLigne = false;
+            $req =  Connexion::getInstance()->prepare("DELETE FROM lignecommandevet");
+            $req->execute();
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
+            $req =  Connexion::getInstance()->prepare("DELETE FROM lignecommandeepi");
+            $req->execute();
 
-            $req2 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandeepi");
-            $req2->execute();
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
 
-            $req3 =  Connexion::getInstance()->prepare("DELETE FROM commandevet");
-            $req3->execute();
+            $req =  Connexion::getInstance()->prepare("DELETE FROM commandevet");
+            $req->execute();
 
-            $req4 =  Connexion::getInstance()->prepare("DELETE FROM commandeepi");
-            $req4->execute();
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
 
-            $req5 =  Connexion::getInstance()->prepare("UPDATE points SET point = 150");
-            $req5->execute();
+            $req =  Connexion::getInstance()->prepare("DELETE FROM commandeepi");
+            $req->execute();
 
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
 
-            $resultat = array(
-                "req1" => $req1->fetch(),
-                "req2" => $req2->fetch(),
-                "req3" => $req3->fetch(),
-                "req4" => $req4->fetch(),
-                "req5" => $req5->fetch(),
-            );
+            $req =  Connexion::getInstance()->prepare("UPDATE points SET point = 150");
+            $req->execute();
+
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
+
+            $req =  Connexion::getInstance()->prepare("DELETE FROM log");
+            $req->execute();
+
+            if ($req->fetch() == true){
+                $verifLigne = true;
+                return $verifLigne;
+            }
             
-            return $resultat;
+            return $verifLigne;
         }
         public static function deleteProduits($idProduit){
             $req = Connexion::getInstance()->prepare(" DELETE
@@ -2032,5 +2055,5 @@
             $req->execute();
         }
     
-
+    }
 ?>
