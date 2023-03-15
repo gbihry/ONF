@@ -27,6 +27,7 @@
           }else{
             echo ('<title>ONF</title>');
           }
+          
         ?>
 
     </head>
@@ -43,8 +44,8 @@
                 echo '<div class="nav_title_item custombtn"><a href="./?action=logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></div>';
               }
             ?>
-            </div>
-            </div>
+          </div>
+          </div>
           <div class="nav_btn">
             <label for="nav-check"><i class="fa-solid fa-bars" id="nav_checker_open"></i><i class="fa-solid fa-x" id="nav_checker_close"></i></label>
           </div>
@@ -55,41 +56,49 @@
               $NombreElementDansLePanierEPI = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'epi');
               $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
               $verifCommandeEPI = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI'));
+              $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
+              $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
               
-            if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
-              echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Commande passée</a></div>';
-            }
-            if(ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 5 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 6 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 7 || ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'] == 8) {
-              if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
-                echo '
-                <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
-                <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
+              if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
+                echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Commande passée</a></div>';
               }
-            }else{
-              echo '<div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>';
-
-              if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
-                echo '
+              if($metierUtilisateur == 5 || $metierUtilisateur == 6 || $metierUtilisateur == 7 || $metierUtilisateur == 8) {
+                if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
+                  echo '
+                  <div class="nav_links_item"><a href="index.php?action=catalogueEpiNonOuvrier&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+                  <div class="nav_links_item"><a href="index.php?action=panierEPINonOuvrier"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
+                }
+              }else{
+                  echo '
                   <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
-                  <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
-                ';
+                  <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
+              }
+              if($metierUtilisateur == 1 || $metierUtilisateur == 2 || $metierUtilisateur == 3 || $metierUtilisateur == 4) {
+                if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
+                  echo '
+                    <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+                    <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierEPI.')</a></div>
+                  ';
+                }else{
+                  echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
+                }
               }
               
               echo'<div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
-            }
             
             } else {
               echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
             }
             ?>
           </div>
-      </nav>
-          <?php
-            if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' || 
-            isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'
-            || 
-            isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
-              include_once "$racine/vue/vueSousEntete.php";}
-          ?>
+        </nav>
+        <?php
+        
+          if(isset($_SESSION['autorise']) && $roleUser == 'Administrateur' 
+          || isset($_SESSION['autorise']) && $roleUser == 'Super-Administrateur'
+          || isset($_SESSION['autorise']) &&  $roleUser == 'Responsable'){
+            include_once "$racine/vue/vueSousEntete.php";}
+
+        ?>
+      <div class="container-fluid">
           
-        <div class="container-fluid">
