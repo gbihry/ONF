@@ -23,6 +23,9 @@
         
         $historiqueCommande = ModeleObjetDAO::getHistoriqueCommande($userId);
 
+        $metier = ModeleObjetDAO::getStatut($login);
+        
+
         include_once "$racine/vue/vueInterfaceUser.php";
     }
     include_once "$racine/vue/vuePied.php";
