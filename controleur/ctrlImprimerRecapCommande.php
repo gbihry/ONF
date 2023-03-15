@@ -1,8 +1,7 @@
 <?php
     include "$racine/vue/vueEntete.php";
 	require("$racine/modele/PDF.php");
-    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-
+    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
     $type = $_GET["id"];
     switch($type){
         case 'EPI':

@@ -1,6 +1,5 @@
 <?php
   session_start();
-  
   include_once "$racine/modele/ModeleObjetDAO.php";
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
@@ -76,7 +75,6 @@
                 ';
               }
               
-
               echo'<div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
             }
             
