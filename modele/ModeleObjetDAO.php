@@ -416,6 +416,42 @@
             */
         }
 
+        public static function getAllProductsModif ($type){
+            switch ($type){
+                case 'EPI':
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, description ,nom,fichierPhoto, produit.idType, type.libelle AS typeLibelle
+                    from produit
+                    join type on type.id = produit.idType
+                    WHERE produit.type = :leType ");
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 'EPINonOuvrier':
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, description ,nom,fichierPhoto, produit.idType, type.libelle AS typeLibelle
+                    from produit
+                    join type on type.id = produit.idType
+                    WHERE produit.type = :leType ");
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+
+                case 'VET':
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN disponible on disponible.idProduit = produit.id
+                    WHERE produit.type = :leType GROUP BY produit.nom ");
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+            }
+            return $res;
+        }
+
         public static function getAllProducts ($type){
             switch ($type){
                 case 'EPI':
@@ -1298,9 +1334,14 @@
                 $req->bindValue(':pointx', $points, PDO::PARAM_INT);
                 $req->execute();
             } else {
-                $req = Connexion::getInstance()->prepare("UPDATE points SET points.point = points.point + :pointx WHERE points.idUtilisateur = :idUtilisateur");
+                if(($res['point'] + $points) < 0){
+                    $req = Connexion::getInstance()->prepare("UPDATE points SET points.point = 0 WHERE points.idUtilisateur = :idUtilisateur");
+                } else{
+                    $req = Connexion::getInstance()->prepare("UPDATE points SET points.point = points.point + :pointx WHERE points.idUtilisateur = :idUtilisateur");
+                    $req->bindValue(':pointx', $points, PDO::PARAM_INT);
+                }
                 $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
-                $req->bindValue(':pointx', $points, PDO::PARAM_INT);
+                
                 $req->execute();
             }
         }
@@ -1994,7 +2035,7 @@
         public static function resetBdd(){
             $req1 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandevet");
             $req1->execute();
-
+            
             $req2 =  Connexion::getInstance()->prepare("DELETE FROM lignecommandeepi");
             $req2->execute();
 
@@ -2018,6 +2059,7 @@
             
             return $resultat;
         }
+
         public static function deleteProduits($idProduit){
             $req = Connexion::getInstance()->prepare(" DELETE
             FROM disponible
@@ -2031,6 +2073,6 @@
             $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
             $req->execute();
         }
-    
+    }
 
 ?>

@@ -14,15 +14,13 @@ if(isset($reload) && $reload == true) {
             echo ('<div class="alert alert-success" role="alert">La description à bien été changé</div>');
         }elseif (isset($supprimer) && $supprimer != true){
             echo ('<div class="alert alert-danger">Le produit à bien été supprimer</div>');
-        }elseif (isset($verifType) && $verifType != true){
-            echo ('<div class="alert alert-danger">Le produit est déjà assigner à ce type</div>');
-        }elseif (isset($verifType) && $verifType != false){
-            echo ('<div class="alert alert-success">Le type du produit à bien été changer</div>');
         }
     ?>
 </div>
 <div class="container-fluid text-center mt-5 produit">
-<a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produits" >Voir produits EPI</a>
+    <a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produits" >Voir produits EPI</a>
+    <a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produitsEpiNonOuvrier" >Voir produits EPI non ouvrier</a>
+    <h1>Produits VET</h1>
     <?php  
         foreach($allProductsVET as $detail){
             echo "<div class ='unProduitModif'>";

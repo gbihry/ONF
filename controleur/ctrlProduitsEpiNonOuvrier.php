@@ -5,7 +5,8 @@
 
     if(isset($_SESSION['autorise']) && $role == 'Administrateur' || isset($_SESSION['autorise']) && $role == 'Super-Administrateur'){
         
-        $allProductsVET = ModeleObjetDAO::getAllProductsModif('VET');
+        $allProductsEPINonOuvrier = ModeleObjetDAO::getAllProductsModif('EPINonOuvrier');
+        $allType = ModeleObjetDAO::getTypeProduit();
 
         if (isset($_POST['idProduit']) && $_POST['idProduit'] != 'undefined'){
             ModeleObjetDAO::updateDescription($_POST['idProduit'], $_POST['description']);
@@ -25,7 +26,7 @@
         $reload = true;
         }
 
-        include "$racine/vue/vueProduitsVetModif.php";
+        include "$racine/vue/vueProduitsEpiNonOuvrier.php";
     } else {
         header("location:./?action=accueil");
     }

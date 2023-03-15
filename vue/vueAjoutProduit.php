@@ -37,6 +37,7 @@ if(isset($reload) && $reload == true) {
                 <select name="type" id="addProduitType" onClick="addProduit()" class="custom-select" id="inputGroupSelect01">
                     <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <option class="text-center" value="EPI">EPI</option>
+                    <option class="text-center" value="EPINonOuvrier">EPI non ouvrier</option>
                     <option class="text-center" value="VET">VET</option>
                 </select>
             </div>

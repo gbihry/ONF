@@ -5,7 +5,7 @@
 
     if(isset($_SESSION['autorise']) && $role == 'Administrateur' || isset($_SESSION['autorise']) && $role == 'Super-Administrateur'){
         
-        $allProductsEPI = ModeleObjetDAO::getAllProducts('EPI');
+        $allProductsEPI = ModeleObjetDAO::getAllProductsModif('EPI');
         $allType = ModeleObjetDAO::getTypeProduit();
 
         if (isset($_POST['idProduit']) && $_POST['idProduit'] != 'undefined'){
@@ -14,16 +14,17 @@
             $reload = true;
         }
         if(isset($_GET['idDelete']) && !empty($_GET['idDelete'])){
-        $nomPhoto = ModeleObjetDAO::getPhoto($_GET['idDelete']);
-        if ($nomPhoto != null){
-            ModeleObjetDAO::deleteProduits($_GET['idDelete']);
-            $supprimer = true;
-            if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){
-                $statusPhoto = unlink('images/produits/'.$nomPhoto); 
-            } 
-            header("location:./?action=produits");
-        }
-        $reload = true;
+            echo ('test1');
+            $nomPhoto = ModeleObjetDAO::getPhoto($_GET['idDelete']);
+            if ($nomPhoto != null){
+                ModeleObjetDAO::deleteProduits($_GET['idDelete']);
+                $supprimer = true;
+                if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){
+                    $statusPhoto = unlink('images/produits/'.$nomPhoto); 
+                } 
+                header("location:./?action=produits");
+            }
+            $reload = true;
         }
         if(isset($_POST['idType']) && !empty($_POST['idType'])){
             $idType = $_POST['idType'];
