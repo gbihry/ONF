@@ -1,5 +1,6 @@
 <?php
   session_start();
+  
   include_once "$racine/modele/ModeleObjetDAO.php";
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
