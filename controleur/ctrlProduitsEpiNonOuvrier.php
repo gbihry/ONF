@@ -14,16 +14,23 @@
             $reload = true;
         }
         if(isset($_GET['idDelete']) && !empty($_GET['idDelete'])){
-        $nomPhoto = ModeleObjetDAO::getPhoto($_GET['idDelete']);
-        if ($nomPhoto != null){
-            ModeleObjetDAO::deleteProduits($_GET['idDelete']);
-            $supprimer = true;
-            if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){
-                $statusPhoto = unlink('images/produits/'.$nomPhoto); 
-            } 
-            header("location:./?action=produitsVetModif");
-        }
-        $reload = true;
+            $nomPhoto = ModeleObjetDAO::getPhoto($_GET['idDelete'])['fichierPhoto'];
+            if ($nomPhoto != null){
+                $idProduit = $_GET['idDelete'];
+                $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+                $description = "L'utilisateur ".$_SESSION['login']." à supprimer le produit ".$nomProduit;
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$id);
+
+                ModeleObjetDAO::deleteProduits($_GET['idDelete']);
+                $supprimer = true;
+                if ($nomPhoto != null && file_exists("images/produits/".$nomPhoto)){
+                    $statusPhoto = unlink('images/produits/'.$nomPhoto); 
+                } 
+                $reload = true;
+                header("location:./?action=produitsEpiNonOuvrier");
+            }
         }
 
         include "$racine/vue/vueProduitsEpiNonOuvrier.php";

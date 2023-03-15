@@ -763,14 +763,15 @@
 
         // INFORMATION SUR LES PRODUITS
 
-        public static function getProduit($id,$idStatut){
+        public static function getProduit($id,$idStatut,$type){
             $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
             from produit
             join type on type.id = produit.idType
             JOIN concerne ON concerne.idType = type.id
             JOIN categorie on categorie.id = type.idCategorie
             JOIN disponible on disponible.idProduit = produit.id
-            WHERE categorie.id = :id and concerne.idStatut = :idStatut");
+            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType");
+            $req->bindValue(':leType',$type,PDO::PARAM_STR);
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
             $req->execute();
@@ -785,7 +786,7 @@
             $req->bindValue(':id',$idProduit,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
-            return $res['fichierPhoto'];
+            return $res;
         }
 
         public static function getProduitPanier($id){
@@ -1952,9 +1953,9 @@
                 WHERE idCommandeEPI = :idCommandeEPI");
                 $query->bindValue(':idCommandeEPI',$res['id'],PDO::PARAM_INT);
                 $query->execute();
-                $query = $query->fetch();
+                $res = $query->fetch();
                 var_dump($query);
-                if ($query != false){
+                if ($res != false){
 
                     //Si oui, supprimer les lignes commandes
 

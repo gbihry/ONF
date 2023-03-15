@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : mar. 14 mars 2023 à 13:07
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 15, 2023 at 01:18 PM
+-- Server version: 5.7.36
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,24 +18,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `onf`
+-- Database: `onf`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Table structure for table `categorie`
 --
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `categorie`
+-- Dumping data for table `categorie`
 --
 
 INSERT INTO `categorie` (`id`, `libelle`) VALUES
@@ -48,73 +48,60 @@ INSERT INTO `categorie` (`id`, `libelle`) VALUES
 (7, 'EPI haute visibilité'),
 (8, 'Lunettes'),
 (9, 'Equipements jetables'),
-(10, 'Vêtements');
+(10, 'Vêtements'),
+(11, 'EPINonOuvrier');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commandeepi`
+-- Table structure for table `commandeepi`
 --
 
 DROP TABLE IF EXISTS `commandeepi`;
 CREATE TABLE IF NOT EXISTS `commandeepi` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `dateCrea` datetime DEFAULT NULL,
-  `statut` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
+  `statut` varchar(50) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
   `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `commandeepi`
---
-
-INSERT INTO `commandeepi` (`id`, `dateCrea`, `statut`, `idUtilisateur`, `terminer`, `dateCreaFini`) VALUES
-(104, '2023-03-14 13:23:46', 'Bucheron', 1, 1, '2023-03-14 13:24:06');
+) ENGINE=MyISAM AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commandevet`
+-- Table structure for table `commandevet`
 --
 
 DROP TABLE IF EXISTS `commandevet`;
 CREATE TABLE IF NOT EXISTS `commandevet` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `dateCrea` date DEFAULT NULL,
-  `statut` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dateCrea` datetime DEFAULT NULL,
+  `statut` varchar(50) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
   `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `commandevet`
---
-
-INSERT INTO `commandevet` (`id`, `dateCrea`, `statut`, `idUtilisateur`, `terminer`, `dateCreaFini`) VALUES
-(47, '2023-03-14', 'Bucheron', 1, 1, '2023-03-14 13:32:22');
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commentaire`
+-- Table structure for table `commentaire`
 --
 
 DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `Message` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Message` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `commentaire`
+-- Dumping data for table `commentaire`
 --
 
 INSERT INTO `commentaire` (`id`, `Message`) VALUES
@@ -123,19 +110,19 @@ INSERT INTO `commentaire` (`id`, `Message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `concerne`
+-- Table structure for table `concerne`
 --
 
 DROP TABLE IF EXISTS `concerne`;
 CREATE TABLE IF NOT EXISTS `concerne` (
-  `idStatut` int NOT NULL,
-  `idType` int NOT NULL,
-  `quantiteMax` int NOT NULL,
+  `idStatut` int(11) NOT NULL,
+  `idType` int(11) NOT NULL,
+  `quantiteMax` int(11) NOT NULL,
   PRIMARY KEY (`idStatut`,`idType`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `concerne`
+-- Dumping data for table `concerne`
 --
 
 INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
@@ -279,19 +266,19 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `concerne_categorie_metier`
+-- Table structure for table `concerne_categorie_metier`
 --
 
 DROP TABLE IF EXISTS `concerne_categorie_metier`;
 CREATE TABLE IF NOT EXISTS `concerne_categorie_metier` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `idCategorie` int NOT NULL,
-  `idMetier` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idCategorie` int(11) NOT NULL,
+  `idMetier` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `concerne_categorie_metier`
+-- Dumping data for table `concerne_categorie_metier`
 --
 
 INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
@@ -371,23 +358,23 @@ INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `disponible`
+-- Table structure for table `disponible`
 --
 
 DROP TABLE IF EXISTS `disponible`;
 CREATE TABLE IF NOT EXISTS `disponible` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idProduit` int NOT NULL,
-  `idTaille` int DEFAULT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idProduit` int(11) NOT NULL,
+  `idTaille` int(11) DEFAULT NULL,
   `prix` float DEFAULT NULL,
-  `TailleEntreJambe` int DEFAULT NULL,
+  `TailleEntreJambe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=564 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=570 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `disponible`
+-- Dumping data for table `disponible`
 --
 
 INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJambe`) VALUES
@@ -565,7 +552,7 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (172, 61, 6, 60, NULL),
 (173, 62, 2, 28, NULL),
 (174, 62, 3, 28, NULL),
-(175, 32, 4, 28, NULL),
+(175, 32, 4, 0, NULL),
 (176, 62, 5, 28, NULL),
 (177, 62, 6, 28, NULL),
 (178, 62, 7, 28, NULL),
@@ -845,7 +832,6 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (452, 31, 49, 0, NULL),
 (453, 32, 2, 0, NULL),
 (454, 32, 3, 0, NULL),
-(455, 32, 4, 0, NULL),
 (456, 32, 5, 0, NULL),
 (457, 32, 6, 0, NULL),
 (458, 32, 7, 0, NULL),
@@ -958,20 +944,20 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 -- --------------------------------------------------------
 
 --
--- Structure de la table `employeur`
+-- Table structure for table `employeur`
 --
 
 DROP TABLE IF EXISTS `employeur`;
 CREATE TABLE IF NOT EXISTS `employeur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `prenom` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `roleEmployeur` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prenom` varchar(30) DEFAULT NULL,
+  `nom` varchar(30) DEFAULT NULL,
+  `roleEmployeur` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `employeur`
+-- Dumping data for table `employeur`
 --
 
 INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
@@ -985,28 +971,28 @@ INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fournisseur`
+-- Table structure for table `fournisseur`
 --
 
 DROP TABLE IF EXISTS `fournisseur`;
 CREATE TABLE IF NOT EXISTS `fournisseur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `codeFournissuer` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numSAP` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numMarche` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `siren` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numero` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rue` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codeFournissuer` varchar(50) DEFAULT NULL,
+  `numSAP` varchar(50) DEFAULT NULL,
+  `numMarche` varchar(50) DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `siren` varchar(50) DEFAULT NULL,
+  `numero` varchar(50) DEFAULT NULL,
+  `rue` varchar(50) DEFAULT NULL,
+  `codePostal` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `tel` varchar(50) DEFAULT NULL,
+  `slug` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `fournisseur`
+-- Dumping data for table `fournisseur`
 --
 
 INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`, `siren`, `numero`, `rue`, `codePostal`, `ville`, `tel`, `slug`) VALUES
@@ -1024,23 +1010,23 @@ INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lieulivraion`
+-- Table structure for table `lieulivraion`
 --
 
 DROP TABLE IF EXISTS `lieulivraion`;
 CREATE TABLE IF NOT EXISTS `lieulivraion` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `telephone` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `mail` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Siege` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) DEFAULT NULL,
+  `codePostal` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  `Siege` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `lieulivraion`
+-- Dumping data for table `lieulivraion`
 --
 
 INSERT INTO `lieulivraion` (`id`, `nom`, `codePostal`, `ville`, `telephone`, `mail`, `Siege`) VALUES
@@ -1050,369 +1036,80 @@ INSERT INTO `lieulivraion` (`id`, `nom`, `codePostal`, `ville`, `telephone`, `ma
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignecommandeepi`
+-- Table structure for table `lignecommandeepi`
 --
 
 DROP TABLE IF EXISTS `lignecommandeepi`;
 CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idProduit` int NOT NULL,
-  `quantite` int DEFAULT '1',
-  `idCommandeEPI` int NOT NULL,
-  `idTaille` int NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idProduit` int(11) NOT NULL,
+  `quantite` int(11) DEFAULT '1',
+  `idCommandeEPI` int(11) NOT NULL,
+  `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `lignecommandeepi`
---
-
-INSERT INTO `lignecommandeepi` (`Id`, `idProduit`, `quantite`, `idCommandeEPI`, `idTaille`) VALUES
-(129, 1, 1, 104, 22),
-(128, 11, 1, 104, 49);
+) ENGINE=MyISAM AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignecommandevet`
+-- Table structure for table `lignecommandevet`
 --
 
 DROP TABLE IF EXISTS `lignecommandevet`;
 CREATE TABLE IF NOT EXISTS `lignecommandevet` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idCommandeVet` int NOT NULL,
-  `idProduit` int NOT NULL,
-  `quantite` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idTaille` int NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idCommandeVet` int(11) NOT NULL,
+  `idProduit` int(11) NOT NULL,
+  `quantite` varchar(50) DEFAULT NULL,
+  `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idCommandeVet`),
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `lignecommandevet`
---
-
-INSERT INTO `lignecommandevet` (`Id`, `idCommandeVet`, `idProduit`, `quantite`, `idTaille`) VALUES
-(59, 47, 41, '6', 2);
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `log`
+-- Table structure for table `log`
 --
 
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
-  `description` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=557 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `log`
+-- Dumping data for table `log`
 --
 
 INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
-(141, '2023-03-07 08:20:46', 'Ajout de 4 produit(s) 4 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(142, '2023-03-07 08:20:51', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(143, '2023-03-07 09:36:54', 'Connexion de John.doe@gmail.doe', 1),
-(144, '2023-03-07 09:45:23', 'Ajout de 1 produit(s) 40 au panier par John.doe@gmail.doe', 1),
-(145, '2023-03-07 09:46:45', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(146, '2023-03-07 09:47:38', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(147, '2023-03-07 09:48:41', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(148, '2023-03-07 09:48:54', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(149, '2023-03-07 09:49:05', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(150, '2023-03-07 09:50:30', 'Suppression de l\'article  par John.doe@gmail.doe', 1),
-(151, '2023-03-07 09:50:46', 'Suppression de l\'article 40 par John.doe@gmail.doe', 1),
-(152, '2023-03-07 09:51:30', 'Ajout de 1 produit(s) 61 au panier par John.doe@gmail.doe', 1),
-(153, '2023-03-07 09:54:10', 'Suppression de l\'article 61 par John.doe@gmail.doe', 1),
-(154, '2023-03-07 09:54:34', 'Suppression de l\'article 61 par John.doe@gmail.doe', 1),
-(155, '2023-03-07 11:09:24', 'Connexion de John.doe@gmail.doe', 1),
-(156, '2023-03-07 11:12:25', 'Ajout de 1 produit(s) 2 au panier par John.doe@gmail.doe', 1),
-(157, '2023-03-07 11:34:14', 'Ajout de 1 produit(s) 91 au panier par John.doe@gmail.doe', 1),
-(158, '2023-03-07 11:34:20', 'Ajout de 1 produit(s) 72 au panier par John.doe@gmail.doe', 1),
-(159, '2023-03-07 11:51:07', 'Suppression de l\'article 2 par John.doe@gmail.doe', 1),
-(160, '2023-03-07 11:51:08', 'Suppression de l\'article 11 par John.doe@gmail.doe', 1),
-(161, '2023-03-07 11:51:17', 'Suppression de l\'article 72 par John.doe@gmail.doe', 1),
-(162, '2023-03-07 14:11:24', 'Ajout de 2 produit(s) 61 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(163, '2023-03-07 14:11:41', 'Validation du panier VET de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(164, '2023-03-07 14:11:54', 'Ajout de 2 produit(s) 61 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(165, '2023-03-07 14:12:00', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(166, '2023-03-07 14:12:16', 'Ajout de 1 produit(s) 3 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(167, '2023-03-07 14:13:25', 'Ajout de 1 produit(s) 3 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(168, '2023-03-07 14:13:31', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(169, '2023-03-07 14:15:26', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(170, '2023-03-07 14:16:48', 'Ajout de 1 produit(s) 11 au panier par ChefJohn.ChefDoe@gmail.Chef', 1),
-(171, '2023-03-07 14:16:59', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(172, '2023-03-07 14:32:04', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(173, '2023-03-07 14:33:32', 'Ajout de 1 produit(s) 2 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(174, '2023-03-07 14:33:39', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(175, '2023-03-07 14:45:49', 'Ajout de 1 produit(s) 3 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(176, '2023-03-07 14:45:58', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(177, '2023-03-07 15:56:04', 'Ajout de 1 produit(s) 1 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(178, '2023-03-07 15:56:34', 'Ajout de 1 produit(s) 2 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(179, '2023-03-07 15:56:50', 'Ajout de 1 produit(s) 1 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(180, '2023-03-07 15:56:55', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', NULL),
-(181, '2023-03-08 08:38:23', 'Connexion de SuperJohn@super.John', 20),
-(182, '2023-03-08 08:53:18', 'Déconnexion de SuperJohn@super.John', 20),
-(183, '2023-03-08 08:53:27', 'Connexion de John.doe@gmail.doe', 1),
-(184, '2023-03-08 08:56:21', 'Déconnexion de John.doe@gmail.doe', 1),
-(185, '2023-03-08 08:56:54', 'Connexion de dev', 21),
-(186, '2023-03-08 09:22:19', 'Déconnexion de dev', 21),
-(187, '2023-03-08 09:22:32', 'Connexion de John.doe@gmail.doe', 1),
-(188, '2023-03-08 09:59:17', 'Déconnexion de John.doe@gmail.doe', 1),
-(189, '2023-03-08 09:59:30', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(190, '2023-03-08 10:05:35', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(191, '2023-03-08 10:06:00', 'Connexion de dev', 21),
-(192, '2023-03-08 10:08:27', 'Déconnexion de dev', 21),
-(193, '2023-03-08 10:08:33', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(194, '2023-03-08 11:06:47', 'Ajout de 2 produit(s) 90 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(195, '2023-03-08 11:06:54', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(196, '2023-03-08 14:52:25', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(197, '2023-03-08 14:52:36', 'Connexion de John.doe@gmail.doe', 1),
-(198, '2023-03-08 14:53:37', 'Déconnexion de John.doe@gmail.doe', 1),
-(199, '2023-03-08 14:53:46', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(200, '2023-03-08 14:56:46', 'Ajout de 1 produit(s) 2 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(201, '2023-03-08 14:56:50', 'Ajout de 1 produit(s) 6 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(202, '2023-03-08 14:58:24', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(203, '2023-03-08 14:58:36', 'Ajout de 3 produit(s) 61 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(204, '2023-03-08 14:58:47', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(205, '2023-03-08 14:59:16', 'Ajout de 4 produit(s) 75 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(206, '2023-03-08 14:59:20', 'Ajout de 4 produit(s) 90 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(207, '2023-03-08 14:59:23', 'Ajout de 2 produit(s) 61 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(208, '2023-03-08 14:59:27', 'Ajout de 4 produit(s) 73 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(209, '2023-03-08 14:59:33', 'Ajout de 9 produit(s) 94 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(210, '2023-03-08 15:01:08', 'Suppression de l\'article 75 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(211, '2023-03-08 15:01:08', 'Suppression de l\'article 90 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(212, '2023-03-08 15:01:08', 'Suppression de l\'article 61 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(213, '2023-03-08 15:01:09', 'Suppression de l\'article 73 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(214, '2023-03-08 15:01:09', 'Suppression de l\'article 94 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(215, '2023-03-08 15:01:14', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(216, '2023-03-08 15:01:20', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(217, '2023-03-08 15:01:48', 'Ajout de 2 produit(s) 72 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(218, '2023-03-08 15:01:51', 'Ajout de 6 produit(s) 90 dans le panier de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(219, '2023-03-08 15:02:48', 'Validation du panier VET de SuperJohn@super.John par ChefJohn.ChefDoe@gmail.Chef', 3),
-(220, '2023-03-08 15:03:05', 'Ajout de 1 produit(s) 4 dans le panier de Johnette@Dobias.com par ChefJohn.ChefDoe@gmail.Chef', 3),
-(221, '2023-03-08 15:03:07', 'Ajout de 1 produit(s) 9 dans le panier de Johnette@Dobias.com par ChefJohn.ChefDoe@gmail.Chef', 3),
-(222, '2023-03-08 15:03:28', 'Ajout de 1 produit(s) 2 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(223, '2023-03-08 15:03:33', 'Ajout de 2 produit(s) 7 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(224, '2023-03-08 15:03:38', 'Ajout de 2 produit(s) 8 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(225, '2023-03-08 15:04:27', 'Ajout de 1 produit(s) 1 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(226, '2023-03-08 15:06:29', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(227, '2023-03-08 15:06:35', 'Connexion de SuperJohn@super.John', 20),
-(228, '2023-03-08 15:32:09', 'Déconnexion de SuperJohn@super.John', 20),
-(229, '2023-03-08 15:32:40', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(230, '2023-03-08 15:36:11', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(231, '2023-03-08 15:36:17', 'Connexion de John.doe@gmail.doe', 1),
-(232, '2023-03-09 09:08:41', 'Déconnexion de John.doe@gmail.doe', 1),
-(233, '2023-03-09 09:08:45', 'Connexion de SuperJohn@super.John', 20),
-(234, '2023-03-09 09:54:07', 'Déconnexion de SuperJohn@super.John', 20),
-(235, '2023-03-09 09:54:13', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(236, '2023-03-09 09:58:04', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(237, '2023-03-09 09:58:09', 'Connexion de SuperJohn@super.John', 20),
-(238, '2023-03-09 10:03:19', 'Déconnexion de SuperJohn@super.John', 20),
-(239, '2023-03-09 10:03:25', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(240, '2023-03-09 10:03:35', 'Ajout de 3 produit(s) 90 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(241, '2023-03-09 10:03:40', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(242, '2023-03-09 10:03:54', 'Ajout de 1 produit(s) 2 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(243, '2023-03-09 10:04:00', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(244, '2023-03-09 10:04:08', 'Ajout de 1 produit(s) 2 dans le panier de AdminJohnDoe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(245, '2023-03-09 10:04:27', 'Ajout de 3 produit(s) 61 dans le panier de Johnette@Dobias.com par ChefJohn.ChefDoe@gmail.Chef', 3),
-(246, '2023-03-09 10:04:32', 'Validation du panier VET de Johnette@Dobias.com par ChefJohn.ChefDoe@gmail.Chef', 3),
-(247, '2023-03-09 10:07:30', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(248, '2023-03-09 10:13:39', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(249, '2023-03-09 10:13:45', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(250, '2023-03-09 10:13:54', 'Connexion de dev', 21),
-(251, '2023-03-09 10:14:05', 'Déconnexion de dev', 21),
-(252, '2023-03-09 10:14:34', 'Connexion de SuperJohn@super.John', 20),
-(253, '2023-03-09 13:59:24', 'Déconnexion de SuperJohn@super.John', 20),
-(254, '2023-03-09 14:02:00', 'Connexion de SuperGoebbels@onf.com', 36),
-(255, '2023-03-09 14:02:32', 'Déconnexion de SuperGoebbels@onf.com', 36),
-(256, '2023-03-09 14:03:36', 'Connexion de Eric@windev.com', 37),
-(257, '2023-03-09 14:03:58', 'Déconnexion de Eric@windev.com', 37),
-(258, '2023-03-09 14:05:20', 'Connexion de RapideEtFurieux@bagnole.com', 38),
-(259, '2023-03-09 14:07:22', 'Déconnexion de RapideEtFurieux@bagnole.com', 38),
-(260, '2023-03-09 14:08:40', 'Connexion de Clément@ClashRoyal.com', 39),
-(261, '2023-03-09 14:08:47', 'Déconnexion de Clément@ClashRoyal.com', 39),
-(262, '2023-03-09 14:09:35', 'Connexion de Général@LaGaulle.com', 40),
-(263, '2023-03-09 14:10:19', 'Déconnexion de Général@LaGaulle.com', 40),
-(264, '2023-03-09 14:18:03', 'Connexion de SuperJohn@super.John', 20),
-(265, '2023-03-09 14:20:14', 'Déconnexion de SuperJohn@super.John', 20),
-(266, '2023-03-09 14:21:01', 'Connexion de SuperGoebbels@onf.com', 36),
-(267, '2023-03-09 14:21:05', 'Déconnexion de SuperGoebbels@onf.com', 36),
-(268, '2023-03-09 14:21:21', 'Connexion de Général@LaGaulle.com', 40),
-(269, '2023-03-09 15:01:21', 'Connexion de SuperGoebbels@onf.com', 36),
-(270, '2023-03-09 15:01:32', 'Déconnexion de SuperGoebbels@onf.com', 36),
-(271, '2023-03-09 15:01:43', 'Connexion de Clément@ClashRoyal.com', 39),
-(272, '2023-03-09 15:02:05', 'Déconnexion de Clément@ClashRoyal.com', 39),
-(273, '2023-03-09 15:02:19', 'Connexion de Général@LaGaulle.com', 40),
-(274, '2023-03-09 15:22:56', 'Déconnexion de Général@LaGaulle.com', 40),
-(275, '2023-03-09 15:23:11', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(276, '2023-03-09 15:24:42', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(277, '2023-03-09 15:24:48', 'Connexion de SuperJohn@super.John', 20),
-(278, '2023-03-09 15:42:38', 'Déconnexion de SuperJohn@super.John', 20),
-(279, '2023-03-09 15:42:44', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(280, '2023-03-10 08:15:08', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(281, '2023-03-10 08:15:13', 'Connexion de SuperJohn@super.John', 20),
-(282, '2023-03-10 08:24:14', 'Déconnexion de SuperJohn@super.John', 20),
-(283, '2023-03-10 08:24:32', 'Connexion de Général@LaGaulle.com', 40),
-(284, '2023-03-10 08:26:01', 'Déconnexion de Général@LaGaulle.com', 40),
-(285, '2023-03-10 08:26:59', 'Connexion de Kiki@psg.com', 41),
-(286, '2023-03-10 10:04:44', 'Déconnexion de Kiki@psg.com', 41),
-(287, '2023-03-10 13:45:42', 'Connexion de John.doe@gmail.doe', 1),
-(288, '2023-03-10 13:50:31', 'Déconnexion de John.doe@gmail.doe', 1),
-(289, '2023-03-10 13:50:39', 'Connexion de Général@LaGaulle.com', 40),
-(290, '2023-03-10 14:08:59', 'Déconnexion de Général@LaGaulle.com', 40),
-(291, '2023-03-10 14:09:21', 'Connexion de Kiki@psg.com', 41),
-(292, '2023-03-10 14:57:08', 'Déconnexion de Kiki@psg.com', 41),
-(293, '2023-03-10 14:57:15', 'Connexion de John.doe@gmail.doe', 1),
-(294, '2023-03-10 14:58:19', 'Déconnexion de John.doe@gmail.doe', 1),
-(295, '2023-03-10 14:58:28', 'Connexion de Kiki@psg.com', 41),
-(296, '2023-03-10 15:00:32', 'Ajout de 5 produit(s) 185 au panier par Kiki@psg.com', 1),
-(297, '2023-03-10 15:01:47', 'Ajout de 4 produit(s) 185 au panier par Kiki@psg.com', 1),
-(298, '2023-03-10 15:02:11', 'Ajout de 1 produit(s) 185 au panier par Kiki@psg.com', 1),
-(299, '2023-03-10 15:02:14', 'Ajout de 1 produit(s) 185 au panier par Kiki@psg.com', 1),
-(300, '2023-03-10 15:06:11', 'Ajout de 1 produit(s) 193 au panier par Kiki@psg.com', 1),
-(301, '2023-03-10 15:15:25', 'Ajout de 20 produit(s) 182 au panier par Kiki@psg.com', 1),
-(302, '2023-03-13 08:34:41', 'Connexion de SuperJohn@super.John', 20),
-(303, '2023-03-13 08:36:21', 'Déconnexion de SuperJohn@super.John', 20),
-(304, '2023-03-13 08:36:34', 'Connexion de Kiki@psg.com', 41),
-(305, '2023-03-13 09:09:58', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(306, '2023-03-13 09:10:01', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(307, '2023-03-13 09:10:13', 'Ajout de 4 produit(s) 182 au panier par Kiki@psg.com', 1),
-(308, '2023-03-13 09:10:20', 'Ajout de 1 produit(s) 197 au panier par Kiki@psg.com', 1),
-(309, '2023-03-13 09:14:04', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(310, '2023-03-13 09:15:24', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(311, '2023-03-13 09:16:27', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(312, '2023-03-13 09:17:10', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(313, '2023-03-13 09:17:28', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(314, '2023-03-13 09:17:42', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(315, '2023-03-13 09:17:58', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(316, '2023-03-13 09:20:09', 'Ajout de 1 produit(s) 182 au panier par Kiki@psg.com', 1),
-(317, '2023-03-13 09:24:30', 'Validation du panier EPI par Kiki@psg.com', 1),
-(318, '2023-03-13 10:25:35', 'Déconnexion de Kiki@psg.com', 41),
-(319, '2023-03-13 13:55:23', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(320, '2023-03-13 15:54:31', 'Suppression de l\'article Santiago par John.doe@gmail.doe', 1),
-(321, '2023-03-13 15:55:59', 'Ajout de 1 produit(s) Blackstick+ au panier par John.doe@gmail.doe', 1),
-(322, '2023-03-13 15:56:07', 'Ajout de 2 produit(s) Francital GT015 au panier par John.doe@gmail.doe', 1),
-(323, '2023-03-13 15:56:26', 'Suppression de l\'article Blackstick+ par John.doe@gmail.doe', 1),
-(324, '2023-03-13 15:56:26', 'Suppression de l\'article Francital GT015 par John.doe@gmail.doe', 1),
-(325, '2023-03-13 15:56:54', 'Ajout de 1 produit(s) Blackstick+ au panier par John.doe@gmail.doe', 1),
-(326, '2023-03-13 15:56:59', 'Ajout de 2 produit(s) Francital GT015 au panier par John.doe@gmail.doe', 1),
-(327, '2023-03-13 15:57:26', 'Déconnexion de John.doe@gmail.doe', 1),
-(328, '2023-03-13 15:57:32', 'Connexion de John.doe@gmail.doe', 1),
-(329, '2023-03-13 15:57:37', 'Suppression de l\'article Francital GT015 par John.doe@gmail.doe', 1),
-(330, '2023-03-13 15:57:37', 'Suppression de l\'article Blackstick+ par John.doe@gmail.doe', 1),
-(331, '2023-03-13 15:57:46', 'Ajout de 1 produit(s) Blackstick+ au panier par John.doe@gmail.doe', 1),
-(332, '2023-03-13 15:58:05', 'Ajout de 2 produit(s) Francital GT015 au panier par John.doe@gmail.doe', 1),
-(333, '2023-03-13 15:58:45', 'Validation du panier EPI par John.doe@gmail.doe', 1),
-(334, '2023-03-14 08:08:39', 'Déconnexion de John.doe@gmail.doe', 1),
-(335, '2023-03-14 08:08:45', 'Connexion de John.doe@gmail.doe', 1),
-(336, '2023-03-14 09:01:21', 'Connexion de John.doe@gmail.doe', 1),
-(337, '2023-03-14 09:01:35', 'Ajout de 1 produit(s) TYVEK 500 au panier par John.doe@gmail.doe', 1),
-(338, '2023-03-14 09:03:42', 'Ajout de 1 produit(s) DENIM au panier par John.doe@gmail.doe', 1),
-(339, '2023-03-14 09:03:51', 'Ajout de 1 produit(s) Winterpro au panier par John.doe@gmail.doe', 1),
-(340, '2023-03-14 09:04:00', 'Ajout de 4 produit(s) Gants cuir HMPS7BP au panier par John.doe@gmail.doe', 1),
-(341, '2023-03-14 09:04:10', 'Ajout de 3 produit(s) Gant cuir EPS7PBA au panier par John.doe@gmail.doe', 1),
-(342, '2023-03-14 09:04:21', 'Ajout de 2 produit(s) ERGOS 359003 au panier par John.doe@gmail.doe', 1),
-(343, '2023-03-14 09:27:49', 'Ajout de 1 produit(s) Francital GT015 au panier par John.doe@gmail.doe', 1),
-(344, '2023-03-14 09:28:14', 'Ajout de 1 produit(s) Blackstick+ au panier par John.doe@gmail.doe', 1),
-(345, '2023-03-14 09:28:40', 'Ajout de 1 produit(s) Blackstick+ au panier par John.doe@gmail.doe', 1),
-(346, '2023-03-14 09:28:56', 'Ajout de 1 produit(s) Francital GT015 au panier par John.doe@gmail.doe', 1),
-(347, '2023-03-14 09:32:58', 'Déconnexion de John.doe@gmail.doe', 1),
-(348, '2023-03-14 09:33:23', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(349, '2023-03-14 10:12:34', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(350, '2023-03-14 10:14:36', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(351, '2023-03-14 10:14:46', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(352, '2023-03-14 10:14:53', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(353, '2023-03-14 10:18:25', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(354, '2023-03-14 10:30:31', 'Connexion de John.doe@gmail.doe', 1),
-(355, '2023-03-14 10:31:21', 'Déconnexion de John.doe@gmail.doe', 1),
-(356, '2023-03-14 10:32:15', 'Connexion de Eric@windev.com', 37),
-(357, '2023-03-14 10:32:23', 'Déconnexion de Eric@windev.com', 37),
-(358, '2023-03-14 10:32:31', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(359, '2023-03-14 10:32:40', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(360, '2023-03-14 10:32:57', 'Connexion de Kiki@psg.com', 41),
-(361, '2023-03-14 10:33:04', 'Déconnexion de Kiki@psg.com', 41),
-(362, '2023-03-14 10:33:11', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(363, '2023-03-14 10:42:43', 'Ajout de 2 produit(s) SOLIDUR FELIN dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(364, '2023-03-14 10:43:43', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(365, '2023-03-14 10:44:28', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(366, '2023-03-14 10:44:33', 'Connexion de John.doe@gmail.doe', 1),
-(367, '2023-03-14 10:45:02', 'Ajout de 2 produit(s) SOLIDUR FELIN au panier par John.doe@gmail.doe', 1),
-(368, '2023-03-14 10:45:10', 'Validation du panier EPI par John.doe@gmail.doe', 1),
-(369, '2023-03-14 10:45:14', 'Déconnexion de John.doe@gmail.doe', 1),
-(370, '2023-03-14 10:45:30', 'Connexion de SuperJohn@super.John', 20),
-(371, '2023-03-14 10:47:16', 'Déconnexion de SuperJohn@super.John', 20),
-(372, '2023-03-14 10:47:24', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(373, '2023-03-14 10:48:20', 'Ajout de 4 produit(s) Gilet sans manches softshell FRANCITAL Ecrin N°4 dans le panier de AdminJohnDoe@gmail.doe par AdminJohnDoe@gmail.doe', 2),
-(374, '2023-03-14 10:49:30', 'Validation du panier VET par AdminJohnDoe@gmail.doe', 1),
-(375, '2023-03-14 10:49:33', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(376, '2023-03-14 10:50:00', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(377, '2023-03-14 10:50:14', 'Ajout de 1 produit(s) Gilet sans manches softshell FRANCITAL Ecrin N°4 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(378, '2023-03-14 10:51:01', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(379, '2023-03-14 10:51:02', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(380, '2023-03-14 10:51:08', 'Connexion de John.doe@gmail.doe', 1),
-(381, '2023-03-14 10:51:15', 'Ajout de 1 produit(s) Gilet sans manches softshell FRANCITAL Ecrin N°4 au panier par John.doe@gmail.doe', 1),
-(382, '2023-03-14 10:53:45', 'Déconnexion de John.doe@gmail.doe', 1),
-(383, '2023-03-14 10:53:58', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(384, '2023-03-14 10:54:22', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(385, '2023-03-14 10:54:27', 'Connexion de John.doe@gmail.doe', 1),
-(386, '2023-03-14 10:56:48', 'Déconnexion de John.doe@gmail.doe', 1),
-(387, '2023-03-14 10:56:56', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(388, '2023-03-14 11:16:13', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(389, '2023-03-14 11:16:18', 'Connexion de John.doe@gmail.doe', 1),
-(390, '2023-03-14 11:16:30', 'Déconnexion de John.doe@gmail.doe', 1),
-(391, '2023-03-14 11:16:37', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(392, '2023-03-14 11:32:24', 'Ajout de 1 produit(s) MOLDEX 2405 au panier par ChefJohn.ChefDoe@gmail.Chef', 1),
-(393, '2023-03-14 11:32:33', 'Validation du panier EPI de SuperGoebbels@onf.com par ChefJohn.ChefDoe@gmail.Chef', 3),
-(394, '2023-03-14 11:32:43', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(395, '2023-03-14 11:32:49', 'Connexion de John.doe@gmail.doe', 1),
-(396, '2023-03-14 11:33:07', 'Validation du panier EPI par John.doe@gmail.doe', 1),
-(397, '2023-03-14 11:35:14', 'Déconnexion de John.doe@gmail.doe', 1),
-(398, '2023-03-14 11:35:19', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(399, '2023-03-14 11:35:29', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(400, '2023-03-14 11:35:38', 'Connexion de SuperJohn@super.John', 20),
-(401, '2023-03-14 11:44:35', 'Déconnexion de SuperJohn@super.John', 20),
-(402, '2023-03-14 11:44:42', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(403, '2023-03-14 13:20:54', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(404, '2023-03-14 13:23:46', 'Ajout de 1 produit(s) PFANNER Protos  au panier par ChefJohn.ChefDoe@gmail.Chef', 1),
-(405, '2023-03-14 13:23:56', 'Ajout de 1 produit(s) Extrême One 944 au panier par ChefJohn.ChefDoe@gmail.Chef', 1),
-(406, '2023-03-14 13:24:06', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(407, '2023-03-14 13:28:47', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(408, '2023-03-14 13:28:52', 'Connexion de John.doe@gmail.doe', 1),
-(409, '2023-03-14 13:32:14', 'Ajout de 6 produit(s) Tee shirt technique manches longues Solidur N°5 au panier par John.doe@gmail.doe', 1),
-(410, '2023-03-14 13:32:22', 'Validation du panier VET par John.doe@gmail.doe', 1),
-(411, '2023-03-14 13:34:40', 'Déconnexion de John.doe@gmail.doe', 1),
-(412, '2023-03-14 13:35:09', 'Connexion de SuperJohn@super.John', 20),
-(413, '2023-03-14 13:48:28', 'Déconnexion de SuperJohn@super.John', 20),
-(414, '2023-03-14 13:48:47', 'Connexion de John.doe@gmail.doe', 1),
-(415, '2023-03-14 13:59:34', 'Déconnexion de John.doe@gmail.doe', 1),
-(416, '2023-03-14 13:59:58', 'Connexion de SuperJohn@super.John', 20);
+(555, '2023-03-15 14:07:24', 'Déconnexion de SuperJohn@super.John', 20),
+(556, '2023-03-15 14:07:28', 'Connexion de John.doe@gmail.doe', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `metier`
+-- Table structure for table `metier`
 --
 
 DROP TABLE IF EXISTS `metier`;
 CREATE TABLE IF NOT EXISTS `metier` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `statut` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `statut` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `metier`
+-- Dumping data for table `metier`
 --
 
 INSERT INTO `metier` (`id`, `statut`) VALUES
@@ -1428,66 +1125,61 @@ INSERT INTO `metier` (`id`, `statut`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `points`
+-- Table structure for table `points`
 --
 
 DROP TABLE IF EXISTS `points`;
 CREATE TABLE IF NOT EXISTS `points` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `point` int DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `point` int(11) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `points`
+-- Dumping data for table `points`
 --
 
 INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
-(1, 9005, 1),
-(2, 1768, 2),
-(13, 14523, 17),
-(14, 4333, 20),
-(15, 50000, 21),
-(16, 14789, 22),
-(17, 14587, 23),
-(18, 5874, 24),
-(19, 1458, 25),
-(20, 100000, 27),
-(21, 74264, 29),
-(22, 450, 30),
-(23, 150, 36),
+(1, 150, 1),
+(2, 150, 2),
+(13, 150, 17),
+(14, 150, 20),
+(15, 150, 21),
+(16, 150, 22),
+(17, 150, 23),
+(18, 150, 24),
+(19, 150, 25),
+(20, 150, 27),
+(21, 150, 29),
+(22, 150, 30),
 (24, 150, 37),
 (25, 150, 38),
-(26, 150, 39),
-(27, 150, 40),
-(28, 150, 41),
-(29, 150, 42),
-(30, 150, 43);
+(28, 150, 41);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produit`
+-- Table structure for table `produit`
 --
 
 DROP TABLE IF EXISTS `produit`;
 CREATE TABLE IF NOT EXISTS `produit` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `referenceFournisseur` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fichierPhoto` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` varchar(700) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idFournisseur` int NOT NULL,
-  `idType` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `referenceFournisseur` varchar(50) DEFAULT NULL,
+  `fichierPhoto` varchar(50) DEFAULT NULL,
+  `nom` varchar(150) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `description` varchar(700) DEFAULT NULL,
+  `idFournisseur` int(11) NOT NULL,
+  `idType` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
-) ENGINE=MyISAM AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `produit`
+-- Dumping data for table `produit`
 --
 
 INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `type`, `description`, `idFournisseur`, `idType`) VALUES
@@ -1585,41 +1277,41 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (94, 'ONF', 'ChaussuresEagle.png', 'Chaussures basses Haix Black Eagle\r\nNature GTX Low N°58', 'VET', 'Hauteur 8 cm. Etanche et respirante grace à la membrane\r\nGore Tex. Doublure résistante à l’abrasion, avec un bon\r\nconfort thermique.\r\nComposition cuir/PU/caoutchouc.\r\nPointure 35 à 47\r\n\r\nPS : Ces chaussures ne sont pas des EPI et ne peu-\r\nvent donc pas être portées sur les chantiers.', 10, 17),
 (95, 'ONF', 'ChaussuresScout.png', 'Chaussures mi-hautes Haix scout 2.0 N°59', 'VET', 'Hauteur 17 cm. Etanche et respirante grâce à la membrane\r\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\r\nfort thermique. Antistatique.\r\nComposition cuir/PU/caoutchouc.\r\nPointure 35 à 47\r\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\r\ndonc pas être portées sur les chantiers.', 10, 17),
 (96, 'ONF', 'ChaussureNature.png', 'Chaussures hautes Haix Nature One GTX N°60', 'VET', 'Hauteur 19 cm. Etanche et respirante grace à la membrane\r\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\r\nfort thermique.\r\nComposition cuir/PU/caoutchouc.\r\nPointure 35 à 47\r\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\r\ndonc pas être portées sur les chantiers.', 10, 17),
-(182, 'EBM Distribution ', 'Stelvio.png', ' Stelvio', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et\r\nsemelle anti-perforation « Vibram »\r\nIdéal pour les terrains de plaine.', 1, 3),
-(183, 'EBM Distribution ', 'Piémont.png', 'Vancouver Piémont', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 10),
-(184, 'EBM Distribution ', 'Montagne.png', 'Vancouver Montagne', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 10),
-(185, 'EBM Distribution ', 'Purofort.png', 'Dunlop Purofort', 'EPINonOuvrier', 'Taille : 38 à 48\r\nPas de protection anti-coupure\r\nBottes de sécurité en caoutchouc 100%\r\nimperméable à embout renforcé et semelle\r\n\r\nanti-perforation.\r\nIdéal pour déplacement en milieu très\r\nhumide / marécageux.', 1, 10),
+(182, 'EBM Distribution ', 'Stelvio.png', ' Stelvio', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et\r\nsemelle anti-perforation « Vibram »\r\nIdéal pour les terrains de plaine.', 1, 18),
+(183, 'EBM Distribution ', 'Piémont.png', 'Vancouver Piémont', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 18),
+(184, 'EBM Distribution ', 'Montagne.png', 'Vancouver Montagne', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 18),
+(185, 'EBM Distribution ', 'Purofort.png', 'Dunlop Purofort', 'EPINonOuvrier', 'Taille : 38 à 48\r\nPas de protection anti-coupure\r\nBottes de sécurité en caoutchouc 100%\r\nimperméable à embout renforcé et semelle\r\n\r\nanti-perforation.\r\nIdéal pour déplacement en milieu très\r\nhumide / marécageux.', 1, 18),
 (186, 'EBM Distribution ', 'Stubai.png', 'Stubai Twin peak', 'EPINonOuvrier', 'Taille unique\r\n\r\nS’adapte à tous les modèles de chaussures.', 1, 10),
-(187, 'Zimmer ', '1SX4.png', 'SIP 1SX4', 'EPINonOuvrier', 'Pas de protection anti-coupure\r\nGuêtres de débroussaillage renforcé protégeant\r\ndes projections. Limite la remontée de tiques.\r\nMaintien par câble sous la chaussure.', 3, 10),
-(188, 'ROSTAING', 'EPS7PBA.png', 'Gants cuir EPS7BPA', 'EPINonOuvrier', 'Gants de manutention en cuir avec protège\r\n\r\nartère en cuir.', 4, 10),
-(189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\r\n\r\nTaille : 7 à 11', 4, 10),
-(190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\r\n\r\nsmartphone.\r\nProtège du froid positif\r\nTaille : 7 à 12', 4, 10),
-(191, 'ROSTAING', 'MidSeasonNitrile.png', 'MIDSEASON', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\r\n\r\nrisques chimiques\r\nTaille : 7 à 10', 4, 10),
-(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\r\n\r\nbranches.\r\n\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\n\r\nensoleillé).', 8, 10),
-(193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405', 'EPINonOuvrier', 'Taille unique\r\n\r\nMasque FFP2 avec valve facilitant l’expiration.\r\n\r\nRéglage avec élastique\r\nUtilisable en milieu infesté par la chenille\r\n\r\nprocessionnaire.', 6, 10),
-(194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J', 'EPINonOuvrier', 'Fournisseur : FIPROTEC – RG France', 6, 10),
-(195, 'Fiprotec', 'TYVEK500.png', 'YVEK 500', 'EPINonOuvrier', 'Cagoule à usage unique couvrant les épaules\r\net la tête.\r\nUtilisable en milieu infesté par la chenille\r\nprocessionnaire.', 6, 10),
-(196, 'E.P.I SUD ', 'VGARD500.png', 'MSA VGARD 500', 'EPINonOuvrier', 'Réglage du casque avec molette.\r\nBandeau anti-sueur en mousse.\r\nDurée de vie : 5 ans', 9, 10),
-(197, 'E.P.I SUD', 'MAX300.png', 'COVERGUARD MAX300', 'EPINonOuvrier', 'Coquille de protection auditive pour casque de\r\nchantier\r\nRéduction de bruit : 30dB', 9, 10),
-(198, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX réf 6401', 'EPINonOuvrier', 'Bouchon d’oreille réutilisable\r\nRéduction de bruit : 30dB', 9, 10),
-(200, 'E.P.I SUD ', '200LS.png', 'MSA Advantage 200 LS', 'EPINonOuvrier', 'Taille unique avec réglage par élastique.\r\nPossibilité d’avoir plusieurs niveaux de filtration\r\nsur les cartouches.\r\nCartouche prévu au marché EPI : A2P3', 9, 10);
+(187, 'Zimmer ', '1SX4.png', 'SIP 1SX4', 'EPINonOuvrier', 'Pas de protection anti-coupure\r\nGuêtres de débroussaillage renforcé protégeant\r\ndes projections. Limite la remontée de tiques.\r\nMaintien par câble sous la chaussure.', 3, 18),
+(188, 'ROSTAING', 'EPS7PBA.png', 'Gants cuir EPS7BPA', 'EPINonOuvrier', 'Gants de manutention en cuir avec protège\r\n\r\nartère en cuir.', 4, 18),
+(189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\r\n\r\nTaille : 7 à 11', 4, 18),
+(190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\r\n\r\nsmartphone.\r\nProtège du froid positif\r\nTaille : 7 à 12', 4, 18),
+(191, 'ROSTAING', 'MidSeasonNitrile.png', 'MIDSEASON', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\r\n\r\nrisques chimiques\r\nTaille : 7 à 10', 4, 18),
+(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\r\n\r\nbranches.\r\n\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\n\r\nensoleillé).', 8, 18),
+(193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405', 'EPINonOuvrier', 'Taille unique\r\n\r\nMasque FFP2 avec valve facilitant l’expiration.\r\n\r\nRéglage avec élastique\r\nUtilisable en milieu infesté par la chenille\r\n\r\nprocessionnaire.', 6, 18),
+(194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J', 'EPINonOuvrier', 'Fournisseur : FIPROTEC – RG France', 6, 18),
+(195, 'Fiprotec', 'TYVEK500.png', 'YVEK 500', 'EPINonOuvrier', 'Cagoule à usage unique couvrant les épaules\r\net la tête.\r\nUtilisable en milieu infesté par la chenille\r\nprocessionnaire.', 6, 18),
+(196, 'E.P.I SUD ', 'VGARD500.png', 'MSA VGARD 500', 'EPINonOuvrier', 'Réglage du casque avec molette.\r\nBandeau anti-sueur en mousse.\r\nDurée de vie : 5 ans', 9, 18),
+(197, 'E.P.I SUD', 'MAX300.png', 'COVERGUARD MAX300', 'EPINonOuvrier', 'Coquille de protection auditive pour casque de\r\nchantier\r\nRéduction de bruit : 30dB', 9, 18),
+(198, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX réf 6401', 'EPINonOuvrier', 'Bouchon d’oreille réutilisable\r\nRéduction de bruit : 30dB', 9, 18),
+(200, 'E.P.I SUD ', '200LS.png', 'MSA Advantage 200 LS', 'EPINonOuvrier', 'Taille unique avec réglage par élastique.\r\nPossibilité d’avoir plusieurs niveaux de filtration\r\nsur les cartouches.\r\nCartouche prévu au marché EPI : A2P3', 9, 18);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `role`
+-- Table structure for table `role`
 --
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `commentaire` varchar(70) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
+  `commentaire` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `role`
+-- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
@@ -1632,18 +1324,18 @@ INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `taille`
+-- Table structure for table `taille`
 --
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE IF NOT EXISTS `taille` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `taille`
+-- Dumping data for table `taille`
 --
 
 INSERT INTO `taille` (`id`, `libelle`) VALUES
@@ -1718,20 +1410,20 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `type`
+-- Table structure for table `type`
 --
 
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE IF NOT EXISTS `type` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idCategorie` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
+  `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `type`
+-- Dumping data for table `type`
 --
 
 INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
@@ -1751,39 +1443,40 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 (14, 'Combinaison', 6),
 (15, 'EPI jetable ', 9),
 (16, 'Bouchon', 6),
-(17, 'Vêtement', 10);
+(17, 'Vêtement', 10),
+(18, 'EPINonOuvrier', 11);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `Login` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `prenom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idLieuLivraison` int NOT NULL,
-  `id_responsable` int DEFAULT NULL,
-  `idRole` int NOT NULL,
-  `idMetier` int NOT NULL,
-  `Agence` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `IdEmployeur` int DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Login` varchar(50) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `tel` varchar(50) DEFAULT NULL,
+  `idLieuLivraison` int(11) NOT NULL,
+  `id_responsable` int(11) DEFAULT NULL,
+  `idRole` int(11) NOT NULL,
+  `idMetier` int(11) NOT NULL,
+  `Agence` varchar(50) NOT NULL,
+  `IdEmployeur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idLieuLivraison` (`idLieuLivraison`),
   KEY `id_chef` (`id_responsable`),
   KEY `idRole` (`idRole`),
   KEY `idMetier` (`idMetier`),
   KEY `IdEmployeur` (`IdEmployeur`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, `tel`, `idLieuLivraison`, `id_responsable`, `idRole`, `idMetier`, `Agence`, `IdEmployeur`) VALUES
@@ -1794,14 +1487,9 @@ INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, 
 (20, 'SuperJohn@super.John', '$2y$10$Na5o6ipGj51UWgFEqrjexOZPdjcLKNVMrOk7YoFOavSM.LRsM9YFS', 'Didou', 'John', 'SuperJohn@super.John', '0654589874', 2, 20, 5, 1, 'Mulhouse', NULL),
 (21, 'dev', '$2y$10$8p0f5RZSCB06Dlq/Zz/E.ugHO0r.Ztz69gqClzIQOWnOPF3GrNLa2', 'dev', 'dev', 'dev', '0600600606', 1, 3, 2, 5, 'Milhouse', NULL),
 (29, 'Johnette@Dobias.com', '$2y$10$k1bFJ0v1h5WTKGHaResL2Od71P/Q84FwFVt6QOi9z6xm7yPXlH4UO', 'Dobias', 'Johnette', 'Johnette@Dobias.com', '0707070707', 1, 3, 3, 3, 'Colmar', NULL),
-(36, 'SuperGoebbels@onf.com', '$2y$10$gXd2qNND3BPzi55kkkf3AeJBPDIDOF1p/4bmQ5sIdgK0rGaHWukTO', 'Mark', 'Goebbels', 'SuperGoebbels@onf.com', '0105194500', 1, 3, 1, 1, 'Milhouse', NULL),
 (37, 'Eric@windev.com', '$2y$10$SoeDXLWUxb5P3wTM4RXg5OljbGE55i2zy2kj9qO33xe9DhIfmyUz6', 'fan2Windev', 'Eric', 'Eric@windev.com', '0609110661', 1, 21, 1, 2, 'Colmar', NULL),
 (38, 'RapideEtFurieux@bagnole.com', '$2y$10$2RRTDJpa84PLWoh9Ja3MCu/EHn5q1QytDkzr.fTXzcaYvl3CvrwOm', 'Rapide', 'Flash', 'RapideEtFurieux@bagnole.com', '0125652598', 2, 3, 1, 3, 'Mulhouse', NULL),
-(39, 'Clément@ClashRoyal.com', '$2y$10$IVMMRhf5nh65eauz69jxWu8w.C627Jg0FXzMadlzzqBgK/d5qlUrm', 'Clément', 'APK', 'Clément@ClashRoyal.com', '0120120120', 1, 3, 1, 4, 'Colmar', NULL),
-(40, 'Général@LaGaulle.com', '$2y$10$d2Y4qxYhuOYrEX.iUKxWpemHmr/CHBr2gipcQOLWdugVSLpcm/V3O', 'LaGaulle', 'Général', 'Général@auGardaVous.com', '0125454845', 1, 21, 1, 5, 'Colmar', NULL),
-(41, 'Kiki@psg.com', '$2y$10$Tp2T8JDz0zfSh1xIoHStw.CvMa5MCLSUOJhEjYfAFc8MaMGR02Z8W', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', NULL),
-(42, 'Meleche@lePencil.com', '$2y$10$O8PxhGwVFh4yxHga23XtP.AHlsdU44.dJJZWQxumignYOKcemS1hC', 'Lhabite', 'Meleche', 'Meleche@lePencil.com', '4747474747', 2, 21, 1, 7, 'Colmar', NULL),
-(43, 'Marc@dansTonTrou.cm', '$2y$10$m3804pdr0L5KD87FQh1zoOTCXuu9ERrcSfKjp5zjqyi/z0S0a2XF2', 'Marc', 'Dutroue', 'Marc@dansTonTrou.cm', '5689548510', 1, 3, 1, 8, 'Milhouse', NULL);
+(41, 'Kiki@psg.com', '$2y$10$Tp2T8JDz0zfSh1xIoHStw.CvMa5MCLSUOJhEjYfAFc8MaMGR02Z8W', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

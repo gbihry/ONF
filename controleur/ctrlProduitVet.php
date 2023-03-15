@@ -8,7 +8,7 @@
     }
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3), 'VET');
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $array = array(
@@ -19,7 +19,7 @@
         $uneTaille = ModeleObjetDAO::getTaille($_GET["id"]);
 
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3), 'VET');
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
@@ -42,7 +42,7 @@
         $uneTaille = ModeleObjetDAO::getTaille($_GET["id"]);
 
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3));
+        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3), 'VET');
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
