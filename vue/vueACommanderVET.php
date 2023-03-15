@@ -50,7 +50,7 @@
                         <td>'.$value['id'].'</td>
                         <td>'.$value['nom'].'_'.$value['prenom'].'</td>
                         <td>'.$value['email'].'</td>
-                        <td>'.$value['dateCrea'].'</td>
+                        <td>'.$value['dateCreaFini'].'</td>
                     </tr>');
                 }
             }

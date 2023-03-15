@@ -1269,7 +1269,7 @@ form {
 /* btn reset de la base de données et des logs*/
 
 .btnBdd{
-    height: 50vh;
+    margin: 25px;
     display: flex;
     justify-content: center;
     align-items: center;

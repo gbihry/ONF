@@ -5,7 +5,7 @@
 
     if(isset($_SESSION['autorise']) && $role == 'Administrateur' || isset($_SESSION['autorise']) && $role == 'Super-Administrateur'){
         
-        $allProductsEPI = ModeleObjetDAO::getAllProducts('EPI');
+        $allProductsEPI = ModeleObjetDAO::getAllProductsModif('EPI');
         $allType = ModeleObjetDAO::getTypeProduit();
 
         if (isset($_POST['idProduit']) && $_POST['idProduit'] != 'undefined'){
