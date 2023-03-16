@@ -1944,8 +1944,6 @@
             return $res;
         }
 
-       
-
         //DELETE FROM lignecommandeepi WHERE id = :idL AND idCommandeEPI = :idCommandeEPI
         public static function deleteUser($idUtilisateur){
 
@@ -1968,7 +1966,6 @@
                 $query->bindValue(':idCommandeEPI',$res['id'],PDO::PARAM_INT);
                 $query->execute();
                 $res = $query->fetch();
-                var_dump($query);
                 if ($res != false){
 
                     //Si oui, supprimer les lignes commandes
@@ -2007,9 +2004,9 @@
                 WHERE idCommandeVET = :idCommandeVET");
                 $query->bindValue(':idCommandeVET',$res['id'],PDO::PARAM_INT);
                 $query->execute();
-                $query = $query->fetch();
+                $res = $query->fetch();
 
-                if ($query != false){
+                if ($res != false){
 
                     //Si oui, supprimer les lignes commandes
 

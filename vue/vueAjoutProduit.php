@@ -23,6 +23,9 @@ if(isset($reload) && $reload == true) {
         ?>
     </div>
     <form  method="post" enctype="multipart/form-data">
+        <div class="btnDownload">
+            <a href="docs_utilisation/comment_utiliser_ajout_produit.docx" download><i class="fa-solid fa-question"></i></a>
+        </div>
         <div class="addUser_container">
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -110,7 +113,7 @@ if(isset($reload) && $reload == true) {
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Upload fichier :</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">Joindre photo :</span>
                 </div>
                     <input type="file" name="file" class="form-control" aria-describedby="inputGroup-sizing-sm" required>
             </div>
