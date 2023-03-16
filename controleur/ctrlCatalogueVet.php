@@ -60,7 +60,7 @@
                 $idProduit = $_POST['submit'];
                 
 
-                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");

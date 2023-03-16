@@ -72,7 +72,7 @@
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
-                ModeleObjetDAO::insertLog($date,$description,$id);
+                ModeleObjetDAO::insertLog($date,$description,$id["id"]);
     
                 
                 ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);

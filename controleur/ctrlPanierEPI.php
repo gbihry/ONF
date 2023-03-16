@@ -38,7 +38,7 @@
         if(isset($_POST['idLigne']) && isset($_POST['type']) && isset($_POST['idproduit'])){
             ModeleObjetDAO::deleteLigneCommande($idUtilisateur['id'], $_POST['idLigne'],$_POST['type']);
             date_default_timezone_set('Europe/Paris');
-            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
             $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['idproduit'])['nom'];
             $description = "Suppression de l'article ". $nomProduit ." par ".$_SESSION['login'];
             $date = date( "Y-m-d H:i:s"); 
