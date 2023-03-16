@@ -33,7 +33,6 @@
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
                 
-                
                 echo ModeleObjetDAO::insertLigneCommandeEPI($id, $idProduit, $quantite, $taille);
 
             } else {
