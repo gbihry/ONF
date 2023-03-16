@@ -55,8 +55,9 @@
             $description = "L'utilisateur ".$_SESSION['login']." à supprimer l'utilisateur ".$login;
             $date = date( "Y-m-d H:i:s");
             ModeleObjetDAO::insertLog($date,$description,$id);
-
+            
             $reload = true;
+            header("location:./?action=users");
         }
 
         $lieulivraison_data = ModeleObjetDAO::getLieuLivraison();

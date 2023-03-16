@@ -4,6 +4,7 @@ var date_evenement = new Date("Apr 6 17:30:00 2023");
 var total_secondes = (date_evenement - date_actuelle) / 1000;
 var prefixe = "Il reste ";
 var suffixe = " secondes pour commander vos EPI";
+
 if (total_secondes < 0)
 {
     prefixe = "Cloture du site la date butoir à été dépassé de ";

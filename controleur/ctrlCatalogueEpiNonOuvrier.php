@@ -56,10 +56,8 @@
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier');
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
-
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-            
             if(ModeleObjetDAO::insertEPICommande($idUtilisateur, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
@@ -69,14 +67,12 @@
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$id);
-    
                 ModeleObjetDAO::insertLigneCommandeEPI($idUtilisateur, $idProduit, $quantite, $taille);
                 $reload = true;
 
             } else {
                 echo "Erreur lors de l'insertion de la commande";
-            }
-            
+            }  
         }
 
 

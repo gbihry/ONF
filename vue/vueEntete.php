@@ -1,6 +1,5 @@
 <?php
   session_start();
-  
   include_once "$racine/modele/ModeleObjetDAO.php";
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
@@ -70,31 +69,30 @@
                   <div class="nav_links_item"><a href="index.php?action=panierEPINonOuvrier"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
                 }
               }else{
-                  echo '
-                  <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
-                  <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
-              }
-              if($metierUtilisateur == 1 || $metierUtilisateur == 2 || $metierUtilisateur == 3 || $metierUtilisateur == 4) {
                 if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
                   echo '
-                    <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
-                    <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierEPI.')</a></div>
+                    <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
+                    <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
                   ';
-                }else{
-                  echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
                 }
+                echo '
+                  <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+                  <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierEPI.')</a></div>
+                ';
               }
+            }else {
+              echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
             }
             ?>
           </div>
         </nav>
-          <?php
-          
-            if(isset($_SESSION['autorise']) && $roleUser == 'Administrateur' 
-            || isset($_SESSION['autorise']) && $roleUser == 'Super-Administrateur'
-            || isset($_SESSION['autorise']) &&  $roleUser == 'Responsable'){
-              include_once "$racine/vue/vueSousEntete.php";}
+        <?php
+        
+          if(isset($_SESSION['autorise']) && $roleUser == 'Administrateur' 
+          || isset($_SESSION['autorise']) && $roleUser == 'Super-Administrateur'
+          || isset($_SESSION['autorise']) &&  $roleUser == 'Responsable'){
+            include_once "$racine/vue/vueSousEntete.php";}
 
-       ?>
+        ?>
       <div class="container-fluid">
           

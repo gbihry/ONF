@@ -23,7 +23,7 @@
             $maxQuantite = ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$ligneCommandeUnique['idType'])['sum(quantite)'];
                 echo ("<div class='content'>
                         <div class='image'>
-                            <img src='images/" . $fichierPhoto . "' alt=''>
+                            <img src='images/produits/" . $fichierPhoto . "' alt=''>
                         </div>
                         <div class='libelle'>
                             <p class='panier_title'>Description produit</p>

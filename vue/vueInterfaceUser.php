@@ -21,8 +21,12 @@
     </div>
     <div class="commande-information">
         <h1>Informations commandes</h1>
-        <h2>Commandes VET</h2>
         <?php
+        if($metier['id'] == 1 || $metier['id'] == 2 ||$metier['id'] == 3|| $metier['id'] == 4){
+        ?>
+            <h2>Commandes VET</h2>
+        <?php
+        }
             if ($verifCommandeVet != 0){
                 echo ('
                 <table class="historiquecommandeInterface">
@@ -45,8 +49,10 @@
                 }
                 echo ('</table>');
             }else{
-                echo ('<p>Aucune commande VET</p>');
-                echo('<a href="./?action=catalogueVet&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue VET</a>');
+                if($metier['id'] == 1 || $metier['id'] == 2 ||$metier['id'] == 3|| $metier['id'] == 4){
+                    echo ('<p>Aucune commande VET</p>');
+                    echo('<a href="./?action=catalogueVet&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue VET</a>');
+                }
             }
                 
         ?>
@@ -76,7 +82,16 @@
                 echo ('</table>');
             }else{
                 echo ('<p>Aucune commande EPI</p>');
-                echo('<a href="./?action=catalogueEpi&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                if($metier['id'] == 5 || $metier['id'] == 6 ||$metier['id'] == 7|| $metier['id'] == 8){
+                    if($dateAuj < $dateFin){
+                        echo('<a href="./?action=catalogueEpiNonOuvrier&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    }
+                }
+                else{
+                    if($dateAuj < $dateFin){
+                        echo('<a href="./?action=catalogueEpi&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    }
+                }
             }
             
         ?>
