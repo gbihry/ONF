@@ -34,7 +34,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' min='1' value='1' max='20' aria-describedby="inputGroup-sizing-sm">
+                    <input type="number" class="form-control" name='quantity' min='1' value='1' max='1' aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
