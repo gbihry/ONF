@@ -20,11 +20,19 @@
         }
 
         function imprimerRecapCommande($id,$type){
+            $login = $_SESSION['login'];
+            $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+            
+
             if($type == "VET"){
                 $laCommande = ModeleObjetDAO::getRecapCommandeVetUtilisateur($id); 
+                $date = ModeleObjetDAO::getDateCommandeFiniVet($idUtilisateur);
+                
             }
             else{
                 $laCommande = ModeleObjetDAO::getRecapCommandeEpiUtilisateur($id); 
+                $date = ModeleObjetDAO::getDateCommandeFiniEpi($idUtilisateur);
+                
             }
             
             $this->AliasNbPages();
@@ -32,11 +40,16 @@
             
             $this->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
             $this->SetFont('DejaVu','',14);
-            $this->SetXY(90,15);
+            $this->SetXY(80,15);
             $this->Cell(40,10,'Récapitulatif commande');
+            $this->SetXY(10, 35);
+            $this->Cell(40,10, 'Date de commande fini : ' . $date);
+
+            $this->SetXY(10, 45);
+            $this->Cell(40,10, 'Nom d\'utilisateur : ' . $login);
             
             $this->Image("./images/onf.png",10,6,50);
-            $this->SetXY(10,50);
+            $this->SetXY(10,60);
             
             $this->FancyTable2($laCommande);
             

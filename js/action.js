@@ -265,17 +265,24 @@ function addResponsable(){
     var responsable = document.getElementById("responsable");
     var nonResponsable = document.getElementById("nonResponsable");
     var responsableInput = document.getElementById("responsableInput");
+    var selectResponsable = document.getElementById("selectResponsable");
+    var selectRole = document.getElementById("selectRole");
     
     if (responsable.checked == true){
         responsableInput.style.visibility = "hidden";
+        selectResponsable.value = "selectionner";
+        selectRole.value = 2;
     } else {
         responsableInput.style.visibility = "visible";
+        selectRole.value = "selectionner";
     }
 
     if (nonResponsable.checked == true){
         responsableInput.style.visibility = "visible";
+        selectRole.value = "selectionner";
     } else {
         responsableInput.style.visibility = "hidden";
+        selectRole.value = 2;
     }
 
 
