@@ -108,7 +108,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
-                    <select name="responsable" class="custom-select" id="inputGroupSelect01">
+                    <select name="responsable" id="selectResponsable" class="custom-select" id="inputGroupSelect01">
                         <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
                         if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
@@ -154,7 +154,7 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Role :</span>
                     </div>
-                    <select name="role" class="custom-select" id="inputGroupSelect01">
+                    <select name="role" id="selectRole" class="custom-select" id="inputGroupSelect01">
                         <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
                         foreach($lesLibelles as $unLibelle){

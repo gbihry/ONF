@@ -228,6 +228,20 @@
             return $res['dateCreaFini'];
         }
 
+        public static function getDateCommandeFiniVet($idUtilisateur){
+            $req = Connexion::getInstance()->prepare("SELECT dateCreaFini 
+            FROM utilisateur 
+            JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+            WHERE idUtilisateur = :idUtilisateur");
+            $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            if ($res == false){
+                return false;
+            }
+            return $res['dateCreaFini'];
+        }
+
         public static function getUtilisateurCommanderSubordonne ($etat,$id){
             switch ($etat){
                 case 1:

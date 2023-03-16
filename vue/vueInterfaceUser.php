@@ -83,10 +83,14 @@
             }else{
                 echo ('<p>Aucune commande EPI</p>');
                 if($metier['id'] == 5 || $metier['id'] == 6 ||$metier['id'] == 7|| $metier['id'] == 8){
-                    echo('<a href="./?action=catalogueEpiNonOuvrier&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    if($dateAuj < $dateFin){
+                        echo('<a href="./?action=catalogueEpiNonOuvrier&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    }
                 }
                 else{
-                    echo('<a href="./?action=catalogueEpi&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    if($dateAuj < $dateFin){
+                        echo('<a href="./?action=catalogueEpi&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
+                    }
                 }
             }
             
