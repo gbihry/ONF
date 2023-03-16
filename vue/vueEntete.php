@@ -84,7 +84,6 @@
                 }
               }
               
-              echo'<div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>';
             
             } else {
               echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';

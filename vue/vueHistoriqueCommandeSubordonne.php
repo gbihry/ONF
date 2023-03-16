@@ -23,4 +23,7 @@ foreach ($HistoriqueCommande as $key => $value) {
 }
 ?>
     </table>
+
+    <button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=imprimerRecapCommande&&id=VETSUB&&ref=<?=$id?>'">Imprimer PDF VET</button>
+    <button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=imprimerRecapCommande&&id=EPISUB&&ref=<?=$id?>'">Imprimer PDF EPI</button>
     </div>
