@@ -6,11 +6,11 @@
 </div>
 <div class="information-user">
     <div class="general-information">
-        <h1>Informations Général</h1>
+        <h1>Informations Générals</h1>
         <p>Nom : <?= $userSecondName ?> </p>
         <p>Prenom : <?= $userFirstName ?> </p>
-        <p>Telephone : <?= $userTel ?> </p>
-        <p>Role : <?= $userRole ?> </p>
+        <p>Téléphone : <?= $userTel ?> </p>
+        <p>Rôle : <?= $userRole ?> </p>
         <p>Metier : <?= $userStatut ?> </p>
         <p>Votre responsable : <?= $responsable ?> </p>
         

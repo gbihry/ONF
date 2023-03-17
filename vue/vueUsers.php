@@ -13,6 +13,9 @@ if(isset($reload) && $reload == true) {
 ?>
 <div class="container-fluid text-center">
     <h1 class="utilisateurs mt-3">Utilisateurs</h1>
+    <div class='btnDownload'>
+        <a href="comment_utiliser_utilisateurs.docx" download><i class="fa-solid fa-question"></i></a>
+    </div>
     <?php 
         if(isset($msg) && $msg != null) {
             echo '<div class="row">';
@@ -27,8 +30,8 @@ if(isset($reload) && $reload == true) {
             <thead>
                 <tr>
                     <th>Login</th>
-                    <th>Tel</th>
-                    <th>Lieu livraison</th>
+                    <th>Téléphone</th>
+                    <th>Lieu de livraison</th>
                     <th>Responsable</th>
                     <?php 
                         if($role != 'Responsable'){
