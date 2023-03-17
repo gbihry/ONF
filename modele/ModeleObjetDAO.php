@@ -1767,8 +1767,42 @@
             
         }
 
+        public static function getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur){
+            $req = Connexion::getInstance()->prepare("SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
+            from lignecommandeepi
+            JOIN produit on produit.id = lignecommandeepi.idProduit
+            JOIN taille on taille.id = lignecommandeepi.idTaille
+            join commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+            JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on fournisseur.id = produit.idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            group by produit.nom,lieulivraion.nom,fournisseur.nom");
+            $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
 
-       
+        public static function getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur){
+            $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
+            from lignecommandevet
+            JOIN produit on produit.id = lignecommandevet.idProduit
+            JOIN taille on taille.id = lignecommandevet.idTaille
+            join commandevet on commandevet.id = lignecommandevet.idCommandeVET
+            JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on fournisseur.id = produit.idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            group by produit.nom,lieulivraion.nom,fournisseur.nom;");
+            $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
 
         public static function getAllLigneCommandeVetFournisseur($idFournisseur){
             $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
@@ -1781,10 +1815,10 @@
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
             group by produit.nom,lieulivraion.nom;");
-             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
-             $req->execute();
-             $res = $req->fetchall();
-             return $res;
+                $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
         }
 
         public static function getAllLigneCommandeEpiFournisseur($idFournisseur){
@@ -1884,8 +1918,65 @@
             
         }
 
+        public static function bonCommandeFournisseurLieuCsv($type,$idFournisseur,$idLieuLivraison){
+            date_default_timezone_set('Europe/Paris');
+
+            if($type == 'VET'){
+                $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
+
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+
+                $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+
+                $Commande = ModeleObjetDAO::getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur);
+            }
+            else{
+                $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
+
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+
+                $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                
+                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur);
+
+            }
+
+            
+            if(empty($Commande)){
+                $value = "Pas de commande";
+                $Commande = array(
+                    0 => array(
+                        'produit' => $value,
+                        0 => $value,
+                        'libelle' => $value,
+                        1 => $value,
+                        'quantite' => $value,
+                        2 => $value,
+                        'fournisseur' => $value,
+                        3 => $value
+                    
+                    )
+                    );
+                
+            }
+            $tmp_array[] = array("lieu livraison" => "Lieu livraison : ",$nomLieuLivraison,"fournisseur " => "Fournisseur : ",$nomFournisseur);
+
+            foreach($Commande as $ligne) {
+                $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
+            }
+
+            $fp = fopen($filename, 'w');
+            fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
+            foreach ($tmp_array as $fields) {
+                fputcsv($fp, $fields, ";");
+            }
+            fclose($fp);
+            
+        }
+
+
         public static function getNomLieuLivraison($idLieuLivraison){
-            $req = Connexion::getInstance()->prepare("SELECT lieulivraion.nom 
+            $req = Connexion::getInstance()->prepare("SELECT distinct lieulivraion.nom 
             FROM utilisateur
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id
             WHERE idLieuLivraison = :idLieuLivraison;");
