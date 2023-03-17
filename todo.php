@@ -65,8 +65,6 @@
 
 //TODO -? = aide 
 
-//TODO -csv par site et par fournisseur  
-
 //TODO -dissocier élément chaussant et pantalon (rajouter une nouvelle catégories )
 
 //TODO -bucheron = que SIP 1SPV Sinon sylviculteur le reste des pantalons 
