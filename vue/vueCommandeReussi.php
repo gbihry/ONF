@@ -10,7 +10,7 @@
     timeleft -= 1;
     if(timeleft <= -1){
         clearInterval(DTimer);
-        window.location.href = "./?action=accueil";
+        window.location.href = "./?action=historiqueCommande";
     }
     }, 1000);
 </script>

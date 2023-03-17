@@ -19,8 +19,6 @@
 
 //TODO -onf , commune forestier logo un peu plus grand 
 
-//TODO -rajouter 2 bouton catalogue EPI/VET sur la page d'acceuil 
-
 //TODO -pouvoir changer le métier d'une personne 
 
 //TODO -tant qu'il n'a  pas passer de commande on peut changer les info des utilisateur sur la page add user 
@@ -35,8 +33,6 @@
 
 //TODO -xs court , xs stantard , xs long pour les pantalon anticoupurs , spb. 
 
-//TODO -mettre dans l'ordre du prix par point dans le catalogue VET 
-
 //TODO -rajouter un filtre pour trier dans le catalogue VET 
 
 //TODO -nombre de point restant dans le recap de panier VET 
@@ -45,15 +41,11 @@
 
 //TODO -mettre un texte pour dire qu'une fois la validation du panier, ajouter " Validation définitive, peut plus commander et vos points resterons seront perdu " 
 
-//TODO -une fois accepter le récap , header vers le récap 
-
 //TODO -rajouter panier subordonné, modifier quantité/ taille 
 
 //TODO -commande subordonnées = crée un pdf avec toutes les commandes de l'équipe individuellement  
 
 //TODO -commande subordonnées RECAP = PANIER et Commande = CATALOGUE, Historique = RECAP 
-
-//TODO -remplacer le mdp par le numéro de téléphone 
 
 //TODO -dans le pdf récapitulatif rajouter les tailles  
 
@@ -62,10 +54,6 @@
 //TODO -rajouter un " etes vous bien sûr " quand on supprime un utilsateurs/produits et la base de données  
 
 //TODO -produits EPI = Produits EPI Ouvrier 
-
-//TODO -? = aide 
-
-//TODO -csv par site et par fournisseur  
 
 //TODO -dissocier élément chaussant et pantalon (rajouter une nouvelle catégories )
 
@@ -119,6 +107,3 @@
 //TODO -pas de quantité limite pour les cagoules YVEK 500 dans catalogues Non Ouvrier 
 
 //TODO -mettre dans l'entete point = 0 et rajouter texte " point restant perdu " quand commande passer
-
-
-

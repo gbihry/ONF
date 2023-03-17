@@ -22,9 +22,6 @@ form {
     font-size: 1.5rem;
 }
 
-body {
-    background-color: var(--background-color) !important;
-}
 
 a,p,h1,h2,h3,label,td {
     color: var(--extra-color) !important;
@@ -65,6 +62,7 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 
 .btnDownload a{
     background-color: var(--primary-color);
+    text-decoration: none !important;
     color: var(--text-color);
     padding: 10px 15px;
     border-radius: 5px;
@@ -72,7 +70,7 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 .btnDownload a:hover{
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color) !important;
 }
 
 @keyframes left {
@@ -135,11 +133,12 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 body{
+    background-color: var(--background-color) !important;
     min-height: 100vh;
 }
 
 .container{
-    margin-top: 30vh;
+    margin-top: 20vh;
 }
 
 .card a:visited{
@@ -650,7 +649,7 @@ body{
 /* NAVBAR */
 
 .nav {
-    height: 50px;
+    height: 60px;
     width: 100%;
     background-color: var(--secondary-background-color);
     color: var(--text-color);
@@ -668,7 +667,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 60px;
     margin-left: 1px;
 }
 
@@ -678,7 +677,7 @@ body{
     justify-content: center;
     align-items: center;
     padding: 0px 10px;
-    height: 50px;
+    height: 60px;
 }
 
 .nav > .nav_title > .nav_title_item > p {
@@ -723,13 +722,13 @@ body{
 
 .nav > .nav_title > a > img {
     cursor: pointer;
-    height: 49px;
+    height: 60px;
 }
 
 .nav > .nav_btn {
     display: none;
     padding: 0px 10px;
-    height: 50px;
+    height: 60px;
     text-decoration: none;
     color: var(--text-color);
     justify-content: center;

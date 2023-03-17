@@ -33,8 +33,6 @@
 
                 ModeleObjetDAO::insertLigneCommandeVET($id, $idProduit, $quantite, $taille);
 
-                
-
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }

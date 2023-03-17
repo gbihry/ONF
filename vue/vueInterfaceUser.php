@@ -6,7 +6,7 @@
 </div>
 <div class="information-user">
     <div class="general-information">
-        <h1>Informations Générals</h1>
+        <h1>Informations Générales</h1>
         <p>Nom : <?= $userSecondName ?> </p>
         <p>Prenom : <?= $userFirstName ?> </p>
         <p>Téléphone : <?= $userTel ?> </p>
@@ -15,7 +15,7 @@
         <p>Votre responsable : <?= $responsable ?> </p>
         
         <?php
-            echo '<a type="submit" class="btn btn-primary" href="./?action=newmdp&idUser='.ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'].'"><i class="fa-solid fa-arrows-rotate"></i>Changer votre mdp</a>';
+            echo '<a type="submit" class="btn btn-primary" href="./?action=newmdp&idUser='.ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'].'"><i class="fa-solid fa-arrows-rotate"></i>Changer votre mot de passe</a>';
         ?> 
 
     </div>

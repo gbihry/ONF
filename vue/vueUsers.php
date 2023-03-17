@@ -14,7 +14,7 @@ if(isset($reload) && $reload == true) {
 <div class="container-fluid text-center">
     <h1 class="utilisateurs mt-3">Utilisateurs</h1>
     <div class='btnDownload'>
-        <a href="comment_utiliser_utilisateurs.docx" download><i class="fa-solid fa-question"></i></a>
+        <a href="comment_utiliser_utilisateurs.docx" download>Aide</a>
     </div>
     <?php 
         if(isset($msg) && $msg != null) {
@@ -73,7 +73,7 @@ if(isset($reload) && $reload == true) {
 
                                     if($role != 'Responsable'){
                                         echo ('<td class="text-center resetPwd"><a type="submit" href="./?action=newmdp&id='.$unUser['id'].'" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Changer</a></td>');
-                                        echo ('<td class="text-center suppUser"><a type="submit" name="deleteUser" href="./?action=users&id='.$unUser['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
+                                        echo ('<td class="text-center suppUser"><a data-id="'.$unUser['id'].'" name="deleteUser" onclick="user_action(\'deleteUser\',this)" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
                                     }
                                         
                             

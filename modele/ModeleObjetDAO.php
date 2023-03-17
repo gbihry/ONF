@@ -508,7 +508,7 @@
                     JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne.idStatut = :idMetier;");
+                    WHERE type = :leType AND concerne.idStatut = :idMetier");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
@@ -522,7 +522,8 @@
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
                     JOIN disponible on disponible.idProduit = produit.id
-                    WHERE type = :leType GROUP BY produit.nom");
+                    WHERE type = :leType GROUP BY produit.nom
+                    ORDER BY prix DESC");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
@@ -784,7 +785,8 @@
             JOIN concerne ON concerne.idType = type.id
             JOIN categorie on categorie.id = type.idCategorie
             JOIN disponible on disponible.idProduit = produit.id
-            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType");
+            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType 
+            ORDER BY prix DESC");
             $req->bindValue(':leType',$type,PDO::PARAM_STR);
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
@@ -1640,9 +1642,12 @@
         }
 
         public static function updateQuantite($idUtilisateur, $ligneCommande, $quantite, $type) {
+            var_dump($idUtilisateur);
+            var_dump($type);    
             switch ($type){
                 case 'EPI':
                     $idCommande = self::getIdEpiUtilisateur($idUtilisateur)['id'];
+                    var_dump($idCommande);
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandeepi SET quantite = :quantite WHERE idCommandeEPI = :idCommande and id = :idLigneCommande");
                     break;
                 case 'VET':

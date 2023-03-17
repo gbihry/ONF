@@ -5,10 +5,10 @@
                 <tr>
                     <th>Nom</th>
                     <th>Prenom</th>
-                    <th>Commande VET</th>
-                    <th>Commande EPI</th>
-                    <th>Récap EPI</th>
-                    <th>Récap VET</th>
+                    <th>Catalogue VET</th>
+                    <th>Catalogue EPI</th>
+                    <th>Panier EPI</th>
+                    <th>Panier VET</th>
                     <th>Historique</th>
                 </tr>
             </thead>

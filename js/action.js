@@ -310,3 +310,17 @@ function addProduit(){
         optionValue.value = 17;
     }
 }
+
+function user_action(type,el) {
+    switch(type){
+        case 'deleteUser':
+            if(!el.dataset.id) return;
+            var confirm = window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?');
+            if(confirm){
+                window.location.href='./?action=users&id=' + el.dataset.id
+            }
+            break;
+        default:
+            break;
+    }
+}

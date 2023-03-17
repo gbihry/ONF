@@ -23,7 +23,7 @@ if(isset($reload) && $reload == true) {
 </div>
 <div class="container-fluid text-center mt-5 produit">
     <div class="btnDownload">
-        <a href="docs_utilisation/comment_utiliser_modifier_produit.docx" download><i class="fa-solid fa-question"></i></a>
+        <a href="docs_utilisation/comment_utiliser_modifier_produit.docx" download>Aide</a>
     </div>
     <a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produitsVetModif" >Voir produits VET</a>
     <a type='submit' name='submit' class='btn btn-success mt-2' href="./?action=produitsEpiNonOuvrier" >Voir produits EPI non ouvrier</a>
@@ -68,7 +68,5 @@ if(isset($reload) && $reload == true) {
             echo ('<div class="text-center suppProduits"><a type="submit" name="deleteProduit" href="./?action=produits&idDelete='.$detail['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></div>');
 
             echo "</div>";
-            
         }
     ?>
-</div>

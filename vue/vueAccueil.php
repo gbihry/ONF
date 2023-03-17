@@ -13,7 +13,7 @@
     <?php
         if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
     ?>
-        <input type="button" onclick="window.location.href = './?action=changerCommentaire';" class='btn btn-success m-5' value="Changer commentaire"/> 
+        <input type="button" onclick="window.location.href = './?action=changerCommentaire';" class='btn btn-success m-5' value="Changer commentaire"/> <br>
     <?php 
         }
     ?>
@@ -26,6 +26,10 @@
                     echo ('<div class="alert alert-success" role="alert">Vous avez fait une commande EPI <br> le '.$date.' à '.$time.'</div>');
                 echo ('</div>');
             }else{
+                ?>
+                    <input type="button" onclick="window.location.href = './?action=catalogueVet&&id=0';" class='btn btn-success m-5' value="Catalogue VET"/> 
+                    <input type="button" onclick="window.location.href = './?action=catalogueEpi&&id=0';" class='btn btn-success m-5' value="Catalogue EPI"/> 
+                <?php
                 echo ('<h2 id="compte_a_rebours"></h2>');
             }
         ?>
