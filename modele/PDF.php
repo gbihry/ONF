@@ -20,18 +20,16 @@
         }
 
         function imprimerRecapCommande($id,$type){
-            $login = $_SESSION['login'];
-            $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
+            $login = ModeleObjetDAO::getLoginById($id)['login'];
             
-
             if($type == "VET"){
                 $laCommande = ModeleObjetDAO::getRecapCommandeVetUtilisateur($id); 
-                $date = ModeleObjetDAO::getDateCommandeFiniVet($idUtilisateur);
+                $date = ModeleObjetDAO::getDateCommandeFiniVet($id);
                 
             }
             else{
                 $laCommande = ModeleObjetDAO::getRecapCommandeEpiUtilisateur($id); 
-                $date = ModeleObjetDAO::getDateCommandeFiniEpi($idUtilisateur);
+                $date = ModeleObjetDAO::getDateCommandeFiniEpi($id);
                 
             }
             

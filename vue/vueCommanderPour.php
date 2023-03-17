@@ -22,8 +22,17 @@
                     <?php if((ModeleObjetDAO::getUtilisateurCommandeTerminer($unSubordonne['id'], 'VET')) == 1){ ?>
                         <td><button type='submit' id ='redBySFR' name='submit' class='btn btn-success mt-2' <?php echo $unSubordonne['id'];?> >acceder</button></td>
 
-                    <?php }else{?>
-                        <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueVet&&id= <?php echo $unSubordonne['id'] ?>';" >acceder</button></td>
+                    <?php }else{
+                        if($unSubordonne['idMetier'] == 5 || $unSubordonne['idMetier'] == 6 || $unSubordonne['idMetier'] == 7 || $unSubordonne['idMetier'] == 8){
+                        ?>
+                            <td><button type='submit' id ='redBySFR' name='submit' class='btn btn-success mt-2'  <?php echo $unSubordonne['id']; ?> >acceder</button></td>
+                        <?php
+                        }else{
+                        ?>
+                            <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueVet&&id= <?php echo $unSubordonne['id'] ?>';" >acceder</button></td>
+                        <?php
+                        }
+                    ?>
 
                     <?php }if((ModeleObjetDAO::getUtilisateurCommandeTerminer($unSubordonne['id'], 'EPI')) == 1 && $unSubordonne['idMetier'] != 5 && $unSubordonne['idMetier'] != 6 && $unSubordonne['idMetier'] != 7 && $unSubordonne['idMetier'] != 8){ ?>
                         <td><button type='submit' id ='redBySFR' name='submit' class='btn btn-success mt-2'  <?php echo $unSubordonne['id']; ?> >acceder</button></td>

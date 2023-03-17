@@ -45,7 +45,7 @@ if($valider) {
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $description = "L'utilisateur ".$_SESSION['login']." à changer de mdp";
                 $date = date( "Y-m-d H:i:s");
-                ModeleObjetDAO::insertLog($date,$description,$id);
+                ModeleObjetDAO::insertLog($date,$description,$id["id"]);
             } else {
                 $error = $try;
             }

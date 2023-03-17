@@ -28,6 +28,7 @@
             $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['idproduit'])['nom'];
             $description = "Suppression de l'article ". $nomProduit ." par ".$_SESSION['login'];
             $date = date( "Y-m-d H:i:s"); 
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
             ModeleObjetDAO::insertLog($date,$description,$id);
         }
 
