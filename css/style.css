@@ -1290,3 +1290,15 @@ form {
     justify-content: center;
     align-items: center;
 }
+
+/* btn csv */
+
+.btnExportCsv{
+    margin: 25px;
+    display: flex;
+    height: 70vh;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    
+}

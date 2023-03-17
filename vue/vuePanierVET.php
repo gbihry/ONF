@@ -9,7 +9,6 @@
             echo('<p class="panier_title_type">VET</p>');
 
             $prixTotal = 0;
-            
             foreach ($ligneCommandeVET as $ligneCommandeUnique) {
                 $idLigne = $ligneCommandeUnique['id'];
                 $idProduit = $ligneCommandeUnique['idProduit'];
@@ -78,6 +77,12 @@
                     echo("
                     <div class='prixTotal'>
                         <p>Points totaux : <span class='prix_total_span'>".$prixTotal ." <i class='fa-solid fa-ticket'></i></span></p>
+                    </div> 
+                    ");
+                    $reste = $pointUtilisateur - $prixTotal;
+                    echo("
+                    <div class='prixTotal'>
+                        <p>Points restants : <span class='prix_total_span'>". $reste." <i class='fa-solid fa-ticket'></i></span></p>
                     </div> 
                     ");
 
