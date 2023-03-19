@@ -44,6 +44,7 @@ class Routeur{
         'interfaceUser' => 'ctrlInterfaceUser.php',
         'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
         'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php',
+        'editUser' => 'ctrlEditUser.php',
         'bdd' => 'ctrlBdd.php'
         
     );   

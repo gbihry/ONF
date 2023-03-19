@@ -12,14 +12,9 @@
 
 // ? Tristan 
 
-
 //TODO : Envoie d'un e-mail si les utilisateurs ont pas encore valider le panier ou commander
 
-//TODO -image de fond sur la page d'acceuil 
-
-//TODO -onf , commune forestier logo un peu plus grand 
-
-//TODO -pouvoir changer le métier d'une personne 
+//TODO -onf , commune forestier 
 
 //TODO -tant qu'il n'a  pas passer de commande on peut changer les info des utilisateur sur la page add user 
 
@@ -50,8 +45,6 @@
 //TODO -dans le pdf récapitulatif rajouter les tailles  
 
 //TODO -Admin = gestionnaire de commandes qui peut s'occuper de toute son agence 
-
-//TODO -rajouter un " etes vous bien sûr " quand on supprime un utilsateurs/produits et la base de données  
 
 //TODO -produits EPI = Produits EPI Ouvrier 
 

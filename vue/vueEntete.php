@@ -95,5 +95,5 @@
             include_once "$racine/vue/vueSousEntete.php";}
 
         ?>
-      <div class="container-fluid">
+
           

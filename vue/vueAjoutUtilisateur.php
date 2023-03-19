@@ -124,28 +124,13 @@ if(isset($reload) && $reload == true) {
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputGroupSelect01">Employeur onf :</span>
+                        <span class="input-group-text" for="inputGroupSelect01">Employeur :</span>
                     </div>
                     <select name="employeur" class="custom-select" id="inputGroupSelect01">
                         <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
                         foreach($lesEmployeur as $unEmployeur){
-                            if($unEmployeur['roleEmployeur'] == "onf")  
-                            echo ("<option value=" . ($unEmployeur['id']).">" . ($unEmployeur['nom']). " " . ($unEmployeur['prenom']) . "</option>");
-                        }     
-                    ?>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputGroupSelect01">Employeur syndicat :</span>
-                    </div>
-                    <select name="employeur" class="custom-select" id="inputGroupSelect01">
-                    <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
-                    <?php 
-                        foreach($lesEmployeur as $unEmployeur){
-                            if($unEmployeur['roleEmployeur'] == "syndicat")
-                            echo ("<option value=" . ($unEmployeur['id']).">" . ($unEmployeur['nom']). " " . ($unEmployeur['prenom']) . "</option>");
+                            echo ("<option value=" . ($unEmployeur['id']).">" . ($unEmployeur['nom']). " " . ($unEmployeur['prenom']) . " (".$unEmployeur['roleEmployeur'].")</option>");
                         }     
                     ?>
                     </select>

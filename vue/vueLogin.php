@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <br/>
 <h1 class="text-center">Page de connexion au site d'achat ONF EPI/VET</h1>
 <br/>

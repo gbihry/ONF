@@ -9,5 +9,5 @@
     </div>
 
 <div class="btnBdd">
-    <button type='submit' name='submit' class='btn btn-success mt-3 mr-1' onclick="window.location.href = './?action=bdd&&ref=1';" >Reset de la base de données</button>
+    <button type='submit' name='submit' class='btn btn-success mt-3 mr-1' name="resetBDD" onclick="user_action('resetBDD',this)" >Reset de la base de données</button>
 </div>

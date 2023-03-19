@@ -1,14 +1,16 @@
-<div class="container text-center">
+
+<div class="home_wrapper">  
+<div class="home_content">
     <br/>
-    <h1>Site d'achat ONF EPI/VET</h1>
+    <h1 style="font-size:3rem" class="home_text">Site d'achat ONF EPI/VET</h1>
     <?php
         if (!isset($_SESSION['autorise'])){
-            echo ("<p class='text-muted'>Veuillez vous connecter pour pouvoir utiliser toutes les fonctionnalités</p>");
+            echo ("<p class='home_text'>Veuillez vous connecter pour pouvoir utiliser toutes les fonctionnalités</p>");
         }else{
-            echo ("<p class='text-muted'>Vous êtes connecté(e)s, vous pouvez désormais utiliser toutes les fonctionnalités</p>");
+            echo ("<p class='home_text'>Vous êtes connecté(e)s, vous pouvez désormais utiliser toutes les fonctionnalités</p>");
         }
 
-        echo('<p class="commentaireAccueil">' . ModeleObjetDAO::getIdMessageCommentaire()[1] .'</p>');
+        echo('<p class="home_text">' . ModeleObjetDAO::getIdMessageCommentaire()[1] .'</p>');
     ?>
     <?php
         if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
@@ -27,11 +29,13 @@
                 echo ('</div>');
             }else{
                 ?>
+                <div>
                     <input type="button" onclick="window.location.href = './?action=catalogueVet&&id=0';" class='btn btn-success m-5' value="Catalogue VET"/> 
                     <input type="button" onclick="window.location.href = './?action=catalogueEpi&&id=0';" class='btn btn-success m-5' value="Catalogue EPI"/> 
+                </div>
                 <?php
-                echo ('<h2 id="compte_a_rebours"></h2>');
+                echo ('<h2 class="home_text" id="compte_a_rebours"></h2>');
             }
         ?>
-    
-</div>            
+</div>
+</div>

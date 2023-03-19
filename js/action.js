@@ -5,13 +5,6 @@ function edit(el,type) {
     parentN.innerHTML = '';
     console.log("type: " + type + " | data: " + data);
     switch(type) {
-        case 'tel':
-            console.log("tel");
-            var input = document.createElement('input');
-            input.type = 'text';
-            input.value = data;
-            input.name = 'input_' + type;
-            break;
         case 'description':
             console.log("description");
             var input = document.createElement('textarea');
@@ -50,23 +43,6 @@ function edit(el,type) {
             input.name = 'input_' + type;
             input.removeAttribute('style');
             break;
-        case 'livraison':
-            console.log("livraison");
-            var input = document.getElementById('select_lieulivraison_blank').cloneNode(true);
-            input.id = 'select_lieulivraison';
-            input.querySelector('option[value="' + parentN.dataset.lieu + '"]').selected = true;   
-            input.name = 'input_' + type;
-            input.removeAttribute('style');
-            break;
-        case 'responsable':
-            console.log("responsable");
-            var input = document.getElementById('select_responsable_blank').cloneNode(true);
-            input.id = 'select_responsable';
-            input.querySelector('option[value="' + parentN.dataset.responsable + '"]').selected = true;
-            input.name = 'input_' + type;
-            input.removeAttribute('style');
-            break;
-
     }
 
     var clear = document.createElement('div');
@@ -140,23 +116,14 @@ function save(parentN,type) {
         case 'quantiteVET':
             input.value = parentN.querySelector('input').value;
             break;
-        case 'tel':
-            input.value = parentN.querySelector('input').value;
-            break;
         case 'tailleVET':
             input.value = parentN.querySelector('select').value;
             break;
         case 'tailleEPI':
             input.value = parentN.querySelector('select').value;
             break;
-        case 'livraison':
-            input.value = parentN.querySelector('select').value;
-            break;
         case 'description':
             input.value = parentN.querySelector('textarea').value;
-            break;
-        case 'responsable':
-            input.value = parentN.querySelector('select').value;
             break;
     }
 
@@ -317,7 +284,20 @@ function user_action(type,el) {
             if(!el.dataset.id) return;
             var confirm = window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?');
             if(confirm){
-                window.location.href='./?action=users&id=' + el.dataset.id
+                window.location.href='./?action=users&id=' + el.dataset.id;
+            }
+            break;
+        case 'deleteProduit':
+            if(!el.dataset.id) return;
+            var confirm = window.confirm('Voulez-vous vraiment supprimer ce produit ?');
+            if(confirm){
+                window.location.href='./?action=produits&idDelete=' + el.dataset.id;
+            }
+            break;
+        case 'resetBDD':
+            var confirm = window.confirm('Voulez-vous vraiment reset la BDD ?');
+            if(confirm){
+                window.location.href='./?action=bdd&&ref=1';
             }
             break;
         default:

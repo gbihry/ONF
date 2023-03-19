@@ -23,7 +23,7 @@ if(isset($reload) && $reload == true) {
         ?>
     </div>
     <form  method="post" enctype="multipart/form-data">
-        <div class="btnDownload">
+        <div class="btnHelp">
             <a href="docs_utilisation/comment_utiliser_ajout_produit.docx" download>Aide</a>
         </div>
         <div class="addUser_container">

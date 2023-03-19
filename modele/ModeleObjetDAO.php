@@ -156,7 +156,7 @@
         }
 
         public static function getEmployeur(){
-            $req = Connexion::getInstance()->prepare(" SELECT * FROM employeur");
+            $req = Connexion::getInstance()->prepare(" SELECT * FROM employeur ORDER BY roleEmployeur ASC");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -336,6 +336,14 @@
             } else {
                 return 'Le mot de passe actuel est incorrect';
             }
+        }
+
+        public static function getAllInfoUtilisateur($id){
+            $req = Connexion::getInstance()->prepare("SELECT * FROM utilisateur WHERE id =:id");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
         }
 
         public static function getNomUtilisateur($id){
@@ -1613,6 +1621,33 @@
             $req = Connexion::getInstance()->prepare("UPDATE utilisateur SET id_responsable = :responsable WHERE id = :id");
             $req->bindValue(':responsable', $responsable, PDO::PARAM_INT);
             $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updateUser($idUtilisateur, $prenom, $nom, $email, $tel, $idLieuLivraison, $id_responsable, $idRole, $idMetier, $Agence, $idEmployeur) {
+            $req = Connexion::getInstance()->prepare("UPDATE utilisateur 
+            SET prenom = :prenom, 
+            nom = :nom, 
+            email = :email, 
+            tel = :tel, 
+            idLieuLivraison = :idLieuLivraison, 
+            id_responsable = :id_responsable,
+            idRole = :idRole,
+            idMetier = :idMetier,
+            Agence = :Agence,
+            idEmployeur = :idEmployeur
+            WHERE id = :id");
+            $req->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+            $req->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $req->bindValue(':email', $email, PDO::PARAM_STR);
+            $req->bindValue(':tel', $tel, PDO::PARAM_STR);
+            $req->bindValue(':idLieuLivraison', $idLieuLivraison, PDO::PARAM_INT);
+            $req->bindValue(':id_responsable', $id_responsable, PDO::PARAM_INT);
+            $req->bindValue(':idRole', $idRole, PDO::PARAM_INT);
+            $req->bindValue(':idMetier', $idMetier, PDO::PARAM_INT);
+            $req->bindValue(':Agence', $Agence, PDO::PARAM_STR);
+            $req->bindValue(':idEmployeur', $idEmployeur, PDO::PARAM_INT);
+            $req->bindValue(':id', $idUtilisateur, PDO::PARAM_INT);
             $req->execute();
         }
 

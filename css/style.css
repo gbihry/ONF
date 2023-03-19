@@ -47,13 +47,9 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
     color: var(--text-color) !important;
 }
 
-.commentaireAccueil {
-    color: var(--extra-color);
-}
 
 #compte_a_rebours{
     margin-top: 50px;
-    color: var(--primary-color) !important;
 }
 
 .btnDownload{
@@ -70,6 +66,27 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 .btnDownload a:hover{
+    background-color: var(--secondary-color) !important;
+}
+
+
+
+.btnHelp {
+    position: fixed;
+    bottom: 15px;
+    right: 10px;
+}
+
+.btnHelp a {
+    background-color: var(--primary-color);
+    text-decoration: none !important;
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnHelp a:hover{
     background-color: var(--secondary-color) !important;
 }
 
@@ -1301,4 +1318,33 @@ form {
     justify-content: center;
     align-items: center;
     
+}
+
+/* home_wrapper */
+
+body:has(.home_wrapper) {
+    overflow-y: hidden;
+}
+.home_wrapper {
+    height: 100vh;
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home_wrapper > .home_content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home_text {
+    color: var(--text-color) !important;
+}
+
+p.home_text  {
+    font-size: 2rem;
 }

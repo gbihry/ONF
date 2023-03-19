@@ -1,4 +1,4 @@
-<?php
+    <?php
 include "$racine/vue/vueEntete.php";
 if (isset($_SESSION['login'])){
     $dateCreaFiniEPI = ModeleObjetDAO::getDateCommandeFiniEpi(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);

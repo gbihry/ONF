@@ -35,7 +35,7 @@ if(isset($reload) && $reload == true) {
             echo "<div class='main-desc-edit'>";
                 echo '<div id="description" data-idProduit="'.$detail['id'].'" data-data="' . $detail['description'] . '"><p>' . $detail['description'] . '</p><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'description\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div>';
             echo "</div>";
-            echo ('<div class="text-center suppProduits"><a type="submit" name="deleteProduit" href="./?action=produitsVetModif&idDelete='.$detail['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></div>');
+            echo ('<td class="text-center suppUser"><a data-id="'.$detail['id'].'" name="deleteProduit" onclick="user_action(\'deleteProduit\',this)" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
 
             echo "</div>";
             
