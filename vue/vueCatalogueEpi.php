@@ -95,11 +95,15 @@ if(isset($reload) && $reload == true) {
         }else{
 
             foreach($catalogue as $uneCategorie){
-                if (($uneCategorie['libelle'] != 'Vêtements') && ($uneCategorie['libelle'] != 'EPINonOuvrier')){
-                    echo "<div class='tuile'>
-                        <p>" . $uneCategorie['libelle'] . "</p>
-                        <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
-                    </div>";
+                if($unStatut['id'] == 1 && $uneCategorie['id'] == 5 ){
+
+                }else{
+                    if (($uneCategorie['libelle'] != 'Vêtements') && ($uneCategorie['libelle'] != 'EPINonOuvrier')){
+                        echo "<div class='tuile'>
+                            <p>" . $uneCategorie['libelle'] . "</p>
+                            <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
+                        </div>";
+                    }
                 }
             }
         }
