@@ -32,6 +32,20 @@
                 }
                 
                 break;
+            case 3:
+                $test = true;
+                $Fournisseur = ModeleObjetDAO::getAllFournisseur();
+                $LieuLivraison = ModeleObjetDAO::getLieuLivraison();
+                if(isset($_POST["type"]) && isset($_POST["fournisseur"]) && isset($_POST["lieuLivraison"]) && $_POST["lieuLivraison"] != "selectionner" && $_POST["fournisseur"] != "selectionner" && $_POST["type"] != "selectionner"){
+                    ModeleObjetDAO::bonCommandeFournisseurLieuCsv($_POST["type"],$_POST["fournisseur"],$_POST["lieuLivraison"]);
+                    $verifInput = true;
+                    $reload = true;
+                }elseif((isset($_POST["type"]) && isset($_POST["fournisseur"]) && isset($_POST["lieuLivraison"])) && ($_POST["fournisseur"] == "selectionner" || $_POST["type"] == "selectionner" || $_POST["lieuLivraison"] == "selectionner")){
+                    $verifInput = false;
+                    $reload = true;
+                }
+                
+                break;
         }
             include_once "$racine/vue/vueExportCSV.php";
     }

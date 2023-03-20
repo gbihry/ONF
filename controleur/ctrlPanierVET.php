@@ -33,7 +33,7 @@
         }
 
         $ligneCommandeVET = ModeleObjetDAO::getLigneCommandeVetUtilisateur($idUtilisateur['id']);
-
+        $pointUtilisateur = ModeleObjetDAO::getNbrPointUtilisateur(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'])['point'];
         include_once "$racine/vue/vuePanierVET.php";
     }
     include_once "$racine/vue/vuePied.php";

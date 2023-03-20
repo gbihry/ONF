@@ -156,7 +156,7 @@
         }
 
         public static function getEmployeur(){
-            $req = Connexion::getInstance()->prepare(" SELECT * FROM employeur");
+            $req = Connexion::getInstance()->prepare(" SELECT * FROM employeur ORDER BY roleEmployeur ASC");
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -338,6 +338,14 @@
             }
         }
 
+        public static function getAllInfoUtilisateur($id){
+            $req = Connexion::getInstance()->prepare("SELECT * FROM utilisateur WHERE id =:id");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
         public static function getNomUtilisateur($id){
             $req = Connexion::getInstance()->prepare("SELECT utilisateur.login, utilisateur.prenom, utilisateur.nom FROM utilisateur WHERE id =:id");
             $req->bindValue(':id',$id,PDO::PARAM_STR);
@@ -497,8 +505,7 @@
             return $res;
         }
 
-        public static function getAllProduitCatalogue($id, $type){
-                
+        public static function getAllProduitCatalogue($id, $type,$trie){
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
@@ -508,7 +515,7 @@
                     JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne.idStatut = :idMetier;");
+                    WHERE type = :leType AND concerne.idStatut = :idMetier");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
@@ -517,13 +524,26 @@
                     break;
 
                 case 'VET':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                    from produit
-                    join type on type.id = produit.idType
-                    JOIN categorie on categorie.id = type.idCategorie
-                    JOIN disponible on disponible.idProduit = produit.id
-                    WHERE type = :leType GROUP BY produit.nom");
-        
+                    if($trie == "ASC"){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix asc");
+                    }
+                    else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix desc");
+                    }
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
                     $res = $req->fetchAll();
@@ -784,7 +804,8 @@
             JOIN concerne ON concerne.idType = type.id
             JOIN categorie on categorie.id = type.idCategorie
             JOIN disponible on disponible.idProduit = produit.id
-            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType");
+            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType 
+            ORDER BY prix DESC");
             $req->bindValue(':leType',$type,PDO::PARAM_STR);
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
@@ -1445,7 +1466,7 @@
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom 
+            GROUP by produit.nom,lieulivraion.nom
             ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
@@ -1614,6 +1635,33 @@
             $req->execute();
         }
 
+        public static function updateUser($idUtilisateur, $prenom, $nom, $email, $tel, $idLieuLivraison, $id_responsable, $idRole, $idMetier, $Agence, $idEmployeur) {
+            $req = Connexion::getInstance()->prepare("UPDATE utilisateur 
+            SET prenom = :prenom, 
+            nom = :nom, 
+            email = :email, 
+            tel = :tel, 
+            idLieuLivraison = :idLieuLivraison, 
+            id_responsable = :id_responsable,
+            idRole = :idRole,
+            idMetier = :idMetier,
+            Agence = :Agence,
+            idEmployeur = :idEmployeur
+            WHERE id = :id");
+            $req->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+            $req->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $req->bindValue(':email', $email, PDO::PARAM_STR);
+            $req->bindValue(':tel', $tel, PDO::PARAM_STR);
+            $req->bindValue(':idLieuLivraison', $idLieuLivraison, PDO::PARAM_INT);
+            $req->bindValue(':id_responsable', $id_responsable, PDO::PARAM_INT);
+            $req->bindValue(':idRole', $idRole, PDO::PARAM_INT);
+            $req->bindValue(':idMetier', $idMetier, PDO::PARAM_INT);
+            $req->bindValue(':Agence', $Agence, PDO::PARAM_STR);
+            $req->bindValue(':idEmployeur', $idEmployeur, PDO::PARAM_INT);
+            $req->bindValue(':id', $idUtilisateur, PDO::PARAM_INT);
+            $req->execute();
+        }
+
         //updateTaille($idUtilisateur['id'], $_POST['idLigne'], $_POST['tailleVET'], 'VET');
 
 
@@ -1742,7 +1790,7 @@
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1759,7 +1807,7 @@
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1767,8 +1815,42 @@
             
         }
 
+        public static function getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur){
+            $req = Connexion::getInstance()->prepare("SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
+            from lignecommandeepi
+            JOIN produit on produit.id = lignecommandeepi.idProduit
+            JOIN taille on taille.id = lignecommandeepi.idTaille
+            join commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
+            JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on fournisseur.id = produit.idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle");
+            $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
 
-       
+        public static function getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur){
+            $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
+            from lignecommandevet
+            JOIN produit on produit.id = lignecommandevet.idProduit
+            JOIN taille on taille.id = lignecommandevet.idTaille
+            join commandevet on commandevet.id = lignecommandevet.idCommandeVET
+            JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
+            JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
+            join fournisseur on fournisseur.id = produit.idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle;");
+            $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
+
 
         public static function getAllLigneCommandeVetFournisseur($idFournisseur){
             $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
@@ -1780,11 +1862,11 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
-             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
-             $req->execute();
-             $res = $req->fetchall();
-             return $res;
+            group by produit.nom,lieulivraion.nom,libelle;");
+                $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetchall();
+                return $res;
         }
 
         public static function getAllLigneCommandeEpiFournisseur($idFournisseur){
@@ -1797,7 +1879,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
              $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
              $req->execute();
              $res = $req->fetchall();
@@ -1884,8 +1966,65 @@
             
         }
 
+        public static function bonCommandeFournisseurLieuCsv($type,$idFournisseur,$idLieuLivraison){
+            date_default_timezone_set('Europe/Paris');
+
+            if($type == 'VET'){
+                $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
+
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
+
+                $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+
+                $Commande = ModeleObjetDAO::getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur);
+            }
+            else{
+                $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
+
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
+
+                $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                
+                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur);
+
+            }
+
+            
+            if(empty($Commande)){
+                $value = "Pas de commande";
+                $Commande = array(
+                    0 => array(
+                        'produit' => $value,
+                        0 => $value,
+                        'libelle' => $value,
+                        1 => $value,
+                        'quantite' => $value,
+                        2 => $value,
+                        'fournisseur' => $value,
+                        3 => $value
+                    
+                    )
+                    );
+                
+            }
+            $tmp_array[] = array("lieu livraison" => "Lieu livraison : ",$nomLieuLivraison,"fournisseur " => "Fournisseur : ",$nomFournisseur);
+
+            foreach($Commande as $ligne) {
+                $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
+            }
+
+            $fp = fopen($filename, 'w');
+            fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)
+            foreach ($tmp_array as $fields) {
+                fputcsv($fp, $fields, ";");
+            }
+            fclose($fp);
+            
+        }
+
+
         public static function getNomLieuLivraison($idLieuLivraison){
-            $req = Connexion::getInstance()->prepare("SELECT lieulivraion.nom 
+            $req = Connexion::getInstance()->prepare("SELECT distinct lieulivraion.nom 
             FROM utilisateur
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id
             WHERE idLieuLivraison = :idLieuLivraison;");
@@ -2107,6 +2246,16 @@
             WHERE id = :idProduit");
             $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
             $req->execute();
+        }
+
+        public static function allSubordonneId($id){
+            $req = Connexion::getInstance()->prepare("SELECT id
+            from utilisateur
+            where utilisateur.id_responsable = :id;");
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
         }
     
     }

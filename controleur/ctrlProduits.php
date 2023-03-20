@@ -19,7 +19,7 @@
             $idProduit = $_GET['idDelete'];
             $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-            $description = "L'utilisateur ".$_SESSION['login']." à supprimer le produit ".$nomProduit['nom'];
+            $description = "L'utilisateur ".$_SESSION['login']." à supprimer le produit ".$nomProduit;
             $date = date( "Y-m-d H:i:s");
             ModeleObjetDAO::insertLog($date,$description,$id);
             ModeleObjetDAO::deleteProduits($_GET['idDelete']);

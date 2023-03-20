@@ -57,6 +57,7 @@
               $NombreElementDansLePanierEPI = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'epi');
               $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
               $verifCommandeEPI = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI'));
+              $verifCommandeVET = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET'));
               $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
               $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
               
@@ -76,10 +77,12 @@
                     <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
                   ';
                 }
-                echo '
-                  <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
-                  <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>
-                ';
+                if ($verifCommandeVET == 0 && $dateAuj < $dateFin){
+                    echo '
+                    <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
+                    <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>
+                  ';
+                }
               }
             }else {
               echo '<div class="nav_links_item"><a href="./?action=login"><i class="fa-solid fa-right-from-bracket"></i> Connexion</a>'.'</div>';
@@ -95,5 +98,5 @@
             include_once "$racine/vue/vueSousEntete.php";}
 
         ?>
-      <div class="container-fluid">
+
           

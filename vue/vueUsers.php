@@ -13,8 +13,8 @@ if(isset($reload) && $reload == true) {
 ?>
 <div class="container-fluid text-center">
     <h1 class="utilisateurs mt-3">Utilisateurs</h1>
-    <div class='btnDownload'>
-        <a href="comment_utiliser_utilisateurs.docx" download><i class="fa-solid fa-question"></i></a>
+    <div class='btnHelp'>
+        <a href="comment_utiliser_utilisateurs.docx" download>Aide</a>
     </div>
     <?php 
         if(isset($msg) && $msg != null) {
@@ -36,7 +36,9 @@ if(isset($reload) && $reload == true) {
                     <?php 
                         if($role != 'Responsable'){
                             echo('<th>Changer mdp</th>');
+                            echo('<th>Modifier</th>');
                             echo('<th>Supprimer</th>');
+                            
                         }
                     ?>
                     
@@ -59,21 +61,19 @@ if(isset($reload) && $reload == true) {
                         
                                 <tr <?php echo('data-login="' . $unUser['login'] . '"') ?>>
                                 <td><?php echo $unUser['login'] ;?></td>
-                                <?php echo ('<td> <div id="tel" data-data="' . $unUser['tel'] . '"><span>' . $unUser['tel'] . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'tel\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
-                                <?php echo ('<td> <div id="livraison" data-lieu="' . $lieu_id . '" data-data="' . $lieux . '" ><span>' . $lieux  . '</span><div class="clear"></div><a class="edit_btn" onclick="edit(this,\'livraison\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>')?>
+                                <?php echo ('<td> <div id="tel" data-data="' . $unUser['tel'] . '"><span>' . $unUser['tel'] . '</span></td>')?>
+                                <?php echo ('<td> <div id="livraison" data-lieu="' . $lieu_id . '" data-data="' . $lieux . '" ><span>' . $lieux  . '</span></td>')?>
                                 <?php
                                     if ($unUser ['id'] == $unUser['id_responsable']){
                                         echo ("<td>Est responsable</td>");
                                     }else{
                                         echo ('<td> <div id="responsable" data-responsable="' . $responsable_id . '" data-data="' . $responsable . '" ><span>' . $responsable  . '</span>');
-                                        if($role != 'Responsable'){
-                                            echo('<div class="clear"></div><a class="edit_btn" onclick="edit(this,\'responsable\')" name="edit_btn"><i class="fa-solid fa-pencil"></i> Modifier</a></div></td>');
-                                        }
                                     }
 
                                     if($role != 'Responsable'){
                                         echo ('<td class="text-center resetPwd"><a type="submit" href="./?action=newmdp&id='.$unUser['id'].'" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"></i> Changer</a></td>');
-                                        echo ('<td class="text-center suppUser"><a type="submit" name="deleteUser" href="./?action=users&id='.$unUser['id'].'" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
+                                        echo ('<td class="text-center suppUser"><a class="btn btn-primary" href="./?action=editUser&id='.$unUser['id'].'"><i class="fa-solid fa-pencil"></i> Modifier</a></td>');
+                                        echo ('<td class="text-center suppUser"><a data-id="'.$unUser['id'].'" name="deleteUser" onclick="user_action(\'deleteUser\',this)" class="btn btn-danger"><i class="fa-solid fa-times"></i> Supprimer</a></td>');
                                     }
                                         
                             

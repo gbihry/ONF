@@ -1,4 +1,10 @@
 
+.input-select{
+    pointer-events: none;
+    background-color: var(--table-tertiary-background-color) !important;
+    color: var(--extra-color) !important;
+}
+
 button{
     color: var(--primary-color);
     transition: 0.2s;
@@ -22,9 +28,6 @@ form {
     font-size: 1.5rem;
 }
 
-body {
-    background-color: var(--background-color) !important;
-}
 
 a,p,h1,h2,h3,label,td {
     color: var(--extra-color) !important;
@@ -50,13 +53,9 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
     color: var(--text-color) !important;
 }
 
-.commentaireAccueil {
-    color: var(--extra-color);
-}
 
 #compte_a_rebours{
     margin-top: 50px;
-    color: var(--primary-color) !important;
 }
 
 .btnDownload{
@@ -65,6 +64,7 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 
 .btnDownload a{
     background-color: var(--primary-color);
+    text-decoration: none !important;
     color: var(--text-color);
     padding: 10px 15px;
     border-radius: 5px;
@@ -72,7 +72,28 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 .btnDownload a:hover{
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color) !important;
+}
+
+
+
+.btnHelp {
+    position: fixed;
+    bottom: 15px;
+    right: 10px;
+}
+
+.btnHelp a {
+    background-color: var(--primary-color);
+    text-decoration: none !important;
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnHelp a:hover{
+    background-color: var(--secondary-color) !important;
 }
 
 @keyframes left {
@@ -135,11 +156,12 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 body{
+    background-color: var(--background-color) !important;
     min-height: 100vh;
 }
 
 .container{
-    margin-top: 30vh;
+    margin-top: 20vh;
 }
 
 .card a:visited{
@@ -650,7 +672,7 @@ body{
 /* NAVBAR */
 
 .nav {
-    height: 50px;
+    height: 60px;
     width: 100%;
     background-color: var(--secondary-background-color);
     color: var(--text-color);
@@ -668,7 +690,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 60px;
     margin-left: 1px;
 }
 
@@ -678,7 +700,7 @@ body{
     justify-content: center;
     align-items: center;
     padding: 0px 10px;
-    height: 50px;
+    height: 60px;
 }
 
 .nav > .nav_title > .nav_title_item > p {
@@ -723,13 +745,13 @@ body{
 
 .nav > .nav_title > a > img {
     cursor: pointer;
-    height: 49px;
+    height: 60px;
 }
 
 .nav > .nav_btn {
     display: none;
     padding: 0px 10px;
-    height: 50px;
+    height: 60px;
     text-decoration: none;
     color: var(--text-color);
     justify-content: center;
@@ -1290,4 +1312,45 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* btn csv */
+
+.btnExportCsv{
+    margin: 25px;
+    display: flex;
+    height: 70vh;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+/* home_wrapper */
+
+body:has(.home_wrapper) {
+    overflow-x: hidden;
+}
+.home_wrapper {
+    height: 100vh;
+    background-image: url(../images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home_wrapper > .home_content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home_text {
+    color: var(--text-color) !important;
+}
+
+p.home_text  {
+    font-size: 2rem;
 }
