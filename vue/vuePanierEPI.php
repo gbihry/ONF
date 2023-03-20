@@ -39,9 +39,9 @@
                             <p class='panier_title'>Quantite (max : " . $max . ")</p>
                             ");
                     if ($maxQuantite > $max){
-                        echo ("<div id='quantite' data-ligne='". $idLigne ."' data-data='". $max . "'><span>" . $max . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
+                        echo ("<div id='quantite' data-max='".$max."' data-ligne='". $idLigne ."' data-data='". $max . "'><span>" . $max . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
                     }else{
-                        echo ("<div id='quantite' data-ligne='". $idLigne ."' data-data='". $quantite . "'><span>" . $quantite . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
+                        echo ("<div id='quantite' data-max='".$max."' data-ligne='". $idLigne ."' data-data='". $quantite . "'><span>" . $quantite . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
                     }
                     echo ("
                         </div>

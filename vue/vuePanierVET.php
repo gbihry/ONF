@@ -80,11 +80,20 @@
                     </div> 
                     ");
                     $reste = $pointUtilisateur - $prixTotal;
-                    echo("
-                    <div class='prixTotal'>
-                        <p>Points restants : <span class='prix_total_span'>". $reste." <i class='fa-solid fa-ticket'></i></span></p>
-                    </div> 
-                    ");
+                    if ($reste < 0){
+                        echo("
+                        <div class='prixTotal'>
+                            <p>Points restants : <span class='prix_total_span' style='color:var(--danger);'>". $reste." <i class='fa-solid fa-ticket' style='color:var(--danger) !important;'></i></span></p>
+                        </div> 
+                        ");
+                    }else{
+                        echo("
+                        <div class='prixTotal'>
+                            <p>Points restants : <span class='prix_total_span'>". $reste." <i class='fa-solid fa-ticket'></i></span></p>
+                        </div> 
+                        ");
+                    }
+                    
 
                     echo('
                     <form action="./?action=recapPanier&type=vet" method="POST">

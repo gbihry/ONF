@@ -3,7 +3,7 @@ var date_actuelle = new Date();
 var date_evenement = new Date("Apr 7 16:30:00 2023 GMT+01:00");
 var total_secondes = (date_evenement - date_actuelle) / 1000;
 var prefixe = "Il reste ";
-var suffixe = " secondes pour commander vos EPI";
+var suffixe = " secondes pour faire vos commandes";
 
 if (total_secondes < 0)
 {

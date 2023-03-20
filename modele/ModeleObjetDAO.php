@@ -1677,12 +1677,9 @@
         }
 
         public static function updateQuantite($idUtilisateur, $ligneCommande, $quantite, $type) {
-            var_dump($idUtilisateur);
-            var_dump($type);    
             switch ($type){
                 case 'EPI':
                     $idCommande = self::getIdEpiUtilisateur($idUtilisateur)['id'];
-                    var_dump($idCommande);
                     $req = Connexion::getInstance()->prepare("UPDATE lignecommandeepi SET quantite = :quantite WHERE idCommandeEPI = :idCommande and id = :idLigneCommande");
                     break;
                 case 'VET':

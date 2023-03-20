@@ -14,9 +14,12 @@ function edit(el,type) {
             break;
         case 'quantiteEPI':
             console.log("quantiteEPI");
+            var max = parentN.dataset.max;
             var input = document.createElement('input');
             input.type = 'number';
             input.value = data;
+            input.max = max;
+            input.min = 1;
             input.name = 'input_' + type;
             console.log((input.value));
             break;
@@ -25,6 +28,7 @@ function edit(el,type) {
             var input = document.createElement('input');
             input.type = 'number';
             input.value = data;
+            input.min = 1;
             input.name = 'input_' + type;
             console.log((input.name));
             break;
