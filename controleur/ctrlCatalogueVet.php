@@ -15,7 +15,13 @@
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet);
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET');
+        if(isset($_POST["trie"])){
+            $trie = $_POST["trie"];
+        }
+        else{
+            $trie = "desc";
+        }
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET',$trie);
         include_once "$racine/vue/vueCatalogueVet.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
@@ -39,14 +45,23 @@
         }
     }
     elseif($_GET["id"] == "0"){  
+        
         $verifVet = true;
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
+        
         $array = array(
             "id" => "0",
         );
         $id = $array;
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET');
+        if(isset($_POST["trie"])){
+            $trie = $_POST["trie"];
+        }
+        else{
+            $trie = "desc";
+        }
+
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'VET',$trie);
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');

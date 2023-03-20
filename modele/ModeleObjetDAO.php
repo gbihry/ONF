@@ -505,8 +505,7 @@
             return $res;
         }
 
-        public static function getAllProduitCatalogue($id, $type){
-                
+        public static function getAllProduitCatalogue($id, $type,$trie){
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
@@ -525,14 +524,26 @@
                     break;
 
                 case 'VET':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                    from produit
-                    join type on type.id = produit.idType
-                    JOIN categorie on categorie.id = type.idCategorie
-                    JOIN disponible on disponible.idProduit = produit.id
-                    WHERE type = :leType GROUP BY produit.nom
-                    ORDER BY prix DESC");
-        
+                    if($trie == "ASC"){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix asc");
+                    }
+                    else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix desc");
+                    }
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
                     $res = $req->fetchAll();
@@ -1964,7 +1975,7 @@
             if($type == 'VET'){
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
 
                 $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
 
@@ -1973,7 +1984,7 @@
             else{
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
 
                 $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
                 
