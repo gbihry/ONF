@@ -1,12 +1,11 @@
 <div class="container-fluid text-center">
-    <h1>Panier EPI</h1>
+    <h1>Panier EPI ouvrier</h1>
     <div class="panier">
         <?php 
 
         if ($ligneCommandeEPI == false){
             echo ('<p class="empty_panier"> Aucun article dans le panier </p>');
-        } else {
-            echo('<p class="panier_title_type">EPI</p>');
+        } else {    
 
         foreach ($ligneCommandeEPI as $ligneCommandeUnique) {
             $idLigne = $ligneCommandeUnique['id'];

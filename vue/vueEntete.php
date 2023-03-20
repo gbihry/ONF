@@ -5,6 +5,9 @@
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
   $dateFin = new DateTime("07-04-2023 16:30:00");
+  if(isset($_SESSION['autorise'])) {
+    $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
+  }
 ?>
 <!DOCTYPE html>
 
@@ -41,7 +44,9 @@
               if(isset($_SESSION['autorise'])) {
                 echo '<div class="nav_title_item custombtn"><a href="./?action=interfaceUser"><i class="fa-solid fa-user"></i> '. $_SESSION['login'] .'</a></div>';
                 echo '<div class="nav_title_item"><p class="text-color"><i class="fa-solid fa-wrench"></i>' . ModeleObjetDAO::getStatut($_SESSION['login'])['statut'] . '</p></div>';
-                echo '<div class="nav_title_item"><p class="text-color"><i class="fa-solid fa-ticket"></i>'.ModeleObjetDAO::getNbrPointUtilisateur(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'])['point']. '</p></div>';
+                if ($metierUtilisateur == 1 || $metierUtilisateur == 2 ||$metierUtilisateur == 3|| $metierUtilisateur == 4){
+                  echo '<div class="nav_title_item"><p class="text-color"><i class="fa-solid fa-ticket"></i>'.ModeleObjetDAO::getNbrPointUtilisateur(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'])['point']. '</p></div>';
+                }
                 echo '<div class="nav_title_item custombtn"><a href="./?action=logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></div>';
               }
             ?>
@@ -58,7 +63,6 @@
               $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
               $verifCommandeEPI = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI'));
               $verifCommandeVET = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET'));
-              $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
               $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
               
               if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){

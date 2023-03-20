@@ -2,7 +2,7 @@
 //!: Gérer la sauvegarde 
 
 
-//! EN COURS : //TODO -150 points dans l'entête pas de décompte et Pouvoir faire qu'une seul commande VET ( pareil qu'EPI )
+//! EN COURS : 
 
 // ? Mickael 
 //TODO : Tshirt logo forestier ou onf
@@ -12,18 +12,9 @@
 // ? Matthieu 
 
 // ? Guillaume 
-//TODO -onf , commune forestier 
-//TODO -tant qu'il n'a  pas passer de commande on peut changer les info des utilisateur sur la page add user 
-//TODO -pour les ouvrier toujours  a muhouse le site de livraison 
-//TODO -enelver le fait de pouvoir aller plus haut que la quantité max dans le panier quand on modifie la quantité 
 
 
-// ? Tristan 
-//TODO -enlever les casque car remplacer tous les 4 ans 
-//TODO -enlever portwest C376 ou rajouter un champ pour choisir ONF ou COFOR 
-//TODO -commande subordonnées RECAP = PANIER et Commande = CATALOGUE, Historique = RECAP 
-
-
+// ? Tristan  
 
 
 //TODO : Envoie d'un e-mail si les utilisateurs ont pas encore valider le panier ou commander
@@ -39,16 +30,6 @@
 //TODO -pour les ouvrier toujours  a muhouse le site de livraison 
 
 //TODO -xs court , xs stantard , xs long pour les pantalon anticoupurs , spb. 
-
-//TODO -rajouter un filtre pour trier dans le catalogue VET 
-
-//TODO -nombre de point restant dans le recap de panier VET 
-
-
-
-//TODO -mettre un texte pour dire qu'une fois la validation du panier, ajouter " Validation définitive, peut plus commander et vos points resterons seront perdu " 
-
-//TODO -rajouter panier subordonné, modifier quantité/ taille 
 
 //TODO -commande subordonnées = crée un pdf avec toutes les commandes de l'équipe individuellement  
 
@@ -113,3 +94,4 @@
 
 
 //TODO -mettre dans l'entete point = 0 et rajouter texte " point restant perdu " quand commande passer
+//TODO -pas de quantité limite pour les cagoules YVEK 500 dans catalogues Non Ouvrier 
