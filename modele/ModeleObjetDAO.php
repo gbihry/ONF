@@ -1459,15 +1459,14 @@
         }
 
         public static function getRecapCommandeEpi(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom 
             from lignecommandeepi 
             JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
             JOIN produit on lignecommandeepi.idProduit = produit.id 
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
-            join taille on lignecommandeepi.idTaille = taille.id
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom 
+            GROUP by produit.nom,lieulivraion.nom
             ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
@@ -1475,11 +1474,10 @@
         }
 
         public static function getRecapCommandeVet(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
             from lignecommandevet
             JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
             JOIN produit on lignecommandevet.idProduit = produit.id
-            join taille on lignecommandevet.idTaille = taille.id
             JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
@@ -1792,7 +1790,7 @@
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1809,7 +1807,7 @@
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1827,7 +1825,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
             WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
-            group by produit.nom,lieulivraion.nom,fournisseur.nom");
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
@@ -1845,7 +1843,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
             WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
-            group by produit.nom,lieulivraion.nom,fournisseur.nom;");
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
@@ -1864,7 +1862,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
                 $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
                 $req->execute();
                 $res = $req->fetchall();
@@ -1881,7 +1879,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
              $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
              $req->execute();
              $res = $req->fetchall();
