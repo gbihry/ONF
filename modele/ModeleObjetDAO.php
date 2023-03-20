@@ -2247,6 +2247,16 @@
             $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
             $req->execute();
         }
+
+        public static function allSubordonneId($id){
+            $req = Connexion::getInstance()->prepare("SELECT id
+            from utilisateur
+            where utilisateur.id_responsable = :id;");
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
     
     }
 ?>
