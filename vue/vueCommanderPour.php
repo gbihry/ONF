@@ -56,4 +56,6 @@
 
         </tbody>
     </table>
+    <button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=imprimerRecapCommande&&id=AllVet&&ref=0'">Imprimer tout les PDF VET</button>
+    <button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=imprimerRecapCommande&&id=AllEpi&&ref=0'">Imprimer tout les PDF EPI</button>
 </div>

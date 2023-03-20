@@ -14,6 +14,10 @@ if(isset($reload) && $reload == true) {
 
     <div class="contenue">
         <div class="container-fluid text-center mt-5 produit">
+        <form method='POST'>
+            <button type='submit' name='trie' class='btn btn-success' value='DESC'>Trie par prix décroissant</button>
+            <button type='submit' name='trie' class='btn btn-success' value='ASC'>Trie par prix croissant</button>
+        </form>
             <?php 
             foreach($allProducts as $detail){
                 echo "<div class ='unProduit'>";

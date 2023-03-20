@@ -505,8 +505,7 @@
             return $res;
         }
 
-        public static function getAllProduitCatalogue($id, $type){
-                
+        public static function getAllProduitCatalogue($id, $type,$trie){
             switch($type){
                 case 'EPI':
                     $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
@@ -525,14 +524,26 @@
                     break;
 
                 case 'VET':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                    from produit
-                    join type on type.id = produit.idType
-                    JOIN categorie on categorie.id = type.idCategorie
-                    JOIN disponible on disponible.idProduit = produit.id
-                    WHERE type = :leType GROUP BY produit.nom
-                    ORDER BY prix DESC");
-        
+                    if($trie == "ASC"){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix asc");
+                    }
+                    else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN disponible on disponible.idProduit = produit.id
+                        WHERE type = :leType 
+                        GROUP BY produit.nom
+                        ORDER BY prix desc");
+                    }
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
                     $res = $req->fetchAll();
@@ -1454,7 +1465,7 @@
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom 
+            GROUP by produit.nom,lieulivraion.nom
             ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
@@ -1778,7 +1789,7 @@
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1795,7 +1806,7 @@
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             WHERE idLieuLivraison = :idLieuLivraison
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -1813,7 +1824,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
             WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
-            group by produit.nom,lieulivraion.nom,fournisseur.nom");
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
@@ -1831,7 +1842,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
             WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
-            group by produit.nom,lieulivraion.nom,fournisseur.nom;");
+            group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
@@ -1850,7 +1861,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
                 $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
                 $req->execute();
                 $res = $req->fetchall();
@@ -1867,7 +1878,7 @@
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur
-            group by produit.nom,lieulivraion.nom;");
+            group by produit.nom,lieulivraion.nom,libelle;");
              $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
              $req->execute();
              $res = $req->fetchall();
@@ -1960,7 +1971,7 @@
             if($type == 'VET'){
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
 
                 $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
 
@@ -1969,7 +1980,7 @@
             else{
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
 
                 $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
                 
@@ -2234,6 +2245,16 @@
             WHERE id = :idProduit");
             $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
             $req->execute();
+        }
+
+        public static function allSubordonneId($id){
+            $req = Connexion::getInstance()->prepare("SELECT id
+            from utilisateur
+            where utilisateur.id_responsable = :id;");
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
         }
     
     }

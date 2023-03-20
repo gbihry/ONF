@@ -70,7 +70,7 @@
             
         }
         function FancyTable($data){
-            $titre = array('Produit', 'Quantité', 'Lieu de Livraison');
+            $titre = array('Produit', 'Quantité', 'Lieu de Livraison','Taille');
 
             // Colors, line width and bold font
             $this->SetFillColor(40,167,69);
@@ -78,7 +78,7 @@
             $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
             // Header
-            $w = array(125, 20, 40);
+            $w = array(100, 20, 40,30);
             for($i=0;$i<count($titre);$i++)
                 $this->Cell($w[$i],7,$titre[$i],1,0,'C',true);
                 
@@ -95,6 +95,7 @@
                 $this->Cell($w[0],10,$row[0],'LR',0,'C',$fill);
                 $this->Cell($w[1],10,$row[1],'LR',0,'C',$fill);
                 $this->Cell($w[2],10,$row[2],'LR',0,'C',$fill);
+                $this->Cell($w[3],10,$row[3],'LR',0,'C',$fill);
                 $this->Ln();
                 $this->SetX(10);
                 $fill = !$fill;

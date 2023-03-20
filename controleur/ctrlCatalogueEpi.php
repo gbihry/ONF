@@ -15,7 +15,7 @@
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet);
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
         
         include_once "$racine/vue/vueCatalogueEpi.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
@@ -54,7 +54,7 @@
             "id" => "0",
         );
         $id = $array;
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI');
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
         
 
         
