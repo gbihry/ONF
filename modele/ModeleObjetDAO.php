@@ -2256,6 +2256,25 @@
             $res = $req->fetchall();
             return $res;
         }
+
+        public static function getDescGras($idProduit){
+            $req = Connexion::getInstance()->prepare("SELECT (SUBSTRING(description, POSITION('PS : 'IN description))) as descriptionnGras 
+            FROM produit 
+            WHERE produit.id = :idProduit");
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req -> execute();
+            $res = $req->fetch();
+            return $res['descriptionnGras'];
+        }
     
+        public static function getRestPs($idProduit){
+            $req = Connexion::getInstance()->prepare("SELECT LEFT( description,POSITION('PS : 'IN description) - 1) as descriptionReste
+            FROM produit
+            WHERE produit.id = :idProduit;");
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req -> execute();
+            $res = $req->fetch();
+            return $res['descriptionReste'];
+        }
     }
 ?>

@@ -20,6 +20,8 @@ if(isset($reload) && $reload == true) {
         </form>
             <?php 
             foreach($allProducts as $detail){
+                $descGras = ModeleObjetDAO::getDescGras($detail['id']);
+                $desReste = ModeleObjetDAO::getRestPs($detail['id']);
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
                 if (file_exists("images/produits/".($detail['fichierPhoto']))){
@@ -30,7 +32,12 @@ if(isset($reload) && $reload == true) {
                 echo "<h1>".$detail['nom']."</h1>";
                 echo "</div>";
                 echo "<div class='main-desc'>";
-                echo "<p>" .$detail['description'] ."</p>";
+                if ($descGras != ''){
+                    echo ("<p>". $desReste."<span id='descGras'>". $descGras . "</span></p>");
+                }else{
+                    echo "<p>" .$detail['description'] ."</p>";
+                }
+                
                 echo "<form method='POST'>";
                 ?>
                 <div class="input-group input-group-sm mb-3">

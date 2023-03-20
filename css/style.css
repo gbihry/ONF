@@ -302,6 +302,10 @@ body{
     color: var(--primary-color) !important;
 }
 
+.main-desc #descGras {
+    font-weight: bold;
+}
+
 .main-desc p {
     background-color: var(--table-tertiary-background-color);
     margin: 25px 0px;
