@@ -1,7 +1,14 @@
 
 <div class="text-center interface-header">
     <img src="images/user.png" alt="">
-    <p><?= $login ?> ( Points : <?= $userPoints ?> <i class="fa-solid fa-ticket"></i> )</p>
+    <?php 
+        if($metier['id'] == 1 || $metier['id'] == 2 ||$metier['id'] == 3|| $metier['id'] == 4){
+            echo('<p> '. $login .' ( Points : '. $userPoints .' <i class="fa-solid fa-ticket"></i> )</p>');
+        }else{
+            echo('<p> '. $login .' </p>');
+        }
+    ?>
+    
     <a class="switchtheme" id="switchtheme"><i class="fa-solid"></i></a>
 </div>
 <div class="information-user">

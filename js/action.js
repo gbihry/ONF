@@ -23,6 +23,17 @@ function edit(el,type) {
             input.name = 'input_' + type;
             console.log((input.value));
             break;
+        case 'quantiteEPISub':
+            console.log("quantiteEPISub");
+            var max = parentN.dataset.max;
+            var input = document.createElement('input');
+            input.type = 'number';
+            input.value = data;
+            input.max = max;
+            input.min = 1;
+            input.name = 'input_' + type;
+            console.log((input.value));
+            break;
         case 'quantiteVET':
             console.log("quantiteVET");
             var input = document.createElement('input');
@@ -40,7 +51,31 @@ function edit(el,type) {
             input.removeAttribute('style');
             break;
             break;
+        case 'quantiteVETSub':
+            console.log("quantiteVETSub");
+            var input = document.createElement('input');
+            input.type = 'number';
+            input.value = data;
+            input.min = 1;
+            input.name = 'input_' + type;
+            console.log((input.name));
+            break;
+        case 'tailleVETSub':
+            var input = document.getElementById('select_taillevet_' + parentN.dataset.produit + '_blank').cloneNode(true);
+            input.id = 'select_taillevet';
+            input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
+            input.name = 'input_' + type;
+            input.removeAttribute('style');
+            break;
+            break;
         case 'tailleEPI':
+            var input = document.getElementById('select_tailleepi_' + parentN.dataset.produit + '_blank').cloneNode(true);
+            input.id = 'select_tailleepi';
+            input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
+            input.name = 'input_' + type;
+            input.removeAttribute('style');
+            break;
+        case 'tailleEPISub':
             var input = document.getElementById('select_tailleepi_' + parentN.dataset.produit + '_blank').cloneNode(true);
             input.id = 'select_tailleepi';
             input.querySelector('option[value="' + parentN.dataset.taille + '"]').selected = true;   
@@ -78,6 +113,7 @@ function edit(el,type) {
 
 
 function save(parentN,type) {
+    console.log(parentN);
     confirm('Voulez-vous vraiment sauvegarder ?');
     var from = document.createElement('form');
     from.method = 'POST';
@@ -85,14 +121,26 @@ function save(parentN,type) {
         case 'quantiteVET':
             from.action = 'index.php?action=panierVET';
             break;
+        case 'quantiteVETSub':
+            from.action = 'index.php?action=panierVETSubordonne&&id=' + parentN.dataset.iduser;
+            break;
         case 'quantiteEPI':
             from.action = 'index.php?action=panierEPI';
+            break;
+        case 'quantiteEPISub':
+            from.action = 'index.php?action=panierEPISubordonne&&id=' + parentN.dataset.iduser;
             break;
         case 'tailleVET':
             from.action = 'index.php?action=panierVET';
             break;
+        case 'tailleVETSub':
+            from.action = 'index.php?action=panierVETSubordonne&&id=' + parentN.dataset.iduser;
+            break;
         case 'tailleEPI':
             from.action = 'index.php?action=panierEPI';
+            break;
+        case 'tailleEPISub':
+            from.action = 'index.php?action=panierEPISubordonne&&id=' + parentN.dataset.iduser;
             break;
         case 'description':
             from.action = 'index.php?action=produits';
@@ -117,13 +165,25 @@ function save(parentN,type) {
         case 'quantiteEPI':
             input.value = parentN.querySelector('input').value;
             break;
+        case 'quantiteEPISub':
+            input.value = parentN.querySelector('input').value;
+            break;
         case 'quantiteVET':
+            input.value = parentN.querySelector('input').value;
+            break;
+        case 'quantiteVETSub':
             input.value = parentN.querySelector('input').value;
             break;
         case 'tailleVET':
             input.value = parentN.querySelector('select').value;
             break;
+        case 'tailleVETSub':
+            input.value = parentN.querySelector('select').value;
+            break;
         case 'tailleEPI':
+            input.value = parentN.querySelector('select').value;
+            break;
+        case 'tailleEPISub':
             input.value = parentN.querySelector('select').value;
             break;
         case 'description':
@@ -138,7 +198,19 @@ function save(parentN,type) {
             input_ligneCommande.name = 'idLigne';
             input_ligneCommande.value = parentN.dataset.ligne;
             break;
+        case 'quantiteEPISub':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
         case 'quantiteVET':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        case 'quantiteVETSub':
             var input_ligneCommande = document.createElement('input');
             input_ligneCommande.type = 'hidden';
             input_ligneCommande.name = 'idLigne';
@@ -150,7 +222,19 @@ function save(parentN,type) {
             input_ligneCommande.name = 'idLigne';
             input_ligneCommande.value = parentN.dataset.ligne;
             break;
+        case 'tailleVETSub':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
         case 'tailleEPI':
+            var input_ligneCommande = document.createElement('input');
+            input_ligneCommande.type = 'hidden';
+            input_ligneCommande.name = 'idLigne';
+            input_ligneCommande.value = parentN.dataset.ligne;
+            break;
+        case 'tailleEPISub':
             var input_ligneCommande = document.createElement('input');
             input_ligneCommande.type = 'hidden';
             input_ligneCommande.name = 'idLigne';
@@ -183,13 +267,25 @@ function save(parentN,type) {
         case 'quantiteEPI':
             from.appendChild(input_ligneCommande);
             break;
+        case 'quantiteEPISub':
+            from.appendChild(input_ligneCommande);
+            break;
         case 'quantiteVET':
             from.appendChild(input_ligneCommande);
             break;
         case 'tailleVET':
             from.appendChild(input_ligneCommande);
             break;
+        case 'quantiteVETSub':
+            from.appendChild(input_ligneCommande);
+            break;
+        case 'tailleVETSub':
+            from.appendChild(input_ligneCommande);
+            break;
         case 'tailleEPI':
+            from.appendChild(input_ligneCommande);
+            break;
+        case 'tailleEPISub':
             from.appendChild(input_ligneCommande);
             break;
         case 'description':

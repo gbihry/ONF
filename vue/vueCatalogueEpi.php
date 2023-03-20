@@ -10,7 +10,7 @@ if(isset($reload) && $reload == true) {
 
 <div class="catalogue">
     <div class="text-center">
-        <p class="catalogue_title_type"> Catalogue EPI</p>
+        <p class="catalogue_title_type"> Catalogue EPI ouvrier</p>
     </div>
 
     <div class="form-check text-center">

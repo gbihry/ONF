@@ -1028,12 +1028,11 @@
                 ModeleObjetDAO::CommandeArchivage($id, $type);
 
                 if($prix != 0) {
-                $query = Connexion::getInstance()->prepare("UPDATE points SET points.point = points.point - :prix WHERE points.idUtilisateur = :id");
-                $query->bindValue(':prix',$prix,PDO::PARAM_INT);
+                $query = Connexion::getInstance()->prepare("UPDATE points SET points.point = 0 WHERE points.idUtilisateur = :id");
                 $query->bindValue(':id',$id,PDO::PARAM_INT);
                 $query->execute();
                 }
-
+                
                 header("location:./?action=commandeReussie");
 
             } else {

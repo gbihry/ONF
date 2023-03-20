@@ -102,6 +102,7 @@
                     <a class="btn btn-danger" href="./?action=panier">Annuler</a>
                 </form>
             </div>
+            <p>Validation définitive, vous ne pourrez plus commander et vos points restants seront perdu</p>
         </div>
     </div>
 </div>

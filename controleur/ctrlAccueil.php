@@ -2,6 +2,7 @@
 include "$racine/vue/vueEntete.php";
 if (isset($_SESSION['login'])){
     $dateCreaFiniEPI = ModeleObjetDAO::getDateCommandeFiniEpi(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+    $metier = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
     if ($dateCreaFiniEPI != false){
         $dateCreaFiniEPI = explode(' ', $dateCreaFiniEPI);
         $dateCreaFiniDate = explode ('-', $dateCreaFiniEPI[0]);
