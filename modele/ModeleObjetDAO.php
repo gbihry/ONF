@@ -1459,11 +1459,12 @@
         }
 
         public static function getRecapCommandeEpi(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom 
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
             from lignecommandeepi 
             JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
             JOIN produit on lignecommandeepi.idProduit = produit.id 
             JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
+            join taille on lignecommandeepi.idTaille = taille.id
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
             GROUP by produit.nom,lieulivraion.nom 
@@ -1474,10 +1475,11 @@
         }
 
         public static function getRecapCommandeVet(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
             from lignecommandevet
             JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
             JOIN produit on lignecommandevet.idProduit = produit.id
+            join taille on lignecommandevet.idTaille = taille.id
             JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
