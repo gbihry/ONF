@@ -59,7 +59,14 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Lieu de livraion :</span>
                     </div>
-                    <select name="livraison" class="custom-select" id="inputGroupSelect01">
+                    <?php
+                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                            echo '<select name="livraison" class="custom-select input-select" id="inputGroupSelect01">';
+                        }else{
+                            echo '<select name="livraison" class="custom-select" id="inputGroupSelect01">';
+                        }
+                    ?>
+                    
                     <?php 
                         foreach($lesLieux as $unLieu){
                             if($unLieu['id'] == $AllUser['idLieuLivraison'])  {

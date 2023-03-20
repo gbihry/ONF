@@ -1,6 +1,9 @@
 //!: Statistique qui récapitule la quantité de chaque produit à commander (la somme de quantité de produit de chaque utilisateur)
 //!: Gérer la sauvegarde 
 
+
+//! EN COURS : //TODO -150 points dans l'entête pas de décompte et Pouvoir faire qu'une seul commande VET ( pareil qu'EPI )
+
 // ? Mickael 
 //TODO : Tshirt logo forestier ou onf
 //TODO : rajouter le footer
@@ -9,22 +12,21 @@
 // ? Matthieu 
 
 // ? Guillaume 
+//TODO -onf , commune forestier 
+//TODO -tant qu'il n'a  pas passer de commande on peut changer les info des utilisateur sur la page add user 
+//TODO -pour les ouvrier toujours  a muhouse le site de livraison 
+//TODO -enelver le fait de pouvoir aller plus haut que la quantité max dans le panier quand on modifie la quantité 
+
 
 // ? Tristan 
+//TODO -enlever les casque car remplacer tous les 4 ans 
+//TODO -enlever portwest C376 ou rajouter un champ pour choisir ONF ou COFOR 
+//TODO -commande subordonnées RECAP = PANIER et Commande = CATALOGUE, Historique = RECAP 
+
+
+
 
 //TODO : Envoie d'un e-mail si les utilisateurs ont pas encore valider le panier ou commander
-
-//TODO -onf , commune forestier 
-
-//TODO -tant qu'il n'a  pas passer de commande on peut changer les info des utilisateur sur la page add user 
-
-//TODO -pour les ouvrier toujours  a muhouse le site de livraison 
-
-//TODO -enlever les casque car remplacer tous les 4 ans 
-
-//TODO -enlever portwest C376 ou rajouter un champ pour choisir ONF ou COFOR 
-
-//TODO -enelver le fait de pouvoir aller plus haut que la quantité max dans le panier quand on modifie la quantité 
 
 //TODO -xs court , xs stantard , xs long pour les pantalon anticoupurs , spb. 
 
@@ -32,15 +34,13 @@
 
 //TODO -nombre de point restant dans le recap de panier VET 
 
-//TODO -150 points dans l'entête pas de décompte et Pouvoir faire qu'une seul commande VET ( pareil qu'EPI )
+
 
 //TODO -mettre un texte pour dire qu'une fois la validation du panier, ajouter " Validation définitive, peut plus commander et vos points resterons seront perdu " 
 
 //TODO -rajouter panier subordonné, modifier quantité/ taille 
 
 //TODO -commande subordonnées = crée un pdf avec toutes les commandes de l'équipe individuellement  
-
-//TODO -commande subordonnées RECAP = PANIER et Commande = CATALOGUE, Historique = RECAP 
 
 //TODO -dans le pdf récapitulatif rajouter les tailles  
 

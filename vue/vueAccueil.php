@@ -2,7 +2,7 @@
 <div class="home_wrapper">  
 <div class="home_content">
     <br/>
-    <h1 style="font-size:3rem" class="home_text">Site d'achat ONF EPI/VET</h1>
+    <h1 style="font-size:3rem" class="home_text">Site d'achat ONF, commune forestier EPI/VET</h1>
     <?php
         if (!isset($_SESSION['autorise'])){
             echo ("<p class='home_text'>Veuillez vous connecter pour pouvoir utiliser toutes les fonctionnalités</p>");
@@ -27,11 +27,20 @@
                     $time = $dateCreaFiniTime[0] . 'h' . $dateCreaFiniTime[1] . 'm' . $dateCreaFiniTime[2] . 's';
                     echo ('<div class="alert alert-success" role="alert">Vous avez fait une commande EPI <br> le '.$date.' à '.$time.'</div>');
                 echo ('</div>');
-            }else{
+            }
+            if ($verifCommandeEPI == 0 || $verifCommandeVET == 0){
                 ?>
                 <div>
-                    <input type="button" onclick="window.location.href = './?action=catalogueVet&&id=0';" class='btn btn-success m-5' value="Catalogue VET"/> 
-                    <input type="button" onclick="window.location.href = './?action=catalogueEpi&&id=0';" class='btn btn-success m-5' value="Catalogue EPI"/> 
+                    <?php 
+                    if ($verifCommandeVET == 0){
+                        echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueVet&&id=0\'" class="btn btn-success m-3" value="Catalogue VET"/> ');
+                    }
+                    if($verifCommandeEPI == 0){
+                        echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpi&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');
+                    }
+                    ?>
+                        
+                    
                 </div>
                 <?php
                 echo ('<h2 class="home_text" id="compte_a_rebours"></h2>');
