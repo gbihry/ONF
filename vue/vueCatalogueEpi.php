@@ -96,7 +96,7 @@ if(isset($reload) && $reload == true) {
         }else{
 
             foreach($catalogue as $uneCategorie){
-                if($unStatut['id'] == 1 && $uneCategorie['id'] == 5 ){
+                if(($unStatut['id'] == 1 && $uneCategorie['id'] == 5) || ($unStatut['id'] == 1 && $uneCategorie['id'] == 4)){
 
                 }else{
                     if (($uneCategorie['libelle'] != 'Vêtements') && ($uneCategorie['libelle'] != 'EPINonOuvrier')){
