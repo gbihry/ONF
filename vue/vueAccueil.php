@@ -13,7 +13,7 @@
         echo('<p class="home_text">' . ModeleObjetDAO::getIdMessageCommentaire()[1] .'</p>');
     ?>
     <?php
-        if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+        if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
     ?>
         <input type="button" onclick="window.location.href = './?action=changerCommentaire';" class='btn btn-success m-5' value="Changer commentaire"/> <br>
     <?php 

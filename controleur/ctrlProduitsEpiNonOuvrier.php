@@ -3,7 +3,7 @@
     include "$racine/vue/vueEntete.php";
     $role =  ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
 
-    if(isset($_SESSION['autorise']) && $role == 'Administrateur' || isset($_SESSION['autorise']) && $role == 'Super-Administrateur'){
+    if(isset($_SESSION['autorise']) && $role == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && $role == 'Administrateur'){
         
         $allProductsEPINonOuvrier = ModeleObjetDAO::getAllProductsModif('EPINonOuvrier');
         $allType = ModeleObjetDAO::getTypeProduit();

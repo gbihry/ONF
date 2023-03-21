@@ -70,12 +70,12 @@
 
         public static function getAllUsers($role, $id) {
             switch($role){
-                case 'Administrateur':
+                case 'Gestionnaire de commande':
                     $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
                     FROM utilisateur 
                     LIMIT 50");
                     break;
-                    case 'Super-Administrateur':
+                    case 'Administrateur':
                         $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
                         FROM utilisateur 
                         LIMIT 50");
@@ -889,7 +889,7 @@
         }
 
         public static function getCatalogue($id, $login, $verifVet){
-            if ((ModeleObjetDAO::getRole($login)['libelle'] == 'Administrateur') || ($verifVet == true)){
+            if ((ModeleObjetDAO::getRole($login)['libelle'] == 'Gestionnaire de commande') || ($verifVet == true)){
                 $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
                 FROM categorie");
                 $req->execute();
