@@ -99,7 +99,7 @@ if(isset($reload) && $reload == true) {
                 if($unStatut['id'] == 1 && $uneCategorie['id'] == 5 ){
 
                 }else{
-                    if (($uneCategorie['libelle'] != 'Vêtements') && ($uneCategorie['libelle'] != 'EPINonOuvrier')){
+                    if ($uneCategorie['libelle'] != 'Vêtements'){
                         echo "<div class='tuile'>
                             <p>" . $uneCategorie['libelle'] . "</p>
                             <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>

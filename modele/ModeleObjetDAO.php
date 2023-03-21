@@ -545,7 +545,7 @@
         }
 
         public static function getAllInfoProduit($idProduit){
-            $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, idFournisseur, prix, description ,nom,fichierPhoto, produit.type, produit.idType
+            $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,visible,produit.id, idFournisseur, prix, description ,nom,fichierPhoto, produit.type, produit.idType
             from produit
             join type on type.id = produit.idType
             JOIN categorie on categorie.id = type.idCategorie
@@ -559,16 +559,29 @@
         }
 
         public static function getAllProduitCatalogue($id, $type,$trie){
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
-                    from produit
-                    join type on type.id = produit.idType
-                    JOIN categorie on categorie.id = type.idCategorie
-                    JOIN concerne on type.id = concerne.idType
-                    JOIN disponible on disponible.idProduit = produit.id
-                    JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne.idStatut = :idMetier");
+                    if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                        $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN concerne on type.id = concerne.idType
+                        JOIN disponible on disponible.idProduit = produit.id
+                        JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+                        WHERE type = :leType AND concerne.idStatut = :idMetier");
+                    }else{
+                        $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                        from produit
+                        join type on type.id = produit.idType
+                        JOIN categorie on categorie.id = type.idCategorie
+                        JOIN concerne on type.id = concerne.idType
+                        JOIN disponible on disponible.idProduit = produit.id
+                        JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+                        WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1");
+                    }
+                    
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
@@ -578,24 +591,48 @@
 
                 case 'VET':
                     if($trie == "ASC"){
-                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                        from produit
-                        join type on type.id = produit.idType
-                        JOIN categorie on categorie.id = type.idCategorie
-                        JOIN disponible on disponible.idProduit = produit.id
-                        WHERE type = :leType 
-                        GROUP BY produit.nom
-                        ORDER BY prix asc");
+                        if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                            from produit
+                            join type on type.id = produit.idType
+                            JOIN categorie on categorie.id = type.idCategorie
+                            JOIN disponible on disponible.idProduit = produit.id
+                            WHERE type = :leType 
+                            GROUP BY produit.nom
+                            ORDER BY prix asc");
+                        }else{
+                            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                            from produit
+                            join type on type.id = produit.idType
+                            JOIN categorie on categorie.id = type.idCategorie
+                            JOIN disponible on disponible.idProduit = produit.id
+                            WHERE type = :leType and produit.visible = 1
+                            GROUP BY produit.nom
+                            ORDER BY prix asc");
+                        }
+                        
                     }
                     else{
-                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                        if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
+                            from produit
+                            join type on type.id = produit.idType
+                            JOIN categorie on categorie.id = type.idCategorie
+                            JOIN disponible on disponible.idProduit = produit.id
+                            WHERE type = :leType 
+                            GROUP BY produit.nom
+                            ORDER BY prix desc");
+                        }else{
+                            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
                         from produit
-                        join type on type.id = produit.idType
-                        JOIN categorie on categorie.id = type.idCategorie
-                        JOIN disponible on disponible.idProduit = produit.id
-                        WHERE type = :leType 
-                        GROUP BY produit.nom
-                        ORDER BY prix desc");
+                            join type on type.id = produit.idType
+                            JOIN categorie on categorie.id = type.idCategorie
+                            JOIN disponible on disponible.idProduit = produit.id
+                            WHERE type = :leType and produit.visible = 1
+                            GROUP BY produit.nom
+                            ORDER BY prix desc");
+                        }
+                        
                     }
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
@@ -851,17 +888,32 @@
         // INFORMATION SUR LES PRODUITS
 
         public static function getProduit($id,$idStatut,$type){
-            $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
-            from produit
-            join type on type.id = produit.idType
-            JOIN concerne ON concerne.idType = type.id
-            JOIN categorie on categorie.id = type.idCategorie
-            JOIN disponible on disponible.idProduit = produit.id
-            WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType 
-            ORDER BY prix DESC");
-            $req->bindValue(':leType',$type,PDO::PARAM_STR);
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
+            if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                from produit
+                join type on type.id = produit.idType
+                JOIN concerne ON concerne.idType = type.id
+                JOIN categorie on categorie.id = type.idCategorie
+                JOIN disponible on disponible.idProduit = produit.id
+                WHERE categorie.id = :id
+                ORDER BY prix DESC");
+            }else{
+                $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                from produit
+                join type on type.id = produit.idType
+                JOIN concerne ON concerne.idType = type.id
+                JOIN categorie on categorie.id = type.idCategorie
+                JOIN disponible on disponible.idProduit = produit.id
+                WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType and produit.visible = 1
+                ORDER BY prix DESC");
+                $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
+                $req->bindValue(':leType',$type,PDO::PARAM_STR);
+            }
+            
+            
             $req->bindValue(':id',$id,PDO::PARAM_INT);
-            $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
+            
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -1057,7 +1109,7 @@
             date_default_timezone_set('Europe/Paris');
             $prix = ModeleObjetDAO::prixTotalCommande($id,$type);
             $points = ModeleObjetDAO::getNbrPointUtilisateur($id)['point'];
-            if(($points - $prix) > 0) {
+            if(($points - $prix) >= 0) {
                 switch($type) {
                     case "epi":
                         $Commande = ModeleObjetDAO::getLigneCommandeEpiUtilisateur($id);
@@ -1100,7 +1152,7 @@
                 header("location:./?action=commandeReussie");
 
             } else {
-                header("location:./?action=panier");
+                //header("location:./?action=panierEPI");
             }
         }
 
@@ -1117,7 +1169,6 @@
                     $commandeid = ModeleObjetDAO::getIdVetUtilisateur($id);
                     $query = Connexion::getInstance()->prepare("UPDATE commandevet SET commandevet.terminer = 1 WHERE commandevet.id = :id");
                     $req = Connexion::getInstance()->prepare("UPDATE commandevet SET commandevet.dateCreaFini = :dateCreaFini WHERE commandevet.id = :id ");
- 
                     break;
                 default:
                     return;
@@ -1462,6 +1513,7 @@
         }
 
         public static function getQuantiteEpiMax($metier,$idType){
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
             $req = Connexion::getInstance()->prepare("SELECT idType,quantiteMax
             from concerne 
             join metier on metier.id = concerne.idStatut
@@ -1470,6 +1522,9 @@
             $req->bindValue(':idType',$idType,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetch();
+            if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                return 1;
+            }
             return $res['quantiteMax'];
         }
 
@@ -1606,6 +1661,13 @@
             $req->bindValue(':idFournisseur', $fournisseur, PDO::PARAM_INT);
             $req->bindValue(':referenceFournisseur', $reference, PDO::PARAM_STR);
             $req->bindValue(':idType', $typeProduit, PDO::PARAM_INT);
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updateVisibiliteProduit($idProduit, $etat){
+            $req = Connexion::getInstance()->prepare("UPDATE produit SET visible = :etat WHERE id = :idProduit");
+            $req->bindValue(':etat', $etat, PDO::PARAM_INT);
             $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
             $req->execute();
         }

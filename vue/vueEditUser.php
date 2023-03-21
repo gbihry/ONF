@@ -98,7 +98,13 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
-                    <select name="responsable" id="selectResponsable" class="custom-select" id="inputGroupSelect01">
+                    <?php
+                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                            echo '<select name="responsable" id="selectResponsable" class="custom-select input-select" id="inputGroupSelect01">';
+                        }else{
+                            echo '<select name="responsable" class="custom-select" id="inputGroupSelect01">';
+                        }
+                    ?>
                     <?php
                         if($AllUser['id_responsable'] != $AllUser['id']) {
                             echo ("<option class='text-center' value='".$AllUser['id']."'>Est Responsable</option>");
@@ -149,7 +155,13 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                     </div>
-                    <select name="agence" class="custom-select" id="inputGroupSelect01">
+                    <?php 
+                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                            echo '<select name="agence" class="custom-select input-select" id="inputGroupSelect01">';
+                        }else{
+                            echo '<select name="agence" class="custom-select" id="inputGroupSelect01">';
+                        }
+                    ?>
                     <?php 
                         foreach($lesAgences as $uneAgence){
                             if($uneAgence['agence'] == $AllUser['agence']) {

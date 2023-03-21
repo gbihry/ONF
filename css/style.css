@@ -79,6 +79,9 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 
 .btnHelp {
     position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
     bottom: 15px;
     right: 10px;
 }
@@ -276,6 +279,12 @@ body{
     border: 1.5px solid #e9ecef;
     border-radius: 0.325rem;
     aspect-ratio : 1/1;
+}
+
+.radio-visible {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .main-produit {

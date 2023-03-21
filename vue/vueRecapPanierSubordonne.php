@@ -101,7 +101,7 @@
                     ?>
                     >Valider</button>
                     <?php 
-                        if ($_GET['type'] == 'EPI'){
+                        if ($_GET['type'] == 'epi'){
                             echo('<a class="btn btn-danger" href="./?action=panierEPISubordonne&&id='.$_GET['ref'].'">Annuler</a>'); 
                         }else{
                             echo('<a class="btn btn-danger" href="./?action=panierVETSubordonne&&id='.$_GET['ref'].'">Annuler</a>'); 

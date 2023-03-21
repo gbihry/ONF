@@ -7,7 +7,6 @@ if(isset($reload) && $reload == true) {
     </script>';
 }
 ?>
-<div class="container-fluid text-center mt-5 produit">
     <?php  
         
         foreach($unProduit as $detail){
