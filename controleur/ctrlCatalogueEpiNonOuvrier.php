@@ -54,7 +54,7 @@
             "id" => "0",
         );
         $id = $array;
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier',null);
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
             date_default_timezone_set('Europe/Paris');

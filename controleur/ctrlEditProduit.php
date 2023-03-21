@@ -121,20 +121,20 @@
                     }
                 }
                 if(isset($_POST['supressproduct']) && !empty($_POST['supressproduct'])) {
-                    /*
-                    
-                    Hide product
-                    or 
-                    Delete product
-                    as
-                    Date
-
-                    */
-                
+                    $target_dir = "images/produits/";
+                    $target_dir_old = "images/old_produits/";
+                    if(file_exists($target_dir.$infoProduct['fichierPhoto'])) {
+                        rename($target_dir.$infoProduct['fichierPhoto'], $target_dir_old.time().'_'.$infoProduct['fichierPhoto']);
+                    }
+                    ModeleObjetDAO::deleteProduits($_GET['id']);
                     header("location:./?action=accueil");
                 }
+
+                if (isset($_POST['produitVisible']) || !empty($_POST['produitVisible'])){
+                    ModeleObjetDAO::updateVisibiliteProduit($_GET['id'], $_POST['produitVisible']);
+                }
                 
-                $reload = true;
+                $reload = true ;
                 
             }
         }else {

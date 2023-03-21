@@ -12,7 +12,12 @@ if(isset($reload) && $reload == true) {
     <h1>Modifier un produit</h1>
     <div class="alert-container">
         <?php 
-            echo "<div class='btnHelp'><a href='' class='red' id='supressproduct'>Supprimer le produit</a></div>";
+            if ($dateAuj > $dateFin){
+                echo "<div class='btnHelp'><a href='' class='red' id='supressproduct'>Supprimer le produit</a><a href='docs_utilisation/comment_utiliser_modifier_produit.docx' download>Aide</a></div>";
+            }else{
+                echo "<div class='btnHelp'><a href='docs_utilisation/comment_utiliser_modifier_produit.docx' download>Aide</a></div>";
+            }
+            
             if (isset($verifFile) && $verifFile == true ){
                 echo ('<div class="alert alert-success" role="alert">Le produit à bien été ajouté</div>');
             }elseif (isset($verifInput) && $verifInput != true){
@@ -41,12 +46,38 @@ if(isset($reload) && $reload == true) {
         ?>
     </div>
     <form  method="post" enctype="multipart/form-data">
-    <!--
+    
+
         <div class="btnHelp">
-            <a href="docs_utilisation/comment_utiliser_ajout_produit.docx" download>Aide</a>
+            
         </div>
-    -->
         <div class="addUser_container">
+            <div class="radio-visible">
+                <div class="form-check">
+                    <?php 
+                        if ($infoProduct['visible'] == 1){
+                            echo ('<input class="form-check-input" type="radio" name="produitVisible" id="flexRadioDefault1" value="1" checked>');
+                        }else{
+                            echo ('<input class="form-check-input" type="radio" name="produitVisible" id="flexRadioDefault1" value="1">');
+                        }
+                    ?>
+                    <label class="form-check-label" for="produitVisible">
+                        Produit visible
+                    </label>
+                </div>
+                <div class="form-check">
+                    <?php 
+                        if ($infoProduct['visible'] == 0){
+                            echo ('<input class="form-check-input" type="radio" name="produitVisible" id="flexRadioDefault2" value="0" checked>');
+                        }else{
+                            echo ('<input class="form-check-input" type="radio" name="produitVisible" id="flexRadioDefault2" value="0">');
+                        }
+                    ?>
+                    <label class="form-check-label" for="produitNonVisible">
+                        Produit non visible
+                    </label>
+                </div>
+            </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Nom :</span>

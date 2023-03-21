@@ -4,9 +4,10 @@
   include_once "$racine/modele/ModeleObjetDAO.php";
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
-  $dateFin = new DateTime("07-04-2023 16:30:00");
+  $dateFin = new DateTime(" 07-04-2023 16:30:00");
   if(isset($_SESSION['autorise'])) {
     $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
+    $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
   }
 ?>
 <!DOCTYPE html>
@@ -63,25 +64,24 @@
               $NombreElementDansLePanierVET = ModeleObjetDAO::getNbArticlePanier(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],'vet');
               $verifCommandeEPI = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI'));
               $verifCommandeVET = intVal(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET'));
-              $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
               
               if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
                 echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Commande passée</a></div>';
               }
               if($metierUtilisateur == 5 || $metierUtilisateur == 6 || $metierUtilisateur == 7 || $metierUtilisateur == 8) {
-                if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
+                if ($verifCommandeVET == 0 && $dateAuj < $dateFin){
                   echo '
                   <div class="nav_links_item"><a href="index.php?action=catalogueEpiNonOuvrier&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
                   <div class="nav_links_item"><a href="index.php?action=panierEPINonOuvrier"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>';
                 }
               }else{
-                if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
+                if ($verifCommandeEPI == 0 && $dateAuj < $dateFin || ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande')){
                   echo '
                     <div class="nav_links_item"><a href="index.php?action=catalogueEpi&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>
                     <div class="nav_links_item"><a href="index.php?action=panierEPI"><i class="fa-solid fa-bag-shopping"></i>Panier EPI ('.$NombreElementDansLePanierEPI.')</a></div>
                   ';
                 }
-                if ($verifCommandeVET == 0 && $dateAuj < $dateFin){
+                if (($verifCommandeVET == 0 && $dateAuj < $dateFin) || ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande')){
                     echo '
                     <div class="nav_links_item"><a href="index.php?action=catalogueVet&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue VET</a></div>
                     <div class="nav_links_item"><a href="index.php?action=panierVET"><i class="fa-solid fa-bag-shopping"></i>Panier VET ('.$NombreElementDansLePanierVET.')</a></div>
