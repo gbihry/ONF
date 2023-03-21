@@ -2,7 +2,7 @@
 //!: Gérer la sauvegarde 
 
 
-//! EN COURS : 
+//! EN COURS : modification des produits
 
 // ? Mickael 
 //TODO : Tshirt logo forestier ou onf

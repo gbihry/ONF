@@ -5,6 +5,7 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
+    $role = ModeleObjetDAO::getRole($_SESSION['login']);
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
         
@@ -51,7 +52,6 @@
         );
     
         
-        $role = ModeleObjetDAO::getRole($_SESSION['login']);
         switch($role['libelle']){
             case 'Responsable' : 
                 $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);

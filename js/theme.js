@@ -49,7 +49,7 @@ function switchtheme(el) {
 
 window.onload = function() {
     var el = document.getElementById('switchtheme');
-    if(typeof el !== 'undefined') {
+    if(el) {
         el.addEventListener('click', function() {
             switchtheme(el);
         });

@@ -22,6 +22,9 @@ if(isset($reload) && $reload == true) {
                     echo "<img class='img-produit' src='images/error.png'>";
                 }
                 echo "<h1>".$detail['nom']."</h1>";
+                if($role['libelle'] == 'Administrateur' || $role['libelle'] == 'Super-Administrateur'){
+                    echo ('<a class="btn btn-primary" href="./?action=editProduit&id='.$detail['id'].'"><i class="fa-solid fa-pencil"></i> Modifier</a>');
+                }
                 echo "</div>";
                 echo "<div class='main-desc'>";
                 echo "<p>" .$detail['description'] ."</p>";

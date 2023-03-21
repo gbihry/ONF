@@ -6,6 +6,7 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
+    $role = ModeleObjetDAO::getRole($_SESSION['login']);
     if($_GET["id"] != "0"){
         $verifVet = false;
         $array = array(

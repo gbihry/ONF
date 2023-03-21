@@ -505,6 +505,59 @@
             return $res;
         }
 
+        public static function getAllTaillesProduit($idProduit){
+            $req = Connexion::getInstance()->prepare(" SELECT taille.id, libelle
+            FROM taille 
+            JOIN disponible ON disponible.idTaille = taille.id
+            JOIN produit ON disponible.idProduit = produit.id
+            WHERE produit.id = :idProduit");
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchAll();
+            $resF = array();
+            foreach($res as $key => $value){
+                $resF[] = array('id' => $value['id'], 'libelle' => $value['libelle']);
+            }
+            return $resF;
+        }
+
+        public static function removeTailleidProduit($idProduit, $idTaille){
+            $req = Connexion::getInstance()->prepare("DELETE FROM disponible WHERE idProduit = :idProduit AND idTaille = :idTaille");
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function addTailleidProduit($idProduit, $idTaille, $prix){
+            $req = Connexion::getInstance()->prepare("INSERT INTO disponible (idProduit, idTaille, prix) VALUES (:idProduit, :idTaille, :prix)");
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->bindValue(':prix',$prix,PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updatePrixTailleidProduit($idProduit, $idTaille, $prix){
+            $req = Connexion::getInstance()->prepare("UPDATE disponible SET prix = :prix WHERE idProduit = :idProduit AND idTaille = :idTaille");
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->bindValue(':prix',$prix,PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function getAllInfoProduit($idProduit){
+            $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, idFournisseur, prix, description ,nom,fichierPhoto, produit.type, produit.idType
+            from produit
+            join type on type.id = produit.idType
+            JOIN categorie on categorie.id = type.idCategorie
+            JOIN concerne on type.id = concerne.idType
+            JOIN disponible on disponible.idProduit = produit.id
+            WHERE produit.id = :idProduit");
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
+
         public static function getAllProduitCatalogue($id, $type,$trie){
             switch($type){
                 case 'EPI':
@@ -1543,10 +1596,27 @@
                 $req->bindValue(':idTaille', $taille['id'], PDO::PARAM_INT);
                 $req->execute();
             }
-
-
         }
 
+        public static function updateProduit($idProduit,$nom, $type, $description, $fournisseur, $reference, $typeProduit) {
+            $req = Connexion::getInstance()->prepare("UPDATE produit SET nom = :nom, type = :type, description = :description, idFournisseur = :idFournisseur, referenceFournisseur = :referenceFournisseur, idType = :idType WHERE id = :idProduit");
+            $req->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $req->bindValue(':type', $type, PDO::PARAM_STR);
+            $req->bindValue(':description', $description, PDO::PARAM_STR);
+            $req->bindValue(':idFournisseur', $fournisseur, PDO::PARAM_INT);
+            $req->bindValue(':referenceFournisseur', $reference, PDO::PARAM_STR);
+            $req->bindValue(':idType', $typeProduit, PDO::PARAM_INT);
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function updateImageProduit($idProduit, $fichierPhoto) {
+            $req = Connexion::getInstance()->prepare("UPDATE produit SET fichierPhoto = :fichierPhoto WHERE id = :idProduit");
+            $req->bindValue(':fichierPhoto', $fichierPhoto, PDO::PARAM_STR);
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req->execute();
+        }
+        
         public static function getIdMessageCommentaire(){
             $req = Connexion::getInstance()->prepare("select id,message from commentaire");
             $req->execute();
@@ -1661,7 +1731,6 @@
             $req->execute();
         }
 
-        //updateTaille($idUtilisateur['id'], $_POST['idLigne'], $_POST['tailleVET'], 'VET');
 
 
         public static function updateTaille($idUtilisateur, $ligneCommande, $idTaille, $type) {

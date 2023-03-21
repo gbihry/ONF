@@ -61,8 +61,6 @@ function Taille(id, libelle) {
     inp.value = id + ";" + libelle;
     taille_inp.appendChild(inp);
 
-    console.log(taille_inp.appendChild(inp));
-
     a.addEventListener('click', function() {
         var cid = this.getAttribute('data-cid');
         var row = document.querySelector('[data-cid="' + cid + '"]');
@@ -74,4 +72,54 @@ function Taille(id, libelle) {
         }
     });
 
-} 
+}
+
+if(document.getElementById('supressimgbtn')) {
+    document.getElementById('supressimgbtn').addEventListener('click', function(e) {
+        if(confirm('Voulez-vous vraiment supprimer cette image ?')) {
+            e.preventDefault();
+            var n = document.createElement('form');
+            n.method = 'POST';
+    
+            var i = document.createElement('input');
+            i.type = 'hidden';
+            i.name = 'supressimg';
+            i.value = 'true';
+            n.appendChild(i);
+    
+            var s = document.createElement('input');
+            s.type = 'submit';
+            s.value = 'Wait';
+            n.appendChild(s);
+    
+            document.body.appendChild(n);    
+    
+            n.submit();
+        }
+    });
+}
+
+if(document.getElementById('supressproduct')) {
+    document.getElementById('supressproduct').addEventListener('click', function(e) {
+        if(confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+            e.preventDefault();
+            var n = document.createElement('form');
+            n.method = 'POST';
+    
+            var i = document.createElement('input');
+            i.type = 'hidden';
+            i.name = 'supressproduct';
+            i.value = 'true';
+            n.appendChild(i);
+    
+            var s = document.createElement('input');
+            s.type = 'submit';
+            s.value = 'Wait';
+            n.appendChild(s);
+    
+            document.body.appendChild(n);    
+    
+            n.submit();
+        }
+    });
+}

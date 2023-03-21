@@ -96,6 +96,14 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
     background-color: var(--secondary-color) !important;
 }
 
+.btnHelp a.red {
+    background-color: var(--danger);
+}
+
+.btnHelp a.red:hover {
+    background-color: var(--secondary-danger) !important;
+}
+
 @keyframes left {
     from {
         transform: translateX(360px);
@@ -257,6 +265,14 @@ body{
 .img-produit {
     height: 300px;
     width: 300px; 
+    border: 1.5px solid #e9ecef;
+    border-radius: 0.325rem;
+    aspect-ratio : 1/1;
+}
+
+.img-produit-edit {
+    height: 200px;
+    width: 200px; 
     border: 1.5px solid #e9ecef;
     border-radius: 0.325rem;
     aspect-ratio : 1/1;
