@@ -3,8 +3,8 @@
     include_once "$racine/vue/vueEntete.php";
 
     
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ||  
-    ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' ||  
+    ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
         if(!empty($_POST)){
             $idUtilisateur = $_POST['user'];
             $points = $_POST['nombrepoint'];
@@ -18,7 +18,7 @@
     $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
     $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
     
-    $AllUsers = ModeleObjetDAO::getAllUsers("Administrateur",0);
+    $AllUsers = ModeleObjetDAO::getAllUsers("Gestionnaire de commande",0);
 
 
 

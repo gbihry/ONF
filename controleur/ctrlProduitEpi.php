@@ -57,7 +57,7 @@
                 $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
                 $commanderPour = ModeleObjetDAO::getCommanderPour($responsable['id_responsable']);
                 break;
-            case 'Administrateur' : 
+            case 'Gestionnaire de commande' : 
                 $commanderPour = ModeleObjetDAO::getCommanderPourTous();
                 break;
         }

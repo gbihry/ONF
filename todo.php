@@ -16,11 +16,6 @@
 
 // ? Tristan  
 
-//TODO -xs court , xs stantard , xs long pour les pantalon anticoupurs , spb. 
-
-//TODO -Admin = gestionnaire de commandes qui peut s'occuper de toute son agence 
-
-//TODO -rajouter type pour les lunettes a la place de taille : transparant , jaune ou fumée  ( 1 paires maximum) 
 
 //TODO -logisticien accès a la combi CEPOVETT 9J86
 
