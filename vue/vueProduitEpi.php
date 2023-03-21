@@ -7,11 +7,10 @@ if(isset($reload) && $reload == true) {
     </script>';
 }
 ?>
-<div class="container-fluid text-center mt-5 produit">
     <?php  
         
         foreach($unProduit as $detail){
-            if($unStatut['id'] == 1 && $detail['id'] == 10 || ($unStatut['id'] == 1 && $detail['id'] != 6 && $detail['idType'] == 2)){
+            if($unStatut['id'] == 1 && $detail['id'] == 10 || ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2)  || ($unStatut['id'] == 2 && $detail['id'] == 6) || ($unStatut['id'] == 3 && $detail['id'] == 18) || ($unStatut['id'] == 4 && $detail['id'] == 18)){
             
             }else{
                 echo "<div class ='unProduit'>";
@@ -29,13 +28,14 @@ if(isset($reload) && $reload == true) {
                 echo "<div class='main-desc'>";
                 echo "<p>" .$detail['description'] ."</p>";
                 echo "<form method='POST' class='form-group'>";
-        }
+            }
             
-
-            if($unStatut['id'] == 1 && $detail['id'] == 10 || ($unStatut['id'] == 1 && $detail['id'] != 6 && $detail['idType'] == 2)){
+            if($unStatut['id'] == 1 && $detail['id'] == 10 || ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2) || ($unStatut['id'] == 2 && $detail['id'] == 6) || ($unStatut['id'] == 3 && $detail['id'] == 18) || ($unStatut['id'] == 4 && $detail['id'] == 18)){
+              
                 
+            
             }else{
-                
+
                 ?>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
@@ -79,12 +79,13 @@ if(isset($reload) && $reload == true) {
                     echo "<p id='dejaCommander'>Vous avez déjà commandé cet article</p>";
                 }
                 
-            } 
+            
+        } 
                 
                 echo "</form>";
                 echo "</div>";
                 echo "</div>";
             
-        }
+    }
     ?>
 </div>
