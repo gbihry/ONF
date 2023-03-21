@@ -9,7 +9,7 @@
                     <th>Catalogue EPI</th>
                     <th>Panier EPI</th>
                     <th>Panier VET</th>
-                    <th>Récap=</th>
+                    <th>Historique</th>
                 </tr>
             </thead>
             <tbody>

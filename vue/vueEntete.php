@@ -96,8 +96,8 @@
         </nav>
         <?php
         
-          if(isset($_SESSION['autorise']) && $roleUser == 'Administrateur' 
-          || isset($_SESSION['autorise']) && $roleUser == 'Super-Administrateur'
+          if(isset($_SESSION['autorise']) && $roleUser == 'Gestionnaire de commande' 
+          || isset($_SESSION['autorise']) && $roleUser == 'Administrateur'
           || isset($_SESSION['autorise']) &&  $roleUser == 'Responsable'){
             include_once "$racine/vue/vueSousEntete.php";}
 

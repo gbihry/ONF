@@ -1,6 +1,6 @@
 <div class="linenav">
     <?php
-    if (isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur' ){
+    if (isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
     ?>
     <div class="linenav_item" data-navname="recapCommande">
         <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
@@ -29,7 +29,7 @@
         
     <?php
     }
-    elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
+    elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' ){
 
         ?>
         <div class="linenav_item" data-navname="recapCommande">

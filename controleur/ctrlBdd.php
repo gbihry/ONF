@@ -3,7 +3,7 @@
     include_once "$racine/vue/vueEntete.php";
 
 
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Super-Administrateur'){
+    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
         
         if(isset($_GET["ref"])){
             if($_GET["ref"] == 1){

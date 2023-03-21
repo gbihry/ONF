@@ -12,8 +12,8 @@
     
         $role_user = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         if(isset($_SESSION['autorise']) && 
-        $role_user == 'Administrateur' ||
-        $role_user == 'Super-Administrateur' || 
+        $role_user == 'Gestionnaire de commande' ||
+        $role_user == 'Administrateur' || 
         $role_user == 'Responsable'){
             $lesFournisseur = ModeleObjetDAO::getFournisseur();
             $lesType = ModeleObjetDAO::getTypeProduit();
