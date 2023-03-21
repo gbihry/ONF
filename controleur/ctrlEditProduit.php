@@ -84,6 +84,13 @@
                         }
                     }
 
+                    date_default_timezone_set('Europe/Paris');
+                    $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                    $description = "Modification du produit ".$_POST["nom"]." par ".$_SESSION['login'];
+                    $date = date( "Y-m-d H:i:s");
+
+                ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
+
                     ModeleObjetDAO::updateProduit($_GET['id'], $_POST['nom'], $_POST['type'], $_POST['description'], $_POST['fournisseur'], $_POST['reference'], $_POST['typeProduit']);
 
                     if(isset($_FILES['file']) && !empty($_FILES['file'])) {

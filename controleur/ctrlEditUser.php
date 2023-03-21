@@ -38,7 +38,17 @@
                     $responsable = $_GET['id'];
                 }
 
+                
                 // updateUser($idUtilisateur, $prenom, $nom, $email, $tel, $idLieuLivraison, $id_responsable, $idRole, $idMetier, $Agence, $idEmployeur)
+                
+                date_default_timezone_set('Europe/Paris');
+                $id = $_GET["id"];
+                $login = ModeleObjetDAO::getLoginById($id);
+                $description = "Modification des informations de  ".$login["login"]." par ".$_SESSION['login'];
+                $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                $date = date( "Y-m-d H:i:s");
+                ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
+
                 ModeleObjetDAO::updateUser($_GET['id'], $prenom, $nom, $mail, $tel, $livraison, $responsable, $role, $metier, $agence, $employeur);
                 $reload = true;
 
