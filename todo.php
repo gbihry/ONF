@@ -24,8 +24,6 @@
 
 //TODO -logisticien accès a la combi CEPOVETT 9J86
 
-//TODO -EPI pluit masqué pour les bucherons 
-
 //TODO -vet protection chenilles masqué bucheron 
 
 //TODO -blackstick = débardeur, 
