@@ -15,8 +15,9 @@
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet, 'EPI');
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
+        
         
         
         include_once "$racine/vue/vueCatalogueEpi.php";
@@ -51,7 +52,7 @@
             "login" => $leLogin,
         );
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
-        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet, 'EPI');
         $array = array(
             "id" => "0",
         );

@@ -13,6 +13,8 @@ if(isset($reload) && $reload == true) {
         <p class="catalogue_title_type"> Catalogue EPI non ouvrier.</p>
     </div>
     <div class="contenue">
+    <?php if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
+    ?>
         <div class="container-fluid text-center mt-5 produit">
             <?php 
                 foreach($allProducts as $detail){
@@ -33,7 +35,13 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Quantité :</span>
                     </div>
-                    <input type="number" class="form-control" name='quantity' min='1' value='1' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']) - ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)']); ?>' aria-describedby="inputGroup-sizing-sm" />
+                    <?php
+                        if($detail['id'] == 193){ ?>
+                            <input type="number" class="form-control" name='quantity' min='1' value='1' max='100' aria-describedby="inputGroup-sizing-sm" />
+                    <?php }else{ ?>
+                            <input type="number" class="form-control" name='quantity' min='1' value='1' max='<?php  echo ( ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']) - ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)']); ?>' aria-describedby="inputGroup-sizing-sm" />
+                    <?php } ?>
+                    
                 </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -58,6 +66,20 @@ if(isset($reload) && $reload == true) {
                     echo "</div>";
                     echo "</div>";
                 }
+        }else{
+                    
+                foreach($catalogue as $uneCategorie){
+                    if ($uneCategorie['libelle'] != 'Vêtements'){
+                        echo "<div class='tuile'>
+                            <p>" . $uneCategorie['libelle'] . "</p>
+                            <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."&type=EPINonOuvrier'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
+                        </div>";
+                        }
+                    }
+                }
+                
+                    
+                
             ?>
         </div>
     </div>

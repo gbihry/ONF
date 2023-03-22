@@ -187,9 +187,6 @@ if(isset($reload) && $reload == true) {
         }else{
             echo ('<div class="contenue">');
             foreach($catalogue as $uneCategorie){
-                if(($unStatut['id'] == 1 && $uneCategorie['id'] == 5) || ($unStatut['id'] == 1 && $uneCategorie['id'] == 4)){
-
-                }else{
                     if ($uneCategorie['libelle'] != 'Vêtements'){
                         echo "<div class='tuile'>
                             <p>" . $uneCategorie['libelle'] . "</p>
@@ -198,8 +195,7 @@ if(isset($reload) && $reload == true) {
                     }
                 }
             }
-            echo ('</div>');
-        }
+        
         
         
     ?>
