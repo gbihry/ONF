@@ -55,12 +55,18 @@ if(isset($reload) && $reload == true) {
                 <div class="input-group mb-3">
                     
                     <?php
-                    if (ModeleObjetDAO::getType($detail['id']) == 1 || ModeleObjetDAO::getType($detail['id']) == 2) {
+                    if ($detail['idType'] == 1){
                     ?>
                         <div class="input-group-prepend">
                             <span class="input-group-text" for="inputGroupSelect01">Pointure :</span>
                         </div>
-                    <?php
+                    <?php }
+                    elseif($detail['id'] == 27){ 
+                    ?>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" for="inputGroupSelect01">Teinture :</span>
+                        </div>
+                    <?php 
                     }else{
                     ?>
                     <div class="input-group-prepend">

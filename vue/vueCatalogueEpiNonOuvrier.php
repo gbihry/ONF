@@ -13,6 +13,8 @@ if(isset($reload) && $reload == true) {
         <p class="catalogue_title_type"> Catalogue EPI non ouvrier.</p>
     </div>
     <div class="contenue">
+    <?php if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
+    ?>
         <div class="container-fluid text-center mt-5 produit">
             <?php 
                 foreach($allProducts as $detail){
@@ -64,6 +66,20 @@ if(isset($reload) && $reload == true) {
                     echo "</div>";
                     echo "</div>";
                 }
+        }else{
+                    
+                foreach($catalogue as $uneCategorie){
+                    if ($uneCategorie['libelle'] != 'Vêtements'){
+                        echo "<div class='tuile'>
+                            <p>" . $uneCategorie['libelle'] . "</p>
+                            <a href='./?action=produitEpi&id=".$uneCategorie['id']."&&ref=".$id["id"]."&type=EPINonOuvrier'><img src='images/categorie/".$uneCategorie['libelle'].'.jpg' . "'></a>
+                        </div>";
+                        }
+                    }
+                }
+                
+                    
+                
             ?>
         </div>
     </div>

@@ -46,7 +46,12 @@
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $unIdStatut = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login']);
         $idCateg = $_GET["id"];
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPI');
+        if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPINonOuvrier');
+        }else{
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPI');
+        }
+        
         $login = array(
             "login" => $_SESSION['login'],
         );

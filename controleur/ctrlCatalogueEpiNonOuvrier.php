@@ -14,8 +14,9 @@
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet);
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier');
+        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet, 'EPINonOuvrier');
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
+        
         
         include_once "$racine/vue/vueCatalogueEpiNonOuvrier.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
@@ -49,7 +50,7 @@
             "login" => $leLogin,
         );
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
-        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet, 'EPINonOuvrier');
         $array = array(
             "id" => "0",
         );
