@@ -42,7 +42,8 @@ class Routeur{
         'catalogueEpiNonOuvrier' => 'ctrlCatalogueEpiNonOuvrier.php',
         'editProduit' => 'ctrlEditProduit.php',
         'editUser' => 'ctrlEditUser.php',
-        'bdd' => 'ctrlBdd.php'
+        'bdd' => 'ctrlBdd.php',
+        'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
         
     );   
     
