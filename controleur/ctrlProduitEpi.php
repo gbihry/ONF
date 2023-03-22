@@ -12,6 +12,7 @@
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPI');
+        $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $array = array(
             "id" => $_GET["ref"],
         );
@@ -47,6 +48,7 @@
         $unIdStatut = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login']);
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPI');
+        $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $login = array(
             "login" => $_SESSION['login'],
         );

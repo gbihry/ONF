@@ -56,8 +56,11 @@
             "id" => "0",
         );
         $id = $array;
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
+        $allProducts = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
         
+        if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+            $allProducts = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPIAdmin',null);
+        }
 
         
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
@@ -84,11 +87,6 @@
             }
             
         }
-
-
-   
-   
-
         
         include_once "$racine/vue/vueCatalogueEpi.php";
     }

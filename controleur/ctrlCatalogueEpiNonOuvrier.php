@@ -15,7 +15,7 @@
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet);
-        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier');
+        $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
         
         include_once "$racine/vue/vueCatalogueEpiNonOuvrier.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){

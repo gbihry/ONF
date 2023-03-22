@@ -52,7 +52,7 @@ if(isset($reload) && $reload == true) {
                     if(ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                     }else{
-                        echo "<p id='dejaCommander'>Vous avez déjà commandé cet article</p>";
+                        echo "<p id='dejaCommander'>Vous avez déjà mis ce type d'article dans votre panier</p>";
                     }
                     echo "</form>";
                     echo "</div>";

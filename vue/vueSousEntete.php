@@ -1,6 +1,6 @@
 <div class="linenav">
     <?php
-    if (isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur' ){
+    if (isset($_SESSION['autorise']) && $roleUser == 'Administrateur' ){
     ?>
     <div class="linenav_item" data-navname="recapCommande">
         <a href="./?action=recapCommande"><i class="fa-solid fa-chart-simple"></i> Récapitulatif </a>
@@ -29,7 +29,7 @@
         
     <?php
     }
-    elseif(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' ){
+    elseif(isset($_SESSION['autorise']) && $roleUser == 'Gestionnaire de commande' ){
 
         ?>
         <div class="linenav_item" data-navname="recapCommande">
@@ -59,7 +59,13 @@
     else{
     ?>
         <div class="linenav_item"   data-navname="users">
-            <a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>
+            <?php 
+                if ($roleUser == 'Responsable'){
+                    echo ('<a href="./?action=users"><i class="fa-solid fa-person"></i> Équipe </a>');
+                }else{
+                    echo ('<a href="./?action=users"><i class="fa-solid fa-person"></i> Utilisateurs </a>');
+                }
+            ?>
         </div>
         <div class="linenav_item" data-navname="commanderPour">
             <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>

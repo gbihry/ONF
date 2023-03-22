@@ -331,24 +331,26 @@ function abort(parentN,type) {
 function addResponsable(){
     var responsable = document.getElementById("responsable");
     var nonResponsable = document.getElementById("nonResponsable");
-    var responsableInput = document.getElementById("responsableInput");
     var selectResponsable = document.getElementById("selectResponsable");
     var selectRole = document.getElementById("selectRole");
-    
+
     if (responsable.checked == true){
-        responsableInput.style.visibility = "hidden";
+        selectResponsable.classList.add('input-select');
+        selectResponsable[0].innerHTML='Lui même';
         selectResponsable.value = "selectionner";
+
+        selectRole.classList.add('input-select');
         selectRole.value = 2;
     } else {
-        responsableInput.style.visibility = "visible";
         selectRole.value = "selectionner";
     }
-
     if (nonResponsable.checked == true){
-        responsableInput.style.visibility = "visible";
+        selectResponsable.classList.remove('input-select')
+        selectResponsable[0].innerHTML='--------------Séléctionner--------------';
+        
+        selectRole.classList.remove('input-select');
         selectRole.value = "selectionner";
     } else {
-        responsableInput.style.visibility = "hidden";
         selectRole.value = 2;
     }
 
