@@ -1,9 +1,17 @@
 <?php
+    include_once "$racine/vue/vueEntete.php";
     include_once "$racine/modele/ModeleObjetDAO.php";
     require("$racine/tfpdf/tfpdf.php");
     class PDF extends TFPDF{
         function imprimerVet(){
-            $laCommande = ModeleObjetDAO::getRecapCommandeVet();
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+            if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+                $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+            }
+            else{
+                $agence = null;
+            }
+            $laCommande = ModeleObjetDAO::getRecapCommandeVet($agence);
             $this->AliasNbPages();
             $this->AddPage();
             
@@ -54,7 +62,14 @@
         }
 
         function imprimerEpi(){
-            $laCommande = ModeleObjetDAO::getRecapCommandeEpi();
+            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+            if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+                $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+            }
+            else{
+                $agence = null;
+            }
+            $laCommande = ModeleObjetDAO::getRecapCommandeEpi($agence);
             $this->AliasNbPages();
             $this->AddPage();
             

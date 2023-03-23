@@ -9,9 +9,14 @@
 
         $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
-
-        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(1,$id);
-        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(0,$id);
+        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+            $agence = "admin";
+        }
+        else{
+            $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+        }
+        $AllUsersAcommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(1,$agence);
+        $AllUsersNoncommanderVET = ModeleObjetDAO::getUtilisateurCommanderVET(0,$agence);
     }elseif(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
 

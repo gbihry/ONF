@@ -7,10 +7,16 @@
     if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
 
+        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+            $agence = "admin";
+        }
+        else{
+            $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+        }
         $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
-        $AllUsersAcommanderEPI = ModeleObjetDAO::getUtilisateurCommander(1,$id);
-        $AllUsersNoncommanderEPI = ModeleObjetDAO::getUtilisateurCommander(0,$id);
+        $AllUsersAcommanderEPI = ModeleObjetDAO::getUtilisateurCommander(1,$agence);
+        $AllUsersNoncommanderEPI = ModeleObjetDAO::getUtilisateurCommander(0,$agence);
         
     }elseif(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];

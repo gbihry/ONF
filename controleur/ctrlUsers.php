@@ -62,11 +62,16 @@
 
         $lieulivraison_data = ModeleObjetDAO::getLieuLivraison();
         $responsable_data = ModeleObjetDAO::getResponsable();
-
+        $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
         $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
-
-        $allUsers = ModeleObjetDAO::getAllUsers($role, ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
+        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+            $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+        }
+        else{
+            $agence = null;
+        }
+        $allUsers = ModeleObjetDAO::getAllUsers($role, ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'],$agence);
         include "$racine/vue/vueUsers.php";
         
     } else {
