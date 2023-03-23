@@ -5,6 +5,7 @@
     class PDF extends TFPDF{
         function imprimerVet(){
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
+            $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
             if($roleUser == 'Gestionnaire de commande'){
                 $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
             }
@@ -62,6 +63,7 @@
         }
 
         function imprimerEpi(){
+            $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
             if($roleUser == 'Gestionnaire de commande'){
                 $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
@@ -109,11 +111,11 @@
             $x = $this->GetX();
             foreach($data as $row)
             {
-                $this->MultiCell($w[0],10,$row[0],'LRB','C',$fill);
+                $this->MultiCell($w[0],10,$row[0],'TLRB','C',$fill);
                 $this->SetXY($x + $w[0],$y);
-                $this->Cell($w[1],20,$row[1],'LRB',0,'C',$fill);
-                $this->Cell($w[2],20,$row[2],'LRB',0,'C',$fill);
-                $this->Cell($w[3],20,$row[3],'LRB',0,'C',$fill);
+                $this->Cell($w[1],20,$row[1],'TLRB',0,'C',$fill);
+                $this->Cell($w[2],20,$row[2],'TLRB',0,'C',$fill);
+                $this->Cell($w[3],20,$row[3],'TLRB',0,'C',$fill);
                 $this->Ln();
                 $y = $this->GetY();
                 $x = $this->GetX();
@@ -135,7 +137,7 @@
             $this->SetDrawColor(0,0,0);
         $this->SetLineWidth(.3);
             // Header
-            $w = array(125, 20, 30,20);
+            $w = array(100, 20, 40,30);
             for($i=0;$i<count($titre);$i++)
                 $this->Cell($w[$i],7,$titre[$i],1,0,'C',true);
                 
@@ -147,14 +149,19 @@
             $this->SetFont('');
             // Data
             $fill = false;
+            $y = $this->GetY();
+            $x = $this->GetX();
             foreach($data as $row)
             {
-                $this->Cell($w[0],10,$row[0],'LR',0,'C',$fill);
-                $this->Cell($w[1],10,$row[1],'LR',0,'C',$fill);
-                $this->Cell($w[2],10,$row[2],'LR',0,'C',$fill);
-                $this->Cell($w[3],10,$row[3],'LR',0,'C',$fill);
+                $this->MultiCell($w[0],10,$row[0],'TLRB','C',$fill);
+                $this->SetXY($x + $w[0],$y);
+                $this->Cell($w[1],20,$row[1],'TLRB',0,'C',$fill);
+                $this->Cell($w[2],20,$row[2],'TLRB',0,'C',$fill);
+                $this->Cell($w[3],20,$row[3],'TLRB',0,'C',$fill);
                 $this->Ln();
-                $this->SetX(10);
+                $y = $this->GetY();
+                $x = $this->GetX();
+                $this->SetXY($x,$y);
                 $fill = !$fill;
             }
             // Closing line

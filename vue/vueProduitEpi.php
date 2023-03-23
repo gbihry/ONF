@@ -40,7 +40,6 @@ if(isset($reload) && $reload == true) {
             ($unStatut['id'] == 2 && $detail['id'] == 6) || 
             ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
             ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
-              
                 
             
             }else{
