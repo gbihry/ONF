@@ -17,6 +17,7 @@ if(isset($reload) && $reload == true) {
             ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
             
             }else{
+                
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
                 if (file_exists("images/produits/".($detail['fichierPhoto']))){
