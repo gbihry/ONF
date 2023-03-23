@@ -31,6 +31,11 @@ if(isset($reload) && $reload == true) {
                         echo (')</div>');
                     }
                 }
+                if (isset($verifUser) && $verifUser != true){
+                    echo ('<div class="alert alert-danger" role="alert">Un utilisateur à déjà ce login</div>');
+                }elseif(isset($verifUser) && $verifUser != false){
+                    echo ('<div class="alert alert-success" role="alert">L\'utilisateur à bien été ajouté</div>');
+                }
                 
             ?>
             <form enctype="multipart/form-data" method="post">
