@@ -5,11 +5,17 @@
 
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
+    }
+    if ($verifCommandeVET == 1){
+        header("location:./?action=accueil");
     }else{  
         $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
         isset($_POST['type']) ? $type = $_POST['type'] : $type = null;
             switch($type) {
                 case 'quantiteVET':
+                    if ($_POST['quantiteVET'] <= 0){
+                        $_POST['quantiteVET'] = 1;
+                    }
                     ModeleObjetDAO::updateQuantite($idUtilisateur['id'], $_POST['idLigne'], $_POST['quantiteVET'], 'VET');
                     $reload = true;
                     break;

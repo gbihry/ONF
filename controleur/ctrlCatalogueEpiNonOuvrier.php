@@ -13,8 +13,9 @@
         );
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
+        $idMetierUser = ModeleObjetDAO::getMetierUtilisateur($login['login'])['idMetier'];
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet, 'EPINonOuvrier');
+        $catalogue = ModeleObjetDAO::getCatalogue($idMetierUser, $login["login"], $verifVet, 'EPINonOuvrier');
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
         
         
@@ -27,6 +28,14 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
+
                 $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['submit'])['nom'];
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
@@ -56,6 +65,7 @@
         );
         $id = $array;
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
+        
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
             date_default_timezone_set('Europe/Paris');
@@ -64,6 +74,15 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
+                
                 $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['submit'])['nom'];
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];

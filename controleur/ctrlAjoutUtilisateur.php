@@ -10,7 +10,7 @@
     $lesLibelles = ModeleObjetDAO::getRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])["idRole"]);
 
     include_once "$racine/vue/vuePied.php";
-        $role_user = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
+        $role_user = $roleUser;
         if(isset($_SESSION['autorise']) && 
         $role_user == 'Gestionnaire de commande' ||
         $role_user == 'Administrateur' ||
@@ -39,7 +39,7 @@
                                 continue;
                             }
                             $i++;
-                            if (ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+                            if ($roleUser == 'Responsable'){
                                 $row[7] = $_SESSION['login'];
                             }
                             $verifRole = false;

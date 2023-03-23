@@ -5,6 +5,9 @@
 
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
+    }
+    if ($verifCommandeEPI == 1){
+        header("location:./?action=accueil");
     }else{  
         $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
         isset($_POST['type']) ? $type = $_POST['type'] : $type = null;

@@ -2,7 +2,7 @@
     include_once "$racine/modele/ModeleObjetDAO.php";
     include "$racine/vue/vueEntete.php";
 
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+    if(isset($_SESSION['autorise']) && $roleUser == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && $roleUser == 'Administrateur'){
         
         $lesFournisseur = ModeleObjetDAO::getFournisseur();
         $lesType = ModeleObjetDAO::getTypeProduit();

@@ -2,7 +2,7 @@
     include_once "$racine/modele/ModeleObjetDAO.php";
     include "$racine/vue/vueEntete.php";
 
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Utilisateurs'){
+    if(isset($_SESSION['autorise']) && $roleUser != 'Utilisateurs'){
         if(isset($_GET['msgResp'])) {
             $msg = $_GET['msgResp']; 
             $reload = true;
@@ -63,9 +63,9 @@
         $lieulivraison_data = ModeleObjetDAO::getLieuLivraison();
         $responsable_data = ModeleObjetDAO::getResponsable();
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-        $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
+        $role = $roleUser;
         $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
-        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+        if($role == 'Gestionnaire de commande'){
             $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
         }
         else{

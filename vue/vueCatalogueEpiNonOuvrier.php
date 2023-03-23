@@ -18,6 +18,7 @@ if(isset($reload) && $reload == true) {
         <div class="container-fluid text-center mt-5 produit">
             <?php 
                 foreach($allProducts as $detail){
+                    
                     echo "<div class ='unProduit'>";
                     echo "<div class='main-produit'>";
                     if (file_exists("images/produits/".($detail['fichierPhoto']))){
@@ -67,7 +68,6 @@ if(isset($reload) && $reload == true) {
                     echo "</div>";
                 }
         }else{
-                    
                 foreach($catalogue as $uneCategorie){
                     if ($uneCategorie['libelle'] != 'Vêtements'){
                         echo "<div class='tuile'>

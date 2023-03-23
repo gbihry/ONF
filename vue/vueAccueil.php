@@ -13,7 +13,7 @@
         echo('<p class="home_text">' . ModeleObjetDAO::getIdMessageCommentaire()[1] .'</p>');
     ?>
     <?php
-        if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+        if(isset($_SESSION['autorise']) && $roleUser == 'Administrateur'){
     ?>
         <input type="button" onclick="window.location.href = './?action=changerCommentaire';" class='btn btn-success m-5' value="Changer commentaire"/> <br>
     <?php 
@@ -36,7 +36,7 @@
                         echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueVet&&id=0\'" class="btn btn-success m-3" value="Catalogue VET"/> ');
                     }
                     if($verifCommandeEPI == 0){
-                        if ($metier == 1 || $metier == 2 ||$metier == 3|| $metier == 4){
+                        if ($metier == 1 || $metier == 2 ||$metier == 3 || $metier == 4){
                             echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpi&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');
                         }else{
                             echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpiNonOuvrier&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');

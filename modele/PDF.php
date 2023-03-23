@@ -5,7 +5,7 @@
     class PDF extends TFPDF{
         function imprimerVet(){
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-            if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+            if($roleUser == 'Gestionnaire de commande'){
                 $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
             }
             else{
@@ -63,7 +63,7 @@
 
         function imprimerEpi(){
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-            if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+            if($roleUser == 'Gestionnaire de commande'){
                 $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
             }
             else{
