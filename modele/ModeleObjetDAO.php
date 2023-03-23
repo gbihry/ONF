@@ -1837,7 +1837,7 @@
         public static function getSubordonnee($idUtilisateurConnecté){
             $req = Connexion::getInstance()->prepare("SELECT id,idMetier,nom,prenom
             FROM utilisateur
-            WHERE id_responsable = :id and idRole != 2;");
+            WHERE id_responsable = :id and idRole < 2;");
             $req->bindValue(':id',$idUtilisateurConnecté,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
