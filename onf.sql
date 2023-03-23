@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 22 mars 2023 à 08:42
--- Version du serveur : 8.0.31
+-- Généré le : jeu. 23 mars 2023 à 08:07
+-- Version du serveur : 10.11.1-MariaDB
 -- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -29,27 +29,32 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(100) DEFAULT NULL,
+  `typeEPI` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `categorie`
 --
 
-INSERT INTO `categorie` (`id`, `libelle`) VALUES
-(1, 'Protection des membres inférieurs'),
-(2, 'Éléments chaussant'),
-(3, 'Protection des mains'),
-(4, 'Vêtements de protection contre la chenille processionnaire'),
-(5, 'Vêtements de pluie'),
-(6, 'T-shirt'),
-(7, 'EPI hiver'),
-(8, 'Lunettes'),
-(9, 'Autres effets'),
-(10, 'Vêtements'),
-(11, 'EPINonOuvrier');
+INSERT INTO `categorie` (`id`, `libelle`, `typeEPI`) VALUES
+(1, 'Protection des membres inférieurs', 'EPI'),
+(2, 'Éléments chaussant', 'EPI'),
+(3, 'Protection des mains', 'EPI'),
+(4, 'Vêtements de protection contre la chenille processionnaire', 'EPI'),
+(5, 'Vêtements de pluie', 'EPI'),
+(6, 'T-shirt', 'EPI'),
+(7, 'EPI hiver', 'EPI'),
+(8, 'Lunettes', 'EPI'),
+(9, 'Autres effets', 'EPI'),
+(10, 'Vêtements', 'VET'),
+(11, 'Éléments chaussant non ouvrier', 'EPINonOuvrier'),
+(12, 'Protection des mains non ouvrier', 'EPINonOuvrier'),
+(13, 'Autres effets non ouvrier', 'EPINonOuvrier'),
+(14, 'Lunettes non ouvrier', 'EPINonOuvrier'),
+(15, 'Casques non ouvrier', 'EPINonOuvrier');
 
 -- --------------------------------------------------------
 
@@ -59,11 +64,11 @@ INSERT INTO `categorie` (`id`, `libelle`) VALUES
 
 DROP TABLE IF EXISTS `commandeepi`;
 CREATE TABLE IF NOT EXISTS `commandeepi` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `dateCrea` datetime DEFAULT NULL,
-  `statut` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT '0',
+  `statut` varchar(50) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
+  `terminer` tinyint(1) NOT NULL DEFAULT 0,
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
@@ -77,11 +82,11 @@ CREATE TABLE IF NOT EXISTS `commandeepi` (
 
 DROP TABLE IF EXISTS `commandevet`;
 CREATE TABLE IF NOT EXISTS `commandevet` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `dateCrea` datetime DEFAULT NULL,
-  `statut` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT '0',
+  `statut` varchar(50) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
+  `terminer` tinyint(1) NOT NULL DEFAULT 0,
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
@@ -95,8 +100,8 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
 
 DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `Message` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Message` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -115,9 +120,9 @@ INSERT INTO `commentaire` (`id`, `Message`) VALUES
 
 DROP TABLE IF EXISTS `concerne`;
 CREATE TABLE IF NOT EXISTS `concerne` (
-  `idStatut` int NOT NULL,
-  `idType` int NOT NULL,
-  `quantiteMax` int NOT NULL,
+  `idStatut` int(11) NOT NULL,
+  `idType` int(11) NOT NULL,
+  `quantiteMax` int(11) NOT NULL,
   PRIMARY KEY (`idStatut`,`idType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -226,6 +231,10 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (5, 18, 1),
 (5, 20, 1),
 (5, 21, 100),
+(5, 22, 1),
+(5, 23, 1),
+(5, 24, 1),
+(5, 25, 1),
 (6, 1, 1),
 (6, 2, 2),
 (6, 3, 1),
@@ -242,10 +251,14 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (6, 14, 1),
 (6, 15, 1),
 (6, 16, 1),
-(6, 17, 0),
+(6, 17, 1),
 (6, 18, 1),
 (6, 20, 1),
 (6, 21, 100),
+(6, 22, 1),
+(6, 23, 1),
+(6, 24, 1),
+(6, 25, 1),
 (7, 1, 1),
 (7, 2, 2),
 (7, 3, 1),
@@ -266,6 +279,10 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (7, 18, 1),
 (7, 20, 1),
 (7, 21, 100),
+(7, 22, 1),
+(7, 23, 1),
+(7, 24, 1),
+(7, 25, 1),
 (8, 1, 1),
 (8, 2, 2),
 (8, 3, 1),
@@ -286,6 +303,10 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (8, 18, 1),
 (8, 20, 1),
 (8, 21, 100),
+(8, 22, 1),
+(8, 23, 1),
+(8, 24, 1),
+(8, 25, 1),
 (9, 1, 1),
 (9, 2, 2),
 (9, 3, 1),
@@ -303,9 +324,14 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (9, 15, 1),
 (9, 16, 1),
 (9, 17, 0),
+(9, 18, 1),
 (9, 19, 1),
 (9, 20, 1),
-(9, 21, 100);
+(9, 21, 100),
+(9, 22, 1),
+(9, 23, 1),
+(9, 24, 1),
+(9, 25, 1);
 
 -- --------------------------------------------------------
 
@@ -315,11 +341,11 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 
 DROP TABLE IF EXISTS `concerne_categorie_metier`;
 CREATE TABLE IF NOT EXISTS `concerne_categorie_metier` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `idCategorie` int NOT NULL,
-  `idMetier` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idCategorie` int(11) NOT NULL,
+  `idMetier` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `concerne_categorie_metier`
@@ -332,8 +358,8 @@ INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
 (15, 8, 1),
 (14, 7, 1),
 (13, 6, 1),
-(12, 5, 1),
-(11, 4, 1),
+(95, 12, 5),
+(94, 11, 5),
 (10, 3, 1),
 (18, 1, 2),
 (19, 2, 2),
@@ -410,7 +436,30 @@ INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
 (90, 6, 9),
 (91, 7, 9),
 (92, 8, 9),
-(93, 9, 9);
+(93, 9, 9),
+(96, 13, 5),
+(97, 14, 5),
+(98, 15, 5),
+(99, 11, 6),
+(100, 12, 6),
+(101, 13, 6),
+(102, 14, 6),
+(103, 15, 6),
+(104, 11, 7),
+(105, 12, 7),
+(106, 13, 7),
+(107, 14, 7),
+(108, 15, 7),
+(109, 11, 8),
+(110, 12, 8),
+(111, 13, 8),
+(112, 14, 8),
+(113, 15, 8),
+(114, 11, 9),
+(115, 12, 9),
+(116, 13, 9),
+(117, 14, 9),
+(118, 15, 9);
 
 -- --------------------------------------------------------
 
@@ -420,11 +469,11 @@ INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
 
 DROP TABLE IF EXISTS `disponible`;
 CREATE TABLE IF NOT EXISTS `disponible` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idProduit` int NOT NULL,
-  `idTaille` int DEFAULT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idProduit` int(11) NOT NULL,
+  `idTaille` int(11) DEFAULT NULL,
   `prix` float DEFAULT NULL,
-  `TailleEntreJambe` int DEFAULT NULL,
+  `TailleEntreJambe` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
@@ -932,7 +981,7 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (496, 183, 20, NULL, NULL),
 (497, 183, 21, NULL, NULL),
 (498, 183, 22, NULL, NULL),
-(499, 183, 23, NULL, NULL),
+(499, 183, 23, 0, NULL),
 (500, 183, 24, NULL, NULL),
 (501, 183, 25, NULL, NULL),
 (502, 183, 26, NULL, NULL),
@@ -1039,10 +1088,10 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 
 DROP TABLE IF EXISTS `employeur`;
 CREATE TABLE IF NOT EXISTS `employeur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `prenom` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `roleEmployeur` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prenom` varchar(30) DEFAULT NULL,
+  `nom` varchar(30) DEFAULT NULL,
+  `roleEmployeur` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1066,18 +1115,18 @@ INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
 
 DROP TABLE IF EXISTS `fournisseur`;
 CREATE TABLE IF NOT EXISTS `fournisseur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `codeFournissuer` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numSAP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numMarche` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `siren` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numero` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rue` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codeFournissuer` varchar(50) DEFAULT NULL,
+  `numSAP` varchar(50) DEFAULT NULL,
+  `numMarche` varchar(50) DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `siren` varchar(50) DEFAULT NULL,
+  `numero` varchar(50) DEFAULT NULL,
+  `rue` varchar(50) DEFAULT NULL,
+  `codePostal` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `tel` varchar(50) DEFAULT NULL,
+  `slug` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1105,13 +1154,13 @@ INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`
 
 DROP TABLE IF EXISTS `lieulivraion`;
 CREATE TABLE IF NOT EXISTS `lieulivraion` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `telephone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Siege` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) DEFAULT NULL,
+  `codePostal` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  `Siege` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1131,11 +1180,11 @@ INSERT INTO `lieulivraion` (`id`, `nom`, `codePostal`, `ville`, `telephone`, `ma
 
 DROP TABLE IF EXISTS `lignecommandeepi`;
 CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idProduit` int NOT NULL,
-  `quantite` int DEFAULT '1',
-  `idCommandeEPI` int NOT NULL,
-  `idTaille` int NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idProduit` int(11) NOT NULL,
+  `quantite` int(11) DEFAULT 1,
+  `idCommandeEPI` int(11) NOT NULL,
+  `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
@@ -1150,11 +1199,11 @@ CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
 
 DROP TABLE IF EXISTS `lignecommandevet`;
 CREATE TABLE IF NOT EXISTS `lignecommandevet` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `idCommandeVet` int NOT NULL,
-  `idProduit` int NOT NULL,
-  `quantite` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idTaille` int NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idCommandeVet` int(11) NOT NULL,
+  `idProduit` int(11) NOT NULL,
+  `quantite` varchar(50) DEFAULT NULL,
+  `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idCommandeVet`),
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
@@ -1169,13 +1218,13 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
 
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
-  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idUtilisateur` int DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=790 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=810 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `log`
@@ -1193,7 +1242,27 @@ INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
 (786, '2023-03-22 09:41:49', 'Ajout de 1 produit(s) T-shirt COFOR rouge  au panier par John.doe@gmail.doe', 1),
 (787, '2023-03-22 09:42:00', 'Suppression de l\'article T-shirt COFOR rouge  par John.doe@gmail.doe', 1),
 (788, '2023-03-22 09:42:10', 'Ajout de 1 produit(s) T-shirt ONF rouge  au panier par John.doe@gmail.doe', 1),
-(789, '2023-03-22 09:42:15', 'Suppression de l\'article T-shirt ONF rouge  par John.doe@gmail.doe', 1);
+(789, '2023-03-22 09:42:15', 'Suppression de l\'article T-shirt ONF rouge  par John.doe@gmail.doe', 1),
+(790, '2023-03-22 10:10:48', 'Déconnexion de John.doe@gmail.doe', 1),
+(791, '2023-03-22 11:07:08', 'Connexion de John.doe@gmail.doe', 1),
+(792, '2023-03-22 11:09:15', 'Déconnexion de John.doe@gmail.doe', 1),
+(793, '2023-03-22 11:09:21', 'Connexion de Kiki@psg.com', 41),
+(794, '2023-03-22 11:27:04', 'Déconnexion de Kiki@psg.com', 41),
+(795, '2023-03-22 11:27:07', 'Connexion de John.doe@gmail.doe', 1),
+(796, '2023-03-22 11:27:22', 'Déconnexion de John.doe@gmail.doe', 1),
+(797, '2023-03-22 11:27:31', 'Connexion de Kiki@psg.com', 41),
+(798, '2023-03-22 13:57:09', 'Déconnexion de Kiki@psg.com', 41),
+(799, '2023-03-22 13:57:13', 'Connexion de John.doe@gmail.doe', 1),
+(800, '2023-03-22 13:57:19', 'Déconnexion de John.doe@gmail.doe', 1),
+(801, '2023-03-22 13:57:26', 'Connexion de Kiki@psg.com', 41),
+(802, '2023-03-22 14:09:48', 'Déconnexion de Kiki@psg.com', 41),
+(803, '2023-03-22 14:09:52', 'Connexion de John.doe@gmail.doe', 1),
+(804, '2023-03-22 14:11:50', 'Déconnexion de John.doe@gmail.doe', 1),
+(805, '2023-03-22 14:11:59', 'Connexion de Kiki@psg.com', 41),
+(806, '2023-03-22 14:57:57', 'Déconnexion de Kiki@psg.com', 41),
+(807, '2023-03-22 14:58:02', 'Connexion de John.doe@gmail.doe', 1),
+(808, '2023-03-22 15:01:28', 'Déconnexion de John.doe@gmail.doe', 1),
+(809, '2023-03-22 15:01:36', 'Connexion de Kiki@psg.com', 41);
 
 -- --------------------------------------------------------
 
@@ -1203,8 +1272,8 @@ INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
 
 DROP TABLE IF EXISTS `metier`;
 CREATE TABLE IF NOT EXISTS `metier` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `statut` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `statut` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1231,9 +1300,9 @@ INSERT INTO `metier` (`id`, `statut`) VALUES
 
 DROP TABLE IF EXISTS `points`;
 CREATE TABLE IF NOT EXISTS `points` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `point` int DEFAULT NULL,
-  `idUtilisateur` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `point` int(11) DEFAULT NULL,
+  `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1267,15 +1336,15 @@ INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 
 DROP TABLE IF EXISTS `produit`;
 CREATE TABLE IF NOT EXISTS `produit` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `referenceFournisseur` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fichierPhoto` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` varchar(700) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idFournisseur` int NOT NULL,
-  `idType` int NOT NULL,
-  `Visible` int NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `referenceFournisseur` varchar(50) DEFAULT NULL,
+  `fichierPhoto` varchar(50) DEFAULT NULL,
+  `nom` varchar(150) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `description` varchar(700) DEFAULT NULL,
+  `idFournisseur` int(11) NOT NULL,
+  `idType` int(11) NOT NULL,
+  `Visible` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
@@ -1316,84 +1385,84 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (34, 'E.P.I SUD', 'Advantage.png', 'MSA Advantage 200 LS / Masque à cartouche ', 'EPI', 'Possibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 13, 1),
 (35, 'Fiprotec', 'CHATARD.png', 'CHATARD ILONA 4 / Veste hiver', 'EPI', 'Veste hiver format « bombers » avec\ncapuche intégré.\nCouleur : orange', 6, 4, 1),
 (36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\nCouleur : orange\nUniquement pour conducteurs d’engins et\nlogisticiens.', 6, 4, 1),
-(37, 'ONF', 'Inve.png', 'Veste Solidur Inve N°1 / Hydrophobe', 'VET', 'Veste de travail extensible hydrophobe avec manches amovibles.\nPolyester ripstop hydrophobe, tissu épaules Armortex, tissu bras polyamide enduit. 3 poches extérieures dont 2 poches repose mains et 1\n\npoche téléphone. Liseré réfléchissant sur épaules avant arrière, bande\nréfléchissante hachurée sur les bras. 1 poche dos double ouverture.\nRéglage poignets par ruban autoagrippant et patte caoutchouc.\nRouge/jaune\nTailles XS à 4XL', 10, 17, 1),
-(38, 'ONF', 'Kouvola.png', 'Veste Softshell Francital Kouvola N°2 / Demi-saison', 'VET', 'Veste idéale en demi-saison froide et lors des averses grâce à sa mem-\nbrane. 5 poches : 2 poches basses, 2 poches poitrine, 1 poche inté-\nrieure. Grand col montant, patte de resserrage poignet, fermeture à\nglissière simple curseur séparable inversée, système de ventilation\nsous les bras\nTissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imper-respirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne\nRouge/Jaune\nTaille XS-3XL', 10, 17, 1),
-(39, 'ONF', 'Woda.png', 'Veste Softshell à manches amoviblesSolidur Woda N°3 / Resistance a l\'eau ', 'VET', 'Veste Softshell 3 couches garantissant résistance à l’eau, au\nvent et respirabilité. Tissu extérieur : 95% polyester, 5% Span-\ndex. Membrane : TPU 35 g/m2. Tissu intérieur : polaire 100%\npolyester. Tissu bi-extensible. Manches amovibles. Micro polaire grattée. Col ergonomique. Fermeture à glissière sous\nrabat. 2 poches poitrines. 2 poches basses. 2 poches intérieures avec étiquette rhésus. Double poche dos. Plan dorsal rallongé. Aération dorsale\nRouge/jaune\nTaille S au 4XL', 10, 17, 1),
-(40, 'ONF', 'Ecrin.png', 'Gilet sans manches softshell FRANCITAL Ecrin N°4 / Coupe-Vent', 'VET', 'Tissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imperrespirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne. Partie haute : jersey 88% polyester 12% polyuréthane. 4 poches zipées : 2\npoches basses, 2 poches poitrine. Grand col montant avec système de\nréglage et polaire intérieure. Dos rallongé pour protéger les reins. Fermeture à glissière inversée simple curseur.\nRouge/jaune\nTaille XS à 3XL', 38, 17, 1),
-(41, 'ONF', 'TeeShirtLongues.png', 'Tee shirt technique manches longues Solidur N°5 / Protection solaire', 'VET', 'Composition 50% Coolmax 50% Coolpass\nPetit col montant avec fermeture zip. Poche poitrine avec Zip\nBas de manche élastiqué. Passe pouce. Fournit une protection\nUVA + UVB contre le soleil.\nJaune\nTaille du S au 4XL', 10, 17, 1),
-(42, 'ONF', 'TeeShirtCourtes.png', 'Tee shirt technique manches courtesSolidur N°6 / Protection solaire', 'VET', 'Composition 50% coolmax 50% coolpass. Petit col montant avec ferme-\nture zip, Poche poitrine avec Zip. Fournit une protection UVA + UVB\ncontre le soleil. Permet une meilleure évacuation de la transpiration\nJaune\nTaille XS à 3XL', 10, 17, 1),
-(43, 'ONF', 'VestePolaire.png', 'Veste polaire N°7 / Hiver', 'VET', '100% polyester micropolaire anti-boulochage. 300 g/m2\n2 poches zippées sur le côté.\nFermeture zippée.\nColoris : Orange\nTailles : S à 4 XL', 10, 17, 1),
-(44, 'ONF', 'Cuissard.png', 'FRANCITAL N°8 /Cuissard contre les ronces ', 'VET', 'Tissu extérieur : Toile construction RipStop de 330g/m2 - 70%PES 30% PA HT\nCordura® avec enduction 100% PU - Performances mécaniques élevées notamment dans les ronces. Ouverture sur le devant – passe main – ouverture sur\nle dos de chaque jambe par un zip – taille unique ouverture.\nCeinture élastique noire avec bouclerie plastique - Bretelles réglables avec bouclerie plastique et amovibles\nEntrejambe 64/70 cm / Taille XS à 3XL\nColoris : vert', 10, 17, 1),
-(45, 'ONF', 'CeintureOutil.png', 'Ceinture porte outil OREGON N°9 / Protection abrassive', 'VET', 'Ceinture en polyester offrant une résistance élevée à l\'abrasion. Harnais amovible réglable devant et derrière. Fourni\navec 4 pochettes (peinture, étui pour clé/coin/pince de levage, lime/lime plate/clé/kit de premiers soins, crochet/coin/\nruban de bûcheron.', 10, 17, 1),
-(46, 'ONF', 'GiletSansManches.png', 'Gilet sans manches softshell femme N°10 / Résiste au vent', 'VET', '270 g/m2 - extérieure : 96% polyester, 4% élasthanne -\nintérieur : 100% polyester (fleece) - léger et souple - - finition water repellent - résiste au vent et sèche rapidement\nColoris: Rouge\nTailles : T36 à T46', 10, 17, 1),
-(47, 'ONF', 'VesteFemme11.png', 'Veste Softshell femme N°11 / Résistante a l\'eau ', 'VET', '100% Polyester - Membrane 3 couches. Dos chaud en Softshell\ntissé, waterproof et respirant. Finition déperlante durable\nFermeture à glissière complète avec protection intérieure\n2 poches avec fermeture à glissière et 1 poche poitrine.\nOurlet ajustable.\nLégèrement cintré.\nColoris : Gris\nTaille : T36 à T46', 10, 17, 1),
-(48, 'ONF', 'PantalonFemme12.png', 'Pantalon femme N°12 / Protection genoux', 'VET', 'Ceinture élastiquée côtés - bouton clou métallique - 5 larges\npassants - et braguette zippée - 2 poches italiennes - à droite\nau porté 1 poche cuisse à soufflet central et rabat brodé fermé\npar bande autoagrippante - 2 poches genouillères si besoin\nd’insert protection genoux\nréhausse dos et 1 poche plaquée coté droit au porté.\nPoints d’arrêts contrastants\n99% coton 1% élasthanne - 407 g/m2\nColoris : jean\nTailles : 36 à 52', 10, 17, 1),
+(37, 'ONF', 'Inve.png', 'Veste Solidur Inve N°1', 'VET', 'Veste de travail extensible hydrophobe avec manches amovibles.\nPolyester ripstop hydrophobe, tissu épaules Armortex, tissu bras polyamide enduit. 3 poches extérieures dont 2 poches repose mains et 1\n\npoche téléphone. Liseré réfléchissant sur épaules avant arrière, bande\nréfléchissante hachurée sur les bras. 1 poche dos double ouverture.\nRéglage poignets par ruban autoagrippant et patte caoutchouc.\nRouge/jaune\nTailles XS à 4XL', 10, 17, 1),
+(38, 'ONF', 'Kouvola.png', 'Veste Softshell Francital Kouvola N°2 ', 'VET', 'Veste idéale en demi-saison froide et lors des averses grâce à sa mem-\nbrane. 5 poches : 2 poches basses, 2 poches poitrine, 1 poche inté-\nrieure. Grand col montant, patte de resserrage poignet, fermeture à\nglissière simple curseur séparable inversée, système de ventilation\nsous les bras\nTissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imper-respirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne\nRouge/Jaune\nTaille XS-3XL', 10, 17, 1),
+(39, 'ONF', 'Woda.png', 'Veste Softshell à manches amovibles Solidur Woda N°3 ', 'VET', 'Veste Softshell 3 couches garantissant résistance à l’eau, au\nvent et respirabilité. Tissu extérieur : 95% polyester, 5% Span-\ndex. Membrane : TPU 35 g/m2. Tissu intérieur : polaire 100%\npolyester. Tissu bi-extensible. Manches amovibles. Micro polaire grattée. Col ergonomique. Fermeture à glissière sous\nrabat. 2 poches poitrines. 2 poches basses. 2 poches intérieures avec étiquette rhésus. Double poche dos. Plan dorsal rallongé. Aération dorsale\nRouge/jaune\nTaille S au 4XL', 10, 17, 1),
+(40, 'ONF', 'Ecrin.png', 'Gilet sans manches softshell FRANCITAL Ecrin N°4', 'VET', 'Tissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imperrespirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne. Partie haute : jersey 88% polyester 12% polyuréthane. 4 poches zipées : 2\npoches basses, 2 poches poitrine. Grand col montant avec système de\nréglage et polaire intérieure. Dos rallongé pour protéger les reins. Fermeture à glissière inversée simple curseur.\nRouge/jaune\nTaille XS à 3XL', 38, 17, 1),
+(41, 'ONF', 'TeeShirtLongues.png', 'Tee shirt technique manches longues Solidur N°5 ', 'VET', 'Composition 50% Coolmax 50% Coolpass\nPetit col montant avec fermeture zip. Poche poitrine avec Zip\nBas de manche élastiqué. Passe pouce. Fournit une protection\nUVA + UVB contre le soleil.\nJaune\nTaille du S au 4XL', 10, 17, 1),
+(42, 'ONF', 'TeeShirtCourtes.png', 'Tee shirt technique manches courtesSolidur N°6 ', 'VET', 'Composition 50% coolmax 50% coolpass. Petit col montant avec ferme-\nture zip, Poche poitrine avec Zip. Fournit une protection UVA + UVB\ncontre le soleil. Permet une meilleure évacuation de la transpiration\nJaune\nTaille XS à 3XL', 10, 17, 1),
+(43, 'ONF', 'VestePolaire.png', 'Veste polaire N°7 ', 'VET', '100% polyester micropolaire anti-boulochage. 300 g/m2\n2 poches zippées sur le côté.\nFermeture zippée.\nColoris : Orange\nTailles : S à 4 XL', 10, 17, 1),
+(44, 'ONF', 'Cuissard.png', 'FRANCITAL N°8', 'VET', 'Tissu extérieur : Toile construction RipStop de 330g/m2 - 70%PES 30% PA HT\nCordura® avec enduction 100% PU - Performances mécaniques élevées notamment dans les ronces. Ouverture sur le devant – passe main – ouverture sur\nle dos de chaque jambe par un zip – taille unique ouverture.\nCeinture élastique noire avec bouclerie plastique - Bretelles réglables avec bouclerie plastique et amovibles\nEntrejambe 64/70 cm / Taille XS à 3XL\nColoris : vert', 10, 17, 1),
+(45, 'ONF', 'CeintureOutil.png', 'Ceinture porte outil OREGON N°9 ', 'VET', 'Ceinture en polyester offrant une résistance élevée à l\'abrasion. Harnais amovible réglable devant et derrière. Fourni\navec 4 pochettes (peinture, étui pour clé/coin/pince de levage, lime/lime plate/clé/kit de premiers soins, crochet/coin/\nruban de bûcheron.', 10, 17, 1),
+(46, 'ONF', 'GiletSansManches.png', 'Gilet sans manches softshell femme N°10 ', 'VET', '270 g/m2 - extérieure : 96% polyester, 4% élasthanne -\nintérieur : 100% polyester (fleece) - léger et souple - - finition water repellent - résiste au vent et sèche rapidement\nColoris: Rouge\nTailles : T36 à T46', 10, 17, 1),
+(47, 'ONF', 'VesteFemme11.png', 'Veste Softshell femme N°11 ', 'VET', '100% Polyester - Membrane 3 couches. Dos chaud en Softshell\ntissé, waterproof et respirant. Finition déperlante durable\nFermeture à glissière complète avec protection intérieure\n2 poches avec fermeture à glissière et 1 poche poitrine.\nOurlet ajustable.\nLégèrement cintré.\nColoris : Gris\nTaille : T36 à T46', 10, 17, 1),
+(48, 'ONF', 'PantalonFemme12.png', 'Pantalon femme N°12 ', 'VET', 'Ceinture élastiquée côtés - bouton clou métallique - 5 larges\npassants - et braguette zippée - 2 poches italiennes - à droite\nau porté 1 poche cuisse à soufflet central et rabat brodé fermé\npar bande autoagrippante - 2 poches genouillères si besoin\nd’insert protection genoux\nréhausse dos et 1 poche plaquée coté droit au porté.\nPoints d’arrêts contrastants\n99% coton 1% élasthanne - 407 g/m2\nColoris : jean\nTailles : 36 à 52', 10, 17, 1),
 (49, 'ONF', 'TeeShirtFemme.png', 'Tee-shirt femme N°13', 'VET', 'Coupe ajustée, 100% coton, 145 g/m2\nCol rond à bord côte avec élasthanne. Bande de propreté au\ncou. Coutures latérales\nColoris : Rouge\nTailles : XS à 2XL', 10, 17, 1),
 (50, 'ONF', 'PoloFemmeCourtes.png', 'Polo femme manches courtes N°14', 'VET', 'Coupe ajustée, 100% coton peigné piqué, 180 g/m2\nBord côte au col et au bord des manches, bande de propreté à l’arrière du\ncol\nPatte de boutonnage avec boutons ton sur ton\nCoutures latérales - surpiqûres à l’ourlet inférieur\nColoris : Rouge\nTailles : XS à 2XL', 10, 17, 1),
 (51, 'ONF', 'ChemiseFemmeCourtes.png', 'Chemise femme manches courtes N°15', 'VET', '100% coton peigné, 130 g/m2\nCol féminin - manches à ourlet\nPinces au niveau de la poitrine, sur le devant et le dos pour une coupe\najustée et contemporaine\nBoutons nacrés assortis cousus en croix\nDernière boutonnière horizontale\nColoris : Noir\nTailles : XS à 2XL', 10, 17, 1),
 (52, 'ONF', 'ChemiseFemmeLongues.png', 'Chemise femme manches longues N°16', 'VET', '130 g/m2 - 100% coton peigné - col féminin - pinces au niveau de\nla poitrine, sur le devant et sur l arrière pour une coupe ajustée et\ncontemporaine. Boutons nacrés assortis cousus en croix.\nDernière boutonnière horizontale. Poignets en biais 2 boutons\najustables avec boutonnières complémentaires pour mettre des\nboutons de manchette.\nPattes de manche carrées à bouton simple.\nColoris : Noir\nTailles : XS à 2XL', 10, 17, 1),
 (53, 'ONF', 'Sweat.png', 'Sweat shirt rouge N°17', 'VET', '80% coton / 20% polyester – 300gr m2\nMolleton gratté 3 fils en coton peigné. Bande de propreté\ncontrastée à l\'encolure. Finition bord-côte poignets et de bas\nde vêtement. Extérieur 100% coton : excellente surface d\'impression. Confection 3 fils : résistance et stabilité au lavage.\nDouceur et confort garantis.\nColoris : Rouge\nTailles : S à 4XL', 10, 17, 1),
-(54, 'ONF', 'PullCamionneur.png', 'Pull camionneur rouge N°18 / Protection coudes et épaules', 'VET', '50% Laine peignée, 50% Acrylique, Maille perlée cheva-lée Jauge 8, Bord côte 1/1 double,\nRenforts coudes et épaules, Poche centrale zippée passepoilée sur la poitrine\nColoris : Rouge\nTailles : S à 3XL', 10, 17, 1),
-(55, 'ONF', 'TeeShirtThermique.png', 'Tee-shirt thermique manches longues N°19 / Protection humidité / Protection UV', 'VET', 'Col montant zippé, interlock 100% polyester céramique 140gr/m2 -\nbarrière infrarouges- Elasticité mécanique durable - évacuation de\nl’humidité – barrière UV total (UPF 70)- coupe près du corps, + 8\ncm dans le dos pour couvrir les reins\nEffet seconde peau\nFacile à laver, sèche de suite, pas de repassage.\nColoris : Rouge\nTailles : S à 3 XL', 10, 17, 1),
+(54, 'ONF', 'PullCamionneur.png', 'Pull camionneur rouge N°18 ', 'VET', '50% Laine peignée, 50% Acrylique, Maille perlée cheva-lée Jauge 8, Bord côte 1/1 double,\nRenforts coudes et épaules, Poche centrale zippée passepoilée sur la poitrine\nColoris : Rouge\nTailles : S à 3XL', 10, 17, 1),
+(55, 'ONF', 'TeeShirtThermique.png', 'Tee-shirt thermique manches longues N°19 ', 'VET', 'Col montant zippé, interlock 100% polyester céramique 140gr/m2 -\nbarrière infrarouges- Elasticité mécanique durable - évacuation de\nl’humidité – barrière UV total (UPF 70)- coupe près du corps, + 8\ncm dans le dos pour couvrir les reins\nEffet seconde peau\nFacile à laver, sèche de suite, pas de repassage.\nColoris : Rouge\nTailles : S à 3 XL', 10, 17, 1),
 (56, 'ONF', 'Debardeur.png', 'Débardeur unisexe N°20', 'VET', 'Structure tubulaire — 100% coton —165 g/m2\nSurpiqûre à la base\nColoris : Rouge\nTailles : S à 2XL', 10, 17, 1),
-(57, 'ONF', 'GiletStarTravel.png', 'Gilet Startravel sans manche N°21 / Protection vent / Protection humidité', 'VET', 'Extérieur : 100 % polyester avec enduction PVC.\nOuatinage: 180 g/m2, 100% polyester\nDoublure : 100% polyester.\nrésiste au vent et water repellent - col droit, corps\n\nmatelassé - emmanchures larges avec rabat élasti-\nqué - fermeture à glissière protégée par rabat tem-\npête et boutons-pression - diverses poches\n\npanneau dos long\nColoris : rouge\nTailles : S à 3XL', 10, 17, 1),
-(58, 'ONF', 'PullCamionneur22.png', 'Pull camionneur N°22 / Résistant à la déformation ', 'VET', 'Coudières coloris contrastant • côtes anglaises chevalées sur\nl’arrière (résistantes à la déformation)\nComposition : 70% acrylique 30% laine peignée\nColoris : gris\nTailles : T2=S à T6=XXL', 10, 17, 1),
-(59, 'ONF', 'VesteMancheAmovible.png', 'Veste Softshell à manches amovibles N°23 / Imperméable ', 'VET', 'Softshell 340gr. Extérieur: 94% polyester - 6% élasthanne\nFace intérieure: micro-polaire\nMembrane TPU - Membrane 8000 mm imperméable et respirant.\nFermeture zippée. 3 poches zippées\nManches et capuche à visière amovibles\nCordons de resserrage à la capuche et au bas du vêtement\nColoris : gris\nTailles : S à 4 XL', 10, 17, 1),
-(60, 'ONF', 'VesteDemiSaison.png', 'Veste Softshell demi-saison N°24 / Imperméable ', 'VET', '345 g/m2 - Tissu contrecollé 3 couches.\nCouche extérieure : 93% polyester / 7% élasthanne. Couche\nintermédiaire : membrane TPU respirante 1000 g/m2/24h et\nimperméable 8000 mm.\nCouche intérieure : micro polaire. 2 spacieuses poches avant,\n1 poche de poitrine et 1 poche de manche gauche. Pièces en Cordura durable aux épaules et aux coudes. Bas ajustable -\nPassepoil décoratif au niveau des épaules, à l\'avant et à l\'arrière, incorporant les matériaux réfléchissants 3M Scotchlite.\nCordon de serrage ajustable à la taille. Rabat-tempête intérieur. Imperméable et respirant\nColoris : noir\nTailles : S à 2XL', 10, 17, 1),
-(61, 'ONF', 'BlousonPolaire.png', 'Blouson polaire N°25 / Hiver / Confort ', 'VET', '2 poches latérales zippées - 2 poches de manches zippées. Surfaces\nVelcro sur le haut du bras, sur la poitrine et au niveau de la nuque.\nInserts Ripstop au niveau des manches, des épaules et du dos afin\nd\'améliorer le confort. Fermetures éclair d\'aération sous les bras et aux\nparties en filet à l\'intérieur. Velcro poignets + cordon élastique.\nMatériel. 100% polyester / inserts: 65% polyester, 35% coton – qualité\n600gr/m2\nColoris : Olive\nTailles : S à 2XL', 10, 17, 1),
-(62, 'ONF', 'PantalonTreillis26.png', 'Pantalon treillis bas élastique N°26 / Confort ', 'VET', 'Pantalon stretch multi-poches 98% coton - 2% élasthanne -300gr/m2\nTissu pré-rétréci - Taille élastiquée sur les hanches - Deux poches avant - Deux poches\nlatérales avec doublure intérieure et bouton - Deux poches arrière avec bouton -\nCoutures avant et genoux pour plus de confort - Bas de jambe avec tissu stretch et\ncoutures h cm 5 - Coupe de jambe slim\nColoris : Olive\nTailles : S à 3XL', 10, 17, 1),
-(63, 'ONF', 'PantalonTreillis27.png', 'Pantalon treillis N°27 / Renforts genoux fesses', 'VET', 'Pantalon treillis US classique en coton ripstop munie de renforts au niveau des\ngenoux et fessier. Braguette boutonnée sous rabat, cordon de serrage au bas\ndes jambes - 2 poches latérales - 2 poches cargo sur les jambes - 2 poches\narrière avec rabat boutonné - 100% coton (tissu ripstop, poids : 220 g/m2)\nTaille : S à XXL / Coloris : olive', 10, 17, 1),
+(57, 'ONF', 'GiletStarTravel.png', 'Gilet Startravel sans manche N°21 ', 'VET', 'Extérieur : 100 % polyester avec enduction PVC.\nOuatinage: 180 g/m2, 100% polyester\nDoublure : 100% polyester.\nrésiste au vent et water repellent - col droit, corps\n\nmatelassé - emmanchures larges avec rabat élasti-\nqué - fermeture à glissière protégée par rabat tem-\npête et boutons-pression - diverses poches\n\npanneau dos long\nColoris : rouge\nTailles : S à 3XL', 10, 17, 1),
+(58, 'ONF', 'PullCamionneur22.png', 'Pull camionneur N°22 ', 'VET', 'Coudières coloris contrastant • côtes anglaises chevalées sur\nl’arrière (résistantes à la déformation)\nComposition : 70% acrylique 30% laine peignée\nColoris : gris\nTailles : T2=S à T6=XXL', 10, 17, 1),
+(59, 'ONF', 'VesteMancheAmovible.png', 'Veste Softshell à manches amovibles N°23 ', 'VET', 'Softshell 340gr. Extérieur: 94% polyester - 6% élasthanne\nFace intérieure: micro-polaire\nMembrane TPU - Membrane 8000 mm imperméable et respirant.\nFermeture zippée. 3 poches zippées\nManches et capuche à visière amovibles\nCordons de resserrage à la capuche et au bas du vêtement\nColoris : gris\nTailles : S à 4 XL', 10, 17, 1),
+(60, 'ONF', 'VesteDemiSaison.png', 'Veste Softshell demi-saison N°24 ', 'VET', '345 g/m2 - Tissu contrecollé 3 couches.\nCouche extérieure : 93% polyester / 7% élasthanne. Couche\nintermédiaire : membrane TPU respirante 1000 g/m2/24h et\nimperméable 8000 mm.\nCouche intérieure : micro polaire. 2 spacieuses poches avant,\n1 poche de poitrine et 1 poche de manche gauche. Pièces en Cordura durable aux épaules et aux coudes. Bas ajustable -\nPassepoil décoratif au niveau des épaules, à l\'avant et à l\'arrière, incorporant les matériaux réfléchissants 3M Scotchlite.\nCordon de serrage ajustable à la taille. Rabat-tempête intérieur. Imperméable et respirant\nColoris : noir\nTailles : S à 2XL', 10, 17, 1),
+(61, 'ONF', 'BlousonPolaire.png', 'Blouson polaire N°25 ', 'VET', '2 poches latérales zippées - 2 poches de manches zippées. Surfaces\nVelcro sur le haut du bras, sur la poitrine et au niveau de la nuque.\nInserts Ripstop au niveau des manches, des épaules et du dos afin\nd\'améliorer le confort. Fermetures éclair d\'aération sous les bras et aux\nparties en filet à l\'intérieur. Velcro poignets + cordon élastique.\nMatériel. 100% polyester / inserts: 65% polyester, 35% coton – qualité\n600gr/m2\nColoris : Olive\nTailles : S à 2XL', 10, 17, 1),
+(62, 'ONF', 'PantalonTreillis26.png', 'Pantalon treillis bas élastique N°26', 'VET', 'Pantalon stretch multi-poches 98% coton - 2% élasthanne -300gr/m2\nTissu pré-rétréci - Taille élastiquée sur les hanches - Deux poches avant - Deux poches\nlatérales avec doublure intérieure et bouton - Deux poches arrière avec bouton -\nCoutures avant et genoux pour plus de confort - Bas de jambe avec tissu stretch et\ncoutures h cm 5 - Coupe de jambe slim\nColoris : Olive\nTailles : S à 3XL', 10, 17, 1),
+(63, 'ONF', 'PantalonTreillis27.png', 'Pantalon treillis N°27 ', 'VET', 'Pantalon treillis US classique en coton ripstop munie de renforts au niveau des\ngenoux et fessier. Braguette boutonnée sous rabat, cordon de serrage au bas\ndes jambes - 2 poches latérales - 2 poches cargo sur les jambes - 2 poches\narrière avec rabat boutonné - 100% coton (tissu ripstop, poids : 220 g/m2)\nTaille : S à XXL / Coloris : olive', 10, 17, 1),
 (64, 'ONF', 'PantalonNoir.png', 'Pantalon noir N°28', 'VET', 'Composition : 60% coton 38% polyester 2% élasthanne - 250 g/m2\nCeinture élastiquée côtés • braguette zip spirale\n2 grandes poches main - 1 poche ticket avec auto-agrippant\nCuisse droite : poche à rabat + emplacements outils\nCuisse gauche : 1 grande poche avec auto-agrippant + 1 grande poche à rabat\n+ 1 poche téléphone + emplacements outils\nDos : 2 grandes poches à soufflet, dont 1 avec rabat\n1 poche mètre - 1 porte marteau\nColoris : noir\nTailles : 38 à 54', 10, 17, 1),
 (65, 'ONF', 'PantalonJean.png', 'Pantalon jean N°29', 'VET', '99% coton denim / 1% élasthanne. 11,50 oz. Fermeture zippée avec un bouton\n\nmétal. 2 poches devant et une poche ticket. 2 poches plaquées arrière. Cou-\ntures contrastées. Ceinture avec passants. Coupe moderne confortable. Ce pro-\nduit a subi un traitement spécial et présente un aspect volontairement vieilli. Ce\n\nprocédé de fabrication implique des variations de couleurs d\'un produit à l\'autre\net rend chaque pièce unique.\nTaille : 38 à 54 / Coloris : bleu foncé', 10, 17, 1),
-(66, 'ONF', 'SousVetementChaudHaut.png', 'Sous vêtement chaud — haut  du corps N°30 / Protection humidité', 'VET', 'Composition 54% Polyamide, 40% Polypropylène, 6% Elasthanne\nLa 1ère couche au contact de la peau (polypropylène) évacue l’humidité\n\nvers la prochaine couche de tissu - 100% antibactérien grâce à la pro-\npriété naturelle de la fibre et un traitement aux ions d’argent.\n\nLa 2nde couche (polyamide) disperse l’humidité à sa surface.\n30 zones spéciales pour optimiser la mobilité, contrôler la compression\nmusculaire, et soutenir la circulation sanguine.\nLe vêtement conserve ses formes même après de longues périodes\nd’utilisation.\nColoris noir\n3 doubles Tailles : XS/S, M/L, XL/XXL\nPAS D’ECHANGE POSSIBLE', 10, 17, 1),
-(67, 'ONF', 'SousVetementChaudBas.png', 'Sous vêtement chaud — Bas du corps N°31 / Protection humidité', 'VET', 'Caractéristique idem ci-dessus\nColoris noir\n3 doubles Tailles : XS/S, M/L, XL/XXL\nPAS D’ECHANGE POSSIBLE', 10, 17, 1),
+(66, 'ONF', 'SousVetementChaudHaut.png', 'Sous vêtement chaud — haut  du corps N°30 ', 'VET', 'Composition 54% Polyamide, 40% Polypropylène, 6% Elasthanne\nLa 1ère couche au contact de la peau (polypropylène) évacue l’humidité\n\nvers la prochaine couche de tissu - 100% antibactérien grâce à la pro-\npriété naturelle de la fibre et un traitement aux ions d’argent.\n\nLa 2nde couche (polyamide) disperse l’humidité à sa surface.\n30 zones spéciales pour optimiser la mobilité, contrôler la compression\nmusculaire, et soutenir la circulation sanguine.\nLe vêtement conserve ses formes même après de longues périodes\nd’utilisation.\nColoris noir\n3 doubles Tailles : XS/S, M/L, XL/XXL\nPAS D’ECHANGE POSSIBLE', 10, 17, 1),
+(67, 'ONF', 'SousVetementChaudBas.png', 'Sous vêtement chaud — Bas du corps N°31 ', 'VET', 'Caractéristique idem ci-dessus\nColoris noir\n3 doubles Tailles : XS/S, M/L, XL/XXL\nPAS D’ECHANGE POSSIBLE', 10, 17, 1),
 (68, 'ONF', 'Ceinture32.png', 'Ceinture N°32', 'VET', '100% polyester. Boucle métallique ton sur ton.\nColoris Noir\nTaille unique réglable', 10, 17, 1),
 (69, 'ONF', 'Ceinture33.png', 'Ceinture cuir N°33', 'VET', '100% cuir. Largeur : 35mm. Longueur totale de la ceinture : 125cm. Livrée\ndans sa pochette en coton.\nColoris cognac\nTaille unique adaptable', 10, 17, 1),
-(70, 'ONF', 'Ceinture34.png', 'Ceinture cuir épaisse N°34 / Renfort', 'VET', 'Ceinture en cuir pleine fleur double épaisseur et surpiqûre de renfort. Logo\nCarhartt® en relief à l\'arrière, au milieu. Boucle à double ardillon avec finition nickel vieilli. Largeur 4,4 cm.\nColoris brun\nTaille : 34 (42 FR) - 36 (44 FR) - 38 (46 FR) - 40 (48 FR) - 42 (50 FR)', 10, 17, 1),
+(70, 'ONF', 'Ceinture34.png', 'Ceinture cuir épaisse N°34 ', 'VET', 'Ceinture en cuir pleine fleur double épaisseur et surpiqûre de renfort. Logo\nCarhartt® en relief à l\'arrière, au milieu. Boucle à double ardillon avec finition nickel vieilli. Largeur 4,4 cm.\nColoris brun\nTaille : 34 (42 FR) - 36 (44 FR) - 38 (46 FR) - 40 (48 FR) - 42 (50 FR)', 10, 17, 1),
 (71, 'ONF', 'TourCou.png', 'Tour de cou multi-\r\nfonction N°35', 'VET', '100 polyester microfibres, sans\ncouture, respirant\nColoris Gris (Graphite Grey)\nTaille unique', 10, 17, 1),
-(72, 'ONF', 'Casquette.png', 'Casquette N°36/ Anti-transpiration ', 'VET', '260 g/m2 - 98% coton, 2% élasthanne. Panneau avant rigide, visière cour-\nbée en PU recyclé - œillets cousus - bande anti-transpiration élastiquée\nColoris : noir\nTaille : unique => L/XL', 10, 17, 1),
-(73, 'ONF', 'BonnetPolaire.png', 'Bonnet polaire N°37 / Hiver', 'VET', '100% polyacrylique (toucher doux)- doublure\nThinsulateTM - maille doublée\nTaille unique\nColoris : rouge', 10, 17, 1),
-(74, 'ONF', 'ChaussettesClimatChaud.png', 'Chaussettes climat chaud N°38 / Protection thermique / Protection transpiration ', 'VET', 'Fibre ThermoCool® cumulant les fonctions d’isolation thermique et d’évacuation de la transpiration. Maintien de la cheville et sur le cou de pied sans\ncomprimer. Intérieur pied et semelle bouclette. Bord côte double\nComposition : 60% polyester ThermoCool®, 40% polyamide\nColoris : noir\nTaille : 35/38 S – 39/42 M – 43/46 L – 47/50 XL', 10, 17, 1),
-(75, 'ONF', 'ChaussettesToutTemps.png', 'Chaussettes tout temps N°39 / Protection humidité /Thermorégulation / ', 'VET', 'Fibres de section différentes facilitant l’évacuation de l’humidité et d’améliorant la\nthermorégulation. Isole aussi bien du froid que du chaud. Maille variable pour un\nmeilleur maintien sans comprimer - - Intérieur pied et semelle bouclette.\nComposition : 54% polyester ThermoCool, 34 % acrylique, 12 % polyamide\nColoris : noir\nTaille : 35/38 S - 39/42 M - 43/46 L - 47/50 XL', 10, 17, 1),
-(76, 'ONF', 'ChaussettesRandonnee.png', 'Chaussettes de randonnée N°40 / Protection humidité', 'VET', 'Fibre Coolmax® assurant un excellent transfert de l’humidité (pieds au sec).\n\nDouble bord côte anti-comprimant. Semelle fine bouclette respirante anato-\nmique dissymétrique pied/pied gauche. Maille variable sur le cou de pied pour\n\nun parfait maintien. Couture de pointe extra-plate\nColoris gris\nTailles 35/37, 38/40, 41/43, 44/46', 10, 17, 1),
-(77, 'ONF', 'ChaussettesLegere.png', 'Chaussettes légère N°41 / confort', 'VET', 'Composition 88% coton BIO 17% polyamide 1% elasthanne\nChaussette agréable, douce à porter et particulièrement adaptée aux\nchaussures de ville.\nColoris noir\nTailles 35/38 – 39/42 – 43/46 – 47/50', 10, 17, 1),
+(72, 'ONF', 'Casquette.png', 'Casquette N°36', 'VET', '260 g/m2 - 98% coton, 2% élasthanne. Panneau avant rigide, visière cour-\nbée en PU recyclé - œillets cousus - bande anti-transpiration élastiquée\nColoris : noir\nTaille : unique => L/XL', 10, 17, 1),
+(73, 'ONF', 'BonnetPolaire.png', 'Bonnet polaire N°37', 'VET', '100% polyacrylique (toucher doux)- doublure\nThinsulateTM - maille doublée\nTaille unique\nColoris : rouge', 10, 17, 1),
+(74, 'ONF', 'ChaussettesClimatChaud.png', 'Chaussettes climat chaud N°38 ', 'VET', 'Fibre ThermoCool® cumulant les fonctions d’isolation thermique et d’évacuation de la transpiration. Maintien de la cheville et sur le cou de pied sans\ncomprimer. Intérieur pied et semelle bouclette. Bord côte double\nComposition : 60% polyester ThermoCool®, 40% polyamide\nColoris : noir\nTaille : 35/38 S – 39/42 M – 43/46 L – 47/50 XL', 10, 17, 1),
+(75, 'ONF', 'ChaussettesToutTemps.png', 'Chaussettes tout temps N°39 ', 'VET', 'Fibres de section différentes facilitant l’évacuation de l’humidité et d’améliorant la\nthermorégulation. Isole aussi bien du froid que du chaud. Maille variable pour un\nmeilleur maintien sans comprimer - - Intérieur pied et semelle bouclette.\nComposition : 54% polyester ThermoCool, 34 % acrylique, 12 % polyamide\nColoris : noir\nTaille : 35/38 S - 39/42 M - 43/46 L - 47/50 XL', 10, 17, 1),
+(76, 'ONF', 'ChaussettesRandonnee.png', 'Chaussettes de randonnée N°40 ', 'VET', 'Fibre Coolmax® assurant un excellent transfert de l’humidité (pieds au sec).\n\nDouble bord côte anti-comprimant. Semelle fine bouclette respirante anato-\nmique dissymétrique pied/pied gauche. Maille variable sur le cou de pied pour\n\nun parfait maintien. Couture de pointe extra-plate\nColoris gris\nTailles 35/37, 38/40, 41/43, 44/46', 10, 17, 1),
+(77, 'ONF', 'ChaussettesLegere.png', 'Chaussettes légère N°41 ', 'VET', 'Composition 88% coton BIO 17% polyamide 1% elasthanne\nChaussette agréable, douce à porter et particulièrement adaptée aux\nchaussures de ville.\nColoris noir\nTailles 35/38 – 39/42 – 43/46 – 47/50', 10, 17, 1),
 (78, 'ONF', 'GantsTactiles.png', 'Gants tactiles N°42', 'VET', 'Gants tactiles pour Smartphone en acrylique. Les 3 extrémités tactiles\ndes doigts sont composées de 30 % de fibres d\'acier inoxydables.\nColoris noir\nTaille unique', 10, 17, 1),
 (79, 'ONF', 'SousGants.png', 'Sous gants N°43 / Confort', 'VET', '100% soie chaud excellent ratio chaleur/minimum encombrement/\nconfort. Poignet élastiqué. Paume et dessus de main sans coutures\nColoris: noir\nTaille S/7 - M/8 - L/9 - XL/10 - XXL/11', 10, 17, 1),
-(80, 'ONF', 'GantsRenforces.png', 'Gants renforcés N°44 / Renfort paume, main, dessous doigts / Dos Respirant', 'VET', 'Cuir synthétique avec renfort Kevlar dans la paume de la main et le\ndessous des doigts. Dos respirant. Poignée élastique à fermeture\nauto agrippante.\nColoris rouge et noir\nTaille 8 à 12', 10, 17, 1),
+(80, 'ONF', 'GantsRenforces.png', 'Gants renforcés N°44 ', 'VET', 'Cuir synthétique avec renfort Kevlar dans la paume de la main et le\ndessous des doigts. Dos respirant. Poignée élastique à fermeture\nauto agrippante.\nColoris rouge et noir\nTaille 8 à 12', 10, 17, 1),
 (81, 'ONF', 'ChemiseCotonHomme.png', 'Chemise coton à carreaux homme N°45', 'VET', 'Chemise manches longues en flanelle - 100% Coton tissé teint—190g/m2\nFermeture à boutons\n1 poche poitrine - poignets fendus fermés par boutons\nColoris : bleu\nTaille : S au 3XL', 10, 17, 1),
-(82, 'ONF', 'SacADos.png', 'Sac à dos 20 Litres N°46 / Ergonomique / Confort', 'VET', '100% Polyester (600D/Ripstop)\nBretelles réglables rembourrées\nPoignée de transport, sangles à la taille et à la poitrine\nPanneau dorsal rembourré, respirant et ergonomique\nCompatible avec ordinateur portable de 15.6\"\nCompatible avec une poche d\'hydratation (019.30-QX510)\nHousse de protection contre la pluie\nDiverses attaches et passant arrière pour attacher une lampe\nPoche sur le côté avec fermeture éclair, poche interne en filet\nSangles de compression et bandes réfléchissantes\nDimensions: 31 x 48 x 20 cm\nColoris noir', 10, 17, 1),
-(83, 'ONF', 'SacADosSiege.png', 'Sac à dos siege N°47 / Confort', 'VET', 'Sac à dos avec siège pliable intégré, bonne capacité de\nrangement. 100% polyester\nDimensions: 34 x 33 x 41 cm\nPoids : 1,7kg', 10, 17, 1),
-(84, 'ONF', 'Couteau.png', 'Couteau bivouac N°48 / Fourchette, cuillère / Confort', 'VET', 'Modèle massif lame 20/10 mm. Cran de sécurité, couteau (lame\n9cm), fourchette et cuillère détachables, ouvre-boîte affûté avec\nperce-boite, tire bouchon 5 spires, housse toile renforcée avec pas-\nsant ceinture et crochet métallique pour ceinturon armée', 10, 17, 1),
-(85, 'ONF', 'Glaciere.png', 'Glacière rigide Camping gaz N°49 / Isolation / Confort', 'VET', 'Isolation: PU - Couvercle à charnière. Equipement: Robuste, Isolation:\nPU, poignée pratique, design moderne . Performances froid (+/- 1°C):\n24 heures\nPoids: 2,4kg\nCapacité en Litre : 26L - Capacité en bouteilles: 6 x 1.5L bouteilles\nDimensions extérieures (L x H x P): 41 x 42 x 32 cm', 10, 17, 1),
-(86, 'ONF', 'ThermosNourriture.png', 'Thermos nourriture N°50 / Confort', 'VET', 'Boite alimentaire double paroi en acier inoxydable, composée de\ndeux compartiments fermant par un couvercle étanche vissé et\nmuni d\'une poignée de transport. La durée de maintien des ali-\nments à 45°C est d’environ 10 heures.\nCapacité : 1,5 L\nPoids : 604 gr\nDimensions 18,2cm * diamètre 13,2cm', 10, 17, 1),
-(87, 'ONF', 'ThermosGourde.png', 'Thermos gourde Camping gaz N°51 / Confort', 'VET', 'Livrée avec bouchon bec verseur, gobelet et sangle. Large bouchon dévissable\nqui peut être utilisé comme gobelet\nIntérieur : paroi en polycarbonate, ne conserve pas les odeurs ni les saveurs,\nrésiste à l’eau bouillante\nExtérieur : Plastique polypropylène\nIsolation en mousse de PU sans CFC ni HCFC\nDimensions : H 23,2 x L 17,6 x P 10,7 cm\nCapacité 1,5L', 10, 17, 1),
-(88, 'ONF', 'RechaudCamping.png', 'Réchaud Camping Gaz N°52 / Confort', 'VET', 'Le réchaud Twister Plus est un réchaud compact et puissant\n\n(2900W) doté du système Easy Clic Plus qui permet le raccorde-\nment du réchaud à la cartouche en 1/4 de tour.\n\nSes grands bras repliables de 6 cm assure une grande stabilité de\ncuisson.\nPour utiliser votre réchaud en toute sécurité, un bouclier thermique\nprotégera le bouton de commande.\nLe réchaud est également fourni avec sa boîte de rangement.\nRupture de stock sur le modèle plaque fourni l’année passée', 10, 17, 1),
-(89, 'ONF', 'SiegePliant.png', 'Siège pliant N°53 / Confort', 'VET', 'Chaise pliante en polyester 600D et cadre en acier. Pochette\nde rangement en nylon incluse. Poids max. admissible 100 kg.\nColoris noir.\nDimensions: 80X48X86 CM', 10, 17, 1),
-(90, 'ONF', 'AbriParapluie.png', 'Abri parapluie N°54 / Confort', 'VET', 'Diamètre 1.75m (arc de 2.20m)\nColoris vert—Toile nylon en 210D\nArticulation inclinable à 45° ou 90°\nMât extensible jusqu’à 2m\nLivré dans une housse\nBaleines en acier et pic en alu', 10, 17, 1),
-(91, 'ONF', 'AbriMoustiquaire.png', 'Abri moustiquaire N°55 / Protection moustique ', 'VET', 'Pratique grâce à son seul point d’attache et légère.\nAvec housse de rangement.\nHauteur d’accroche : 2,5m\nCirconférence au sol : 8,5m', 10, 17, 1),
-(92, 'ONF', 'ChapeauMoustiquaire.png', 'Chapeau moustiquaire N°56 / Protection moustique', 'VET', '100% polyester avec enduction. Coutures principales\r\ncontrecollées pour une meilleure résistance à l\'eau.\r\nForme elliptique, larges bords souples et pliables avec\r\nboutons pression sur le coté, œillets d\'aération, lanière et\r\nstoppeur. 324 trous/cm2\r\nDisponible en 2 tailles 56/58 CM, 60/62 CM.\r\nColoris noir', 10, 17, 1),
-(93, 'ONF', 'TablePliante.png', 'Table pliante N°57 / 70 x 70 x 72', 'VET', 'Table pliante en aluminium, latte se roulant sur elles-\nmêmes.\n\nSac de rangement avec bandoulière pour transport\nDimansion : 70 x 70 x 72\nPoids : 2,7kg', 10, 17, 1),
-(94, 'ONF', 'ChaussuresEagle.png', 'Chaussures basses Haix Black Eagle\nNature GTX Low N°58 / Protection abrasive / Étanche', 'VET', 'Hauteur 8 cm. Etanche et respirante grace à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon\nconfort thermique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\n\nPS : Ces chaussures ne sont pas des EPI et ne peu-\nvent donc pas être portées sur les chantiers.', 10, 17, 1),
-(95, 'ONF', 'ChaussuresScout.png', 'Chaussures mi-hautes Haix scout 2.0 N°59 / Protection abrasive / Étanche', 'VET', 'Hauteur 17 cm. Etanche et respirante grâce à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\nfort thermique. Antistatique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\ndonc pas être portées sur les chantiers.', 10, 17, 1),
-(182, 'EBM Distribution ', 'Stelvio.png', ' Stelvio / Chaussure chauffeur d\'engin', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et\nsemelle anti-perforation « Vibram »\nIdéal pour les terrains de plaine.', 1, 18, 1),
-(183, 'EBM Distribution ', 'Piémont.png', 'Vancouver Piémont / Semelles anti-perforation / terrain : moyenne montagne', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et semelle\nanti-perforation « Vibram »\nBon compromis entre mobilité et résistance.\nPoids : 1850g en taille 42\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
-(184, 'EBM Distribution ', 'Montagne.png', 'Vancouver Montagne / Semelles anti-perforation / terrain : moyenne montagne', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et semelle\nanti-perforation « Vibram »\nBon compromis entre mobilité et résistance.\nPoids : 1850g en taille 42\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
-(185, 'EBM Distribution ', 'Purofort.png', 'Dunlop Purofort / Semelles anti-perforation / terrain : très\nhumide, marécageux', 'EPINonOuvrier', 'Taille : 38 à 48\nPas de protection anti-coupure\nBottes de sécurité en caoutchouc 100%\nimperméable à embout renforcé et semelle\n\nanti-perforation.\nIdéal pour déplacement en milieu très\nhumide / marécageux.', 1, 18, 1),
-(186, 'EBM Distribution ', 'Stubai.png', 'Stubai Twin peak', 'EPINonOuvrier', 'Taille unique\n\nS’adapte à tous les modèles de chaussures, UNIQUEMENT EN CAS DE VERGLAS', 1, 10, 1),
-(187, 'Zimmer ', '1SX4.png', 'SIP 1SX4 / Guêtre ', 'EPINonOuvrier', 'Pas de protection anti-coupure\nGuêtres de débroussaillage renforcé protégeant\ndes projections. Limite la remontée de tiques.\nMaintien par câble sous la chaussure.', 3, 18, 1),
-(188, 'ROSTAING', 'EPS7PBA.png', 'Gants cuir EPS7BPA / Manutention / Protège artères ', 'EPINonOuvrier', 'Gants de manutention en cuir avec protège\n\nartère en cuir.', 4, 18, 1),
-(189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\n\nTaille : 7 à 11', 4, 18, 1),
-(190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON / Protection froid positif', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\n\nsmartphone.\nProtège du froid positif\nTaille : 7 à 12', 4, 18, 1),
-(191, 'ROSTAING', 'MidSeasonNitrile.png', 'MIDSEASON / Protection chimique ', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\n\nrisques chimiques\nTaille : 7 à 10', 4, 18, 1),
-(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\n\nbranches.\n\nExiste en version teintée jaune (pour temps\nsombre) et teintée solaire (pour temps\n\nensoleillé).', 8, 18, 1),
-(193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405 / Protection chenille urticante / boite de vingt', 'EPINonOuvrier', 'Taille unique\n\nMasque FFP2 avec valve facilitant l’expiration.\n\nRéglage avec élastique\nUtilisable en milieu infesté par la chenille\n\nprocessionnaire.', 6, 21, 1),
-(194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J / Combinaison jetable', 'EPINonOuvrier', '', 6, 18, 1),
-(195, 'Fiprotec', 'TYVEK500.png', 'YVEK 500 / Protection chenille urticante', 'EPINonOuvrier', 'Cagoule à usage unique couvrant les épaules\net la tête.\nUtilisable en milieu infesté par la chenille\nprocessionnaire.', 6, 18, 1),
-(196, 'E.P.I SUD ', 'VGARD500.png', 'MSA VGARD 500 / Anti-sueur', 'EPINonOuvrier', 'Réglage du casque avec molette.\nBandeau anti-sueur en mousse.\nDurée de vie : 5 ans', 9, 18, 1),
-(197, 'E.P.I SUD', 'MAX300.png', 'COVERGUARD MAX300 / Réduction du bruit', 'EPINonOuvrier', 'Coquille de protection auditive pour casque de\nchantier\nRéduction de bruit : 30dB', 9, 18, 1),
-(198, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX réf 6401 / Réduction du bruit', 'EPINonOuvrier', 'Bouchon d’oreille réutilisable\nRéduction de bruit : 30dB', 9, 18, 1),
-(200, 'E.P.I SUD ', '200LS.png', 'MSA Advantage 200 LS / Masque à cartouche', 'EPINonOuvrier', 'Taille unique avec réglage par élastique.\nPossibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 18, 1),
-(207, 'Zimmer', '1SSV.png', 'SIP 1SSV / Pantalon de travail', 'EPI', 'Pas de protection anti-coupure\r\nPantalon léger et résistant idéal pour travauxsans machine.\r\nTaille élastiquée.\r\n\r\nUtilisable en milieu infesté par la chenille processionnaire.', 3, 2, 1),
+(82, 'ONF', 'SacADos.png', 'Sac à dos 20 Litres N°46 ', 'VET', '100% Polyester (600D/Ripstop)\nBretelles réglables rembourrées\nPoignée de transport, sangles à la taille et à la poitrine\nPanneau dorsal rembourré, respirant et ergonomique\nCompatible avec ordinateur portable de 15.6\"\nCompatible avec une poche d\'hydratation (019.30-QX510)\nHousse de protection contre la pluie\nDiverses attaches et passant arrière pour attacher une lampe\nPoche sur le côté avec fermeture éclair, poche interne en filet\nSangles de compression et bandes réfléchissantes\nDimensions: 31 x 48 x 20 cm\nColoris noir', 10, 17, 1),
+(83, 'ONF', 'SacADosSiege.png', 'Sac à dos siege N°47 ', 'VET', 'Sac à dos avec siège pliable intégré, bonne capacité de\nrangement. 100% polyester\nDimensions: 34 x 33 x 41 cm\nPoids : 1,7kg', 10, 17, 1),
+(84, 'ONF', 'Couteau.png', 'Couteau bivouac N°48 ', 'VET', 'Modèle massif lame 20/10 mm. Cran de sécurité, couteau (lame\n9cm), fourchette et cuillère détachables, ouvre-boîte affûté avec\nperce-boite, tire bouchon 5 spires, housse toile renforcée avec pas-\nsant ceinture et crochet métallique pour ceinturon armée', 10, 17, 1),
+(85, 'ONF', 'Glaciere.png', 'Glacière rigide Camping gaz N°49 ', 'VET', 'Isolation: PU - Couvercle à charnière. Equipement: Robuste, Isolation:\nPU, poignée pratique, design moderne . Performances froid (+/- 1°C):\n24 heures\nPoids: 2,4kg\nCapacité en Litre : 26L - Capacité en bouteilles: 6 x 1.5L bouteilles\nDimensions extérieures (L x H x P): 41 x 42 x 32 cm', 10, 17, 1),
+(86, 'ONF', 'ThermosNourriture.png', 'Thermos nourriture N°50 ', 'VET', 'Boite alimentaire double paroi en acier inoxydable, composée de\ndeux compartiments fermant par un couvercle étanche vissé et\nmuni d\'une poignée de transport. La durée de maintien des ali-\nments à 45°C est d’environ 10 heures.\nCapacité : 1,5 L\nPoids : 604 gr\nDimensions 18,2cm * diamètre 13,2cm', 10, 17, 1),
+(87, 'ONF', 'ThermosGourde.png', 'Thermos gourde Camping gaz N°51 ', 'VET', 'Livrée avec bouchon bec verseur, gobelet et sangle. Large bouchon dévissable\nqui peut être utilisé comme gobelet\nIntérieur : paroi en polycarbonate, ne conserve pas les odeurs ni les saveurs,\nrésiste à l’eau bouillante\nExtérieur : Plastique polypropylène\nIsolation en mousse de PU sans CFC ni HCFC\nDimensions : H 23,2 x L 17,6 x P 10,7 cm\nCapacité 1,5L', 10, 17, 1),
+(88, 'ONF', 'RechaudCamping.png', 'Réchaud Camping Gaz N°52', 'VET', 'Le réchaud Twister Plus est un réchaud compact et puissant\n\n(2900W) doté du système Easy Clic Plus qui permet le raccorde-\nment du réchaud à la cartouche en 1/4 de tour.\n\nSes grands bras repliables de 6 cm assure une grande stabilité de\ncuisson.\nPour utiliser votre réchaud en toute sécurité, un bouclier thermique\nprotégera le bouton de commande.\nLe réchaud est également fourni avec sa boîte de rangement.\nRupture de stock sur le modèle plaque fourni l’année passée', 10, 17, 1),
+(89, 'ONF', 'SiegePliant.png', 'Siège pliant N°53 ', 'VET', 'Chaise pliante en polyester 600D et cadre en acier. Pochette\nde rangement en nylon incluse. Poids max. admissible 100 kg.\nColoris noir.\nDimensions: 80X48X86 CM', 10, 17, 1),
+(90, 'ONF', 'AbriParapluie.png', 'Abri parapluie N°54 ', 'VET', 'Diamètre 1.75m (arc de 2.20m)\nColoris vert—Toile nylon en 210D\nArticulation inclinable à 45° ou 90°\nMât extensible jusqu’à 2m\nLivré dans une housse\nBaleines en acier et pic en alu', 10, 17, 1),
+(91, 'ONF', 'AbriMoustiquaire.png', 'Abri moustiquaire N°55 ', 'VET', 'Pratique grâce à son seul point d’attache et légère.\nAvec housse de rangement.\nHauteur d’accroche : 2,5m\nCirconférence au sol : 8,5m', 10, 17, 1),
+(92, 'ONF', 'ChapeauMoustiquaire.png', 'Chapeau moustiquaire N°56 ', 'VET', '100% polyester avec enduction. Coutures principales\r\ncontrecollées pour une meilleure résistance à l\'eau.\r\nForme elliptique, larges bords souples et pliables avec\r\nboutons pression sur le coté, œillets d\'aération, lanière et\r\nstoppeur. 324 trous/cm2\r\nDisponible en 2 tailles 56/58 CM, 60/62 CM.\r\nColoris noir', 10, 17, 1),
+(93, 'ONF', 'TablePliante.png', 'Table pliante N°57 ', 'VET', 'Table pliante en aluminium, latte se roulant sur elles-\nmêmes.\n\nSac de rangement avec bandoulière pour transport\nDimansion : 70 x 70 x 72\nPoids : 2,7kg', 10, 17, 1),
+(94, 'ONF', 'ChaussuresEagle.png', 'Chaussures basses Haix Black Eagle\nNature GTX Low N°58 ', 'VET', 'Hauteur 8 cm. Etanche et respirante grace à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon\nconfort thermique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\n\nPS : Ces chaussures ne sont pas des EPI et ne peu-\nvent donc pas être portées sur les chantiers.', 10, 17, 1),
+(95, 'ONF', 'ChaussuresScout.png', 'Chaussures mi-hautes Haix scout 2.0 N°59 ', 'VET', 'Hauteur 17 cm. Etanche et respirante grâce à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\nfort thermique. Antistatique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\ndonc pas être portées sur les chantiers.', 10, 17, 1),
+(182, 'EBM Distribution ', 'Stelvio.png', ' Stelvio ', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et\nsemelle anti-perforation « Vibram »\nIdéal pour les terrains de plaine.', 1, 18, 1),
+(183, 'EBM Distribution ', 'Piémont.png', 'Vancouver Piémont ', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et semelle\nanti-perforation « Vibram »\nBon compromis entre mobilité et résistance.\nPoids : 1850g en taille 42\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
+(184, 'EBM Distribution ', 'Montagne.png', 'Vancouver Montagne ', 'EPINonOuvrier', 'Taille : 36 à 49\nPas de protection anti-coupure\nChaussure légère à embout renforcé et semelle\nanti-perforation « Vibram »\nBon compromis entre mobilité et résistance.\nPoids : 1850g en taille 42\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
+(185, 'EBM Distribution ', 'Purofort.png', 'Dunlop Purofort ', 'EPINonOuvrier', 'Taille : 38 à 48\nPas de protection anti-coupure\nBottes de sécurité en caoutchouc 100%\nimperméable à embout renforcé et semelle\n\nanti-perforation.\nIdéal pour déplacement en milieu très\nhumide / marécageux.', 1, 18, 1),
+(186, 'EBM Distribution ', 'Stubai.png', 'Stubai Twin peak', 'EPINonOuvrier', 'Taille unique\n\nS’adapte à tous les modèles de chaussures, UNIQUEMENT EN CAS DE VERGLAS', 1, 18, 1),
+(187, 'Zimmer ', '1SX4.png', 'SIP 1SX4 ', 'EPINonOuvrier', 'Pas de protection anti-coupure\nGuêtres de débroussaillage renforcé protégeant\ndes projections. Limite la remontée de tiques.\nMaintien par câble sous la chaussure.', 3, 18, 1),
+(188, 'ROSTAING', 'EPS7PBA.png', 'Gants cuir EPS7BPA ', 'EPINonOuvrier', 'Gants de manutention en cuir avec protège\n\nartère en cuir.', 4, 22, 1),
+(189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\n\nTaille : 7 à 11', 4, 22, 1),
+(190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON /', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\n\nsmartphone.\nProtège du froid positif\nTaille : 7 à 12', 4, 22, 1),
+(191, 'ROSTAING', 'MidSeasonNitrile.png', 'MIDSEASON ', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\n\nrisques chimiques\nTaille : 7 à 10', 4, 22, 1),
+(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\n\nbranches.\n\nExiste en version teintée jaune (pour temps\nsombre) et teintée solaire (pour temps\n\nensoleillé).', 8, 24, 1),
+(193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405 ', 'EPINonOuvrier', 'Taille unique\n\nMasque FFP2 avec valve facilitant l’expiration.\n\nRéglage avec élastique\nUtilisable en milieu infesté par la chenille\n\nprocessionnaire.', 6, 23, 1),
+(194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J ', 'EPINonOuvrier', '', 6, 23, 1),
+(195, 'Fiprotec', 'TYVEK500.png', 'YVEK 500 ', 'EPINonOuvrier', 'Cagoule à usage unique couvrant les épaules\net la tête.\nUtilisable en milieu infesté par la chenille\nprocessionnaire.', 6, 23, 1),
+(196, 'E.P.I SUD ', 'VGARD500.png', 'MSA VGARD 500 ', 'EPINonOuvrier', 'Réglage du casque avec molette.\nBandeau anti-sueur en mousse.\nDurée de vie : 5 ans', 9, 25, 1),
+(197, 'E.P.I SUD', 'MAX300.png', 'COVERGUARD MAX300 ', 'EPINonOuvrier', 'Coquille de protection auditive pour casque de\nchantier\nRéduction de bruit : 30dB', 9, 25, 1),
+(198, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX réf 6401 ', 'EPINonOuvrier', 'Bouchon d’oreille réutilisable\nRéduction de bruit : 30dB', 9, 23, 1),
+(200, 'E.P.I SUD ', '200LS.png', 'MSA Advantage 200 LS ', 'EPINonOuvrier', 'Taille unique avec réglage par élastique.\nPossibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 23, 1),
+(207, 'Zimmer', '1SSV.png', 'SIP 1SSV ', 'EPI', 'Pas de protection anti-coupure\r\nPantalon léger et résistant idéal pour travauxsans machine.\r\nTaille élastiquée.\r\n\r\nUtilisable en milieu infesté par la chenille processionnaire.', 3, 2, 1),
 (208, 'E.P.I SUD', 'chat-illustre-1c4a8b-0@1x.jpg', 'Cartouche MSA Advantage 200 LS ', 'EPI', 'Cartouche pour masque MSA Advantage 200 LS ', 9, 13, 1),
 (209, 'E.P.I SUD', 'T-shirtCofor.png', 'T-shirt COFOR rouge ', 'EPI', 'Grammage : 185 g/m²\r\nExiste en version col en V\r\nAvec marquage COFOR', 9, 20, 1);
 
@@ -1405,9 +1474,9 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `commentaire` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
+  `commentaire` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1429,8 +1498,8 @@ INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE IF NOT EXISTS `taille` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1539,12 +1608,12 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE IF NOT EXISTS `type` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idCategorie` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(50) DEFAULT NULL,
+  `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `type`
@@ -1568,9 +1637,13 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 (15, 'EPI jetable ', 9),
 (16, 'Bouchon', 9),
 (17, 'Vêtement', 10),
-(18, 'EPINonOuvrier', 11),
+(18, 'Éléments chaussants non ouvrier', 11),
 (19, 'Protection contre la chenille processionnaire', 4),
-(21, 'Masque FFP2', 9);
+(21, 'Masque FFP2', 9),
+(22, 'Protection des mains non ouvrier', 12),
+(23, 'Autre effets non ouvrier', 13),
+(24, 'lunettes non ouvrier', 14),
+(25, 'casque non ouvrier', 15);
 
 -- --------------------------------------------------------
 
@@ -1580,19 +1653,19 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `Login` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idLieuLivraison` int NOT NULL,
-  `id_responsable` int DEFAULT NULL,
-  `idRole` int NOT NULL,
-  `idMetier` int NOT NULL,
-  `Agence` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `IdEmployeur` int DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Login` varchar(50) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `tel` varchar(50) DEFAULT NULL,
+  `idLieuLivraison` int(11) NOT NULL,
+  `id_responsable` int(11) DEFAULT NULL,
+  `idRole` int(11) NOT NULL,
+  `idMetier` int(11) NOT NULL,
+  `Agence` varchar(50) NOT NULL,
+  `IdEmployeur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idLieuLivraison` (`idLieuLivraison`),
   KEY `id_chef` (`id_responsable`),

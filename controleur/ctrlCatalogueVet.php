@@ -53,14 +53,12 @@
         
         $verifVet = true;
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
-        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet, 'VET');
         
         $array = array(
             "id" => "0",
         );
         $id = $array;
-
-       
 
         if(isset($_POST["trie"])){
             $_SESSION["choix"] = $_POST["trie"];

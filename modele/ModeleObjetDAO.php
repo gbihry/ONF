@@ -950,8 +950,7 @@
             $res = $req->fetch();
             return $res['libelle'];
         }
-
-
+        
         public static function getCatalogue($id, $login, $verifVet, $type){
             switch($type){
                 case 'EPI':
@@ -965,6 +964,14 @@
                     FROM categorie
                     JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
                     WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'EPINonOuvrier'");
+                    break;
+
+                default:
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                    FROM categorie
+                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'VET'");
+                    break;
                     break;
             }
             $req->bindValue(':id',$id,PDO::PARAM_INT);
