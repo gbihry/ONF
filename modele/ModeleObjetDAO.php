@@ -68,12 +68,14 @@
             return $res;
         }
 
-        public static function getAllUsers($role, $id) {
+        public static function getAllUsers($role, $id,$Agence) {
             switch($role){
                 case 'Gestionnaire de commande':
                     $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
                     FROM utilisateur 
+                    where Agence = :Agence
                     LIMIT 50");
+                    $req->bindValue(':Agence',$Agence,PDO::PARAM_STR);
                     break;
                     case 'Administrateur':
                         $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
@@ -170,47 +172,97 @@
             return $res['tel'];
         }
 
-        public static function getUtilisateurCommander ($etat){
-            switch ($etat){
-                case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea 
-                    FROM utilisateur 
-                    JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE commandeepi.terminer = 1");
-                    $req->execute();
-                    $res = $req->fetchAll();
-                    break;
-                case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea
-                    FROM utilisateur 
-                    LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
-                    WHERE dateCrea is null or terminer = 0");
-                    $req->execute();
-                    $res = $req->fetchAll();
-                    break;
+        public static function getUtilisateurCommander ($etat,$idAgence){
+            if($idAgence == "admin"){
+                switch ($etat){
+                    case 1:
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea 
+                        FROM utilisateur 
+                        JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                        WHERE commandeepi.terminer = 1");
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                    case 0 : 
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea
+                        FROM utilisateur 
+                        LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                        WHERE dateCrea is null or terminer = 0");
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                }
             }
+            else{
+                switch ($etat){
+                    case 1:
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea 
+                        FROM utilisateur 
+                        JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                        WHERE commandeepi.terminer = 1 and Agence = :idAgence");
+                        $req->bindValue(':idAgence',$idAgence,PDO::PARAM_STR);
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                    case 0 : 
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCreaFini, dateCrea
+                        FROM utilisateur 
+                        LEFT OUTER JOIN commandeepi ON commandeepi.idUtilisateur = utilisateur.id
+                        WHERE (dateCrea is null or terminer = 0) and Agence = :idAgence");
+                        $req->bindValue(':idAgence',$idAgence,PDO::PARAM_STR);
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                }
+            }
+            
             return $res;
         }
 
-        public static function getUtilisateurCommanderVET ($etat){
-            switch ($etat){
-                case 1:
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
-                    FROM utilisateur 
-                    JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
-                    WHERE commandevet.terminer = 1");
-                    $req->execute();
-                    $res = $req->fetchAll();
-                    break;
-                case 0 : 
-                    $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
-                    FROM utilisateur 
-                    LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
-                    WHERE dateCrea is null or terminer = 0");
-                    $req->execute();
-                    $res = $req->fetchAll();
-                    break;
+        public static function getUtilisateurCommanderVET ($etat,$idAgence){
+            if($idAgence == "admin"){
+                switch ($etat){
+                    case 1:
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
+                        FROM utilisateur 
+                        JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                        WHERE commandevet.terminer = 1");
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                    case 0 : 
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
+                        FROM utilisateur 
+                        LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                        WHERE dateCrea is null or terminer = 0");
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                }
             }
+            else{
+                switch ($etat){
+                    case 1:
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
+                        FROM utilisateur 
+                        JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                        WHERE commandevet.terminer = 1  and Agence = :idAgence");
+                        $req->bindValue(':idAgence',$idAgence,PDO::PARAM_STR);
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                    case 0 : 
+                        $req = Connexion::getInstance()->prepare("SELECT utilisateur.id, utilisateur.login, utilisateur.nom, utilisateur.prenom, utilisateur.email, dateCrea, dateCreaFini
+                        FROM utilisateur 
+                        LEFT OUTER JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+                        WHERE (dateCrea is null or terminer = 0)  and Agence = :idAgence");
+                        $req->bindValue(':idAgence',$idAgence,PDO::PARAM_STR);
+                        $req->execute();
+                        $res = $req->fetchAll();
+                        break;
+                }
+            }
+           
             return $res;
         }
 
@@ -1592,30 +1644,47 @@
             return $res;
         }
 
-        public static function getRecapCommandeEpi(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom 
-            from lignecommandeepi 
-            JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
-            JOIN produit on lignecommandeepi.idProduit = produit.id 
-            JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
-            JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
-            where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom
-            ORDER by lieulivraion.nom,produit.nom;");
+        public static function getRecapCommandeEpi($agence){
+            if($agence == null){
+                $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+                from lignecommandeepi 
+                JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
+                JOIN produit on lignecommandeepi.idProduit = produit.id 
+                join taille on lignecommandeepi.idTaille = taille.id
+                JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
+                JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+                where terminer = 1 
+                GROUP by produit.nom,lieulivraion.nom,taille.libelle
+                ORDER by lieulivraion.nom,produit.nom;");
+            }
+            else{
+                $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+                from lignecommandeepi 
+                JOIN commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI 
+                JOIN produit on lignecommandeepi.idProduit = produit.id 
+                join taille on lignecommandeepi.idTaille = taille.id
+                JOIN utilisateur on commandeepi.idUtilisateur = utilisateur.id 
+                JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+                where terminer = 1 and Agence = :agence
+                GROUP by produit.nom,lieulivraion.nom,taille.libelle
+                ORDER by lieulivraion.nom,produit.nom;");
+                $req->bindValue(':agence', $agence, PDO::PARAM_STR);
+            }
             $req->execute();
             $res = $req->fetchall();
             return $res;
         }
 
         public static function getRecapCommandeVet(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom
+            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
             from lignecommandevet
             JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
             JOIN produit on lignecommandevet.idProduit = produit.id
             JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
+            join taille on lignecommandevet.idTaille = taille.id
             JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
             where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom
+            GROUP by produit.nom,lieulivraion.nom,taille.libelle
             ORDER by lieulivraion.nom,produit.nom;");
             $req->execute();
             $res = $req->fetchall();
@@ -1938,7 +2007,7 @@
         }
 
 
-        public static function getAllLigneCommandeVet($idLieuLivraison){
+        public static function getAllLigneCommandeVet($idLieuLivraison,$agence){
             $req = Connexion::getInstance()->prepare("SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
             from lignecommandevet
             JOIN produit on produit.id = lignecommandevet.idProduit
@@ -1946,16 +2015,17 @@
             join commandevet on commandevet.id = lignecommandevet.idCommandeVET
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
-            WHERE idLieuLivraison = :idLieuLivraison
+            WHERE idLieuLivraison = :idLieuLivraison and Agence = :agence
             group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':agence',$agence,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetchall();
             return $res;
             
         }
 
-        public static function getAllLigneCommandeEpi($idLieuLivraison){
+        public static function getAllLigneCommandeEpi($idLieuLivraison,$agence){
             $req = Connexion::getInstance()->prepare("SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
             from lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
@@ -1963,16 +2033,17 @@
             join commandeepi on commandeepi.id = lignecommandeepi.idCommandeEPI
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
-            WHERE idLieuLivraison = :idLieuLivraison
+            WHERE idLieuLivraison = :idLieuLivraison and Agence = :agence
             group by produit.nom,lieulivraion.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':agence',$agence,PDO::PARAM_STR);
             $req->execute();
             $res = $req->fetchall();
             return $res;
             
         }
 
-        public static function getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur){
+        public static function getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur,$agence){
             $req = Connexion::getInstance()->prepare("SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
             from lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
@@ -1981,16 +2052,17 @@
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
-            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur and Agence = :agence
             group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':agence',$agence,PDO::PARAM_STR);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
             return $res;
         }
 
-        public static function getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur){
+        public static function getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur,$agence){
             $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',lieulivraion.nom
             from lignecommandevet
             JOIN produit on produit.id = lignecommandevet.idProduit
@@ -1999,9 +2071,10 @@
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on fournisseur.id = produit.idFournisseur
-            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur
+            WHERE idLieuLivraison = :idLieuLivraison and idFournisseur = :idFournisseur and Agence = :agence
             group by produit.nom,lieulivraion.nom,fournisseur.nom,libelle;");
             $req->bindValue(':idLieuLivraison',$idLieuLivraison,PDO::PARAM_INT);
+            $req->bindValue(':agence',$agence,PDO::PARAM_STR);
             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -2009,7 +2082,7 @@
         }
 
 
-        public static function getAllLigneCommandeVetFournisseur($idFournisseur){
+        public static function getAllLigneCommandeVetFournisseur($idFournisseur,$agence){
             $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
             from lignecommandevet
             JOIN produit on produit.id = lignecommandevet.idProduit
@@ -2018,15 +2091,16 @@
             JOIN utilisateur ON utilisateur.id = commandevet.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
-            WHERE fournisseur.id = :idFournisseur
+            WHERE fournisseur.id = :idFournisseur and Agence = :agence
             group by produit.nom,lieulivraion.nom,libelle;");
                 $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+                $req->bindValue(':agence',$agence,PDO::PARAM_STR);
                 $req->execute();
                 $res = $req->fetchall();
                 return $res;
         }
 
-        public static function getAllLigneCommandeEpiFournisseur($idFournisseur){
+        public static function getAllLigneCommandeEpiFournisseur($idFournisseur,$agence){
             $req = Connexion::getInstance()->prepare(" SELECT produit.nom as 'produit',libelle,sum(quantite) as 'quantite',fournisseur.nom
             from lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
@@ -2035,15 +2109,16 @@
             JOIN utilisateur ON utilisateur.id = commandeepi.idUtilisateur
             JOIN lieulivraion on lieulivraion.id = utilisateur.idLieuLivraison
             join fournisseur on produit.idFournisseur = fournisseur.id
-            WHERE fournisseur.id = :idFournisseur
+            WHERE fournisseur.id = :idFournisseur and Agence = :agence
             group by produit.nom,lieulivraion.nom,libelle;");
-            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
-            $req->execute();
-            $res = $req->fetchall();
-            return $res;
+             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+             $req->bindValue(':agence',$agence,PDO::PARAM_STR);
+             $req->execute();
+             $res = $req->fetchall();
+             return $res;
         }
 
-        public static function bonCommandeCsv($type,$idLieuLivraison,$choix){
+        public static function bonCommandeCsv($type,$idLieuLivraison,$choix,$agence){
             date_default_timezone_set('Europe/Paris');
 
             
@@ -2053,14 +2128,14 @@
 
                     $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
-                    $Commande = ModeleObjetDAO::getAllLigneCommandeVet($idLieuLivraison);
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeVet($idLieuLivraison,$agence);
                 }
                 else{
                     $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
                     $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
-                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpi($idLieuLivraison);
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpi($idLieuLivraison,$agence);
     
                     
                 }
@@ -2072,14 +2147,14 @@
 
                     $filename = "bonCommandes/bonDeCommandeVET-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
-                    $Commande = ModeleObjetDAO::getAllLigneCommandeVetFournisseur($idLieuLivraison);
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeVetFournisseur($idLieuLivraison,$agence);
                 }
                 else{
                     $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
 
                     $filename = "bonCommandes/bonDeCommandeEPI-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
-                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpiFournisseur($idLieuLivraison);
+                    $Commande = ModeleObjetDAO::getAllLigneCommandeEpiFournisseur($idLieuLivraison,$agence);
     
                     
                 }
@@ -2120,7 +2195,7 @@
             
         }
 
-        public static function bonCommandeFournisseurLieuCsv($type,$idFournisseur,$idLieuLivraison){
+        public static function bonCommandeFournisseurLieuCsv($type,$idFournisseur,$idLieuLivraison,$agence){
             date_default_timezone_set('Europe/Paris');
 
             if($type == 'VET'){
@@ -2130,7 +2205,7 @@
 
                 $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
 
-                $Commande = ModeleObjetDAO::getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur);
+                $Commande = ModeleObjetDAO::getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur,$agence);
             }
             else{
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
@@ -2139,7 +2214,7 @@
 
                 $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
                 
-                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur);
+                $Commande = ModeleObjetDAO::getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur,$agence);
 
             }
 
@@ -2196,7 +2271,7 @@
             JOIN disponible ON disponible.idProduit = lignecommandevet.idProduit AND disponible.idTaille = lignecommandevet.idTaille
             JOIN taille on lignecommandevet.idTaille = taille.id
             WHERE commandevet.terminer = 1 AND commandevet.idUtilisateur = :id
-            GROUP BY produit.nom;
+            GROUP BY produit.nom,taille.libelle;
             ");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
@@ -2213,7 +2288,7 @@
             JOIN disponible ON disponible.idProduit = lignecommandeepi.idProduit AND disponible.idTaille = lignecommandeepi.idTaille
             JOIN taille on lignecommandeepi.idTaille = taille.id
             WHERE commandeepi.terminer = 1 AND commandeepi.idUtilisateur = :id
-            GROUP BY produit.nom;");
+            GROUP BY produit.nom,taille.libelle;");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -2430,6 +2505,14 @@
             $req -> execute();
             $res = $req->fetch();
             return $res['descriptionReste'];
+        }
+
+        public static function getIdAgence($id){
+            $req =  Connexion::getInstance()->prepare("SELECT Agence from utilisateur WHERE id = :id;");
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
         }
     }
 ?>

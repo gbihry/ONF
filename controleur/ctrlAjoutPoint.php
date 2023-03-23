@@ -14,11 +14,16 @@
     } else {
         header("location:./?action=accueil");
     }
-    
+    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
     $role = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
     $roleAcess = ModeleObjetDAO::GetRoleInf(ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole']);
-    
-    $AllUsers = ModeleObjetDAO::getAllUsers("Gestionnaire de commande",0);
+    if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+        $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
+    }
+    else{
+        $agence = null;
+    }
+    $AllUsers = ModeleObjetDAO::getAllUsers($role,0,$agence);
 
 
 
