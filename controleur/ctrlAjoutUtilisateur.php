@@ -82,22 +82,31 @@
                     if ($_POST['role'] == '2'){
                         $_POST['responsable'] = 0;
                     }
-                    ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'], 
-                    $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
+                    $allLogin = ModeleObjetDAO::getUsers();
 
-                    date_default_timezone_set('Europe/Paris');
-                    $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-                    $description = "Ajout d'un utilisateur par ".$_SESSION['login'];
-                    $date = date( "Y-m-d H:i:s"); 
-                    ModeleObjetDAO::insertLog($date,$description,$id);
-                    
-                    if ($_POST['responsable'] == 0){
+                    $verifUser = true;
+                    foreach($allLogin as $unLogin){
+                        if ($unLogin['login'] == $_POST['mail']){
+                            $verifUser = false;
+                        }
+                    }
+                    if ($verifUser != false){
+                        ModeleObjetDAO::insertUtilisateur($_POST['mail'],password_hash($_POST['tel'], PASSWORD_DEFAULT),$_POST['prenom'],$_POST['nom'],$_POST['mail'],$_POST['tel'], 
+                        $_POST['livraison'],$_POST['responsable'],$_POST['role'],$_POST['metier'],$_POST['agence']);
+
+                        date_default_timezone_set('Europe/Paris');
+                        $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                        $description = "Ajout d'un utilisateur par ".$_SESSION['login'];
+                        $date = date( "Y-m-d H:i:s"); 
+                        ModeleObjetDAO::insertLog($date,$description,$id);
                         
-                        ModeleObjetDAO::updateResponsable($_POST['mail'], ModeleObjetDAO::getIdUtilisateur($_POST['mail'])['id']);
-                        $reload = true;
-                        
-                    }else{
-                        $reload = true;
+                        if ($_POST['responsable'] == 0){
+                            ModeleObjetDAO::updateResponsable($_POST['mail'], ModeleObjetDAO::getIdUtilisateur($_POST['mail'])['id']);
+                            $reload = true;
+                            
+                        }else{
+                            $reload = true;
+                        }
                     }
                     
                 }

@@ -68,6 +68,14 @@
             return $res;
         }
 
+        public static function getUsers (){
+            $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
+            FROM utilisateur ");
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
         public static function getAllUsers($role, $id,$Agence) {
             switch($role){
                 case 'Gestionnaire de commande':
@@ -77,18 +85,16 @@
                     LIMIT 50");
                     $req->bindValue(':Agence',$Agence,PDO::PARAM_STR);
                     break;
-                    case 'Administrateur':
-                        $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
-                        FROM utilisateur 
-                        LIMIT 50");
-                        break;
+                case 'Administrateur':
+                    $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
+                    FROM utilisateur 
+                    LIMIT 50");
+                    break;
                 case 'Responsable':
                     $req = Connexion::getInstance()->prepare("SELECT id,utilisateur.login, utilisateur.tel, utilisateur.id_responsable 
                     FROM utilisateur 
                     WHERE id_responsable = :id AND idRole != 2");
                     $req->bindValue(':id',$id,PDO::PARAM_INT);
-                    break;
-                case 'Gestion': 
                     break;
             }
             
