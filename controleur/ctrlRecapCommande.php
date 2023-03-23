@@ -3,9 +3,9 @@
     include "$racine/vue/vueEntete.php";
 
 
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Administrateur'){
+    if(isset($_SESSION['autorise']) && $roleUser == 'Gestionnaire de commande' || isset($_SESSION['autorise']) && $roleUser == 'Administrateur'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
-        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+        if($roleUser == 'Gestionnaire de commande'){
             $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
         }
         else{

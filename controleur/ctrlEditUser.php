@@ -13,7 +13,7 @@
     $dateCreaFiniEPI = ModeleObjetDAO::getDateCommandeFiniEpi($_GET['id']);
 
     include_once "$racine/vue/vuePied.php";
-        $role_user = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
+        $role_user = $roleUser;
         if(isset($_SESSION['autorise']) && 
         $role_user == 'Gestionnaire de commande' ||
         $role_user == 'Administrateur' ||

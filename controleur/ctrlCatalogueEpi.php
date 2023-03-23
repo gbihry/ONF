@@ -31,6 +31,13 @@
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
 
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
+
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
@@ -73,13 +80,20 @@
 
         
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
-
             date_default_timezone_set('Europe/Paris');
             $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
             if(ModeleObjetDAO::insertEPICommande($idUtilisateur, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
 
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];

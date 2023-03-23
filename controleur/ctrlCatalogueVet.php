@@ -7,6 +7,10 @@
         header("location:./?action=login");
     }
 
+    if ($verifCommandeVET == 1 && $_GET['id'] == '0'){
+        header("location:./?action=accueil");
+    }
+
     $role = ModeleObjetDAO::getRole($_SESSION['login']);
 
     if($_GET["id"] != "0"){

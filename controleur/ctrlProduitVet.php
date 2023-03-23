@@ -6,7 +6,11 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
-    $role = ModeleObjetDAO::getRole($_SESSION['login']);
+
+    if ($verifCommandeVET == 1 && $_GET['id'] == '0'){
+        header("location:./?action=accueil");
+    }
+    $role = $roleUser;
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
         $unProduit = ModeleObjetDAO::getProduit($_GET["id"],substr(($_GET["action"]),-3), 'VET');
