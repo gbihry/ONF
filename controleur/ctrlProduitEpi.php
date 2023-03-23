@@ -12,17 +12,19 @@
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
         
+        
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $array = array(
             "id" => $_GET["ref"],
+        
         );
 
         if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPINonOuvrier');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut['id'], 'EPINonOuvrier');
         }else{
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPI');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut['id'], 'EPI');
         }
         $idUtilisateur = $array;
 
@@ -36,6 +38,7 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+                
 
                 $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
                 $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
@@ -64,9 +67,9 @@
         $idCateg = $_GET["id"];
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPINonOuvrier');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut['idMetier'], 'EPINonOuvrier');
         }else{
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPI');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut['idMetier'], 'EPI');
         }
         
         $login = array(

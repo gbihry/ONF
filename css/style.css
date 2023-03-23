@@ -1084,6 +1084,15 @@ table.utilisateurs th {
     
 }
 
+#redBySFR2{
+    background-color: var(--danger);
+    border-radius: 15px;
+    padding: 15px;
+    border: 2px solid var(--extra-color);
+    color: var(--text-color) !important;
+    font-weight: 600;
+}
+
 /* INTERFACE UTILISATEUR */
 
 .interface-header{
