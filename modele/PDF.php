@@ -91,7 +91,7 @@
             $this->SetFillColor(40,167,69);
             $this->SetTextColor(255);
             $this->SetDrawColor(0,0,0);
-        $this->SetLineWidth(.3);
+            $this->SetLineWidth(.3);
             // Header
             $w = array(100, 20, 40,30);
             for($i=0;$i<count($titre);$i++)
@@ -105,14 +105,19 @@
             $this->SetFont('');
             // Data
             $fill = false;
+            $y = $this->GetY();
+            $x = $this->GetX();
             foreach($data as $row)
             {
-                $this->Cell($w[0],10,$row[0],'LR',0,'C',$fill);
-                $this->Cell($w[1],10,$row[1],'LR',0,'C',$fill);
-                $this->Cell($w[2],10,$row[2],'LR',0,'C',$fill);
-                $this->Cell($w[3],10,$row[3],'LR',0,'C',$fill);
+                $this->MultiCell($w[0],10,$row[0],'LRB','C',$fill);
+                $this->SetXY($x + $w[0],$y);
+                $this->Cell($w[1],20,$row[1],'LRB',0,'C',$fill);
+                $this->Cell($w[2],20,$row[2],'LRB',0,'C',$fill);
+                $this->Cell($w[3],20,$row[3],'LRB',0,'C',$fill);
                 $this->Ln();
-                $this->SetX(10);
+                $y = $this->GetY();
+                $x = $this->GetX();
+                $this->SetXY($x,$y);
                 $fill = !$fill;
             }
             // Closing line
