@@ -109,6 +109,7 @@
                     ?>
                 </form>
             </div>
+            <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander et vos points restants seront perdu</p>
         </div>
     </div>
 </div>
