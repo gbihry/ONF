@@ -20,7 +20,7 @@
         );
 
         if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPINonOuvrier');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut["id"], 'EPINonOuvrier');
         }else{
             $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPI');
         }
@@ -64,7 +64,7 @@
         $idCateg = $_GET["id"];
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
-            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPINonOuvrier');
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut["idMetier"], 'EPINonOuvrier');
         }else{
             $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unIdStatut, 'EPI');
         }
