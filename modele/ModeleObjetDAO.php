@@ -960,7 +960,7 @@
                 JOIN disponible on disponible.idProduit = produit.id
                 WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType and produit.visible = 1
                 ORDER BY prix DESC");
-                $req->bindValue(':idStatut',$idStatut['idMetier'],PDO::PARAM_INT);
+                $req->bindValue(':idStatut',$idStatut['id'],PDO::PARAM_INT);
                 $req->bindValue(':leType',$type,PDO::PARAM_STR);
             }
             
@@ -1010,12 +1010,23 @@
                     FROM categorie
                     JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
                     WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
                     break;
                 case 'EPINonOuvrier':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
-                    FROM categorie
-                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'EPINonOuvrier'");
+                    $roleUser = self::getRole($_SESSION['login'])['libelle'];
+                    if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE categorie.typeEPI = 'EPINonOuvrier'");
+                    }else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'EPINonOuvrier'");
+                        $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    }
+                    
                     break;
 
                 default:
@@ -1023,10 +1034,11 @@
                     FROM categorie
                     JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
                     WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'VET'");
+                    $req->bindValue(':id',$id,PDO::PARAM_INT);
                     break;
                     break;
             }
-            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            
             $req->execute();
             $res = $req->fetchall();
             return $res;

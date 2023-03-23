@@ -13,8 +13,9 @@
         );
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
+        $idMetierUser = ModeleObjetDAO::getMetierUtilisateur($login['login'])['idMetier'];
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet, 'EPINonOuvrier');
+        $catalogue = ModeleObjetDAO::getCatalogue($idMetierUser, $login["login"], $verifVet, 'EPINonOuvrier');
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
         
         
@@ -56,6 +57,7 @@
         );
         $id = $array;
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPINonOuvrier', NULL);
+        
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
             date_default_timezone_set('Europe/Paris');

@@ -45,7 +45,6 @@
 
                     <?php }elseif(ModeleObjetDAO::getUtilisateurCommandeTerminer($unSubordonne['id'], 'EPI') == 0 && $unSubordonne['idMetier'] == 5 || $unSubordonne['idMetier'] == 6 || $unSubordonne['idMetier'] == 7 || $unSubordonne['idMetier'] == 8){ ?>
                         <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=catalogueEpiNonOuvrier&&id= <?php echo $unSubordonne['id']?>';">acceder</button></td>
-                    
                 <?php } ?>
                         <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierEPISubordonne&&id= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>
                         <td><button type='submit' name='submit' class='btn btn-success mt-2' onclick="window.location.href = './?action=panierVETSubordonne&&id= <?php echo $unSubordonne['id'] ?>';">acceder</button></td>

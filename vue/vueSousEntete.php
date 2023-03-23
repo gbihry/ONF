@@ -12,13 +12,13 @@
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
-            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Ajouter Utilisateurs</a>
         </div>
         <div class="linenav_item" data-navname="ajoutPoint">
-            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Add Point</a>
+            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Ajouter Points</a>
         </div>
         <div class="linenav_item" data-navname="ajoutProduit">
-            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
+            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Ajouter Produit</a>
         </div>
         <div class="linenav_item" data-navname="log">
             <a href="./?action=log&&ref=0"><i class="fa-solid fa-book"></i> log</a>
@@ -42,16 +42,16 @@
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
-            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Ajouter Utilisateurs</a>
         </div>
         <div class="linenav_item" data-navname="ajoutPoint">
-            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Add Point</a>
+            <a href="./?action=ajoutPoint"><i class='fa-solid fa-ticket'></i> Ajouter Points</a>
         </div>
         <div class="linenav_item" data-navname="ajoutProduit">
-            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Add Product</a>
+            <a href="./?action=ajoutProduit"><i class="fa-solid fa-shirt"></i> Ajouter Produit</a>
         </div>
         <div class="linenav_item" data-navname="exportCSV">
-            <a href="./?action=exportCSV&&ref=0"><i class="fa-solid fa-file-csv"></i> Export CSV</a>
+            <a href="./?action=exportCSV&&ref=0"><i class="fa-solid fa-file-csv"></i> Exporter un CSV</a>
         </div>
 
     <?php
@@ -71,7 +71,7 @@
             <a href="./?action=commanderPour"><i class="fa-solid fa-person-circle-plus"></i> Commande Subordonnée</a>
         </div>
         <div class="linenav_item" data-navname="ajoutUtilisateur">
-            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Add User</a>
+            <a href="./?action=ajoutUtilisateur"><i class="fa-solid fa-user-plus"></i> Ajouter Utilisateurs</a>
         </div>
         <div class="linenav_item"   data-navname="stat">
         <a href="./?action=aCommander"><i class="fa-solid fa-chart-simple"></i> Commandes </a>

@@ -15,6 +15,7 @@
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
+        
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet, 'EPI');
         $allProducts  = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
         
@@ -52,7 +53,14 @@
             "login" => $leLogin,
         );
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
-        $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $_SESSION['login'], $verifVet, 'EPI');
+        if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+            $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');
+            $catalogueNonOuvrier = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPINonOuvrier');
+
+            $catalogue = array_merge($catalogue, $catalogueNonOuvrier);
+        }else{
+            $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');
+        }
         $array = array(
             "id" => "0",
         );

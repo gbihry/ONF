@@ -11,11 +11,16 @@
         
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPI');
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $array = array(
             "id" => $_GET["ref"],
         );
+
+        if (isset($_GET['type']) && $_GET['type'] == 'EPINonOuvrier'){
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPINonOuvrier');
+        }else{
+            $unProduit = ModeleObjetDAO::getProduit($_GET["id"],$unStatut, 'EPI');
+        }
         $idUtilisateur = $array;
 
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){

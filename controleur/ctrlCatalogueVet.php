@@ -17,7 +17,7 @@
         $id = $array;
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
-        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet);
+        $catalogue = ModeleObjetDAO::getCatalogue($_GET["id"], $login["login"], $verifVet, "VET");
         
         if(isset($_POST["trie"])){
             $_SESSION["choix"] = $_POST["trie"];
