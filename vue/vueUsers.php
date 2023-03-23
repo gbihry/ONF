@@ -12,10 +12,19 @@ if(isset($reload) && $reload == true) {
 
 ?>
 <div class="container-fluid text-center">
-    <h1 class="utilisateurs mt-3">Utilisateurs</h1>
-    <div class='btnHelp'>
-        <a href="comment_utiliser_utilisateurs.docx" download>Aide</a>
-    </div>
+    <?php 
+        if ($roleUser == 'Responsable'){
+            echo ('<h1 class="utilisateurs mt-3">Équipe</h1>');
+        }else{
+            echo (' <h1 class="utilisateurs mt-3">Utilisateurs</h1>');
+            echo ('
+                <div class="btnHelp">
+                    <a href="docs_utilisation/comment_utiliser_utilisateurs.docx" download>Aide</a>
+                </div>
+            ');
+        }
+    ?>
+    
     <?php 
         if(isset($msg) && $msg != null) {
             echo '<div class="row">';
@@ -34,7 +43,7 @@ if(isset($reload) && $reload == true) {
                     <th>Lieu de livraison</th>
                     <th>Responsable</th>
                     <?php 
-                        if($role != 'Responsable'){
+                        if($roleUser != 'Responsable'){
                             echo('<th>Changer mdp</th>');
                             echo('<th>Modifier</th>');
                             echo('<th>Supprimer</th>');

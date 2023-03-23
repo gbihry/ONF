@@ -12,7 +12,7 @@ if(isset($reload) && $reload == true) {
     
         <div class="addUser_container">
             <?php 
-                if (isset($verifFile) && $verifFile == true ){
+                if (isset($verifFile) && $verifFile == true){
                     echo ('<div class="alert alert-success" role="alert">Votre fichier à bien été traité</div>');
                 }elseif (isset($verifFile) && $verifFile != true){
                     echo ('<div class="alert alert-danger"> L\' extension de votre fichier n\'est pas un .csv </div>');
@@ -50,7 +50,7 @@ if(isset($reload) && $reload == true) {
                 </div>
             </form>
             <form  method="post">
-                <?php if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] != 'Responsable'){ ?>
+                <?php if($roleUser != 'Responsable'){ ?>
                     <div class="radio_adduser">
                         <div class="form-check">
                             <input class="form-check-input" id="responsable" onClick="addResponsable()" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -109,11 +109,11 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
                     <select name="responsable" id="selectResponsable" class="custom-select" id="inputGroupSelect01">
-                        <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
                     <?php 
-                        if(ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Responsable'){
+                        if($roleUser == 'Responsable'){
                             echo ("<option value=" . $id ."> ". $nom. "</option>");
                         }else{
+                            echo ('<option class="text-center" value="selectionner">--------------Séléctionner--------------</option>');
                             foreach($lesResponsables as $unResponsable){
                                 echo ("<option value=" . ($unResponsable['id']).">" . ($unResponsable['nom']). "</option>"); 
                             } 
@@ -140,7 +140,11 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Role :</span>
                     </div>
                     <select name="role" id="selectRole" class="custom-select" id="inputGroupSelect01">
-                        <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                        <?php 
+                            if ($roleUser != 'Responsable'){
+                                echo ('<option class="text-center" value="selectionner">--------------Séléctionner--------------</option>');
+                            }
+                        ?>
                     <?php 
                         foreach($lesLibelles as $unLibelle){
                             echo ("<option value=" . ($unLibelle['id']).">" . ($unLibelle['libelle']). "</option>");

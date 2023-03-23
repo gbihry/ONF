@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 21 mars 2023 à 13:37
+-- Généré le : mer. 22 mars 2023 à 08:42
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `libelle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -61,13 +61,13 @@ DROP TABLE IF EXISTS `commandeepi`;
 CREATE TABLE IF NOT EXISTS `commandeepi` (
   `id` int NOT NULL AUTO_INCREMENT,
   `dateCrea` datetime DEFAULT NULL,
-  `statut` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `statut` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idUtilisateur` int NOT NULL,
   `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `commandevet`;
 CREATE TABLE IF NOT EXISTS `commandevet` (
   `id` int NOT NULL AUTO_INCREMENT,
   `dateCrea` datetime DEFAULT NULL,
-  `statut` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `statut` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idUtilisateur` int NOT NULL,
   `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
 DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `Message` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `Message` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -428,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `disponible` (
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=602 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=611 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `disponible`
@@ -1020,7 +1020,16 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (598, 207, 5, 0, NULL),
 (599, 207, 6, 0, NULL),
 (600, 207, 7, 0, NULL),
-(601, 208, 49, 0, NULL);
+(601, 208, 49, 0, NULL),
+(602, 209, 1, 0, NULL),
+(603, 209, 2, 0, NULL),
+(604, 209, 3, 0, NULL),
+(605, 209, 4, 0, NULL),
+(606, 209, 5, 0, NULL),
+(607, 209, 6, 0, NULL),
+(608, 209, 7, 0, NULL),
+(609, 209, 8, 0, NULL),
+(610, 209, 67, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1031,9 +1040,9 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 DROP TABLE IF EXISTS `employeur`;
 CREATE TABLE IF NOT EXISTS `employeur` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `prenom` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `roleEmployeur` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prenom` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `roleEmployeur` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1058,17 +1067,17 @@ INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
 DROP TABLE IF EXISTS `fournisseur`;
 CREATE TABLE IF NOT EXISTS `fournisseur` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `codeFournissuer` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numSAP` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numMarche` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `siren` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `numero` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rue` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codeFournissuer` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `numSAP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `numMarche` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `siren` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `numero` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `rue` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codePostal` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ville` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tel` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1097,12 +1106,12 @@ INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`
 DROP TABLE IF EXISTS `lieulivraion`;
 CREATE TABLE IF NOT EXISTS `lieulivraion` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `codePostal` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ville` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `telephone` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `mail` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `Siege` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `codePostal` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ville` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telephone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Siege` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1131,7 +1140,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1144,7 +1153,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `idCommandeVet` int NOT NULL,
   `idProduit` int NOT NULL,
-  `quantite` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `quantite` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idTaille` int NOT NULL,
   PRIMARY KEY (`Id`,`idCommandeVet`),
   KEY `idProduit` (`idProduit`),
@@ -1162,11 +1171,11 @@ DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
-  `description` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idUtilisateur` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=786 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=790 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `log`
@@ -1180,7 +1189,11 @@ INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
 (782, '2023-03-21 14:28:54', 'Déconnexion de SuperJohn@super.John', 20),
 (783, '2023-03-21 14:28:58', 'Connexion de AdminJohnDoe@gmail.doe', 2),
 (784, '2023-03-21 14:33:02', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(785, '2023-03-21 14:35:00', 'Connexion de John.doe@gmail.doe', 1);
+(785, '2023-03-21 14:35:00', 'Connexion de John.doe@gmail.doe', 1),
+(786, '2023-03-22 09:41:49', 'Ajout de 1 produit(s) T-shirt COFOR rouge  au panier par John.doe@gmail.doe', 1),
+(787, '2023-03-22 09:42:00', 'Suppression de l\'article T-shirt COFOR rouge  par John.doe@gmail.doe', 1),
+(788, '2023-03-22 09:42:10', 'Ajout de 1 produit(s) T-shirt ONF rouge  au panier par John.doe@gmail.doe', 1),
+(789, '2023-03-22 09:42:15', 'Suppression de l\'article T-shirt ONF rouge  par John.doe@gmail.doe', 1);
 
 -- --------------------------------------------------------
 
@@ -1191,7 +1204,7 @@ INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
 DROP TABLE IF EXISTS `metier`;
 CREATE TABLE IF NOT EXISTS `metier` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `statut` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `statut` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1255,18 +1268,18 @@ INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 DROP TABLE IF EXISTS `produit`;
 CREATE TABLE IF NOT EXISTS `produit` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `referenceFournisseur` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fichierPhoto` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `description` varchar(700) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `referenceFournisseur` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fichierPhoto` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(700) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idFournisseur` int NOT NULL,
   `idType` int NOT NULL,
   `Visible` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
-) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `produit`
@@ -1299,7 +1312,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (29, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J / Combinaison jetable', 'EPI', 'Combinaison intégrale avec fermeture à\nglissière, passe-pouce et capuche intégrée.\nUtilisable en milieu infesté par la chenille\nprocessionnaire.', 6, 19, 1),
 (30, 'Fiprotec', 'TYVEK500.png', 'TYVEK 500 / Cagoule jetable', 'EPI', 'Cagoule à usage unique couvrant les épaules\net la tête.\nUtilisable en milieu infesté par la chenille\nprocessionnaire.', 6, 19, 1),
 (31, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX 6401 / Réduction de bruit', 'EPI', 'Bouchon d’oreille réutilisable\nRéduction de bruit : 30dB', 9, 16, 1),
-(33, 'E.P.I SUD ', 'T-shirt.png', 'T-shirt rouge ', 'EPI', 'Grammage : 185 g/m²\nExiste en version col en V\nAvec ou sans marquage ONF ou COFOR', 9, 20, 1),
+(33, 'E.P.I SUD ', 'T-shirtOnf.png', 'T-shirt ONF rouge ', 'EPI', 'Grammage : 185 g/m²\nExiste en version col en V\nAvec marquage ONF', 9, 20, 1),
 (34, 'E.P.I SUD', 'Advantage.png', 'MSA Advantage 200 LS / Masque à cartouche ', 'EPI', 'Possibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 13, 1),
 (35, 'Fiprotec', 'CHATARD.png', 'CHATARD ILONA 4 / Veste hiver', 'EPI', 'Veste hiver format « bombers » avec\ncapuche intégré.\nCouleur : orange', 6, 4, 1),
 (36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\nCouleur : orange\nUniquement pour conducteurs d’engins et\nlogisticiens.', 6, 4, 1),
@@ -1381,7 +1394,8 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (198, 'E.P.I SUD ', 'MOLDEX6401.png', 'MOLDEX réf 6401 / Réduction du bruit', 'EPINonOuvrier', 'Bouchon d’oreille réutilisable\nRéduction de bruit : 30dB', 9, 18, 1),
 (200, 'E.P.I SUD ', '200LS.png', 'MSA Advantage 200 LS / Masque à cartouche', 'EPINonOuvrier', 'Taille unique avec réglage par élastique.\nPossibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 18, 1),
 (207, 'Zimmer', '1SSV.png', 'SIP 1SSV / Pantalon de travail', 'EPI', 'Pas de protection anti-coupure\r\nPantalon léger et résistant idéal pour travauxsans machine.\r\nTaille élastiquée.\r\n\r\nUtilisable en milieu infesté par la chenille processionnaire.', 3, 2, 1),
-(208, 'E.P.I SUD', 'chat-illustre-1c4a8b-0@1x.jpg', 'Cartouche MSA Advantage 200 LS ', 'EPI', 'Cartouche pour masque MSA Advantage 200 LS ', 9, 13, 1);
+(208, 'E.P.I SUD', 'chat-illustre-1c4a8b-0@1x.jpg', 'Cartouche MSA Advantage 200 LS ', 'EPI', 'Cartouche pour masque MSA Advantage 200 LS ', 9, 13, 1),
+(209, 'E.P.I SUD', 'T-shirtCofor.png', 'T-shirt COFOR rouge ', 'EPI', 'Grammage : 185 g/m²\r\nExiste en version col en V\r\nAvec marquage COFOR', 9, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -1392,8 +1406,8 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `commentaire` varchar(70) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `commentaire` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1416,7 +1430,7 @@ INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE IF NOT EXISTS `taille` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1526,7 +1540,7 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE IF NOT EXISTS `type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `libelle` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idCategorie` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategorie` (`idCategorie`)
@@ -1567,17 +1581,17 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `Login` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `password` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `prenom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tel` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Login` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tel` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `idLieuLivraison` int NOT NULL,
   `id_responsable` int DEFAULT NULL,
   `idRole` int NOT NULL,
   `idMetier` int NOT NULL,
-  `Agence` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `Agence` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `IdEmployeur` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idLieuLivraison` (`idLieuLivraison`),

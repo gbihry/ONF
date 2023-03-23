@@ -614,29 +614,17 @@
             $roleUser = self::getRole($_SESSION['login'])['libelle'];
             switch($type){
                 case 'EPI':
-                    if($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
-                        $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
-                        from produit
-                        join type on type.id = produit.idType
-                        JOIN categorie on categorie.id = type.idCategorie
-                        JOIN concerne on type.id = concerne.idType
-                        JOIN disponible on disponible.idProduit = produit.id
-                        JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                        WHERE type = :leType AND concerne.idStatut = :idMetier");
-                    }else{
-                        $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
-                        from produit
-                        join type on type.id = produit.idType
-                        JOIN categorie on categorie.id = type.idCategorie
-                        JOIN concerne on type.id = concerne.idType
-                        JOIN disponible on disponible.idProduit = produit.id
-                        JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                        WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1");
-                    }
-                    
-        
-                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req = Connexion::getInstance()->prepare(" SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN concerne on type.id = concerne.idType
+                    JOIN disponible on disponible.idProduit = produit.id
+                    JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+                    WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1");
+                        
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
+                    $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -698,9 +686,22 @@
                     join type on type.id = produit.idType
                     JOIN categorie on categorie.id = type.idCategorie
                     JOIN disponible on disponible.idProduit = produit.id
-                    WHERE type = :leType GROUP BY produit.nom");
+                    WHERE type = :leType and produit.visible = 1 GROUP BY produit.nom");
         
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
+                    $req->execute();
+                    $res = $req->fetchAll();
+                    break;
+                case 'EPIAdmin':
+
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description ,nom,fichierPhoto, produit.idType
+                    from produit
+                    join type on type.id = produit.idType
+                    JOIN categorie on categorie.id = type.idCategorie
+                    JOIN concerne on type.id = concerne.idType
+                    JOIN disponible on disponible.idProduit = produit.id
+                    JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
+                    WHERE produit.type = 'EPI' OR produit.type = 'EPINonOuvrier'");
                     $req->execute();
                     $res = $req->fetchAll();
                     break;
@@ -959,7 +960,7 @@
                 JOIN disponible on disponible.idProduit = produit.id
                 WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType and produit.visible = 1
                 ORDER BY prix DESC");
-                $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
+                $req->bindValue(':idStatut',$idStatut['idMetier'],PDO::PARAM_INT);
                 $req->bindValue(':leType',$type,PDO::PARAM_STR);
             }
             
@@ -992,23 +993,37 @@
             return $res;
         }
 
-        public static function getCatalogue($id, $login, $verifVet){
-            if ((ModeleObjetDAO::getRole($login)['libelle'] == 'Gestionnaire de commande') || ($verifVet == true)){
-                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
-                FROM categorie");
-                $req->execute();
-                $res = $req->fetchall();
-                return $res;
-            }else{
-                $req = Connexion::getInstance()->prepare("SELECT categorie.id,categorie.libelle
-                FROM categorie
-                JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-                WHERE concerne_categorie_metier.idMetier = :id");
-                $req->bindValue(':id',$id,PDO::PARAM_INT);
-                $req->execute();
-                $res = $req->fetchall();
-                return $res;
+        public static function getNomCategorie($idCateg){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            FROM categorie
+            WHERE id = :idCateg");
+            $req->bindValue(':idCateg',$idCateg,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
+        }
+
+
+        public static function getCatalogue($id, $login, $verifVet, $type){
+            switch($type){
+                case 'EPI':
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                    FROM categorie
+                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
+                    break;
+                case 'EPINonOuvrier':
+                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                    FROM categorie
+                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'EPINonOuvrier'");
+                    break;
             }
+            $req->bindValue(':id',$id,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
+        }
             
             /*
             Table neccessaire pour les page catalogue :
@@ -1028,7 +1043,7 @@
                 JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
                 WHERE concerne_categorie_metier.idMetier = :id
             */
-        }
+        
 
         public static function getIdTailleByNomTaille($nom){
             $req = Connexion::getInstance()->prepare("select id from taille where libelle = :libelle");
@@ -1046,7 +1061,12 @@
         }
 
         public static function getTaille($id){
-            $req = Connexion::getInstance()->prepare("select libelle, taille.id from taille join disponible on disponible.idTaille = taille.id join produit on produit.id = disponible.idProduit where produit.id = :id");
+            $req = Connexion::getInstance()->prepare("SELECT libelle, taille.id 
+            from taille 
+            join disponible on disponible.idTaille = taille.id 
+            join produit on produit.id = disponible.idProduit 
+            where produit.id = :id
+            ORDER BY taille.id ASC");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
@@ -2132,7 +2152,6 @@
                     
                 }
             }
-           
             
             if(empty($Commande)){
                 $value = "Pas de commande";
@@ -2159,8 +2178,6 @@
             foreach($Commande as $ligne) {
                 $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
             }
-
-           
 
             $fp = fopen($filename, 'w');
             fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF)); //Cherche un caractère par rapport à un octet, transforme les charactère en UTF 8 (changement d'encodage ascii)

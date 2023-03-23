@@ -36,8 +36,13 @@
                         echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueVet&&id=0\'" class="btn btn-success m-3" value="Catalogue VET"/> ');
                     }
                     if($verifCommandeEPI == 0){
-                        echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpi&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');
+                        if ($metier == 1 || $metier == 2 ||$metier == 3|| $metier == 4){
+                            echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpi&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');
+                        }else{
+                            echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueEpiNonOuvrier&&id=0\'" class="btn btn-success m-3" value="Catalogue EPI"/> ');
+                        }
                     }
+                    
                     ?>
                         
                     

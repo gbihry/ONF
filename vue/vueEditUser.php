@@ -60,7 +60,7 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Lieu de livraion :</span>
                     </div>
                     <?php
-                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                        if ($dateCreaFiniEPI != null){
                             echo '<select name="livraison" class="custom-select input-select" id="inputGroupSelect01">';
                         }else{
                             echo '<select name="livraison" class="custom-select" id="inputGroupSelect01">';
@@ -99,7 +99,7 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Responsable :</span>
                     </div>
                     <?php
-                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                        if ($dateCreaFiniEPI != null){
                             echo '<select name="responsable" id="selectResponsable" class="custom-select input-select" id="inputGroupSelect01">';
                         }else{
                             echo '<select name="responsable" class="custom-select" id="inputGroupSelect01">';
@@ -156,7 +156,7 @@ if(isset($reload) && $reload == true) {
                         <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                     </div>
                     <?php 
-                        if ($dateCreaFiniEPI != null && $dateCreaFiniVET != null){
+                        if ($dateCreaFiniEPI != null){
                             echo '<select name="agence" class="custom-select input-select" id="inputGroupSelect01">';
                         }else{
                             echo '<select name="agence" class="custom-select" id="inputGroupSelect01">';

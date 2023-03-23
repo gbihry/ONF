@@ -11,7 +11,6 @@
 
     $AllUser = ModeleObjetDAO::getAllInfoUtilisateur($_GET['id']);
     $dateCreaFiniEPI = ModeleObjetDAO::getDateCommandeFiniEpi($_GET['id']);
-    $dateCreaFiniVET = ModeleObjetDAO::getDateCommandeFiniVet($_GET['id']);
 
     include_once "$racine/vue/vuePied.php";
         $role_user = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];

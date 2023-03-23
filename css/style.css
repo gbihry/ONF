@@ -1,8 +1,8 @@
 
 .input-select{
     pointer-events: none;
-    background-color: var(--table-tertiary-background-color) !important;
-    color: var(--extra-color) !important;
+    background-color: var(--block-input) !important;
+    color: var(--block-input-color) !important;
 }
 
 button{
@@ -194,9 +194,8 @@ body{
 /* CATALOGUE 1 */
 
 .catalogue{
-    width: 100%;
-    margin: auto auto;
-    height: 80vh;
+    width: 95%;
+    margin: 50px auto;
 }
 
 .catalogue .contenue {

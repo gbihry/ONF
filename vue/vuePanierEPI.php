@@ -20,6 +20,7 @@
             $unStatut = ModeleObjetDAO::getStatut($_SESSION['login'])['statut'];
             $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut,$ligneCommandeUnique['idType']);
             $maxQuantite = ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$ligneCommandeUnique['idType'])['sum(quantite)'];
+            $maxType = ModeleObjetDAO::getQuantiteEpi($_SESSION['login'],$ligneCommandeUnique['idType'])['sum(quantite)'];
             echo ("<div class='content'>
                     <div class='image'>
                     ");
@@ -35,10 +36,10 @@
                             <p> " . $nom . "</p>
                         </div>
                         <div class='quantite' data-idligne='" . $idLigne . "'>
-                            <p class='panier_title'>Quantite (max : " . $max . ")</p>
+                            <p class='panier_title'>Quantite (max : " . $max - ($maxType - $quantite) . ")</p>
                             ");
-                    if ($maxQuantite > $max){
-                        echo ("<div id='quantite' data-max='".$max."' data-ligne='". $idLigne ."' data-data='". $max . "'><span>" . $max . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
+                    if ($maxQuantite > ($max - $maxType)){
+                        echo ("<div id='quantite' data-max='".($max - ($maxType - $quantite))."' data-ligne='". $idLigne ."' data-data='".$quantite . "'><span>" .$quantite . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
                     }else{
                         echo ("<div id='quantite' data-max='".$max."' data-ligne='". $idLigne ."' data-data='". $quantite . "'><span>" . $quantite . "</span><div class='clear'></div><a class='edit_btn' onclick='edit(this,\"quantiteEPI\")' name='edit_btn'><i class='fa-solid fa-pencil'></i> Modifier</a></div>");
                     }
