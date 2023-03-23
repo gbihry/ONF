@@ -25,7 +25,7 @@ if(isset($reload) && $reload == true) {
                     echo "<img class='img-produit' src='images/error.png'>";
                 }
                 echo "<h1>".$detail['nom']."</h1>";
-                if($role['libelle'] == 'Gestionnaire de commande' || $role['libelle'] == 'Administrateur'){
+                if($role == 'Gestionnaire de commande' || $role == 'Administrateur'){
                     echo ('<a class="btn btn-primary" href="./?action=editProduit&id='.$detail['id'].'"><i class="fa-solid fa-pencil"></i> Modifier</a>');
                 }
                 echo "</div>";
@@ -39,7 +39,6 @@ if(isset($reload) && $reload == true) {
             ($unStatut['id'] == 2 && $detail['id'] == 6) || 
             ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
             ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
-              
                 
             
             }else{

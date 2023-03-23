@@ -960,7 +960,7 @@
                 JOIN disponible on disponible.idProduit = produit.id
                 WHERE categorie.id = :id and concerne.idStatut = :idStatut and produit.type = :leType and produit.visible = 1
                 ORDER BY prix DESC");
-                $req->bindValue(':idStatut',$idStatut['id'],PDO::PARAM_INT);
+                $req->bindValue(':idStatut',$idStatut,PDO::PARAM_INT);
                 $req->bindValue(':leType',$type,PDO::PARAM_STR);
             }
             
