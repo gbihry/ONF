@@ -3,7 +3,7 @@
     include_once "$racine/vue/vueEntete.php";
 
 
-    if(isset($_SESSION['autorise']) && ModeleObjetDAO::getRole($_SESSION['login'])['libelle'] == 'Gestionnaire de commande'){
+    if(isset($_SESSION['autorise']) && $roleUser == 'Gestionnaire de commande'){
         $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
         $agence = ModeleObjetDAO::getIdAgence($id)['Agence'];
         $i = $_GET["ref"];

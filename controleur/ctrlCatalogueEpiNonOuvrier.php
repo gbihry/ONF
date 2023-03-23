@@ -27,6 +27,14 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
+
                 $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['submit'])['nom'];
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
@@ -64,6 +72,15 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+
+                $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
+                $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
+                $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
+
+                if ($quantite > $max){
+                    $quantite = $max;
+                }
+                
                 $nomProduit = ModeleObjetDAO::getProduitPanier($_POST['submit'])['nom'];
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];

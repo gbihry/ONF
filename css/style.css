@@ -517,6 +517,10 @@ body{
     color: var(--primary-color);
 }
 
+.row {
+    margin: 0px !important;
+}
+
 .recap .tile .row {
     display: flex;
     flex-direction: row;

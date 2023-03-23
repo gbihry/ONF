@@ -99,7 +99,20 @@
                     }
                     ?>
                     >Valider</button>
-                    <a class="btn btn-danger" href="./?action=panier">Annuler</a>
+                    <?php 
+                    switch($_GET['type']){
+                        case 'vet':
+                            echo ('<a class="btn btn-danger" href="./?action=panierVET">Annuler</a>');
+                            break;
+                        case 'epi':
+                            echo ('<a class="btn btn-danger" href="./?action=panierEPI">Annuler</a>');
+                            break;
+                        default:
+                            echo ('<a class="btn btn-danger" href="./?action=panierEPINonOuvrier">Annuler</a>');
+                            break;
+                    }
+                    ?>
+                    
                 </form>
             </div>
             <p>Validation définitive, vous ne pourrez plus commander et vos points restants seront perdu</p>

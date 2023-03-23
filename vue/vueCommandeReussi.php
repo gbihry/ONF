@@ -2,7 +2,6 @@
     <br/>
     <h1>Commande Validée !</h1>
     <?php 
-        $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
         echo ('<p data-data="'.$roleUser.'" id="roleVerif" class="text-muted">Vous allez être redirigé vers la page d\'accueil dans <span id="timer">3</span> sec</p>');
     ?>
     
