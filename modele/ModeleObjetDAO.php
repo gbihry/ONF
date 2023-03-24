@@ -1106,6 +1106,14 @@
             return $res['id'];
         }
 
+        public static function getNomTailleByIdTaille($id){
+            $req = Connexion::getInstance()->prepare("select libelle from taille where id = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
+        }
+
         public static function getAllTailles(){
             $req = Connexion::getInstance()->prepare("select libelle, id from taille ORDER BY libelle ASC");
             $req->execute();
