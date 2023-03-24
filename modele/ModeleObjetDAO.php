@@ -1708,6 +1708,16 @@
             return $res['nb'];
         }
 
+        public static function getAgenceById($idUtilisateur){
+            $req =  Connexion::getInstance()->prepare("SELECT Agence
+            FROM Utilisateur
+            WHERE id = :idUtilisateur");
+            $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['Agence'];
+        }
+
         public static function getAgence(){
             $req =  Connexion::getInstance()->prepare("select DISTINCT agence from utilisateur");
             $req->execute();
