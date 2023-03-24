@@ -32,7 +32,7 @@
                 ?>
                 <div>
                     <?php 
-                    if (($verifCommandeVET == 0) && ($metier == 1 || $metier == 2 ||$metier == 3|| $metier == 4 || $metier == 9)){
+                    if (($verifCommandeVET == 0) && ($metier == 1 || $metier == 2 ||$metier == 3|| $metier == 4 )){
                         echo ('<input type="button" onclick="window.location.href =\'./?action=catalogueVet&&id=0\'" class="btn btn-success m-3" value="Catalogue VET"/> ');
                     }
                     if($verifCommandeEPI == 0){
