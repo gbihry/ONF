@@ -77,6 +77,7 @@
             }
             if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
+                    $verifChamps = false;
                     return false;
                 }else{
                     if ($_POST['role'] == '2'){

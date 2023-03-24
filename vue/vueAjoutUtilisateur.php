@@ -36,6 +36,10 @@ if(isset($reload) && $reload == true) {
                 }elseif(isset($verifUser) && $verifUser != false){
                     echo ('<div class="alert alert-success" role="alert">L\'utilisateur à bien été ajouté</div>');
                 }
+
+                if (isset($verifChamps) && $verifChamps != true){
+                    echo ('<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs</div>');
+                }
                 
             ?>
             <form enctype="multipart/form-data" method="post">

@@ -43,10 +43,28 @@
                         } else {
                             $prix = $_POST['prix'];
                         }
-                        ModeleObjetDAO::insertProduit($_POST['reference'],$namePhoto,$_POST['nom'],$_POST['type'],$_POST['description'],$_POST['fournisseur'],$_POST['typeProduit'],$prix,$AllTailles);
-                        move_uploaded_file($tmpName, './images/produits/'.$namePhoto);
-                        $reload = true;
-                        $verifFile = true;
+
+                        $lesTypeValides = ModeleObjetDAO::getTypeByTypeProduit($_POST['type']);
+
+                        
+                        $verifType = false;
+                        $typeProduit = ModeleObjetDAO::getTypeById($_POST['typeProduit']);
+                        foreach ($lesTypeValides as $key => $value){
+                            if ($value['libelle'] == $typeProduit){
+                                $verifType = true;
+                                
+                            }
+                        }
+                        if ($verifType != false){
+                            ModeleObjetDAO::insertProduit($_POST['reference'],$namePhoto,$_POST['nom'],$_POST['type'],$_POST['description'],$_POST['fournisseur'],$_POST['typeProduit'],$prix,$AllTailles);
+                            move_uploaded_file($tmpName, './images/produits/'.$namePhoto);
+                            $reload = true;
+                            $verifFile = true;
+                        }else{
+                            $type = $_POST['type'];
+                            $reload = true;
+                        }
+                        
                     }
                     
                 }

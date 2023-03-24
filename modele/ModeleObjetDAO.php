@@ -441,6 +441,27 @@
             return $res;
         }
 
+        public static function getLigneCommandeByIdProduit($idProduit){
+            $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id
+            FROM lignecommandeepi
+            WHERE idProduit = :idProduit");
+
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            if ($res == false){
+                $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id
+                FROM lignecommandevet
+                WHERE idProduit = :idProduit");
+
+                $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetch();
+            }
+
+            return $res;
+        }
+
         public static function getLigneCommandeEpiUtilisateur($id){
             $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id, lignecommandeepi.idProduit, produit.fichierPhoto, produit.idType, produit.type, produit.nom, lignecommandeepi.quantite, taille.libelle FROM lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
@@ -1107,6 +1128,27 @@
             $req->execute();
             $res = $req->fetch();
             return $res;
+        }
+
+        public static function getTypeByTypeProduit($type){
+            $req = Connexion::getInstance()->prepare("SELECT type.libelle
+            FROM type
+            JOIN categorie ON categorie.id = type.idCategorie
+            WHERE categorie.typeEPI = :type");
+            $req->bindValue(':type',$type,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
+        public static function getTypeById($idType){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            FROM type
+            WHERE id = :idType");
+            $req->bindValue(':idType',$idType,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
         }
 
         public static function getTypeByIdProduit($idProduit){

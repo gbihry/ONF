@@ -663,6 +663,7 @@ body{
 }
 
 .linenav .linenav_item a {
+    padding: 10px 0px;
     z-index: 2;
     text-decoration: none;
     color: var(--text-color) !important;
@@ -752,6 +753,7 @@ body{
 }
 
 .nav > .nav_title > .nav_title_item.custombtn > a {
+    padding: 10px 0px;
     z-index: 2;
     text-decoration: none;
     color: var(--text-color) !important;
@@ -826,6 +828,7 @@ body{
 
 
 .nav > .nav_links > .nav_links_item > a {
+    padding: 10px 0px;
     z-index: 2;
     display: flex;
     justify-content: center;
