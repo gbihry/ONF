@@ -178,13 +178,20 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                     </div>
-                    <select name="agence" class="custom-select" id="inputGroupSelect01">
-                    <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                    
                     <?php 
-                        foreach($lesAgences as $uneAgence){
-                            echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
-                        } 
-                        
+                        if($roleUser == 'Gestionnaire de commande'){ 
+                            echo ('<select name="agence" class="custom-select input-select" id="inputGroupSelect01">');
+                            echo ('<option class="text-center" value='.$agence.'>'.$agence.'</option>');
+                        }else{
+                        ?>
+                        <select name="agence" class="custom-select" id="inputGroupSelect01">
+                        <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                        <?php 
+                            foreach($lesAgences as $uneAgence){
+                                echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                            } 
+                        }
                     ?>
                     </select>
                 </div>

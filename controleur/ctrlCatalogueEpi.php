@@ -63,7 +63,6 @@
         if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
             $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');
             $catalogueNonOuvrier = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPINonOuvrier');
-
             $catalogue = array_merge($catalogue, $catalogueNonOuvrier);
         }else{
             $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');

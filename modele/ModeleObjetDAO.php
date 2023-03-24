@@ -1031,16 +1031,24 @@
         }
         
         public static function getCatalogue($id, $login, $verifVet, $type){
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
-                    FROM categorie
-                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
-                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE categorie.typeEPI ='EPI'");
+                    }else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
+                        $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    }
+                    
                     break;
                 case 'EPINonOuvrier':
-                    $roleUser = self::getRole($_SESSION['login'])['libelle'];
                     if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
                         $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                         FROM categorie
@@ -1055,7 +1063,6 @@
                     }
                     
                     break;
-
                 default:
                     $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                     FROM categorie
