@@ -38,11 +38,12 @@
             if(ModeleObjetDAO::insertVETCommande($id, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
 
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
-                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
+                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." taille : " .$tailleDescription. " dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
 
@@ -81,12 +82,13 @@
             if(ModeleObjetDAO::insertVETCommande($idUtilisateur, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
                 
 
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
-                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." au panier par ".$_SESSION['login'];
+                $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." taille : " .$tailleDescription. " au panier par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$id["id"]);
 

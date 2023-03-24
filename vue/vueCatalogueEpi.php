@@ -22,8 +22,8 @@ if(isset($reload) && $reload == true) {
     <div class="form-check text-center">
         <form action="./?action=catalogueEpi&&id=<?php echo $id["id"];?>" method ="POST">
             <?php
-            
                 if (isset($_POST['valideProduit']) != true){
+                    
             ?>
                 <div>
                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
@@ -91,7 +91,9 @@ if(isset($reload) && $reload == true) {
                                 $lesTailles = ModeleObjetDAO::getTaille($detail['id']);
                                 foreach ($lesTailles as $uneTaille){
                                     echo ("<option value=" . $uneTaille['id'] .">" . $uneTaille['libelle'] . "</option>");
+                                        
                                 }
+                                
                             ?>
                         </select>
                     </div>
