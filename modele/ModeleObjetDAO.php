@@ -441,6 +441,27 @@
             return $res;
         }
 
+        public static function getLigneCommandeByIdProduit($idProduit){
+            $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id
+            FROM lignecommandeepi
+            WHERE idProduit = :idProduit");
+
+            $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            if ($res == false){
+                $req = Connexion::getInstance()->prepare("SELECT lignecommandevet.id
+                FROM lignecommandevet
+                WHERE idProduit = :idProduit");
+
+                $req->bindValue(':idProduit',$idProduit,PDO::PARAM_INT);
+                $req->execute();
+                $res = $req->fetch();
+            }
+
+            return $res;
+        }
+
         public static function getLigneCommandeEpiUtilisateur($id){
             $req = Connexion::getInstance()->prepare("SELECT lignecommandeepi.id, lignecommandeepi.idProduit, produit.fichierPhoto, produit.idType, produit.type, produit.nom, lignecommandeepi.quantite, taille.libelle FROM lignecommandeepi
             JOIN produit on produit.id = lignecommandeepi.idProduit
@@ -1010,16 +1031,24 @@
         }
         
         public static function getCatalogue($id, $login, $verifVet, $type){
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
-                    FROM categorie
-                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
-                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE categorie.typeEPI ='EPI'");
+                    }else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
+                        $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    }
+                    
                     break;
                 case 'EPINonOuvrier':
-                    $roleUser = self::getRole($_SESSION['login'])['libelle'];
                     if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
                         $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                         FROM categorie
@@ -1034,7 +1063,6 @@
                     }
                     
                     break;
-
                 default:
                     $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                     FROM categorie
@@ -1078,6 +1106,14 @@
             return $res['id'];
         }
 
+        public static function getNomTailleByIdTaille($id){
+            $req = Connexion::getInstance()->prepare("select libelle from taille where id = :id");
+            $req->bindValue(':id',$id,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
+        }
+
         public static function getAllTailles(){
             $req = Connexion::getInstance()->prepare("select libelle, id from taille ORDER BY libelle ASC");
             $req->execute();
@@ -1107,6 +1143,27 @@
             $req->execute();
             $res = $req->fetch();
             return $res;
+        }
+
+        public static function getTypeByTypeProduit($type){
+            $req = Connexion::getInstance()->prepare("SELECT type.libelle
+            FROM type
+            JOIN categorie ON categorie.id = type.idCategorie
+            WHERE categorie.typeEPI = :type");
+            $req->bindValue(':type',$type,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchAll();
+            return $res;
+        }
+
+        public static function getTypeById($idType){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            FROM type
+            WHERE id = :idType");
+            $req->bindValue(':idType',$idType,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
         }
 
         public static function getTypeByIdProduit($idProduit){
@@ -1664,6 +1721,16 @@
             $req->execute();
             $res = $req->fetch();
             return $res['nb'];
+        }
+
+        public static function getAgenceById($idUtilisateur){
+            $req =  Connexion::getInstance()->prepare("SELECT Agence
+            FROM Utilisateur
+            WHERE id = :idUtilisateur");
+            $req->bindValue(':idUtilisateur', $idUtilisateur, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['Agence'];
         }
 
         public static function getAgence(){

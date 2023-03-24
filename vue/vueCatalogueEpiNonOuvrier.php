@@ -12,6 +12,30 @@ if(isset($reload) && $reload == true) {
     <div class="text-center">
         <p class="catalogue_title_type"> Catalogue EPI non ouvrier.</p>
     </div>
+    <div class="form-check text-center">
+        <form action="./?action=catalogueEpiNonOuvrier&&id=<?php echo $id["id"];?>" method ="POST">
+            <?php
+            
+                if (isset($_POST['valideProduit']) != true){
+            ?>
+                <div>
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
+                    <label class="form-check-label" for="validerProduit">Voir tous les produits</label>
+                </div>
+                <input type="submit" name="valideProduit" class="btn btn-success" value="Valider" />
+            <?php
+                }else{
+            ?>
+                <div>
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" name='validerCatgorie' required>
+                    <label class="form-check-label" for="validerCategorie">Voir toutes les catégories</label>
+                </div>
+                <input type="submit" name="valideCategorie" class="btn btn-success" value="Valider" />
+            <?php
+                }
+            ?>
+        </form>
+    </div>
     <div class="contenue">
     <?php if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
     ?>

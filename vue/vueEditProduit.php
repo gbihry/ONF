@@ -12,8 +12,12 @@ if(isset($reload) && $reload == true) {
     <h1>Modifier un produit</h1>
     <div class="alert-container">
         <?php 
-            if ($dateAuj > $dateFin){
-                echo "<div class='btnHelp'><a href='' class='red' id='supressproduct'>Supprimer le produit</a><a href='docs_utilisation/comment_utiliser_modifier_produit.docx' download>Aide</a></div>";
+            if ($dateAuj > $dateFin || (isset($verifLigneCommande) && $verifLigneCommande == false)){
+                echo "
+                <div class='btnHelp'>
+                    <a href='' class='red' id='supressproduct'>Supprimer le produit</a>
+                    <a href='docs_utilisation/comment_utiliser_modifier_produit.docx' download>Aide</a>
+                </div>";
             }else{
                 echo "<div class='btnHelp'><a href='docs_utilisation/comment_utiliser_modifier_produit.docx' download>Aide</a></div>";
             }

@@ -22,6 +22,9 @@
             $idRole = ModeleObjetDAO::getIDRole($_SESSION['login'])['idRole'];
             $roleInf = ModeleObjetDAO::GetRoleInf($idRole);
 
+            if ($roleUser == 'Gestionnaire de commande'){
+                $agence = ModeleObjetDAO::getAgenceById($id);
+            }
             if (isset($_POST["import"])) {
     
                 $fileName = $_FILES["file"]["tmp_name"];
@@ -41,6 +44,9 @@
                             $i++;
                             if ($roleUser == 'Responsable'){
                                 $row[7] = $_SESSION['login'];
+                            }
+                            if ($roleUser == 'Gestionnaire de commande'){
+                                $row[10] = $agence;
                             }
                             $verifRole = false;
                             foreach($roleInf as $unRole){
@@ -77,6 +83,7 @@
             }
             if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){
+                    $verifChamps = false;
                     return false;
                 }else{
                     if ($_POST['role'] == '2'){

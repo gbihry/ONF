@@ -17,8 +17,12 @@ if(isset($reload) && $reload == true) {
                 echo ('<div class="alert alert-danger"> Veuillez remplir tous les champs</div>');
             }elseif (isset($verifFile) && $verifFile != true){
                 echo ('<div class="alert alert-danger"> Votre photo n\'a pas l\'extension correspondante à .png ou .jpg</div>');
-            }elseif (isset($verifPhoto) && $verifPhoto != true){
+            }
+            if (isset($verifPhoto) && $verifPhoto != true){
                 echo ('<div class="alert alert-danger">La photo existe déjà veuillez choisir un autre nom de photo</div>');
+            }
+            if (isset($verifType) && $verifType != true){
+                echo ('<div class="alert alert-danger">Le type '. $type .' ne vas pas dans le type de produit '. $typeProduit .'</div>');
             }
         ?>
     </div>

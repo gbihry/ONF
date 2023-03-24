@@ -109,7 +109,14 @@
                     ?>
                 </form>
             </div>
-            <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander et vos points restants seront perdu</p>
+            <?php 
+                if ($_GET['type'] == 'vet'){
+                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander de vêtements et vos points restants seront perdu</p>');
+                }else{
+                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander d\'EPI</p>');
+                }
+            
+            ?>
         </div>
     </div>
 </div>

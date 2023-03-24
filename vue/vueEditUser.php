@@ -164,10 +164,10 @@ if(isset($reload) && $reload == true) {
                     ?>
                     <?php 
                         foreach($lesAgences as $uneAgence){
-                            if($uneAgence['agence'] == $AllUser['agence']) {
-                                echo ("<option selected value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                            if($uneAgence['agence'] == $AllUser['Agence']) {
+                                echo ("<option selected value=" . $uneAgence['agence'].">" . $uneAgence['agence']. "</option>");
                             } else {
-                                echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                                echo ("<option value=" . $uneAgence['agence'].">" . $uneAgence['agence']. "</option>");
                             }
                         } 
                         

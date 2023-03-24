@@ -6,10 +6,6 @@
     if (!isset($_GET['id']) || empty($_GET['id'])){
         header("location:./?action=accueil");
     }
-
-
-
-    
         $role_user = $roleUser;
         if(isset($_SESSION['autorise']) && 
         $role_user == 'Gestionnaire de commande' ||
@@ -22,6 +18,10 @@
             $lesTypeProduits = ['EPI', 'VET', 'EPINonOuvrier'];
             $lesTaillesProduit = ModeleObjetDAO::getAllTaillesProduit($_GET['id']);
             $infoProduct = ModeleObjetDAO::getAllInfoProduit($_GET['id']);
+
+
+            $verifLigneCommande = ModeleObjetDAO::getLigneCommandeByIdProduit($_GET['id']);
+
             if (isset($_POST) && !empty($_POST)){
                 if(isset($_POST['nom']) || !empty($_POST['nom'])) {
                     $AllTailles = array();
@@ -88,8 +88,7 @@
                     $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                     $description = "Modification du produit ".$_POST["nom"]." par ".$_SESSION['login'];
                     $date = date( "Y-m-d H:i:s");
-
-                ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
+                    ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
 
                     ModeleObjetDAO::updateProduit($_GET['id'], $_POST['nom'], $_POST['type'], $_POST['description'], $_POST['fournisseur'], $_POST['reference'], $_POST['typeProduit']);
 
@@ -120,6 +119,7 @@
                         }   
                     }
                 }
+
                 if(isset($_POST['supressimg']) && !empty($_POST['supressimg'])) {
                     $target_dir = "images/produits/";
                     $target_dir_old = "images/old_produits/";

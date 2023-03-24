@@ -36,6 +36,10 @@ if(isset($reload) && $reload == true) {
                 }elseif(isset($verifUser) && $verifUser != false){
                     echo ('<div class="alert alert-success" role="alert">L\'utilisateur à bien été ajouté</div>');
                 }
+
+                if (isset($verifChamps) && $verifChamps != true){
+                    echo ('<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs</div>');
+                }
                 
             ?>
             <form enctype="multipart/form-data" method="post">
@@ -174,13 +178,20 @@ if(isset($reload) && $reload == true) {
                     <div class="input-group-prepend">
                         <span class="input-group-text" for="inputGroupSelect01">Agence :</span>
                     </div>
-                    <select name="agence" class="custom-select" id="inputGroupSelect01">
-                    <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                    
                     <?php 
-                        foreach($lesAgences as $uneAgence){
-                            echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
-                        } 
-                        
+                        if($roleUser == 'Gestionnaire de commande'){ 
+                            echo ('<select name="agence" class="custom-select input-select" id="inputGroupSelect01">');
+                            echo ('<option class="text-center" value='.$agence.'>'.$agence.'</option>');
+                        }else{
+                        ?>
+                        <select name="agence" class="custom-select" id="inputGroupSelect01">
+                        <option class="text-center" value="selectionner">--------------Séléctionner--------------</option>
+                        <?php 
+                            foreach($lesAgences as $uneAgence){
+                                echo ("<option value=" . ($uneAgence)['agence'].">" . ($uneAgence)['agence']. "</option>");
+                            } 
+                        }
                     ?>
                     </select>
                 </div>
