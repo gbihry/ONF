@@ -4,3 +4,6 @@ exemple.csv
 login.txt
 onf.sql
 Connexion.php
+.vscode/
+.gitignore
+avancement_onf.ods

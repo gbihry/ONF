@@ -86,6 +86,7 @@
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
                 $idProduit = $_POST['submit'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
             
 
                 $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
