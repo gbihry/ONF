@@ -48,7 +48,7 @@
                 ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
 
                 ModeleObjetDAO::insertLigneCommandeVET($id, $idProduit, $quantite, $taille);
-
+                $reload = true;
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }

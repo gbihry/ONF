@@ -1120,6 +1120,16 @@
             return $res;
         }
 
+        public static function getTailleById($idTaille){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            from taille 
+            where id = :idTaille");
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
+        }
+
         public static function getTaille($id){
             $req = Connexion::getInstance()->prepare("SELECT libelle, taille.id 
             from taille 
