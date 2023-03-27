@@ -29,6 +29,7 @@
             if(ModeleObjetDAO::insertEPICommande($id, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
 
                 $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
@@ -86,6 +87,7 @@
             if(ModeleObjetDAO::insertEPICommande($idUtilisateur, $unStatut['statut']) != false) {
                 $quantite = $_POST['quantity'];
                 $taille = $_POST['taille'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
             
 
