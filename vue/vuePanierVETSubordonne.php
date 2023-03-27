@@ -1,3 +1,8 @@
+<?php
+    echo ('<a href="./?action=commanderPour" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    
+?>
+
 <div class="container-fluid text-center">
     <h1>Panier VET</h1>
     <div class="panier">

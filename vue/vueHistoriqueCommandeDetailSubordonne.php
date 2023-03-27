@@ -1,3 +1,9 @@
+<?php 
+    if (isset($_GET['ref']) && $_GET['ref'] != 0){
+        echo ('<a href="./?action=historiqueCommandeSubordonne&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }
+?>
+
 <div class="container-fluid text-center">
 <h1>Historique Commande : <span class="produitvet_prix"><?php echo($_GET['type'].'_'.$_GET['id']); ?></span></h1>
 <div class="panier">

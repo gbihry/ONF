@@ -107,6 +107,41 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
     background-color: var(--secondary-danger) !important;
 }
 
+/* RETURN ARROW */
+
+.returnarrow {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    cursor: pointer;
+    align-items: center;
+    margin: 10px 0px 0px 10px;
+}
+
+.returnarrow i {
+    font-size: 1.5rem;
+    margin-right: 5px;
+    transition: all 0.10s;
+    font-size: 2rem;
+}
+
+.returnarrow p {    
+    margin: auto 0px;
+    overflow: hidden;
+    width: 0px;
+    transition: all 0.15s;
+    font-size: 2rem;
+}
+.returnarrow:hover p {
+    width: 100px;
+}
+
+.returnarrow:hover i {
+    transform: rotate(180deg);
+    text-decoration: none !important;
+}
+
 @keyframes left {
     from {
         transform: translateX(360px);

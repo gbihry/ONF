@@ -1,3 +1,11 @@
+<?php
+    if (isset($_GET['type']) && $_GET['type'] == 'vet'){
+        echo ('<a href="./?action=panierVETSubordonne&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }else{
+        echo ('<a href="./?action=panierEPISubordonne&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }
+?>
+
 <div class="container-fluid text-center">
     <?php 
         $prixTotal = 0;

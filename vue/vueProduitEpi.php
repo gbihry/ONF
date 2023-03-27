@@ -6,6 +6,12 @@ if(isset($reload) && $reload == true) {
     }
     </script>';
 }
+
+if (isset($_GET['ref']) && $_GET['ref'] != 0){
+    echo ('<a href="./?action=catalogueEpi&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+}else{
+    echo ('<a href="./?action=catalogueEpi&&id=0" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+}
 ?>
     <?php  
         echo ('<h1 class="text-center m-3"> '.$nomCategorie.' </h1>');
