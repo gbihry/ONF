@@ -1,4 +1,12 @@
 <?php
+    if (isset($_GET['id']) && $_GET['id'] != 0){
+        echo ('<a href="./?action=commanderPour" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }else{
+        echo ('<a href="./?action=accueil" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }
+?>
+
+<?php
 if(isset($reload) && $reload == true) {
     echo '<script>
     if(window.history.replaceState) {

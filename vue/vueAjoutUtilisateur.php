@@ -40,6 +40,10 @@ if(isset($reload) && $reload == true) {
                 if (isset($verifChamps) && $verifChamps != true){
                     echo ('<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs</div>');
                 }
+
+                if (isset($verifFileIsset) && $verifFileIsset != true){
+                    echo ('<div class="alert alert-danger" role="alert">Veuillez choisir un fichier à importer</div>');
+                }
                 
             ?>
             <form enctype="multipart/form-data" method="post">

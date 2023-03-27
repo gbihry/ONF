@@ -1,7 +1,7 @@
 if(document.getElementById("compte_a_rebours")) {
     var compte_a_rebours = document.getElementById("compte_a_rebours");
     var date_actuelle = new Date();
-    var date_evenement = new Date("Apr 7 16:30:00 2023 GMT+01:00");
+    var date_evenement = new Date("Apr 7 16:30:00 2023 GMT+02:00");
     var total_secondes = (date_evenement - date_actuelle) / 1000;
     var prefixe = "Il reste ";
     var suffixe = " secondes pour faire vos commandes";
