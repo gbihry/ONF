@@ -22,8 +22,8 @@ if (isset($_GET['id']) && $_GET['id'] != 0){
     <div class="contenue">
         <div class="container-fluid text-center mt-5 produit">
         <form method='POST'>
-            <button type='submit' name='trie' class='btn btn-success' value='DESC'>Trie par prix décroissant</button>
-            <button type='submit' name='trie' class='btn btn-success' value='ASC'>Trie par prix croissant</button>
+            <button type='submit' name='trie' class='btn btn-success' value='DESC'>Trie par points décroissant</button>
+            <button type='submit' name='trie' class='btn btn-success' value='ASC'>Trie par points croissant</button>
         </form>
             <?php 
             foreach($allProducts as $detail){
