@@ -4,3 +4,5 @@ exemple.csv
 login.txt
 onf.sql
 Connexion.php
+.vscode/
+.gitignore
