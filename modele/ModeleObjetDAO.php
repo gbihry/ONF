@@ -2592,7 +2592,7 @@
         public static function allSubordonneId($id){
             $req = Connexion::getInstance()->prepare("SELECT id
             from utilisateur
-            where utilisateur.id_responsable = :id;");
+            where utilisateur.id_responsable = :id and idRole < 2;");
             $req->bindValue(':id', $id, PDO::PARAM_INT);
             $req->execute();
             $res = $req->fetchall();
