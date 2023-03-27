@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 24, 2023 at 01:16 PM
+-- Generation Time: Mar 27, 2023 at 07:53 AM
 -- Server version: 5.7.36
 -- PHP Version: 8.0.13
 
@@ -72,14 +72,7 @@ CREATE TABLE IF NOT EXISTS `commandeepi` (
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `commandeepi`
---
-
-INSERT INTO `commandeepi` (`id`, `dateCrea`, `statut`, `idUtilisateur`, `terminer`, `dateCreaFini`) VALUES
-(171, '2023-03-24 14:00:15', 'Bucheron', 1, 0, NULL);
+) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -97,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1196,14 +1189,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=243 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `lignecommandeepi`
---
-
-INSERT INTO `lignecommandeepi` (`Id`, `idProduit`, `quantite`, `idCommandeEPI`, `idTaille`) VALUES
-(242, 6, 2, 171, 78);
+) ENGINE=MyISAM AUTO_INCREMENT=280 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1222,7 +1208,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1238,23 +1224,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=1089 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `log`
---
-
-INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
-(1079, '2023-03-24 13:40:38', 'Déconnexion de SuperJohn@super.John', 20),
-(1080, '2023-03-24 13:40:41', 'Connexion de John.doe@gmail.doe', 1),
-(1081, '2023-03-24 13:47:40', 'Déconnexion de John.doe@gmail.doe', 1),
-(1082, '2023-03-24 13:47:47', 'Connexion de SuperJohn@super.John', 20),
-(1083, '2023-03-24 13:49:47', 'Déconnexion de SuperJohn@super.John', 20),
-(1084, '2023-03-24 13:49:53', 'Connexion de John.doe@gmail.doe', 1),
-(1085, '2023-03-24 14:00:15', 'Ajout de 1 produit(s) SIP 1SPV / Pantalon anti- coupure  taille : XS court au panier par John.doe@gmail.doe', 1),
-(1086, '2023-03-24 14:12:52', 'Déconnexion de John.doe@gmail.doe', 1),
-(1087, '2023-03-24 14:12:59', 'Connexion de SuperJohn@super.John', 20),
-(1088, '2023-03-24 14:14:40', 'Modification du produit TYVEK 800J  par SuperJohn@super.John', 20);
+) ENGINE=MyISAM AUTO_INCREMENT=1208 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1305,7 +1275,6 @@ CREATE TABLE IF NOT EXISTS `points` (
 INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 (1, 150, 1),
 (2, 150, 2),
-(13, 150, 17),
 (14, 150, 20),
 (15, 150, 21),
 (16, 150, 22),
@@ -1375,7 +1344,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (33, 'E.P.I SUD ', 'T-shirtOnf.png', 'T-shirt ONF rouge ', 'EPI', 'Grammage : 185 g/m²\nExiste en version col en V\nAvec marquage ONF', 9, 20, 1),
 (34, 'E.P.I SUD', 'Advantage.png', 'MSA Advantage 200 LS / Masque à cartouche ', 'EPI', 'Possibilité d’avoir plusieurs niveaux de filtration\nsur les cartouches.\nCartouche prévu au marché EPI : A2P3', 9, 13, 1),
 (35, 'Fiprotec', 'CHATARD.png', 'CHATARD ILONA 4 / Veste hiver', 'EPI', 'Veste hiver format « bombers » avec\ncapuche intégré.\nCouleur : orange', 6, 4, 1),
-(36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\r\nCouleur : orange\r\nUniquement pour conducteurs d’engins et\r\nlogisticiens.', 6, 4, 1),
+(36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\r\nCouleur : orange\r\nUniquement pour conducteurs d’engins et\r\nlogisticiens.', 6, 14, 1),
 (37, 'ONF', 'Inve.png', 'Veste Solidur Inve N°1', 'VET', 'Veste de travail extensible hydrophobe avec manches amovibles.\nPolyester ripstop hydrophobe, tissu épaules Armortex, tissu bras polyamide enduit. 3 poches extérieures dont 2 poches repose mains et 1\n\npoche téléphone. Liseré réfléchissant sur épaules avant arrière, bande\nréfléchissante hachurée sur les bras. 1 poche dos double ouverture.\nRéglage poignets par ruban autoagrippant et patte caoutchouc.\nRouge/jaune\nTailles XS à 4XL', 10, 17, 1),
 (38, 'ONF', 'Kouvola.png', 'Veste Softshell Francital Kouvola N°2 ', 'VET', 'Veste idéale en demi-saison froide et lors des averses grâce à sa mem-\nbrane. 5 poches : 2 poches basses, 2 poches poitrine, 1 poche inté-\nrieure. Grand col montant, patte de resserrage poignet, fermeture à\nglissière simple curseur séparable inversée, système de ventilation\nsous les bras\nTissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imper-respirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne\nRouge/Jaune\nTaille XS-3XL', 10, 17, 1),
 (39, 'ONF', 'Woda.png', 'Veste Softshell à manches amovibles Solidur Woda N°3 ', 'VET', 'Veste Softshell 3 couches garantissant résistance à l’eau, au\nvent et respirabilité. Tissu extérieur : 95% polyester, 5% Span-\ndex. Membrane : TPU 35 g/m2. Tissu intérieur : polaire 100%\npolyester. Tissu bi-extensible. Manches amovibles. Micro polaire grattée. Col ergonomique. Fermeture à glissière sous\nrabat. 2 poches poitrines. 2 poches basses. 2 poches intérieures avec étiquette rhésus. Double poche dos. Plan dorsal rallongé. Aération dorsale\nRouge/jaune\nTaille S au 4XL', 10, 17, 1),
@@ -1624,7 +1593,7 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 (11, 'Lunette de protection', 8),
 (12, 'Vêtement de pluie', 5),
 (13, 'Masque', 9),
-(14, 'Combinaison', 6),
+(14, 'Combinaison', 1),
 (15, 'EPI jetable ', 9),
 (16, 'Bouchon', 9),
 (17, 'Vêtement', 10),
@@ -1670,16 +1639,15 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, `tel`, `idLieuLivraison`, `id_responsable`, `idRole`, `idMetier`, `Agence`, `IdEmployeur`) VALUES
-(1, 'John.doe@gmail.doe', '$2y$10$Jn46zxmowvJmkvx6JQCgTuqBgjtZX7PVQwKtXSxaFjTBK4OAtgsQW', 'John', 'Doe', 'john.doe@gmail.doe', '0609090966', 1, 3, 1, 1, 'Colmar', 1),
+(1, 'John.doe@gmail.doe', '$2y$10$Jn46zxmowvJmkvx6JQCgTuqBgjtZX7PVQwKtXSxaFjTBK4OAtgsQW', 'John', 'Doe', 'john.doe@gmail.doe', '0609090966', 1, 3, 1, 1, 'Milhouse', 1),
 (2, 'AdminJohnDoe@gmail.doe', '$2y$10$GTMIdo7DAqBv5/jePVEv4.0EK8DqEbYXSwSLLoGsqo6BsC8obnUVm', 'John', 'Doe', 'john.doe@gmail.doe', '0609090966', 1, 2, 3, 2, 'Milhouse', 1),
 (3, 'ChefJohn.ChefDoe@gmail.Chef', '$2y$10$7LRUb35AVEmSkXx8jrZwA..S6Mh8XZ5dF.EVm1mADJ932AIPjJqcy', 'chefJohn', 'chefDoe', 'chefJohn@chefDoe.chef', '0609090666', 1, 3, 2, 3, 'Colmar', 2),
-(17, 'test@test.test', '$2y$10$K6Ju207Ig1Ae6jEK1tkcveIh./7waKwuqVk8IsZZ4/UUIpw1aks6m', 'test', 'test', 'test@test.test', '0606060606', 1, 21, 1, 1, 'test', 2),
 (20, 'SuperJohn@super.John', '$2y$10$Na5o6ipGj51UWgFEqrjexOZPdjcLKNVMrOk7YoFOavSM.LRsM9YFS', 'Didou', 'John', 'SuperJohn@super.John', '0654589874', 2, 20, 4, 1, 'Mulhouse', NULL),
 (21, 'dev', '$2y$10$8p0f5RZSCB06Dlq/Zz/E.ugHO0r.Ztz69gqClzIQOWnOPF3GrNLa2', 'dev', 'dev', 'dev', '0600600606', 1, 21, 2, 5, 'Milhouse', 1),
 (29, 'Johnette@Dobias.com', '$2y$10$ZSli2ceF8XXcFsClG2U2xOZpcNDr757kpgdJcU5rpHyV4YjmuHwB2', 'Dobias', 'Johnette', 'Johnette@Dobias.com', '0707070707', 1, 3, 3, 3, 'Colmar', NULL),
-(37, 'Eric@windev.com', '$2y$10$SoeDXLWUxb5P3wTM4RXg5OljbGE55i2zy2kj9qO33xe9DhIfmyUz6', 'fan2Windev', 'Eric', 'Eric@windev.com', '0609110661', 1, 21, 1, 2, 'Colmar', NULL),
-(41, 'Kiki@psg.com', '$2y$10$2NLFsiOwL06KFWlJ9.aPAuQwXwWIwWBRHsi88zZmhS0i5MTdUNmNe', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 21, 1, 6, 'Milhouse', 1),
-(89, 'mey.tristan@onf.fr', '$2y$10$zXHTrwjB6yBuwrat6OEBXu0CldVvwxU5oiPUznzxEYtGl26BUVT0K', 'Tristan', 'Mey', 'mey.tristan@onf.fr', '0606060606', 2, 21, 1, 1, 'Milhouse', 1);
+(37, 'Eric@windev.com', '$2y$10$SoeDXLWUxb5P3wTM4RXg5OljbGE55i2zy2kj9qO33xe9DhIfmyUz6', 'fan2Windev', 'Eric', 'Eric@windev.com', '0609110661', 1, 3, 1, 2, 'Colmar', 1),
+(41, 'Kiki@psg.com', '$2y$10$2NLFsiOwL06KFWlJ9.aPAuQwXwWIwWBRHsi88zZmhS0i5MTdUNmNe', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', 1),
+(89, 'mey.tristan@onf.fr', '$2y$10$zXHTrwjB6yBuwrat6OEBXu0CldVvwxU5oiPUznzxEYtGl26BUVT0K', 'Tristan', 'Mey', 'mey.tristan@onf.fr', '0606060606', 2, 89, 2, 1, 'Milhouse', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
