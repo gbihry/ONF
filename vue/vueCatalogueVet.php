@@ -4,7 +4,14 @@ if(isset($reload) && $reload == true) {
     if(window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
+    location.href = "./?action=catalogueVet&id='.$_GET['id'].'";
     </script>';
+}
+
+if (isset($_GET['id']) && $_GET['id'] != 0){
+    echo ('<a href="./?action=commanderPour" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+}else{
+    echo ('<a href="./?action=accueil" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
 }
 ?>
 <div class="catalogue">

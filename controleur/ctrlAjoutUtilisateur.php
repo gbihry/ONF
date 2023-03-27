@@ -26,60 +26,62 @@
                 $agence = ModeleObjetDAO::getAgenceById($id);
             }
             if (isset($_POST["import"])) {
-    
-                $fileName = $_FILES["file"]["tmp_name"];
-                $fileVerif = explode(".", $_FILES['file']['name']);
-                if ($fileVerif[1] == 'csv'){
-                    if ($_FILES["file"]["size"] > 0) {
-
-                        $file = fopen($fileName, "r");
-                        
-                        $i = 0;
-                        $verifLogin = array();
-                        while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
-                            if($i == 0){
+                if ($_FILES['file']['name'] != ''){
+                    $fileName = $_FILES["file"]["tmp_name"];
+                    $fileVerif = explode(".", $_FILES['file']['name']);
+                    if ($fileVerif[1] == 'csv'){
+                        if ($_FILES["file"]["size"] > 0) {
+                            $file = fopen($fileName, "r");
+                            
+                            $i = 0;
+                            $verifLogin = array();
+                            while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
+                                if($i == 0){
+                                    $i++;
+                                    continue;
+                                }
                                 $i++;
-                                continue;
-                            }
-                            $i++;
-                            if ($roleUser == 'Responsable'){
-                                $row[7] = $_SESSION['login'];
-                            }
-                            if ($roleUser == 'Gestionnaire de commande'){
-                                $row[10] = $agence;
-                            }
-                            $verifRole = false;
-                            foreach($roleInf as $unRole){
-                                if ($unRole['libelle'] == $row[8]){
-                                    $verifRole = true;
+                                if ($roleUser == 'Responsable'){
+                                    $row[7] = $_SESSION['login'];
+                                }
+                                if ($roleUser == 'Gestionnaire de commande'){
+                                    $row[10] = $agence;
+                                }
+                                $verifRole = false;
+                                foreach($roleInf as $unRole){
+                                    if ($unRole['libelle'] == $row[8]){
+                                        $verifRole = true;
+                                    }
+                                }
+                                if ($verifRole == true){
+                                    if(ModeleObjetDAO::insertUtilisateurCSV($row) == false){
+    
+                                        
+    
+                                        array_push($verifLogin, $i);
+                                    }
+                                    $verifFile = true;
+                                    $reload = true;
+                                }else{
+                                    $reload = true;
                                 }
                             }
-                            if ($verifRole == true){
-                                if(ModeleObjetDAO::insertUtilisateurCSV($row) == false){
-
-                                    
-
-                                    array_push($verifLogin, $i);
-                                }
-                                $verifFile = true;
-                                $reload = true;
-                            }else{
-                                $reload = true;
+                            if($verifFile == true && $verifRole == true && $verifLogin == true){
+                                date_default_timezone_set('Europe/Paris');
+                                $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
+                                $description = "Ajout d'utilisateurs avec un fichier CSV par ".$_SESSION['login'];
+                                $date = date( "Y-m-d H:i:s"); 
+                                ModeleObjetDAO::insertLog($date,$description,$id);
                             }
                         }
-                        if($verifFile == true && $verifRole == true && $verifLogin == true){
-                            date_default_timezone_set('Europe/Paris');
-                            $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
-                            $description = "Ajout d'utilisateurs avec un fichier CSV par ".$_SESSION['login'];
-                            $date = date( "Y-m-d H:i:s"); 
-                            ModeleObjetDAO::insertLog($date,$description,$id);
-                        }
+                    }else{
+                        $verifFile = false;
+                        $reload = true;
                     }
                 }else{
-                    $verifFile = false;
+                    $verifFileIsset = false;
                     $reload = true;
                 }
-                
             }
             if(!empty($_POST['submit'])){
                 if ($_POST['livraison'] == 'selectionner' || ($_POST['role'] != '2' && $_POST['responsable'] == 'selectionner') || $_POST['role'] == 'selectionner' || $_POST['metier'] == 'selectionner' || $_POST['agence'] == 'selectionner'){

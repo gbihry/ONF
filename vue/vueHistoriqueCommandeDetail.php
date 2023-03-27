@@ -1,3 +1,7 @@
+<?php 
+    echo ('<a href="./?action=historiqueCommande" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+?>
+
 <div class="container-fluid text-center">
 <h1>Historique Commande : <span class="produitvet_prix"><?php echo($_GET['type'].'_'.$_GET['id']); ?></span></h1>
 <div class="panier">

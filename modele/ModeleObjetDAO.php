@@ -648,8 +648,7 @@
                     JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1");
-                        
+                    WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1 and concerne_categorie_metier.idMetier = :idMetier");
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
@@ -691,7 +690,7 @@
                             ORDER BY prix desc");
                         }else{
                             $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                        from produit
+                            from produit
                             join type on type.id = produit.idType
                             JOIN categorie on categorie.id = type.idCategorie
                             JOIN disponible on disponible.idProduit = produit.id
@@ -1119,6 +1118,16 @@
             $req->execute();
             $res = $req->fetchall();
             return $res;
+        }
+
+        public static function getTailleById($idTaille){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            from taille 
+            where id = :idTaille");
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
         }
 
         public static function getTaille($id){
