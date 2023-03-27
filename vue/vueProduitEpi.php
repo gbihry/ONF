@@ -8,6 +8,7 @@ if(isset($reload) && $reload == true) {
 }
 ?>
     <?php  
+        echo ('<h1 class="text-center m-3"> '.$nomCategorie.' </h1>');
         if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
             foreach($unProduit as $detail){
                 echo "<div class ='unProduit'>";

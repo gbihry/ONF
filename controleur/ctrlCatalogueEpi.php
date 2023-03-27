@@ -21,7 +21,6 @@
         
         
         
-        include_once "$racine/vue/vueCatalogueEpi.php";
         if ((isset($_POST['quantity'])) && ($_POST['quantity'] >= 1)){
 
             date_default_timezone_set('Europe/Paris');
@@ -41,17 +40,19 @@
 
                 $idChef = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
-                $tailleDescription = ModeleObjetDAO::getTaille($taille)['libelle'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $description = "Ajout de ". $quantite ." produit(s), ".$nomProduit." taille : " .$tailleDescription . "dans le panier de ".$login["login"] ." par ".$_SESSION['login'];
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$idChef["id"]);
                 
-                echo ModeleObjetDAO::insertLigneCommandeEPI($id, $idProduit, $quantite, $taille);
+                ModeleObjetDAO::insertLigneCommandeEPI($id, $idProduit, $quantite, $taille);
+                
+                $reload = true;
+                
 
             } else {
                 echo "Erreur lors de l'insertion de la commande";
             }
-            
         }
 
     }elseif($_GET["id"] == "0"){  
@@ -65,7 +66,6 @@
         if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
             $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');
             $catalogueNonOuvrier = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPINonOuvrier');
-
             $catalogue = array_merge($catalogue, $catalogueNonOuvrier);
         }else{
             $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $leLogin, $verifVet, 'EPI');
@@ -89,6 +89,7 @@
                 $taille = $_POST['taille'];
                 $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
+                $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
             
 
                 $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
@@ -115,8 +116,7 @@
             
             
         }
-        
-        include_once "$racine/vue/vueCatalogueEpi.php";
     }
+    include_once "$racine/vue/vueCatalogueEpi.php";
     include_once "$racine/vue/vuePied.php";
 ?>

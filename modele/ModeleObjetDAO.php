@@ -648,8 +648,7 @@
                     JOIN concerne on type.id = concerne.idType
                     JOIN disponible on disponible.idProduit = produit.id
                     JOIN concerne_categorie_metier ON categorie.id = concerne_categorie_metier.idCategorie
-                    WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1");
-                        
+                    WHERE type = :leType AND concerne.idStatut = :idMetier and produit.visible = 1 and concerne_categorie_metier.idMetier = :idMetier");
                     $req->bindValue(':idMetier',$id['id'],PDO::PARAM_INT);
                     $req->bindValue(':leType',$type,PDO::PARAM_STR);
                     $req->execute();
@@ -691,7 +690,7 @@
                             ORDER BY prix desc");
                         }else{
                             $req = Connexion::getInstance()->prepare("SELECT DISTINCT referenceFournisseur,produit.id, prix, description, nom, fichierPhoto, idType
-                        from produit
+                            from produit
                             join type on type.id = produit.idType
                             JOIN categorie on categorie.id = type.idCategorie
                             JOIN disponible on disponible.idProduit = produit.id
@@ -1031,16 +1030,24 @@
         }
         
         public static function getCatalogue($id, $login, $verifVet, $type){
+            $roleUser = self::getRole($_SESSION['login'])['libelle'];
             switch($type){
                 case 'EPI':
-                    $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
-                    FROM categorie
-                    JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
-                    WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
-                    $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE categorie.typeEPI ='EPI'");
+                    }else{
+                        $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
+                        FROM categorie
+                        JOIN concerne_categorie_metier on concerne_categorie_metier.idCategorie = categorie.id
+                        WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI ='EPI'");
+                        $req->bindValue(':id',$id,PDO::PARAM_INT);
+                    }
+                    
                     break;
                 case 'EPINonOuvrier':
-                    $roleUser = self::getRole($_SESSION['login'])['libelle'];
                     if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
                         $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                         FROM categorie
@@ -1055,7 +1062,6 @@
                     }
                     
                     break;
-
                 default:
                     $req = Connexion::getInstance()->prepare("SELECT DISTINCT categorie.id,categorie.libelle
                     FROM categorie
@@ -1112,6 +1118,16 @@
             $req->execute();
             $res = $req->fetchall();
             return $res;
+        }
+
+        public static function getTailleById($idTaille){
+            $req = Connexion::getInstance()->prepare("SELECT libelle
+            from taille 
+            where id = :idTaille");
+            $req->bindValue(':idTaille',$idTaille,PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['libelle'];
         }
 
         public static function getTaille($id){
@@ -1764,17 +1780,33 @@
             return $res;
         }
 
-        public static function getRecapCommandeVet(){
-            $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
-            from lignecommandevet
-            JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
-            JOIN produit on lignecommandevet.idProduit = produit.id
-            JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
-            join taille on lignecommandevet.idTaille = taille.id
-            JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
-            where terminer = 1 
-            GROUP by produit.nom,lieulivraion.nom,taille.libelle
-            ORDER by lieulivraion.nom,produit.nom;");
+        public static function getRecapCommandeVet($agence){
+            if($agence == null){
+                $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+                from lignecommandevet
+                JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
+                JOIN produit on lignecommandevet.idProduit = produit.id
+                JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
+                join taille on lignecommandevet.idTaille = taille.id
+                JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+                where terminer = 1 
+                GROUP by produit.nom,lieulivraion.nom,taille.libelle
+                ORDER by lieulivraion.nom,produit.nom;");
+            }
+            else{
+                $req = Connexion::getInstance()->prepare("select produit.nom as produit,sum(quantite),lieulivraion.nom,taille.libelle
+                from lignecommandevet
+                JOIN commandevet on commandevet.id = lignecommandevet.idCommandeVET
+                JOIN produit on lignecommandevet.idProduit = produit.id
+                JOIN utilisateur on commandevet.idUtilisateur = utilisateur.id 
+                join taille on lignecommandevet.idTaille = taille.id
+                JOIN lieulivraion on utilisateur.idLieuLivraison = lieulivraion.id 
+                where terminer = 1 and Agence = :agence
+                GROUP by produit.nom,lieulivraion.nom,taille.libelle
+                ORDER by lieulivraion.nom,produit.nom;");
+                $req->bindValue(':agence', $agence, PDO::PARAM_STR);
+            }
+            
             $req->execute();
             $res = $req->fetchall();
             return $res;

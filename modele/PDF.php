@@ -3,6 +3,7 @@
     include_once "$racine/modele/ModeleObjetDAO.php";
     require("$racine/tfpdf/tfpdf.php");
     class PDF extends TFPDF{
+
         function imprimerVet(){
             $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])["id"];
             $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];
@@ -59,6 +60,7 @@
             $this->SetXY(10,60);
             
             $this->FancyTable2($laCommande);
+                
             
         }
 
@@ -83,9 +85,12 @@
             $this->Image("./images/onf.png",10,6,50);
             $this->SetXY(10,50);
             
+            
             $this->FancyTable($laCommande);
             
         }
+        
+
         function FancyTable($data){
             $titre = array('Produit', 'Quantité', 'Lieu de Livraison','Taille');
 
@@ -107,15 +112,20 @@
             $this->SetFont('');
             // Data
             $fill = false;
-            $y = $this->GetY();
-            $x = $this->GetX();
             foreach($data as $row)
             {
+                $y = $this->GetY();
+                $x = $this->GetX();
+
+                if($y > 260){
+                    $y = 10;
+                }
                 $this->MultiCell($w[0],10,$row[0],'TLRB','C',$fill);
+                $h = $this->GetY() - $y;
                 $this->SetXY($x + $w[0],$y);
-                $this->Cell($w[1],20,$row[1],'TLRB',0,'C',$fill);
-                $this->Cell($w[2],20,$row[2],'TLRB',0,'C',$fill);
-                $this->Cell($w[3],20,$row[3],'TLRB',0,'C',$fill);
+                $this->Cell($w[1],$h,$row[1],'TLRB',0,'C',$fill);
+                $this->Cell($w[2],$h,$row[2],'TLRB',0,'C',$fill);
+                $this->Cell($w[3],$h,$row[3],'TLRB',0,'C',$fill);
                 $this->Ln();
                 $y = $this->GetY();
                 $x = $this->GetX();
@@ -149,15 +159,21 @@
             $this->SetFont('');
             // Data
             $fill = false;
-            $y = $this->GetY();
-            $x = $this->GetX();
+            
             foreach($data as $row)
             {
+                $y = $this->GetY();
+                $x = $this->GetX();
+                if($y > 260){
+                    $y = 10;
+                }
                 $this->MultiCell($w[0],10,$row[0],'TLRB','C',$fill);
+
+                $h = $this->GetY() - $y;
                 $this->SetXY($x + $w[0],$y);
-                $this->Cell($w[1],20,$row[1],'TLRB',0,'C',$fill);
-                $this->Cell($w[2],20,$row[2],'TLRB',0,'C',$fill);
-                $this->Cell($w[3],20,$row[3],'TLRB',0,'C',$fill);
+                $this->Cell($w[1],$h,$row[1],'TLRB',0,'C',$fill);
+                $this->Cell($w[2],$h,$row[2],'TLRB',0,'C',$fill);
+                $this->Cell($w[3],$h,$row[3],'TLRB',0,'C',$fill);
                 $this->Ln();
                 $y = $this->GetY();
                 $x = $this->GetX();
@@ -180,6 +196,8 @@
             $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
         
         } 
+
+        
     }
 
 ?> 
