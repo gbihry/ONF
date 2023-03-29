@@ -37,7 +37,6 @@ if($valider) {
         if($nouveauMotDePasse_INPUT == $nouveauMotDePasse2_INPUT && $_SESSION['login'] != null){
             $try = ModeleObjetDAO::updateMdp($_SESSION['login'], $motDePasseActuel_INPUT, $nouveauMotDePasse_INPUT);
             if($try === true) {
-                session_destroy();
                 header("location:./?action=login&msg=" . urlencode('Mot de passe modifié, veuillez vous reconnecter.'));
 
                 date_default_timezone_set('Europe/Paris');
@@ -46,6 +45,7 @@ if($valider) {
                 $description = "L'utilisateur ".$_SESSION['login']." à changer de mdp";
                 $date = date( "Y-m-d H:i:s");
                 ModeleObjetDAO::insertLog($date,$description,$id["id"]);
+                session_destroy();
             } else {
                 $error = $try;
             }

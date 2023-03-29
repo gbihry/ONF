@@ -1,4 +1,21 @@
 
+    <div class="btnHelp">
+        <?php 
+            switch($roleUser){
+                case 'Utilisateur':
+                    echo ('<a href="docs_utilisation/comment_utiliser_site_utilisateur.docx" download>Aide</a>');
+                    break;
+                case 'Administrateur':
+                    echo ('<a href="docs_utilisation/comment_utiliser_site_administrateur.docx" download>Aide</a>');
+                    break;
+                case 'Gestionnaire de commande':
+                    echo ('<a href="docs_utilisation/comment_utiliser_site_gestionnaire.docx" download>Aide</a>');
+                    break;
+            }
+        ?>
+        
+    </div>
+
 <div class="home_wrapper">  
 <div class="home_content">
     <br/>

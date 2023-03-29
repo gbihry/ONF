@@ -268,7 +268,6 @@
                         break;
                 }
             }
-           
             return $res;
         }
 
@@ -286,10 +285,10 @@
             return $res['dateCreaFini'];
         }
 
-        public static function getDateCommandeFiniVet($idUtilisateur){
+        public static function getDateCommandeFini($idUtilisateur){
             $req = Connexion::getInstance()->prepare("SELECT dateCreaFini 
             FROM utilisateur 
-            JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
+            JOIN commande ON commande.idUtilisateur = utilisateur.id
             WHERE idUtilisateur = :idUtilisateur");
             $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
             $req->execute();
