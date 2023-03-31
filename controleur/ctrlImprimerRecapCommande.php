@@ -4,7 +4,9 @@
     $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'];
     $allIdSub = ModeleObjetDAO::allSubordonneId($id);
     $type = $_GET["id"];
-    $idSub = $_GET["ref"];
+    if (isset($_GET['ref'])){
+        $idSub = $_GET["ref"];
+    }
     switch($type){
         case 'EPI':
             $pdf = new PDF();

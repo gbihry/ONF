@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 29 mars 2023 à 06:59
--- Version du serveur : 10.11.1-MariaDB
--- Version de PHP : 8.0.26
+-- Généré le : mer. 29 mars 2023 à 21:48
+-- Version du serveur : 5.7.36
+-- Version de PHP : 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `libelle` varchar(100) DEFAULT NULL,
   `typeEPI` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `categorie`
@@ -68,11 +68,11 @@ CREATE TABLE IF NOT EXISTS `commandeepi` (
   `dateCrea` datetime DEFAULT NULL,
   `statut` varchar(50) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT 0,
+  `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=187 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
   `dateCrea` datetime DEFAULT NULL,
   `statut` varchar(50) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT 0,
+  `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Message` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `commentaire`
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `concerne` (
   `idType` int(11) NOT NULL,
   `quantiteMax` int(11) NOT NULL,
   PRIMARY KEY (`idStatut`,`idType`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `concerne`
@@ -134,7 +134,7 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (1, 1, 1),
 (1, 2, 2),
 (1, 3, 1),
-(1, 4, 4),
+(1, 4, 1),
 (1, 5, 2),
 (1, 6, 3),
 (1, 7, 4),
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `concerne_categorie_metier` (
   `idCategorie` int(11) NOT NULL,
   `idMetier` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `concerne_categorie_metier`
@@ -495,7 +495,7 @@ CREATE TABLE IF NOT EXISTS `disponible` (
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=616 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=619 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `disponible`
@@ -1050,7 +1050,7 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (547, 191, 40, 0, NULL),
 (548, 191, 41, 0, NULL),
 (549, 191, 42, 0, NULL),
-(550, 192, 49, 0, NULL),
+(616, 192, 75, 0, NULL),
 (551, 193, 49, 0, NULL),
 (552, 194, 49, 0, NULL),
 (553, 195, 49, 0, NULL),
@@ -1097,7 +1097,9 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (608, 209, 7, 0, NULL),
 (609, 209, 8, 0, NULL),
 (610, 209, 67, 0, NULL),
-(615, 214, 49, 0, NULL);
+(615, 214, 49, 0, NULL),
+(617, 192, 76, 0, NULL),
+(618, 192, 77, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1112,7 +1114,7 @@ CREATE TABLE IF NOT EXISTS `employeur` (
   `nom` varchar(30) DEFAULT NULL,
   `roleEmployeur` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `employeur`
@@ -1147,7 +1149,7 @@ CREATE TABLE IF NOT EXISTS `fournisseur` (
   `tel` varchar(50) DEFAULT NULL,
   `slug` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `fournisseur`
@@ -1181,7 +1183,7 @@ CREATE TABLE IF NOT EXISTS `lieulivraion` (
   `mail` varchar(50) DEFAULT NULL,
   `Siege` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `lieulivraion`
@@ -1201,14 +1203,14 @@ DROP TABLE IF EXISTS `lignecommandeepi`;
 CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idProduit` int(11) NOT NULL,
-  `quantite` int(11) DEFAULT 1,
+  `quantite` int(11) DEFAULT '1',
   `idCommandeEPI` int(11) NOT NULL,
   `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=303 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1229,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1243,14 +1245,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=1229 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `log`
---
-
-INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
-(1228, '2023-03-29 08:58:57', 'Déconnexion de SuperJohn@super.John', 20);
+) ENGINE=MyISAM AUTO_INCREMENT=1285 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1263,7 +1258,7 @@ CREATE TABLE IF NOT EXISTS `metier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `statut` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `metier`
@@ -1292,7 +1287,7 @@ CREATE TABLE IF NOT EXISTS `points` (
   `point` int(11) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `points`
@@ -1311,8 +1306,7 @@ INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 (21, 150, 29),
 (22, 150, 30),
 (24, 150, 37),
-(28, 150, 41),
-(74, 150, 89);
+(28, 150, 41);
 
 -- --------------------------------------------------------
 
@@ -1330,11 +1324,11 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `description` varchar(700) DEFAULT NULL,
   `idFournisseur` int(11) NOT NULL,
   `idType` int(11) NOT NULL,
-  `Visible` int(11) NOT NULL DEFAULT 1,
+  `Visible` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
-) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `produit`
@@ -1440,7 +1434,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\n\nTaille : 7 à 11', 4, 22, 1),
 (190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON /', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\n\nsmartphone.\nProtège du froid positif\nTaille : 7 à 12', 4, 22, 1),
 (191, 'ROSTAING', 'MidSeasonNitrile.png', 'Gants nitrile', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\r\n\r\nrisques chimiques\r\nTaille : 7 à 10', 4, 22, 1),
-(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\n\nbranches.\n\nExiste en version teintée jaune (pour temps\nsombre) et teintée solaire (pour temps\n\nensoleillé).', 8, 24, 1),
+(192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\r\n\r\nbranches.\r\n\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\n\r\nensoleillé).', 8, 24, 1),
 (193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405 ', 'EPINonOuvrier', 'Taille unique\n\nMasque FFP2 avec valve facilitant l’expiration.\n\nRéglage avec élastique\nUtilisable en milieu infesté par la chenille\n\nprocessionnaire.', 6, 23, 1),
 (194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J ', 'EPINonOuvrier', 'Combinaison intégrale avec fermeture à glissière, passe-pouce et capuche intégrée. Utilisable en milieu infesté par la chenille processionnaire.', 6, 23, 1),
 (195, 'Fiprotec', 'TYVEK500.png', 'YVEK 500 ', 'EPINonOuvrier', 'Cagoule à usage unique couvrant les épaules\net la tête.\nUtilisable en milieu infesté par la chenille\nprocessionnaire.', 6, 23, 1),
@@ -1465,7 +1459,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `libelle` varchar(50) DEFAULT NULL,
   `commentaire` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `role`
@@ -1488,7 +1482,7 @@ CREATE TABLE IF NOT EXISTS `taille` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `taille`
@@ -1600,7 +1594,7 @@ CREATE TABLE IF NOT EXISTS `type` (
   `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `type`
@@ -1661,7 +1655,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   KEY `idRole` (`idRole`),
   KEY `idMetier` (`idMetier`),
   KEY `IdEmployeur` (`IdEmployeur`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -1675,8 +1669,7 @@ INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, 
 (21, 'dev', '$2y$10$8p0f5RZSCB06Dlq/Zz/E.ugHO0r.Ztz69gqClzIQOWnOPF3GrNLa2', 'dev', 'dev', 'dev', '0600600606', 1, 21, 2, 5, 'Milhouse', 1),
 (29, 'Johnette@Dobias.com', '$2y$10$ZSli2ceF8XXcFsClG2U2xOZpcNDr757kpgdJcU5rpHyV4YjmuHwB2', 'Dobias', 'Johnette', 'Johnette@Dobias.com', '0707070707', 1, 3, 3, 3, 'Colmar', NULL),
 (37, 'Eric@windev.com', '$2y$10$SoeDXLWUxb5P3wTM4RXg5OljbGE55i2zy2kj9qO33xe9DhIfmyUz6', 'fan2Windev', 'Eric', 'Eric@windev.com', '0609110661', 1, 3, 1, 2, 'Colmar', 1),
-(41, 'Kiki@psg.com', '$2y$10$2NLFsiOwL06KFWlJ9.aPAuQwXwWIwWBRHsi88zZmhS0i5MTdUNmNe', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', 1),
-(89, 'mey.tristan@onf.fr', '$2y$10$zXHTrwjB6yBuwrat6OEBXu0CldVvwxU5oiPUznzxEYtGl26BUVT0K', 'Tristan', 'Mey', 'mey.tristan@onf.fr', '0606060606', 2, 89, 2, 1, 'Milhouse', 1);
+(41, 'Kiki@psg.com', '$2y$10$2NLFsiOwL06KFWlJ9.aPAuQwXwWIwWBRHsi88zZmhS0i5MTdUNmNe', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

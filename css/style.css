@@ -138,7 +138,6 @@ i.fa-pencil, i.fa-save, i.fa-times, i.fa-question, i.fa-arrows-rotate, i.fa-elli
 }
 
 .returnarrow:hover i {
-    transform: rotate(180deg);
     text-decoration: none !important;
 }
 
@@ -311,6 +310,19 @@ body{
     border: 1.5px solid #e9ecef;
     border-radius: 0.325rem;
     aspect-ratio : 1/1;
+}
+
+.main-produit i.fa-eye, .main-produit i.fa-eye-slash {
+    color: var(--block-input-color);
+    display: flex;
+    position: absolute !important;
+    font-size: 2rem;
+    font-weight: 600;
+    margin : 10px 0px 0px 10px;
+}
+
+.nonVisible {
+    border: solid 3px var(--danger) !important;
 }
 
 .img-produit-edit {

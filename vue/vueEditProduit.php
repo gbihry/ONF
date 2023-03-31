@@ -7,6 +7,7 @@ if(isset($reload) && $reload == true) {
     location.href = "./?action=editProduit&id='.$_GET['id'].'";
     </script>';
 }
+echo ('<a href="./?action=catalogueEpi&&id=0" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
 ?>
 <div class="container-fluid text-center mt-5">
     <h1>Modifier un produit</h1>

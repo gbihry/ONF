@@ -285,10 +285,10 @@
             return $res['dateCreaFini'];
         }
 
-        public static function getDateCommandeFini($idUtilisateur){
+        public static function getDateCommandeFiniVet($idUtilisateur){
             $req = Connexion::getInstance()->prepare("SELECT dateCreaFini 
             FROM utilisateur 
-            JOIN commande ON commande.idUtilisateur = utilisateur.id
+            JOIN commandevet ON commandevet.idUtilisateur = utilisateur.id
             WHERE idUtilisateur = :idUtilisateur");
             $req->bindValue(':idUtilisateur',$idUtilisateur,PDO::PARAM_INT);
             $req->execute();
@@ -1068,9 +1068,7 @@
                     WHERE concerne_categorie_metier.idMetier = :id AND categorie.typeEPI = 'VET'");
                     $req->bindValue(':id',$id,PDO::PARAM_INT);
                     break;
-                    break;
             }
-            
             $req->execute();
             $res = $req->fetchall();
             return $res;
@@ -2658,6 +2656,12 @@
             $req->execute();
 
             
+        public static function verifProduitVisible($idProduit){
+            $req =  Connexion::getInstance()->prepare("SELECT visible from produit WHERE id = :idProduit");
+            $req->bindValue(':idProduit', $idProduit, PDO::PARAM_INT);
+            $req->execute();
+            $res = $req->fetch();
+            return $res['visible'];
         }
     }
 ?>

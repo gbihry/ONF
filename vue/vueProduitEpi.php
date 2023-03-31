@@ -7,22 +7,50 @@ if(isset($reload) && $reload == true) {
     </script>';
 }
 
-if (isset($_GET['ref']) && $_GET['ref'] != 0){
-    echo ('<a href="./?action=catalogueEpi&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+if (isset($_GET['type'])){
+    switch($_GET['type']){
+        case 'EPINonOuvrier':
+                if (isset($_GET['ref']) && $_GET['ref'] != 0){
+                    echo ('<a href="./?action=catalogueEpiNonOuvrier&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+                }else{
+                    echo ('<a href="./?action=catalogueEpiNonOuvrier&&id=0" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+                }
+            break;
+    }
 }else{
-    echo ('<a href="./?action=catalogueEpi&&id=0" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    if (isset($_GET['ref']) && $_GET['ref'] != 0){
+        echo ('<a href="./?action=catalogueEpi&&id='.$_GET['ref'].'" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }else{
+        echo ('<a href="./?action=catalogueEpi&&id=0" class="returnarrow"><i class="fa-solid fa-arrow-left"></i><p>Retour</p></a>');
+    }
 }
+
+
 ?>
     <?php  
         echo ('<h1 class="text-center m-3"> '.$nomCategorie.' </h1>');
         if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
             foreach($unProduit as $detail){
+                $verifVisible = intVal(ModeleObjetDAO::verifProduitVisible($detail['id']));
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
                 if (file_exists("images/produits/".($detail['fichierPhoto']))){
-                    echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                    if ($verifVisible == 0){
+                        echo("<i class='fa-solid fa-eye-slash'></i>");
+                        echo "<img class='img-produit nonVisible' src='images/produits/".($detail['fichierPhoto'])."'>";
+                    }else{
+                        echo("<i class='fa-solid fa-eye'></i>");
+                        echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                    }
+                    
                 }else{
-                    echo "<img class='img-produit' src='images/error.png'>";
+                    if($verifVisible == 0){
+                        echo("<i class='fa-solid fa-eye-slash'></i>");
+                        echo "<img class='img-produit nonVisible' src='images/error.png'>";
+                    }else{
+                        echo("<i class='fa-solid fa-eye'></i>");
+                        echo "<img class='img-produit' src='images/error.png'>";
+                    }
                 }
                 echo "<h1>".$detail['nom']."</h1>";
                 if($role == 'Gestionnaire de commande' || $role == 'Administrateur'){
@@ -78,7 +106,7 @@ if (isset($_GET['ref']) && $_GET['ref'] != 0){
                     if(ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                     }else{
-                        echo "<p id='dejaCommander'>Vous avez déjà commandé cet article</p>";
+                        echo "<p id='dejaCommander'>Vous avez déjà mis ce type d'article dans votre panier</p>";
                     }
                     echo "</form>";
                     echo "</div>";
@@ -166,7 +194,7 @@ if (isset($_GET['ref']) && $_GET['ref'] != 0){
                     if(ModeleObjetDAO::getQuantiteEpi($login["login"],$detail['idType'])['sum(quantite)'] < (ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$detail['idType']))){
                         echo "<button type='submit' name='submit' class='btn btn-success float-right' value='" . $detail['id'] . "'>Ajouter au panier</button>";
                     }else{
-                        echo "<p id='dejaCommander'>Vous avez déjà commandé cet article</p>";
+                        echo "<p id='dejaCommander'>Vous avez déjà mis ce type d'article dans votre panier</p>";
                     }
                     
                 

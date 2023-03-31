@@ -13,12 +13,11 @@
 
 // ? Guillaume 
 
-
 // ? Tristan  
 
 //TODO -mieu triller les tailles dans le choix quand on commande 
 
-//TODO -rajouter un message " votre chef à un droit de regard et de supression sur votre commande si celle ci n'est pas conforme"
+//TODO -rajouter un message " votre chef à un droit de regard et de supression sur votre commande si celle ci n'est pas conforme "
 
 //TODO -MASQUER EPI HIVER, VETEMENTS CHENILLE, VETEMENTS DE PLUIE, AUTRES EFFETS pour tout les métiers 
 
@@ -27,8 +26,6 @@
 //TODO -montrer a eric comment changer taille et expliquer la bdd avec un word 
 
 //TODO -mettre dans le word, quelle type est pour quelle métier 
-
-//TODO -encadrer la photo rouge si le produit est visible ou pas 
 
 //TODO -pouvoir supprimer une lignecommande depuis le site avec un bouton  
 
@@ -74,7 +71,6 @@
 
 //TODO -quand on essaie d'ajouter via le csv un rôle plus grand -> bug ??
 
-//TODO -bouger la flèche retour de sens
 
 
 
