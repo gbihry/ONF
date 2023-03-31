@@ -15,22 +15,13 @@
 
 // ? Tristan  
 
-
-//TODO -MASQUER EPI HIVER, VETEMENTS CHENILLE, VETEMENTS DE PLUIE, AUTRES EFFETS pour tout les métiers 
-
-
 //TODO -montrer a eric comment changer taille et expliquer la bdd avec un word 
 
 //TODO -mettre dans le word, quelle type est pour quelle métier 
 
-
-
 //TODO -enlever  SIP 1 SSV pantalon de travaille, crampon forestier et stelvio chauffeur d'engin pour les bûcheron 
 
-
-
 //TODO -masquer tshirt cofor pour bucheroni
-
 
 //TODO -pas de guetre/ crampo, / chaussure chauffeur d'enfin stelvio pour sylviculteur  
 
@@ -43,14 +34,3 @@
 //TODO - logisticien même contrainte que chauffeur d'engin 
 
 //TODO -débusqueur = débardeur, meme métier
-
-
-
-
-
-
-
-
-
-
- 
