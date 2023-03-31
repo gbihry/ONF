@@ -44,7 +44,6 @@ class Routeur{
         'editUser' => 'ctrlEditUser.php',
         'bdd' => 'ctrlBdd.php',
         'panierEPINonOuvrier' => 'ctrlPanierEPINonOuvrier.php'
-        
     );   
     
         

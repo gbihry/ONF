@@ -33,6 +33,7 @@
             $login = ModeleObjetDAO::getLoginById($id)['login'];
             
             if($type == "VET"){
+                var_dump($id);
                 $laCommande = ModeleObjetDAO::getRecapCommandeVetUtilisateur($id); 
                 $date = ModeleObjetDAO::getDateCommandeFiniVet($id);
                 

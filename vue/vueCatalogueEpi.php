@@ -55,13 +55,27 @@ if(isset($reload) && $reload == true) {
         if (isset($_POST['submit']) || isset($_POST['valideProduit']) == true){
             echo ("</div>");
             foreach($allProducts as $detail){
+                $verifVisible = intVal(ModeleObjetDAO::verifProduitVisible($detail['id']));
                 if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
                     echo "<div class ='unProduit'>";
                     echo "<div class='main-produit'>";
                     if (file_exists("images/produits/".($detail['fichierPhoto']))){
-                        echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                        if ($verifVisible == 0){
+                            echo("<i class='fa-solid fa-eye-slash'></i>");
+                            echo "<img class='img-produit nonVisible' src='images/produits/".($detail['fichierPhoto'])."'>";
+                        }else{
+                            echo("<i class='fa-solid fa-eye'></i>");
+                            echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                        }
+                        
                     }else{
-                        echo "<img class='img-produit' src='images/error.png'>";
+                        if($verifVisible == 0){
+                            echo("<i class='fa-solid fa-eye-slash'></i>");
+                            echo "<img class='img-produit nonVisible' src='images/error.png'>";
+                        }else{
+                            echo("<i class='fa-solid fa-eye'></i>");
+                            echo "<img class='img-produit' src='images/error.png'>";
+                        }
                     }
                     echo "<h1>".$detail['nom']."</h1>";
                     

@@ -30,9 +30,9 @@
                     $fileName = $_FILES["file"]["tmp_name"];
                     $fileVerif = explode(".", $_FILES['file']['name']);
                     if ($fileVerif[1] == 'csv'){
+                        $verifFile = true;
                         if ($_FILES["file"]["size"] > 0) {
                             $file = fopen($fileName, "r");
-                            
                             $i = 0;
                             $verifLogin = array();
                             while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
@@ -55,12 +55,8 @@
                                 }
                                 if ($verifRole == true){
                                     if(ModeleObjetDAO::insertUtilisateurCSV($row) == false){
-    
-                                        
-    
                                         array_push($verifLogin, $i);
                                     }
-                                    $verifFile = true;
                                     $reload = true;
                                 }else{
                                     $reload = true;

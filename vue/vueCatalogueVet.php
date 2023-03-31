@@ -29,12 +29,34 @@ if (isset($_GET['id']) && $_GET['id'] != 0){
             foreach($allProducts as $detail){
                 $descGras = ModeleObjetDAO::getDescGras($detail['id']);
                 $desReste = ModeleObjetDAO::getRestPs($detail['id']);
+                $verifVisible = intVal(ModeleObjetDAO::verifProduitVisible($detail['id']));
                 echo "<div class ='unProduit'>";
                 echo "<div class='main-produit'>";
-                if (file_exists("images/produits/".($detail['fichierPhoto']))){
-                    echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                if ($roleUser == 'Gestionnaire de commande' || $roleUser == 'Administrateur'){
+                    if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                        if ($verifVisible == 0){
+                            echo("<i class='fa-solid fa-eye-slash'></i>");
+                            echo "<img class='img-produit nonVisible' src='images/produits/".($detail['fichierPhoto'])."'>";
+                        }else{
+                            echo("<i class='fa-solid fa-eye'></i>");
+                            echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                        }
+                        
+                    }else{
+                        if($verifVisible == 0){
+                            echo("<i class='fa-solid fa-eye-slash'></i>");
+                            echo "<img class='img-produit nonVisible' src='images/error.png'>";
+                        }else{
+                            echo("<i class='fa-solid fa-eye'></i>");
+                            echo "<img class='img-produit' src='images/error.png'>";
+                        }
+                    }
                 }else{
-                    echo "<img class='img-produit' src='images/error.png'>";
+                    if (file_exists("images/produits/".($detail['fichierPhoto']))){
+                        echo "<img class='img-produit' src='images/produits/".($detail['fichierPhoto'])."'>";
+                    }else{
+                        echo "<img class='img-produit' src='images/error.png'>";
+                    }
                 }
                 echo "<h1>".$detail['nom']."</h1>";
                 if($roleUser == 'Gestionnaire de commande' || $roleUser == 'Administrateur'){
