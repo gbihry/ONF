@@ -13,7 +13,9 @@
             "id" => $_GET["id"],
         );
         $id = $array;
+        
         $login = ModeleObjetDAO::getLoginById($_GET["id"]);
+        $employeur = ModeleObjetDAO::getEmployeurById($login["login"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         
         $catalogue = ModeleObjetDAO::getCatalogue($unStatut['id'], $login["login"], $verifVet, 'EPI');
@@ -33,7 +35,7 @@
 
                 $idTypeProduit = ModeleObjetDAO::getTypeByIdProduit($idProduit);
                 $max = ModeleObjetDAO::getQuantiteEpiMax($unStatut['statut'],$idTypeProduit);
-
+                
                 if ($quantite > $max){
                     $quantite = $max;
                 }
@@ -75,6 +77,7 @@
         );
         $id = $array;
         $allProducts = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPI',null);
+        $employeur = ModeleObjetDAO::getEmployeurById($_SESSION['login']);
         
         if ($roleUser == 'Administrateur' || $roleUser == 'Gestionnaire de commande'){
             $allProducts = ModeleObjetDAO::getAllProduitCatalogue($unStatut, 'EPIAdmin',null);

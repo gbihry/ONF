@@ -2718,5 +2718,16 @@
             $res = $req->fetch();
             return $res['visible'];
         }
+
+        public static function getEmployeurById($login){
+            $req = Connexion::getInstance()->prepare("SELECT employeur.roleEmployeur
+            from utilisateur
+            join employeur on employeur.id = utilisateur.IdEmployeur
+            WHERE utilisateur.login = :login;");
+            $req->bindValue(':login',$login,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();
+            return $res;
+        }
     }
 ?>

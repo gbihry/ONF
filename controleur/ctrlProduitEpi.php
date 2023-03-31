@@ -14,6 +14,7 @@
         
         
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
+        $employeur = ModeleObjetDAO::getEmployeurById($login["login"]);
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $array = array(
@@ -62,7 +63,7 @@
         }
     }
     elseif($_GET["ref"] == "0"){  
-        
+        $employeur = ModeleObjetDAO::getEmployeurById($_SESSION['login']);
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $unIdStatut = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login']);
         $idCateg = $_GET["id"];

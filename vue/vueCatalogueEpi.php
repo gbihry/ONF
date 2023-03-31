@@ -130,7 +130,9 @@ if(isset($reload) && $reload == true) {
                     ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2) || 
                     ($unStatut['id'] == 2 && $detail['id'] == 6) || 
                     ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
-                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
+                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)
+                    || ($detail['id'] == 209 && $employeur['roleEmployeur'] == "onf")|| ($detail['id'] == 33 && $employeur['roleEmployeur'] == "syndicat")
+                    ){
                     
                     }else{
                         echo "<div class ='unProduit'>";
@@ -151,7 +153,9 @@ if(isset($reload) && $reload == true) {
                     ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2) || 
                     ($unStatut['id'] == 2 && $detail['id'] == 6) || 
                     ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
-                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
+                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)
+                    || ($detail['id'] == 209 && $employeur['roleEmployeur'] == "onf")|| ($detail['id'] == 33 && $employeur['roleEmployeur'] == "syndicat")
+                    ){
                         
                     
                     }else{
