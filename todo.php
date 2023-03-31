@@ -15,7 +15,7 @@
 
 // ? Tristan  
 
-//TODO -mieu triller les tailles dans le choix quand on commande 
+
 
 //TODO -rajouter un message " votre chef à un droit de regard et de supression sur votre commande si celle ci n'est pas conforme "
 
@@ -35,11 +35,7 @@
 
 //TODO -taille dans la description 
 
-//TODO -toute les gants remettre les taille
-
 //TODO -enlever  SIP 1 SSV pantalon de travaille, crampon forestier et stelvio chauffeur d'engin pour les bûcheron 
-
-//TODO -plaine au lieu de pleine pour les chaussures
 
 //TODO -masquer tshirt cofor pour bucheron
 
@@ -53,15 +49,9 @@
 
 //TODO -laisser uniquement stelvio pour cauffeur d'engin 
 
-//TODO -débardeur = catalogue ouvrier 
-
 //TODO - logisticien même contrainte que chauffeur d'engin 
 
-//TODO -conducteur de travaux = non ouvrier 
-
 //TODO -débusqueur = débardeur, meme métier
-
-//TODO -technicien forestier territorial = non ouvrier 
 
 //TODO -enlever les gants nitrile ( mettre non visible ) dans catalogue EPI non ouvrier
 
@@ -70,5 +60,4 @@
 
 
 
-
-
+ 

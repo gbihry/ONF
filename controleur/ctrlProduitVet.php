@@ -66,7 +66,7 @@
                 $taille = $_POST['taille'];
                 $tailleDescription = ModeleObjetDAO::getNomTailleByIdTaille($taille);
                 $idProduit = $_POST['submit'];
-                
+
                 $id = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);
                 $nomProduit = ModeleObjetDAO::getProduitPanier($idProduit)['nom'];
                 $description = "Ajout de ". $quantite ." produit(s) ".$nomProduit." taille : " .$tailleDescription. " au panier par ".$_SESSION['login'];

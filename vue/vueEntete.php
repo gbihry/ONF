@@ -68,7 +68,7 @@
               if(ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'EPI') + ModeleObjetDAO::getUtilisateurCommandeTerminer(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id'], 'VET') > 0){
                 echo '<div class="nav_links_item"><a href="index.php?action=historiqueCommande"><i class="fa-solid fa-clock-rotate-left"></i>Commande passée</a></div>';
               }
-              if($metierUtilisateur == 5 || $metierUtilisateur == 6 || $metierUtilisateur == 7 || $metierUtilisateur == 8 || $metierUtilisateur == 9) {
+              if($metierUtilisateur == 5 || $metierUtilisateur == 6 || $metierUtilisateur == 7 || $metierUtilisateur == 8) {
                 if ($verifCommandeEPI == 0 && $dateAuj < $dateFin){
                   echo '
                   <div class="nav_links_item"><a href="index.php?action=catalogueEpiNonOuvrier&&id=0"><i class="fa-solid fa-book-open"></i>Catalogue EPI</a></div>

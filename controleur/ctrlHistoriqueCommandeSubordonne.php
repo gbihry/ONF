@@ -5,6 +5,14 @@
         header("location:./?action=login");
     }else{  
         $id = $_GET["id"];
+        if(isset($_GET['idDelete']) && isset($_GET['type'])){    
+            $type = $_GET['type'];
+            $idCommande = $_GET['idDelete'];
+            ModeleObjetDAO::deleteLigneCommandeSub($type,$idCommande);
+            ModeleObjetDAO::deleteCommandeSub($type,$idCommande,$id);
+            $reload = true;
+        }
+        
         $HistoriqueCommande = ModeleObjetDAO::getHistoriqueCommande($id);
         include_once "$racine/vue/vueHistoriqueCommandeSubordonne.php";
     }
