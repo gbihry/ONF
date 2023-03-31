@@ -124,9 +124,11 @@
             </div>
             <?php 
                 if ($_GET['type'] == 'vet'){
-                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander de vêtements et vos points restants seront perdu</p>');
+                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander de vêtements et vos points restants seront perdu.
+                    Votre chef à un droit de regard et de supression sur votre commande si celle ci n\'est pas conforme</p>');
                 }else{
-                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander d\'EPI</p>');
+                    echo (' <p id ="redBySFR2"> Validation définitive, vous ne pourrez plus commander d\'EPI.
+                    Votre chef à un droit de regard et de supression sur votre commande si celle ci n\'est pas conforme</p>');
                 }
             ?>
         </div>

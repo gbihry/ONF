@@ -2654,7 +2654,7 @@
             }
             $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
             $req->execute();
-
+        }
             
         public static function verifProduitVisible($idProduit){
             $req =  Connexion::getInstance()->prepare("SELECT visible from produit WHERE id = :idProduit");
