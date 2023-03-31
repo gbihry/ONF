@@ -402,6 +402,14 @@ function user_action(type,el) {
                 window.location.href='./?action=bdd&&ref=1';
             }
             break;
+        case 'deleteLigneCommande':
+            console.log(el.dataset.iddelete, el.dataset.iduser, el.dataset.origin);
+            if(!el.dataset.iddelete) return;
+            var confirm = window.confirm('Voulez-vous vraiment supprimer cette ligneCommande ?');
+            if(confirm){
+                window.location.href='./?action=historiqueCommandeSubordonne&&id='+ el.dataset.iduser +'&idDelete=' + el.dataset.iddelete + '&type=' + el.dataset.origin;
+            }
+            break;
         default:
             break;
     }

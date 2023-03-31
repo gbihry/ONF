@@ -2634,5 +2634,30 @@
             $res = $req->fetch();
             return $res;
         }
+
+        public static function deleteLigneCommandeSub($type,$idCommande){
+            if($type == "VET"){
+                $req = Connexion::getInstance()->prepare("DELETE from lignecommandevet WHERE idCommandeVet = :idCommande;");
+            }
+            else{
+                $req = Connexion::getInstance()->prepare("DELETE from lignecommandeepi WHERE idCommandeEpi = :idCommande;");
+            }
+            $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
+            $req->execute();
+        }
+
+        public static function deleteCommandeSub($type,$idCommande,$id){
+            if($type == "VET"){
+                $req = Connexion::getInstance()->prepare("DELETE from commandevet WHERE id = :idCommande;");
+                self::insertPoints($id,150);
+            }
+            else{
+                $req = Connexion::getInstance()->prepare("DELETE from commandeepi WHERE id = :idCommande;");
+            }
+            $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
+            $req->execute();
+
+            
+        }
     }
 ?>

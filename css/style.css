@@ -991,7 +991,7 @@ table.historiquecommande tr:hover {
     background-color: var(--table-secondary-background-color);
 }
 
-table.historiquecommande tr td:last-child {
+table.historiquecommande tr td {
     text-align: center;
 }
 
