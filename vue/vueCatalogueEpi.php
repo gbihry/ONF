@@ -128,9 +128,12 @@ if(isset($reload) && $reload == true) {
                 }else{
                     if($unStatut['id'] == 1 && $detail['id'] == 10 || 
                     ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2) || 
-                    ($unStatut['id'] == 2 && $detail['id'] == 6) || 
+                    ($unStatut['id'] != 1 && $unStatut['id'] != 2 && $detail['id'] == 6) || 
                     ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
-                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
+                    ($unStatut['id'] != 9 && $detail['id'] == 16) || 
+                    ($unStatut['id'] != 4 && $unStatut['id'] != 3 && $unStatut['id'] != 9 && $detail['id'] == 36) ||
+                    ($unStatut['id'] != 2 && $unStatut['id'] != 3 && $detail['id'] == 8) || 
+                    ($unStatut['id'] != 2 && $detail['id'] == 7)){
                     
                     }else{
                         echo "<div class ='unProduit'>";
@@ -149,9 +152,12 @@ if(isset($reload) && $reload == true) {
                     
                     if($unStatut['id'] == 1 && $detail['id'] == 10 || 
                     ($unStatut['id'] == 1 && $detail['id'] != 207 && $detail['id'] != 6  && $detail['idType'] == 2) || 
-                    ($unStatut['id'] == 2 && $detail['id'] == 6) || 
+                    ($unStatut['id'] != 1 && $unStatut['id'] != 2 && $detail['id'] == 6) || 
                     ($unStatut['id'] != 3 && $unStatut['id'] != 4 && $unStatut['id'] != 9 && $detail['id'] == 18) || 
-                    ($unStatut['id'] != 9 && $detail['id'] == 16) || ($unStatut['id'] != 4 && $detail['id'] == 36)){
+                    ($unStatut['id'] != 9 && $detail['id'] == 16) || 
+                    ($unStatut['id'] != 4 && $unStatut['id'] != 3 && $unStatut['id'] != 9 && $detail['id'] == 36) ||
+                    ($unStatut['id'] != 2 && $unStatut['id'] != 3 && $detail['id'] == 8) || 
+                    ($unStatut['id'] != 2 && $detail['id'] == 7)){
                         
                     
                     }else{

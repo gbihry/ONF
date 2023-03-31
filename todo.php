@@ -15,8 +15,6 @@
 
 // ? Tristan  
 
-//TODO -MASQUER EPI HIVER, VETEMENTS CHENILLE, VETEMENTS DE PLUIE, AUTRES EFFETS pour tout les métiers 
-
 //TODO -montrer a eric comment changer taille et expliquer la bdd avec un word 
 
 //TODO -mettre dans le word, quelle type est pour quelle métier 
