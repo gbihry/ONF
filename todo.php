@@ -37,15 +37,9 @@
 
 //TODO -trie csv par SAP(fournisseur) et par lieu
 
-//TODO -taille dans la description 
-
 //TODO -enlever  SIP 1 SSV pantalon de travaille, crampon forestier et stelvio chauffeur d'engin pour les bûcheron 
 
-//TODO -masquer tshirt cofor pour bucheron
-
-//TODO -3 qte max gant de bucheronnage/ et gant cuir élastique pour les bucheron
-
-//TODO -pas de guetre/ crampo, / chaussure chauffeur d'enfin stelvio pour sylviculteur  
+//TODO -pas de guetre/ crampo, / chaussure chauffeur d'engin stelvio pour sylviculteur  
 
 //TODO -jambiere anticoupure / pantalon de débroussaillage / pantalon anti coupure / guetre / crampons / gant de bucheronnage /    enlever chauffeur d'engin 
 
