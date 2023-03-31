@@ -2229,11 +2229,11 @@
             join fournisseur on produit.idFournisseur = fournisseur.id
             WHERE fournisseur.id = :idFournisseur and Agence = :agence
             group by produit.nom,lieulivraion.nom,libelle;");
-             $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
-             $req->bindValue(':agence',$agence,PDO::PARAM_STR);
-             $req->execute();
-             $res = $req->fetchall();
-             return $res;
+            $req->bindValue(':idFournisseur',$idFournisseur,PDO::PARAM_INT);
+            $req->bindValue(':agence',$agence,PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetchall();
+            return $res;
         }
 
         public static function bonCommandeCsv($type,$idLieuLivraison,$choix,$agence){
@@ -2257,25 +2257,56 @@
     
                     
                 }
+                $tmp_array[] = array("lieu livraison" => "Lieu livraison : ");
+                $tmp_array[] = array("lieu livraison" => $nomLieuLivraison);
+                $tmp_array[] = array();
+
             }
             else{
                 if($type == 'VET'){
 
-                    $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                    $infoFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison);
 
-                    $filename = "bonCommandes/bonDeCommandeVET-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                    $filename = "bonCommandes/bonDeCommandeVET-".$infoFournisseur['nom']."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
                     $Commande = ModeleObjetDAO::getAllLigneCommandeVetFournisseur($idLieuLivraison,$agence);
                 }
                 else{
-                    $nomFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison)['nom'];
+                    $infoFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison);
 
-                    $filename = "bonCommandes/bonDeCommandeEPI-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                    $filename = "bonCommandes/bonDeCommandeEPI-".$infoFournisseur['nom']."-".date("d-m-Y")."-".date("H-i-s").".csv";
     
                     $Commande = ModeleObjetDAO::getAllLigneCommandeEpiFournisseur($idLieuLivraison,$agence);
     
                     
                 }
+                $tmp_array[] = array(
+                    "fournisseur" => "Nom ", 
+                    "codeFournisseur" => "codeFournisseur", 
+                    "numSAP" => "numSAP", 
+                    "numMarche" => "numMarche", 
+                    "SIREN" => "SIREN", 
+                    "numero" => "numero", 
+                    "rue" => "rue", 
+                    "codePostal" => "codePostal", 
+                    "ville" => "ville", 
+                    "tel" => "tel", 
+                    "slug" => "slug"
+                );
+                $tmp_array[] = array(
+                    "fournisseur" => $infoFournisseur['nom'],
+                    "codeFournisseur" => $infoFournisseur['codeFournissuer'],
+                    "numSAP" => $infoFournisseur['numSAP'],
+                    "numMarche" => $infoFournisseur['numMarche'],
+                    "SIREN" => $infoFournisseur['siren'],
+                    "numero" => $infoFournisseur['numero'],
+                    "rue" => $infoFournisseur['rue'],
+                    "codePostal" => $infoFournisseur['codePostal'],
+                    "ville" => $infoFournisseur['ville'],
+                    "tel" => $infoFournisseur['tel'],
+                    "slug" => $infoFournisseur['slug']
+                );
+                $tmp_array[] = array();
             }
             
             if(empty($Commande)){
@@ -2293,14 +2324,8 @@
                 
             }
 
-            if($choix == "lieuLivraison"){
-                $tmp_array[] = array("lieu livraison" => "Lieu livraison : ",$nomLieuLivraison);
-            }
-            else{
-                $tmp_array[] = array("fournisseur " => "Fournisseur : ",$nomFournisseur);
-            } 
-
             foreach($Commande as $ligne) {
+                $tmp_array[] = array("nom" => "Nom produit", "libelle" => "Taille", "quantite" => "Quantite");
                 $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
             }
 
@@ -2319,18 +2344,18 @@
             if($type == 'VET'){
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
+                $infoFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur);
 
-                $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                $filename = "bonCommandes/bonDeCommandeVET-".$nomLieuLivraison."-".$infoFournisseur['nom']."-".date("d-m-Y")."-".date("H-i-s").".csv";
 
                 $Commande = ModeleObjetDAO::getAllLigneCommandeVet2($idLieuLivraison,$idFournisseur,$agence);
             }
             else{
                 $nomLieuLivraison = ModeleObjetDAO::getNomLieuLivraison($idLieuLivraison)['nom'];
 
-                $nomFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur)['nom'];
+                $infoFournisseur = ModeleObjetDAO::getFournisseurById($idFournisseur);
 
-                $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$nomFournisseur."-".date("d-m-Y")."-".date("H-i-s").".csv";
+                $filename = "bonCommandes/bonDeCommandeEPI-".$nomLieuLivraison."-".$infoFournisseur['nom']."-".date("d-m-Y")."-".date("H-i-s").".csv";
                 
                 $Commande = ModeleObjetDAO::getAllLigneCommandeEpi2($idLieuLivraison,$idFournisseur,$agence);
 
@@ -2349,14 +2374,44 @@
                         2 => $value,
                         'fournisseur' => $value,
                         3 => $value
-                    
+                        
                     )
                     );
                 
             }
-            $tmp_array[] = array("lieu livraison" => "Lieu livraison : ",$nomLieuLivraison,"fournisseur " => "Fournisseur : ",$nomFournisseur);
+            $tmp_array[] = array("lieu livraison" => "Lieu livraison : ");
+            $tmp_array[] = array("lieu livraison" => $nomLieuLivraison);
+            $tmp_array[] = array();
+            $tmp_array[] = array(
+                "fournisseur" => "Nom ", 
+                "codeFournisseur" => "codeFournisseur", 
+                "numSAP" => "numSAP", 
+                "numMarche" => "numMarche", 
+                "SIREN" => "SIREN", 
+                "numero" => "numero", 
+                "rue" => "rue", 
+                "codePostal" => "codePostal", 
+                "ville" => "ville", 
+                "tel" => "tel", 
+                "slug" => "slug"
+            );
+            $tmp_array[] = array(
+                "fournisseur" => $infoFournisseur['nom'],
+                "codeFournisseur" => $infoFournisseur['codeFournissuer'],
+                "numSAP" => $infoFournisseur['numSAP'],
+                "numMarche" => $infoFournisseur['numMarche'],
+                "SIREN" => $infoFournisseur['siren'],
+                "numero" => $infoFournisseur['numero'],
+                "rue" => $infoFournisseur['rue'],
+                "codePostal" => $infoFournisseur['codePostal'],
+                "ville" => $infoFournisseur['ville'],
+                "tel" => $infoFournisseur['tel'],
+                "slug" => $infoFournisseur['slug']
+            );
+            $tmp_array[] = array();
 
             foreach($Commande as $ligne) {
+                $tmp_array[] = array("nom" => "Nom produit", "libelle" => "Taille", "quantite" => "Quantite");
                 $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
             }
 
@@ -2422,7 +2477,7 @@
         }
 
         public static function getFournisseurById($id){
-            $req =  Connexion::getInstance()->prepare(" SELECT nom
+            $req =  Connexion::getInstance()->prepare(" SELECT *
             from fournisseur WHERE id = :id");
             $req->bindValue(':id',$id,PDO::PARAM_INT);
             $req->execute();

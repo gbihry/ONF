@@ -29,10 +29,6 @@
 
 //TODO -pouvoir supprimer une lignecommande depuis le site avec un bouton  
 
-//TODO -mettre dans csv toute les infos du fournisseur
-
-//TODO -mettre le nom des champs au dessus des infos  
-
 //TODO -tout -> tous pour les logs
 
 //TODO -trie csv par SAP(fournisseur) et par lieu
