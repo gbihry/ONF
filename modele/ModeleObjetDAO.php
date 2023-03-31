@@ -2709,6 +2709,7 @@
             }
             $req->bindValue(':idCommande', $idCommande, PDO::PARAM_INT);
             $req->execute();
+        }
 
             
         public static function verifProduitVisible($idProduit){

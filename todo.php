@@ -15,10 +15,6 @@
 
 // ? Tristan  
 
-
-
-//TODO -rajouter un message " votre chef à un droit de regard et de supression sur votre commande si celle ci n'est pas conforme "
-
 //TODO -MASQUER EPI HIVER, VETEMENTS CHENILLE, VETEMENTS DE PLUIE, AUTRES EFFETS pour tout les métiers 
 
 //TODO -que site mulhouse, enlever colmar
@@ -26,10 +22,6 @@
 //TODO -montrer a eric comment changer taille et expliquer la bdd avec un word 
 
 //TODO -mettre dans le word, quelle type est pour quelle métier 
-
-//TODO -pouvoir supprimer une lignecommande depuis le site avec un bouton  
-
-//TODO -tout -> tous pour les logs
 
 //TODO -trie csv par SAP(fournisseur) et par lieu
 
@@ -54,10 +46,3 @@
 //TODO -débusqueur = débardeur, meme métier
 
 //TODO -enlever les gants nitrile ( mettre non visible ) dans catalogue EPI non ouvrier
-
-//TODO -quand on essaie d'ajouter via le csv un rôle plus grand -> bug ??
-
-
-
-
- 
