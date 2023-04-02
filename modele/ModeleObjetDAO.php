@@ -2272,6 +2272,7 @@
                     $Commande = ModeleObjetDAO::getAllLigneCommandeVetFournisseur($idLieuLivraison,$agence);
                 }
                 else{
+                    
                     $infoFournisseur = ModeleObjetDAO::getFournisseurById($idLieuLivraison);
 
                     $filename = "bonCommandes/bonDeCommandeEPI-".$infoFournisseur['nom']."-".date("d-m-Y")."-".date("H-i-s").".csv";
@@ -2323,9 +2324,9 @@
                     );
                 
             }
-
+            $tmp_array[] = array("nom" => "Nom produit", "libelle" => "Taille", "quantite" => "Quantite");
             foreach($Commande as $ligne) {
-                $tmp_array[] = array("nom" => "Nom produit", "libelle" => "Taille", "quantite" => "Quantite");
+                
                 $tmp_array[] = array("nom" => $ligne['produit'], "libelle" => $ligne['libelle'], "quantite" => $ligne['quantite']);
             }
 

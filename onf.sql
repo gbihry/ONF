@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : ven. 31 mars 2023 à 09:49
--- Version du serveur : 10.11.1-MariaDB
--- Version de PHP : 8.0.26
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 31, 2023 at 01:23 PM
+-- Server version: 5.7.36
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `onf`
+-- Database: `onf`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Table structure for table `categorie`
 --
 
 DROP TABLE IF EXISTS `categorie`;
@@ -33,22 +33,18 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `libelle` varchar(100) DEFAULT NULL,
   `typeEPI` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `categorie`
+-- Dumping data for table `categorie`
 --
 
 INSERT INTO `categorie` (`id`, `libelle`, `typeEPI`) VALUES
 (1, 'Protection des membres inférieurs', 'EPI'),
 (2, 'Éléments chaussant', 'EPI'),
 (3, 'Protection des mains', 'EPI'),
-(4, 'Vêtements de protection contre la chenille processionnaire', 'EPI'),
-(5, 'Vêtements de pluie', 'EPI'),
 (6, 'T-shirt', 'EPI'),
-(7, 'EPI hiver', 'EPI'),
 (8, 'Lunettes', 'EPI'),
-(9, 'Autres effets', 'EPI'),
 (10, 'Vêtements', 'VET'),
 (11, 'Éléments chaussant non ouvrier', 'EPINonOuvrier'),
 (12, 'Protection des mains non ouvrier', 'EPINonOuvrier'),
@@ -59,7 +55,7 @@ INSERT INTO `categorie` (`id`, `libelle`, `typeEPI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commandeepi`
+-- Table structure for table `commandeepi`
 --
 
 DROP TABLE IF EXISTS `commandeepi`;
@@ -68,16 +64,16 @@ CREATE TABLE IF NOT EXISTS `commandeepi` (
   `dateCrea` datetime DEFAULT NULL,
   `statut` varchar(50) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT 0,
+  `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=188 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commandevet`
+-- Table structure for table `commandevet`
 --
 
 DROP TABLE IF EXISTS `commandevet`;
@@ -86,16 +82,16 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
   `dateCrea` datetime DEFAULT NULL,
   `statut` varchar(50) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `terminer` tinyint(1) NOT NULL DEFAULT 0,
+  `terminer` tinyint(1) NOT NULL DEFAULT '0',
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commentaire`
+-- Table structure for table `commentaire`
 --
 
 DROP TABLE IF EXISTS `commentaire`;
@@ -103,10 +99,10 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `Message` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `commentaire`
+-- Dumping data for table `commentaire`
 --
 
 INSERT INTO `commentaire` (`id`, `Message`) VALUES
@@ -115,7 +111,7 @@ INSERT INTO `commentaire` (`id`, `Message`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `concerne`
+-- Table structure for table `concerne`
 --
 
 DROP TABLE IF EXISTS `concerne`;
@@ -124,10 +120,10 @@ CREATE TABLE IF NOT EXISTS `concerne` (
   `idType` int(11) NOT NULL,
   `quantiteMax` int(11) NOT NULL,
   PRIMARY KEY (`idStatut`,`idType`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `concerne`
+-- Dumping data for table `concerne`
 --
 
 INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
@@ -210,7 +206,7 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (4, 11, 1),
 (4, 12, 1),
 (4, 13, 1),
-(4, 14, 1),
+(4, 14, 2),
 (4, 15, 1),
 (4, 16, 1),
 (4, 17, 0),
@@ -354,7 +350,7 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `concerne_categorie_metier`
+-- Table structure for table `concerne_categorie_metier`
 --
 
 DROP TABLE IF EXISTS `concerne_categorie_metier`;
@@ -363,10 +359,10 @@ CREATE TABLE IF NOT EXISTS `concerne_categorie_metier` (
   `idCategorie` int(11) NOT NULL,
   `idMetier` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `concerne_categorie_metier`
+-- Dumping data for table `concerne_categorie_metier`
 --
 
 INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
@@ -482,7 +478,7 @@ INSERT INTO `concerne_categorie_metier` (`id`, `idCategorie`, `idMetier`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `disponible`
+-- Table structure for table `disponible`
 --
 
 DROP TABLE IF EXISTS `disponible`;
@@ -495,10 +491,10 @@ CREATE TABLE IF NOT EXISTS `disponible` (
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=782 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=782 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `disponible`
+-- Dumping data for table `disponible`
 --
 
 INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJambe`) VALUES
@@ -1137,7 +1133,7 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 -- --------------------------------------------------------
 
 --
--- Structure de la table `employeur`
+-- Table structure for table `employeur`
 --
 
 DROP TABLE IF EXISTS `employeur`;
@@ -1147,10 +1143,10 @@ CREATE TABLE IF NOT EXISTS `employeur` (
   `nom` varchar(30) DEFAULT NULL,
   `roleEmployeur` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `employeur`
+-- Dumping data for table `employeur`
 --
 
 INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
@@ -1164,7 +1160,7 @@ INSERT INTO `employeur` (`id`, `prenom`, `nom`, `roleEmployeur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fournisseur`
+-- Table structure for table `fournisseur`
 --
 
 DROP TABLE IF EXISTS `fournisseur`;
@@ -1182,10 +1178,10 @@ CREATE TABLE IF NOT EXISTS `fournisseur` (
   `tel` varchar(50) DEFAULT NULL,
   `slug` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `fournisseur`
+-- Dumping data for table `fournisseur`
 --
 
 INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`, `siren`, `numero`, `rue`, `codePostal`, `ville`, `tel`, `slug`) VALUES
@@ -1203,7 +1199,7 @@ INSERT INTO `fournisseur` (`id`, `codeFournissuer`, `numSAP`, `numMarche`, `nom`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lieulivraion`
+-- Table structure for table `lieulivraion`
 --
 
 DROP TABLE IF EXISTS `lieulivraion`;
@@ -1216,10 +1212,10 @@ CREATE TABLE IF NOT EXISTS `lieulivraion` (
   `mail` varchar(50) DEFAULT NULL,
   `Siege` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `lieulivraion`
+-- Dumping data for table `lieulivraion`
 --
 
 INSERT INTO `lieulivraion` (`id`, `nom`, `codePostal`, `ville`, `telephone`, `mail`, `Siege`) VALUES
@@ -1229,26 +1225,26 @@ INSERT INTO `lieulivraion` (`id`, `nom`, `codePostal`, `ville`, `telephone`, `ma
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignecommandeepi`
+-- Table structure for table `lignecommandeepi`
 --
 
 DROP TABLE IF EXISTS `lignecommandeepi`;
 CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idProduit` int(11) NOT NULL,
-  `quantite` int(11) DEFAULT 1,
+  `quantite` int(11) DEFAULT '1',
   `idCommandeEPI` int(11) NOT NULL,
   `idTaille` int(11) NOT NULL,
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=287 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=289 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignecommandevet`
+-- Table structure for table `lignecommandevet`
 --
 
 DROP TABLE IF EXISTS `lignecommandevet`;
@@ -1262,12 +1258,12 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `log`
+-- Table structure for table `log`
 --
 
 DROP TABLE IF EXISTS `log`;
@@ -1278,10 +1274,10 @@ CREATE TABLE IF NOT EXISTS `log` (
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=1332 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1346 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `log`
+-- Dumping data for table `log`
 --
 
 INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
@@ -1388,12 +1384,26 @@ INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
 (1328, '2023-03-31 11:45:31', 'Modification du produit Tour de cou multi-fonction N°35 par AdminJohnDoe@gmail.doe', 2),
 (1329, '2023-03-31 11:45:38', 'Modification du produit Tour de cou multi-fonction N°35 par AdminJohnDoe@gmail.doe', 2),
 (1330, '2023-03-31 11:49:12', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1331, '2023-03-31 11:49:15', 'Connexion de John.doe@gmail.doe', 1);
+(1331, '2023-03-31 11:49:15', 'Connexion de John.doe@gmail.doe', 1),
+(1332, '2023-03-31 12:00:46', 'Modification du produit CEPOVETT 9J86 / Combinaison de travail par AdminJohnDoe@gmail.doe', 2),
+(1333, '2023-03-31 12:01:09', 'Modification du produit CEPOVETT 9J86 / Combinaison de travail par AdminJohnDoe@gmail.doe', 2),
+(1334, '2023-03-31 13:56:54', 'Connexion de John.doe@gmail.doe', 1),
+(1335, '2023-03-31 14:01:56', 'Déconnexion de John.doe@gmail.doe', 1),
+(1336, '2023-03-31 14:02:10', 'Connexion de AdminJohnDoe@gmail.doe', 2),
+(1337, '2023-03-31 14:15:27', 'Modification du produit Gants nitrile par AdminJohnDoe@gmail.doe', 2),
+(1338, '2023-03-31 14:28:18', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
+(1339, '2023-03-31 14:28:33', 'Connexion de John.doe@gmail.doe', 1),
+(1340, '2023-03-31 14:43:56', 'Déconnexion de John.doe@gmail.doe', 1),
+(1341, '2023-03-31 14:44:09', 'Connexion de John.doe@gmail.doe', 1),
+(1342, '2023-03-31 14:51:11', 'Ajout de 2 produit(s) CEPOVETT 9J86 / Combinaison de travail taille : 0 au panier par John.doe@gmail.doe', 1),
+(1343, '2023-03-31 14:51:17', 'Suppression de l\'article CEPOVETT 9J86 / Combinaison de travail par John.doe@gmail.doe', 1),
+(1344, '2023-03-31 14:57:24', 'Ajout de 2 produit(s) CEPOVETT 9J86 / Combinaison de travail taille : 0 au panier par John.doe@gmail.doe', 1),
+(1345, '2023-03-31 14:58:20', 'Suppression de l\'article CEPOVETT 9J86 / Combinaison de travail par John.doe@gmail.doe', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `metier`
+-- Table structure for table `metier`
 --
 
 DROP TABLE IF EXISTS `metier`;
@@ -1401,10 +1411,10 @@ CREATE TABLE IF NOT EXISTS `metier` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `statut` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `metier`
+-- Dumping data for table `metier`
 --
 
 INSERT INTO `metier` (`id`, `statut`) VALUES
@@ -1421,7 +1431,7 @@ INSERT INTO `metier` (`id`, `statut`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `points`
+-- Table structure for table `points`
 --
 
 DROP TABLE IF EXISTS `points`;
@@ -1430,10 +1440,10 @@ CREATE TABLE IF NOT EXISTS `points` (
   `point` int(11) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `points`
+-- Dumping data for table `points`
 --
 
 INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
@@ -1455,7 +1465,7 @@ INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produit`
+-- Table structure for table `produit`
 --
 
 DROP TABLE IF EXISTS `produit`;
@@ -1468,14 +1478,14 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `description` varchar(700) DEFAULT NULL,
   `idFournisseur` int(11) NOT NULL,
   `idType` int(11) NOT NULL,
-  `Visible` int(11) NOT NULL DEFAULT 1,
+  `Visible` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
-) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `produit`
+-- Dumping data for table `produit`
 --
 
 INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `type`, `description`, `idFournisseur`, `idType`, `Visible`) VALUES
@@ -1494,7 +1504,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (18, 'ROSTAING', 'DENIM.png', 'DENIM / Gant de protection mécanique', 'EPI', 'Gants étanche avec enduction pour\r\nprotection mécanique, idéal pour travaux de\r\nmaintenance en milieu huileux\r\nRésistance à la coupure.', 4, 9, 1),
 (27, 'France Equipement Sécurité', '60510.png', 'Lunette de sécurité 60510', 'EPI', 'Ajustement de la longueur et inclinaison des\r\nbranches.\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\nensoleillé).', 8, 11, 1),
 (33, 'E.P.I SUD ', 'T-shirtOnf.png', 'T-shirt ONF rouge ', 'EPI', 'Grammage : 185 g/m²\nExiste en version col en V\nAvec marquage ONF', 9, 20, 1),
-(36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\r\nCouleur : orange\r\nUniquement pour conducteurs d’engins et\r\nlogisticiens.', 6, 14, 1),
+(36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\r\nCouleur : orange\r\nUniquement pour conducteurs d’engins et\r\nlogisticiens.', 6, 2, 1),
 (37, 'ONF', 'Inve.png', 'Veste Solidur Inve N°1', 'VET', 'Veste de travail extensible hydrophobe avec manches amovibles.\nPolyester ripstop hydrophobe, tissu épaules Armortex, tissu bras polyamide enduit. 3 poches extérieures dont 2 poches repose mains et 1\n\npoche téléphone. Liseré réfléchissant sur épaules avant arrière, bande\nréfléchissante hachurée sur les bras. 1 poche dos double ouverture.\nRéglage poignets par ruban autoagrippant et patte caoutchouc.\nRouge/jaune\nTailles XS à 4XL', 10, 17, 1),
 (38, 'ONF', 'Kouvola.png', 'Veste Softshell Francital Kouvola N°2 ', 'VET', 'Veste idéale en demi-saison froide et lors des averses grâce à sa mem-\nbrane. 5 poches : 2 poches basses, 2 poches poitrine, 1 poche inté-\nrieure. Grand col montant, patte de resserrage poignet, fermeture à\nglissière simple curseur séparable inversée, système de ventilation\nsous les bras\nTissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imper-respirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne\nRouge/Jaune\nTaille XS-3XL', 10, 17, 1),
 (39, 'ONF', 'Woda.png', 'Veste Softshell à manches amovibles Solidur Woda N°3 ', 'VET', 'Veste Softshell 3 couches garantissant résistance à l’eau, au\nvent et respirabilité. Tissu extérieur : 95% polyester, 5% Span-\ndex. Membrane : TPU 35 g/m2. Tissu intérieur : polaire 100%\npolyester. Tissu bi-extensible. Manches amovibles. Micro polaire grattée. Col ergonomique. Fermeture à glissière sous\nrabat. 2 poches poitrines. 2 poches basses. 2 poches intérieures avec étiquette rhésus. Double poche dos. Plan dorsal rallongé. Aération dorsale\nRouge/jaune\nTaille S au 4XL', 10, 17, 1),
@@ -1563,7 +1573,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (188, 'ROSTAING', 'EPS7PBA.png', 'Gants cuir', 'EPINonOuvrier', 'Gants de manutention en cuir avec protège\r\n\r\nartère en cuir.', 4, 22, 1),
 (189, 'ROSTAING', 'FeelPro.png', 'FEELPRO', 'EPINonOuvrier', 'Gants fins pour saisie tactile sur smartphone.\r\n\r\nTaille : 7 à 11', 4, 22, 1),
 (190, 'ROSTAING', 'MidSeason.png', 'MIDSEASON /', 'EPINonOuvrier', 'Gants épais et étanche pour saisie tactile sur\r\n\r\nsmartphone.\r\nProtège du froid positif\r\nTaille : 7 à 12', 4, 22, 1),
-(191, 'ROSTAING', 'MidSeasonNitrile.png', 'Gants nitrile', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\r\n\r\nrisques chimiques\r\nTaille : 7 à 10', 4, 22, 1),
+(191, 'ROSTAING', 'MidSeasonNitrile.png', 'Gants nitrile', 'EPINonOuvrier', 'Gants 100% étanche, protection contre les\r\n\r\nrisques chimiques\r\nTaille : 7 à 10', 4, 22, 0),
 (192, 'France Equipement Sécurité', '60510.png', 'Réf 60510 / 60513 / 60516', 'EPINonOuvrier', 'Ajustement de la longueur et inclinaison des\r\n\r\nbranches.\r\n\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\n\r\nensoleillé).', 8, 24, 1),
 (193, 'Fiprotec', 'MOLDEX2405.png', 'MOLDEX réf 2405 ', 'EPINonOuvrier', 'Taille unique\r\n\r\nMasque FFP2 avec valve facilitant l’expiration.\r\n\r\nRéglage avec élastique\r\nUtilisable en milieu infesté par la chenille\r\n\r\nprocessionnaire.', 6, 23, 1),
 (194, 'Fiprotec', 'TYVEK800J.png', 'TYVEK 800J ', 'EPINonOuvrier', 'Combinaison intégrale avec fermeture à glissière, passe-pouce et capuche intégrée. Utilisable en milieu infesté par la chenille processionnaire.', 6, 23, 1),
@@ -1579,7 +1589,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 -- --------------------------------------------------------
 
 --
--- Structure de la table `role`
+-- Table structure for table `role`
 --
 
 DROP TABLE IF EXISTS `role`;
@@ -1588,10 +1598,10 @@ CREATE TABLE IF NOT EXISTS `role` (
   `libelle` varchar(50) DEFAULT NULL,
   `commentaire` varchar(70) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `role`
+-- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
@@ -1603,7 +1613,7 @@ INSERT INTO `role` (`id`, `libelle`, `commentaire`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `taille`
+-- Table structure for table `taille`
 --
 
 DROP TABLE IF EXISTS `taille`;
@@ -1611,10 +1621,10 @@ CREATE TABLE IF NOT EXISTS `taille` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `taille`
+-- Dumping data for table `taille`
 --
 
 INSERT INTO `taille` (`id`, `libelle`) VALUES
@@ -1711,7 +1721,7 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `type`
+-- Table structure for table `type`
 --
 
 DROP TABLE IF EXISTS `type`;
@@ -1721,10 +1731,10 @@ CREATE TABLE IF NOT EXISTS `type` (
   `idCategorie` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategorie` (`idCategorie`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `type`
+-- Dumping data for table `type`
 --
 
 INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
@@ -1758,7 +1768,7 @@ INSERT INTO `type` (`id`, `libelle`, `idCategorie`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
@@ -1782,10 +1792,10 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   KEY `idRole` (`idRole`),
   KEY `idMetier` (`idMetier`),
   KEY `IdEmployeur` (`IdEmployeur`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, `tel`, `idLieuLivraison`, `id_responsable`, `idRole`, `idMetier`, `Agence`, `IdEmployeur`) VALUES
