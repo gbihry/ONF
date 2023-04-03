@@ -131,7 +131,6 @@ if(isset($reload) && $reload == true) {
                     if($statutUser == 1 && $idProduit == 10 || 
                     ($statutUser == 1 &&  $idProduit != 6  && $detail['idType'] == 2) ||
                     ($statutUser !=1 && $statutUser !=2 && $idProduit == 2) || 
-                    ($statutUser == 2 && $idProduit == 6) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 1) ||
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 3 && $statutUser != 9 && $idProduit == 3) || 
@@ -164,7 +163,6 @@ if(isset($reload) && $reload == true) {
                     if($statutUser == 1 && $idProduit == 10 || 
                     ($statutUser == 1 &&  $idProduit != 6  && $detail['idType'] == 2) ||
                     ($statutUser !=1 && $statutUser !=2 && $idProduit == 2) || 
-                    ($statutUser == 2 && $idProduit == 6) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 1) ||
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 3 && $statutUser != 9 && $idProduit == 3) || 
