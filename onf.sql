@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 31, 2023 at 01:23 PM
+-- Generation Time: Apr 03, 2023 at 01:51 PM
 -- Server version: 5.7.36
 -- PHP Version: 8.0.13
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `commandeepi` (
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=188 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `commandevet` (
   `dateCreaFini` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -131,9 +131,9 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (1, 2, 2),
 (1, 3, 1),
 (1, 4, 4),
-(1, 5, 2),
+(1, 5, 3),
 (1, 6, 3),
-(1, 7, 4),
+(1, 7, 3),
 (1, 8, 1),
 (1, 9, 1),
 (1, 10, 1),
@@ -325,7 +325,7 @@ INSERT INTO `concerne` (`idStatut`, `idType`, `quantiteMax`) VALUES
 (9, 4, 4),
 (9, 5, 2),
 (9, 6, 3),
-(9, 7, 4),
+(9, 7, 3),
 (9, 8, 1),
 (9, 9, 1),
 (9, 10, 1),
@@ -491,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `disponible` (
   PRIMARY KEY (`Id`,`idProduit`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=782 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=800 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `disponible`
@@ -769,8 +769,8 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (741, 91, 57, 27, NULL),
 (731, 92, 57, 30, NULL),
 (719, 93, 57, 63, NULL),
-(279, 94, 48, 113, NULL),
-(280, 94, 20, 113, NULL),
+(784, 95, 32, 129, NULL),
+(783, 95, 90, 129, NULL),
 (281, 94, 21, 113, NULL),
 (282, 94, 22, 113, NULL),
 (283, 94, 23, 113, NULL),
@@ -782,8 +782,8 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (289, 94, 29, 113, NULL),
 (290, 94, 30, 113, NULL),
 (291, 94, 31, 113, NULL),
-(292, 95, 48, 129, NULL),
-(293, 95, 20, 129, NULL),
+(786, 94, 32, 113, NULL),
+(785, 94, 90, 113, NULL),
 (294, 95, 21, 129, NULL),
 (295, 95, 22, 129, NULL),
 (296, 95, 23, 129, NULL),
@@ -865,8 +865,6 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (577, 6, 82, 0, NULL),
 (624, 6, 69, 0, NULL),
 (575, 6, 80, 0, NULL),
-(623, 6, 7, 0, NULL),
-(622, 6, 6, 0, NULL),
 (377, 7, 2, 0, NULL),
 (378, 7, 3, 0, NULL),
 (379, 7, 4, 0, NULL),
@@ -956,7 +954,7 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (464, 33, 6, 0, NULL),
 (465, 33, 7, 0, NULL),
 (466, 33, 8, 0, NULL),
-(467, 33, 67, 0, NULL),
+(794, 33, 9, 0, NULL),
 (468, 34, 49, 0, NULL),
 (469, 35, 2, 0, NULL),
 (470, 35, 3, 0, NULL),
@@ -1055,12 +1053,11 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (717, 200, 57, 0, NULL),
 (673, 27, 67, 0, NULL),
 (672, 27, 66, 0, NULL),
-(621, 6, 5, 0, NULL),
-(620, 6, 4, 0, NULL),
-(619, 6, 3, 0, NULL),
-(618, 6, 2, 0, NULL),
-(617, 6, 1, 0, NULL),
-(585, 6, 90, 0, NULL),
+(799, 185, 32, 0, NULL),
+(798, 184, 34, 0, NULL),
+(797, 184, 32, 0, NULL),
+(796, 183, 30, 0, NULL),
+(795, 182, 33, 0, NULL),
 (586, 6, 91, 0, NULL),
 (587, 6, 92, 0, NULL),
 (588, 6, 93, 0, NULL),
@@ -1128,7 +1125,14 @@ INSERT INTO `disponible` (`Id`, `idProduit`, `idTaille`, `prix`, `TailleEntreJam
 (694, 188, 53, 0, NULL),
 (695, 188, 54, 0, NULL),
 (709, 192, 68, 0, NULL),
-(710, 192, 67, 0, NULL);
+(710, 192, 67, 0, NULL),
+(787, 48, 36, 48, NULL),
+(788, 47, 19, 33, NULL),
+(789, 65, 36, 30, NULL),
+(790, 64, 36, 28, NULL),
+(791, 46, 19, 28, NULL),
+(792, 81, 4, 21, NULL),
+(793, 81, 5, 21, NULL);
 
 -- --------------------------------------------------------
 
@@ -1239,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandeepi` (
   KEY `idCommandeEPI` (`idCommandeEPI`),
   KEY `idProduit` (`idProduit`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=289 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=310 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1258,7 +1262,7 @@ CREATE TABLE IF NOT EXISTS `lignecommandevet` (
   KEY `idProduit` (`idProduit`),
   KEY `idCommandeVet` (`idCommandeVet`),
   KEY `idTaille` (`idTaille`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1274,131 +1278,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `idUtilisateur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUtilisateur` (`idUtilisateur`)
-) ENGINE=MyISAM AUTO_INCREMENT=1346 DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `log`
---
-
-INSERT INTO `log` (`id`, `date`, `description`, `idUtilisateur`) VALUES
-(1228, '2023-03-29 08:58:57', 'Déconnexion de SuperJohn@super.John', 20),
-(1229, '2023-03-30 08:40:34', 'Connexion de John.doe@gmail.doe', 1),
-(1230, '2023-03-30 08:40:37', 'Déconnexion de John.doe@gmail.doe', 1),
-(1231, '2023-03-30 14:24:59', 'Connexion de John.doe@gmail.doe', 1),
-(1232, '2023-03-31 08:56:41', 'Déconnexion de John.doe@gmail.doe', 1),
-(1233, '2023-03-31 08:56:46', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1234, '2023-03-31 08:59:58', 'Modification du produit DENIM / Gant de protection mécanique par AdminJohnDoe@gmail.doe', 2),
-(1235, '2023-03-31 09:00:29', 'Modification du produit DENIM / Gant de protection mécanique par AdminJohnDoe@gmail.doe', 2),
-(1236, '2023-03-31 09:00:32', 'Modification du produit DENIM / Gant de protection mécanique par AdminJohnDoe@gmail.doe', 2),
-(1237, '2023-03-31 09:02:15', 'Modification du produit DENIM / Gant de protection mécanique par AdminJohnDoe@gmail.doe', 2),
-(1238, '2023-03-31 09:08:00', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1239, '2023-03-31 09:12:28', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1240, '2023-03-31 10:09:45', 'Modification du produit SIP 1SPV / Pantalon anti- coupure  par AdminJohnDoe@gmail.doe', 2),
-(1241, '2023-03-31 10:09:50', 'Modification du produit SIP 1SPV / Pantalon anti- coupure  par AdminJohnDoe@gmail.doe', 2),
-(1242, '2023-03-31 10:10:47', 'Modification du produit SIP 1XT2 / Jambière anti-coupure par AdminJohnDoe@gmail.doe', 2),
-(1243, '2023-03-31 10:16:34', 'Modification du produit Gant cuir élastique par AdminJohnDoe@gmail.doe', 2),
-(1244, '2023-03-31 10:17:09', 'Ajout de 1 produit(s) Gant cuir élastique taille : 6 au panier par AdminJohnDoe@gmail.doe', 2),
-(1245, '2023-03-31 10:17:19', 'Suppression de l\'article Gant cuir élastique par AdminJohnDoe@gmail.doe', 2),
-(1246, '2023-03-31 10:17:35', 'Modification du produit Gant cuir élastique par AdminJohnDoe@gmail.doe', 2),
-(1247, '2023-03-31 10:18:21', 'Modification du produit Gant cuir manutention  par AdminJohnDoe@gmail.doe', 2),
-(1248, '2023-03-31 10:18:42', 'Modification du produit Gant cuir manutention  par AdminJohnDoe@gmail.doe', 2),
-(1249, '2023-03-31 10:19:31', 'Modification du produit Blackstick+ / Gant de débardage par AdminJohnDoe@gmail.doe', 2),
-(1250, '2023-03-31 10:20:13', 'Modification du produit Winterpro / Gant hiver par AdminJohnDoe@gmail.doe', 2),
-(1251, '2023-03-31 10:20:57', 'Modification du produit Francital GT015 / Gant de bucheronnage par AdminJohnDoe@gmail.doe', 2),
-(1252, '2023-03-31 10:21:38', 'Modification du produit DENIM / Gant de protection mécanique par AdminJohnDoe@gmail.doe', 2),
-(1253, '2023-03-31 10:23:07', 'Modification du produit Lunette de sécurité 60510 par AdminJohnDoe@gmail.doe', 2),
-(1254, '2023-03-31 10:23:17', 'Modification du produit Lunette de sécurité 60510 par AdminJohnDoe@gmail.doe', 2),
-(1255, '2023-03-31 10:25:54', 'Modification du produit T-shirt COFOR rouge  par AdminJohnDoe@gmail.doe', 2),
-(1256, '2023-03-31 10:26:36', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1257, '2023-03-31 10:26:39', 'Connexion de John.doe@gmail.doe', 1),
-(1258, '2023-03-31 10:26:54', 'Déconnexion de John.doe@gmail.doe', 1),
-(1259, '2023-03-31 10:26:58', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1260, '2023-03-31 10:30:32', 'Modification du produit CEPOVETT 9J86 / Combinaison de travail par AdminJohnDoe@gmail.doe', 2),
-(1261, '2023-03-31 10:39:48', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1262, '2023-03-31 10:39:50', 'Connexion de John.doe@gmail.doe', 1),
-(1263, '2023-03-31 10:41:37', 'Déconnexion de John.doe@gmail.doe', 1),
-(1264, '2023-03-31 10:41:45', 'Connexion de Kiki@psg.com', 41),
-(1265, '2023-03-31 10:42:34', 'Déconnexion de Kiki@psg.com', 41),
-(1266, '2023-03-31 10:42:46', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1267, '2023-03-31 10:51:57', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1268, '2023-03-31 10:52:01', 'Connexion de John.doe@gmail.doe', 1),
-(1269, '2023-03-31 10:53:50', 'Déconnexion de John.doe@gmail.doe', 1),
-(1270, '2023-03-31 10:53:56', 'Connexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(1271, '2023-03-31 10:56:12', 'Ajout de 1 produit(s) Chaussures mi-hautes Haix scout 2.0 N°59  taille : T46 dans le panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(1272, '2023-03-31 10:56:18', 'Ajout de 1 produit(s) Santiago / Botte anti-coupure taille : 37 au panier de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(1273, '2023-03-31 10:56:27', 'Validation du panier EPI de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(1274, '2023-03-31 10:56:34', 'Validation du panier VET de John.doe@gmail.doe par ChefJohn.ChefDoe@gmail.Chef', 3),
-(1275, '2023-03-31 10:57:02', 'Déconnexion de ChefJohn.ChefDoe@gmail.Chef', 3),
-(1276, '2023-03-31 10:57:20', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1277, '2023-03-31 11:00:48', 'Modification du produit  Stelvio / Chaussures plaine par AdminJohnDoe@gmail.doe', 2),
-(1278, '2023-03-31 11:01:59', 'Modification du produit Vancouver Piémont  par AdminJohnDoe@gmail.doe', 2),
-(1279, '2023-03-31 11:02:24', 'Modification du produit Vancouver Montagne  par AdminJohnDoe@gmail.doe', 2),
-(1280, '2023-03-31 11:03:10', 'Modification du produit Dunlop Purofort  par AdminJohnDoe@gmail.doe', 2),
-(1281, '2023-03-31 11:03:40', 'Modification du produit SIP 1SX4 / Guêtre par AdminJohnDoe@gmail.doe', 2),
-(1282, '2023-03-31 11:03:56', 'Modification du produit Stubai Twin peak / Crampon forestier par AdminJohnDoe@gmail.doe', 2),
-(1283, '2023-03-31 11:05:48', 'Modification du produit Gants cuir par AdminJohnDoe@gmail.doe', 2),
-(1284, '2023-03-31 11:06:36', 'Modification du produit FEELPRO par AdminJohnDoe@gmail.doe', 2),
-(1285, '2023-03-31 11:07:25', 'Modification du produit MIDSEASON / par AdminJohnDoe@gmail.doe', 2),
-(1286, '2023-03-31 11:07:51', 'Modification du produit Gants nitrile par AdminJohnDoe@gmail.doe', 2),
-(1287, '2023-03-31 11:08:21', 'Modification du produit Réf 60510 / 60513 / 60516 par AdminJohnDoe@gmail.doe', 2),
-(1288, '2023-03-31 11:08:49', 'Modification du produit MOLDEX réf 2405  par AdminJohnDoe@gmail.doe', 2),
-(1289, '2023-03-31 11:10:02', 'Modification du produit YVEK 500  par AdminJohnDoe@gmail.doe', 2),
-(1290, '2023-03-31 11:10:12', 'Modification du produit TYVEK 800J  par AdminJohnDoe@gmail.doe', 2),
-(1291, '2023-03-31 11:10:36', 'Modification du produit COVERGUARD MAX300 / Coquille pour casque de chantier par AdminJohnDoe@gmail.doe', 2),
-(1292, '2023-03-31 11:10:50', 'Modification du produit MSA VGARD 500 / Casque de chantier par AdminJohnDoe@gmail.doe', 2),
-(1293, '2023-03-31 11:11:19', 'Modification du produit Cartouche MSA Advantage 200 LS (A2P3) par AdminJohnDoe@gmail.doe', 2),
-(1294, '2023-03-31 11:11:29', 'Modification du produit MSA Advantage 200 LS  par AdminJohnDoe@gmail.doe', 2),
-(1295, '2023-03-31 11:11:42', 'Modification du produit MOLDEX réf 6401  par AdminJohnDoe@gmail.doe', 2),
-(1296, '2023-03-31 11:19:03', 'Modification du produit Table pliante N°57  par AdminJohnDoe@gmail.doe', 2),
-(1297, '2023-03-31 11:20:40', 'Modification du produit Pantalon femme N°12  par AdminJohnDoe@gmail.doe', 2),
-(1298, '2023-03-31 11:20:55', 'Modification du produit Glacière rigide Camping gaz N°49  par AdminJohnDoe@gmail.doe', 2),
-(1299, '2023-03-31 11:22:30', 'Modification du produit Ceinture cuir épaisse N°34  par AdminJohnDoe@gmail.doe', 2),
-(1300, '2023-03-31 11:22:43', 'Modification du produit Abri parapluie N°54  par AdminJohnDoe@gmail.doe', 2),
-(1301, '2023-03-31 11:23:04', 'Modification du produit Réchaud Camping Gaz N°52 par AdminJohnDoe@gmail.doe', 2),
-(1302, '2023-03-31 11:23:36', 'Modification du produit Veste Softshell femme N°11  par AdminJohnDoe@gmail.doe', 2),
-(1303, '2023-03-31 11:23:49', 'Modification du produit Thermos nourriture N°50  par AdminJohnDoe@gmail.doe', 2),
-(1304, '2023-03-31 11:23:59', 'Modification du produit Chapeau moustiquaire N°56  par AdminJohnDoe@gmail.doe', 2),
-(1305, '2023-03-31 11:25:00', 'Modification du produit Pantalon jean N°29 par AdminJohnDoe@gmail.doe', 2),
-(1306, '2023-03-31 11:25:38', 'Modification du produit Ceinture cuir N°33 par AdminJohnDoe@gmail.doe', 2),
-(1307, '2023-03-31 11:26:32', 'Modification du produit Sac à dos siege N°47  par AdminJohnDoe@gmail.doe', 2),
-(1308, '2023-03-31 11:27:13', 'Modification du produit Pantalon noir N°28 par AdminJohnDoe@gmail.doe', 2),
-(1309, '2023-03-31 11:27:52', 'Modification du produit Gilet sans manches softshell femme N°10  par AdminJohnDoe@gmail.doe', 2),
-(1310, '2023-03-31 11:28:05', 'Modification du produit Abri moustiquaire N°55  par AdminJohnDoe@gmail.doe', 2),
-(1311, '2023-03-31 11:28:18', 'Modification du produit Couteau bivouac N°48  par AdminJohnDoe@gmail.doe', 2),
-(1312, '2023-03-31 11:28:27', 'Modification du produit Siège pliant N°53  par AdminJohnDoe@gmail.doe', 2),
-(1313, '2023-03-31 11:30:40', 'Modification du produit Sac à dos 20 Litres N°46  par AdminJohnDoe@gmail.doe', 2),
-(1314, '2023-03-31 11:31:17', 'Modification du produit Thermos gourde Camping gaz N°51  par AdminJohnDoe@gmail.doe', 2),
-(1315, '2023-03-31 11:31:53', 'Modification du produit Ceinture N°32 par AdminJohnDoe@gmail.doe', 2),
-(1316, '2023-03-31 11:32:42', 'Modification du produit Sous vêtement chaud — haut  du corps N°30  par AdminJohnDoe@gmail.doe', 2),
-(1317, '2023-03-31 11:33:57', 'Modification du produit Sous vêtement chaud — Bas du corps N°31  par AdminJohnDoe@gmail.doe', 2),
-(1318, '2023-03-31 11:34:40', 'Modification du produit Gants renforcés N°44  par AdminJohnDoe@gmail.doe', 2),
-(1319, '2023-03-31 11:35:18', 'Modification du produit Sous gants N°43 / Confort par AdminJohnDoe@gmail.doe', 2),
-(1320, '2023-03-31 11:41:06', 'Modification du produit Chaussettes de randonnée N°40  par AdminJohnDoe@gmail.doe', 2),
-(1321, '2023-03-31 11:41:15', 'Modification du produit Chaussettes de randonnée N°40  par AdminJohnDoe@gmail.doe', 2),
-(1322, '2023-03-31 11:42:29', 'Modification du produit Chaussettes tout temps N°39  par AdminJohnDoe@gmail.doe', 2),
-(1323, '2023-03-31 11:43:06', 'Modification du produit Chaussettes climat chaud N°38  par AdminJohnDoe@gmail.doe', 2),
-(1324, '2023-03-31 11:43:22', 'Modification du produit Gants tactiles N°42 par AdminJohnDoe@gmail.doe', 2),
-(1325, '2023-03-31 11:43:43', 'Modification du produit Bonnet polaire N°37 par AdminJohnDoe@gmail.doe', 2),
-(1326, '2023-03-31 11:44:59', 'Modification du produit Chaussettes légère N°41  par AdminJohnDoe@gmail.doe', 2),
-(1327, '2023-03-31 11:45:20', 'Modification du produit Casquette N°36 par AdminJohnDoe@gmail.doe', 2),
-(1328, '2023-03-31 11:45:31', 'Modification du produit Tour de cou multi-fonction N°35 par AdminJohnDoe@gmail.doe', 2),
-(1329, '2023-03-31 11:45:38', 'Modification du produit Tour de cou multi-fonction N°35 par AdminJohnDoe@gmail.doe', 2),
-(1330, '2023-03-31 11:49:12', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1331, '2023-03-31 11:49:15', 'Connexion de John.doe@gmail.doe', 1),
-(1332, '2023-03-31 12:00:46', 'Modification du produit CEPOVETT 9J86 / Combinaison de travail par AdminJohnDoe@gmail.doe', 2),
-(1333, '2023-03-31 12:01:09', 'Modification du produit CEPOVETT 9J86 / Combinaison de travail par AdminJohnDoe@gmail.doe', 2),
-(1334, '2023-03-31 13:56:54', 'Connexion de John.doe@gmail.doe', 1),
-(1335, '2023-03-31 14:01:56', 'Déconnexion de John.doe@gmail.doe', 1),
-(1336, '2023-03-31 14:02:10', 'Connexion de AdminJohnDoe@gmail.doe', 2),
-(1337, '2023-03-31 14:15:27', 'Modification du produit Gants nitrile par AdminJohnDoe@gmail.doe', 2),
-(1338, '2023-03-31 14:28:18', 'Déconnexion de AdminJohnDoe@gmail.doe', 2),
-(1339, '2023-03-31 14:28:33', 'Connexion de John.doe@gmail.doe', 1),
-(1340, '2023-03-31 14:43:56', 'Déconnexion de John.doe@gmail.doe', 1),
-(1341, '2023-03-31 14:44:09', 'Connexion de John.doe@gmail.doe', 1),
-(1342, '2023-03-31 14:51:11', 'Ajout de 2 produit(s) CEPOVETT 9J86 / Combinaison de travail taille : 0 au panier par John.doe@gmail.doe', 1),
-(1343, '2023-03-31 14:51:17', 'Suppression de l\'article CEPOVETT 9J86 / Combinaison de travail par John.doe@gmail.doe', 1),
-(1344, '2023-03-31 14:57:24', 'Ajout de 2 produit(s) CEPOVETT 9J86 / Combinaison de travail taille : 0 au panier par John.doe@gmail.doe', 1),
-(1345, '2023-03-31 14:58:20', 'Suppression de l\'article CEPOVETT 9J86 / Combinaison de travail par John.doe@gmail.doe', 1);
+) ENGINE=MyISAM AUTO_INCREMENT=1434 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1440,14 +1320,14 @@ CREATE TABLE IF NOT EXISTS `points` (
   `point` int(11) DEFAULT NULL,
   `idUtilisateur` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `points`
 --
 
 INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
-(1, 0, 1),
+(1, 150, 1),
 (2, 150, 2),
 (14, 150, 20),
 (15, 150, 21),
@@ -1460,7 +1340,9 @@ INSERT INTO `points` (`id`, `point`, `idUtilisateur`) VALUES
 (22, 150, 30),
 (24, 150, 37),
 (28, 150, 41),
-(74, 150, 89);
+(74, 150, 89),
+(76, 150, 91),
+(77, 150, 92);
 
 -- --------------------------------------------------------
 
@@ -1482,7 +1364,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   PRIMARY KEY (`id`),
   KEY `idFournisseur` (`idFournisseur`),
   KEY `idType` (`idType`)
-) ENGINE=MyISAM AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=216 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `produit`
@@ -1503,7 +1385,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (17, 'Lyreco', 'GT015.png', 'Francital GT015 / Gant de bucheronnage', 'EPI', 'Gants adaptés pour l’utilisation de la\r\ntronçonneuse.\r\nFermeture par scratch au poignet.\r\nCoussinet anti-vibration.', 5, 5, 1),
 (18, 'ROSTAING', 'DENIM.png', 'DENIM / Gant de protection mécanique', 'EPI', 'Gants étanche avec enduction pour\r\nprotection mécanique, idéal pour travaux de\r\nmaintenance en milieu huileux\r\nRésistance à la coupure.', 4, 9, 1),
 (27, 'France Equipement Sécurité', '60510.png', 'Lunette de sécurité 60510', 'EPI', 'Ajustement de la longueur et inclinaison des\r\nbranches.\r\nExiste en version teintée jaune (pour temps\r\nsombre) et teintée solaire (pour temps\r\nensoleillé).', 8, 11, 1),
-(33, 'E.P.I SUD ', 'T-shirtOnf.png', 'T-shirt ONF rouge ', 'EPI', 'Grammage : 185 g/m²\nExiste en version col en V\nAvec marquage ONF', 9, 20, 1),
+(33, 'E.P.I SUD ', 'T-shirtOnf.png', 'T-shirt ONF rouge ', 'EPI', 'Grammage : 185 g/m²\r\nExiste en version col en V\r\nAvec marquage ONF', 9, 20, 1),
 (36, 'Fiprotec', 'CEPOVETT.png', 'CEPOVETT 9J86 / Combinaison de travail', 'EPI', 'Fermeture à double glissière.\r\nCouleur : orange\r\nUniquement pour conducteurs d’engins et\r\nlogisticiens.', 6, 2, 1),
 (37, 'ONF', 'Inve.png', 'Veste Solidur Inve N°1', 'VET', 'Veste de travail extensible hydrophobe avec manches amovibles.\nPolyester ripstop hydrophobe, tissu épaules Armortex, tissu bras polyamide enduit. 3 poches extérieures dont 2 poches repose mains et 1\n\npoche téléphone. Liseré réfléchissant sur épaules avant arrière, bande\nréfléchissante hachurée sur les bras. 1 poche dos double ouverture.\nRéglage poignets par ruban autoagrippant et patte caoutchouc.\nRouge/jaune\nTailles XS à 4XL', 10, 17, 1),
 (38, 'ONF', 'Kouvola.png', 'Veste Softshell Francital Kouvola N°2 ', 'VET', 'Veste idéale en demi-saison froide et lors des averses grâce à sa mem-\nbrane. 5 poches : 2 poches basses, 2 poches poitrine, 1 poche inté-\nrieure. Grand col montant, patte de resserrage poignet, fermeture à\nglissière simple curseur séparable inversée, système de ventilation\nsous les bras\nTissu trilaminé avec tissu extérieur extensible, traité déperlant + membrane imper-respirante + micropolaire. Coupe-vent & confort thermique.\n46% polyester 37% polyamide 15 % polyuréthane 2 % élasthanne\nRouge/Jaune\nTaille XS-3XL', 10, 17, 1),
@@ -1549,7 +1431,7 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (78, 'ONF', 'GantsTactiles.png', 'Gants tactiles N°42', 'VET', 'Gants tactiles pour Smartphone en acrylique. Les 3 extrémités tactiles\r\ndes doigts sont composées de 30 % de fibres d\'acier inoxydables.\r\nColoris noir\r\nTaille unique', 10, 17, 1),
 (79, 'ONF', 'SousGants.png', 'Sous gants N°43 / Confort', 'VET', '100% soie chaud excellent ratio chaleur/minimum encombrement/\r\nconfort. Poignet élastiqué. Paume et dessus de main sans coutures\r\nColoris: noir\r\nTaille S/7 - M/8 - L/9 - XL/10 - XXL/11', 10, 17, 1),
 (80, 'ONF', 'GantsRenforces.png', 'Gants renforcés N°44 ', 'VET', 'Cuir synthétique avec renfort Kevlar dans la paume de la main et le\r\ndessous des doigts. Dos respirant. Poignée élastique à fermeture\r\nauto agrippante.\r\nColoris rouge et noir\r\nTaille 8 à 12', 10, 17, 1),
-(81, 'ONF', 'ChemiseCotonHomme.png', 'Chemise coton à carreaux homme N°45', 'VET', 'Chemise manches longues en flanelle - 100% Coton tissé teint—190g/m2\nFermeture à boutons\n1 poche poitrine - poignets fendus fermés par boutons\nColoris : bleu\nTaille : S au 3XL', 10, 17, 1),
+(81, 'ONF', 'ChemiseCotonHomme.png', 'Chemise coton à carreaux homme N°45', 'VET', 'Chemise manches longues en flanelle - 100% Coton tissé teint—190g/m2\r\nFermeture à boutons\r\n1 poche poitrine - poignets fendus fermés par boutons\r\nColoris : bleu\r\nTaille : S au 3XL', 10, 17, 1),
 (82, 'ONF', 'SacADos.png', 'Sac à dos 20 Litres N°46 ', 'VET', '100% Polyester (600D/Ripstop)\r\nBretelles réglables rembourrées\r\nPoignée de transport, sangles à la taille et à la poitrine\r\nPanneau dorsal rembourré, respirant et ergonomique\r\nCompatible avec ordinateur portable de 15.6\"\r\nCompatible avec une poche d\'hydratation (019.30-QX510)\r\nHousse de protection contre la pluie\r\nDiverses attaches et passant arrière pour attacher une lampe\r\nPoche sur le côté avec fermeture éclair, poche interne en filet\r\nSangles de compression et bandes réfléchissantes\r\nDimensions: 31 x 48 x 20 cm\r\nColoris noir', 10, 17, 1),
 (83, 'ONF', 'SacADosSiege.png', 'Sac à dos siege N°47 ', 'VET', 'Sac à dos avec siège pliable intégré, bonne capacité de\r\nrangement. 100% polyester\r\nDimensions: 34 x 33 x 41 cm\r\nPoids : 1,7kg', 10, 17, 1),
 (84, 'ONF', 'Couteau.png', 'Couteau bivouac N°48 ', 'VET', 'Modèle massif lame 20/10 mm. Cran de sécurité, couteau (lame\r\n9cm), fourchette et cuillère détachables, ouvre-boîte affûté avec\r\nperce-boite, tire bouchon 5 spires, housse toile renforcée avec pas-\r\nsant ceinture et crochet métallique pour ceinturon armée', 10, 17, 1),
@@ -1562,8 +1444,8 @@ INSERT INTO `produit` (`id`, `referenceFournisseur`, `fichierPhoto`, `nom`, `typ
 (91, 'ONF', 'AbriMoustiquaire.png', 'Abri moustiquaire N°55 ', 'VET', 'Pratique grâce à son seul point d’attache et légère.\r\nAvec housse de rangement.\r\nHauteur d’accroche : 2,5m\r\nCirconférence au sol : 8,5m', 10, 17, 1),
 (92, 'ONF', 'ChapeauMoustiquaire.png', 'Chapeau moustiquaire N°56 ', 'VET', '100% polyester avec enduction. Coutures principales\r\ncontrecollées pour une meilleure résistance à l\'eau.\r\nForme elliptique, larges bords souples et pliables avec\r\nboutons pression sur le coté, œillets d\'aération, lanière et\r\nstoppeur. 324 trous/cm2\r\nDisponible en 2 tailles 56/58 CM, 60/62 CM.\r\nColoris noir', 10, 17, 1),
 (93, 'ONF', 'TablePliante.png', 'Table pliante N°57 ', 'VET', 'Table pliante en aluminium, latte se roulant sur elles-\r\nmêmes.\r\n\r\nSac de rangement avec bandoulière pour transport\r\nDimansion : 70 x 70 x 72\r\nPoids : 2,7kg', 10, 17, 1),
-(94, 'ONF', 'ChaussuresEagle.png', 'Chaussures basses Haix Black Eagle\nNature GTX Low N°58 ', 'VET', 'Hauteur 8 cm. Etanche et respirante grace à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon\nconfort thermique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\n\nPS : Ces chaussures ne sont pas des EPI et ne peu-\nvent donc pas être portées sur les chantiers.', 10, 17, 1),
-(95, 'ONF', 'ChaussuresScout.png', 'Chaussures mi-hautes Haix scout 2.0 N°59 ', 'VET', 'Hauteur 17 cm. Etanche et respirante grâce à la membrane\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\nfort thermique. Antistatique.\nComposition cuir/PU/caoutchouc.\nPointure 35 à 47\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\ndonc pas être portées sur les chantiers.', 10, 17, 1),
+(94, 'ONF', 'ChaussuresEagle.png', 'Chaussures basses Haix Black EagleNature GTX Low N°58 ', 'VET', 'Hauteur 8 cm. Etanche et respirante grace à la membrane\r\nGore Tex. Doublure résistante à l’abrasion, avec un bon\r\nconfort thermique.\r\nComposition cuir/PU/caoutchouc.\r\nPointure 35 à 47\r\n\r\nPS : Ces chaussures ne sont pas des EPI et ne peu-\r\nvent donc pas être portées sur les chantiers.', 10, 17, 1),
+(95, 'ONF', 'ChaussuresScout.png', 'Chaussures mi-hautes Haix scout 2.0 N°59 ', 'VET', 'Hauteur 17 cm. Etanche et respirante grâce à la membrane\r\nGore Tex. Doublure résistante à l’abrasion, avec un bon con-\r\nfort thermique. Antistatique.\r\nComposition cuir/PU/caoutchouc.\r\nPointure 35 à 47\r\nPS : Ces chaussures ne sont pas des EPI et ne peuvent\r\ndonc pas être portées sur les chantiers.', 10, 17, 1),
 (182, 'EBM Distribution ', 'Stelvio.png', ' Stelvio / Chaussures plaine', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et\r\nsemelle anti-perforation « Vibram »\r\nIdéal pour les terrains de plaine.', 1, 18, 1),
 (183, 'EBM Distribution ', 'Piémont.png', 'Vancouver Piémont ', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
 (184, 'EBM Distribution ', 'Montagne.png', 'Vancouver Montagne ', 'EPINonOuvrier', 'Taille : 36 à 49\r\nPas de protection anti-coupure\r\nChaussure légère à embout renforcé et semelle\r\nanti-perforation « Vibram »\r\nBon compromis entre mobilité et résistance.\r\nPoids : 1850g en taille 42\r\nIdéal pour les terrains de moyenne montagne.', 1, 18, 1),
@@ -1621,7 +1503,7 @@ CREATE TABLE IF NOT EXISTS `taille` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `taille`
@@ -1716,7 +1598,8 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 (86, '2XL Long '),
 (87, '3XL Court '),
 (88, '3XL Standard '),
-(89, '3XL Long ');
+(89, '3XL Long '),
+(90, '35');
 
 -- --------------------------------------------------------
 
@@ -1792,7 +1675,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   KEY `idRole` (`idRole`),
   KEY `idMetier` (`idMetier`),
   KEY `IdEmployeur` (`IdEmployeur`)
-) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `utilisateur`
@@ -1804,7 +1687,7 @@ INSERT INTO `utilisateur` (`id`, `Login`, `password`, `prenom`, `nom`, `email`, 
 (3, 'ChefJohn.ChefDoe@gmail.Chef', '$2y$10$7LRUb35AVEmSkXx8jrZwA..S6Mh8XZ5dF.EVm1mADJ932AIPjJqcy', 'chefJohn', 'chefDoe', 'chefJohn@chefDoe.chef', '0609090666', 1, 3, 2, 3, 'Colmar', 2),
 (20, 'SuperJohn@super.John', '$2y$10$Na5o6ipGj51UWgFEqrjexOZPdjcLKNVMrOk7YoFOavSM.LRsM9YFS', 'Didou', 'John', 'SuperJohn@super.John', '0654589874', 2, 20, 4, 1, 'Mulhouse', NULL),
 (21, 'dev', '$2y$10$8p0f5RZSCB06Dlq/Zz/E.ugHO0r.Ztz69gqClzIQOWnOPF3GrNLa2', 'dev', 'dev', 'dev', '0600600606', 1, 21, 2, 5, 'Milhouse', 1),
-(29, 'Johnette@Dobias.com', '$2y$10$ZSli2ceF8XXcFsClG2U2xOZpcNDr757kpgdJcU5rpHyV4YjmuHwB2', 'Dobias', 'Johnette', 'Johnette@Dobias.com', '0707070707', 1, 3, 3, 3, 'Colmar', NULL),
+(29, 'Johnette@Dobias.com', '$2y$10$ZSli2ceF8XXcFsClG2U2xOZpcNDr757kpgdJcU5rpHyV4YjmuHwB2', 'Dobias', 'Johnette', 'Johnette@Dobias.com', '0707070707', 1, 3, 1, 2, 'Colmar', NULL),
 (37, 'Eric@windev.com', '$2y$10$SoeDXLWUxb5P3wTM4RXg5OljbGE55i2zy2kj9qO33xe9DhIfmyUz6', 'fan2Windev', 'Eric', 'Eric@windev.com', '0609110661', 1, 3, 1, 2, 'Colmar', 1),
 (41, 'Kiki@psg.com', '$2y$10$2NLFsiOwL06KFWlJ9.aPAuQwXwWIwWBRHsi88zZmhS0i5MTdUNmNe', 'MbbaPied', 'Killian', 'Kiki@psg.com', '4587458744', 2, 3, 1, 6, 'Milhouse', 1),
 (89, 'mey.tristan@onf.fr', '$2y$10$zXHTrwjB6yBuwrat6OEBXu0CldVvwxU5oiPUznzxEYtGl26BUVT0K', 'Tristan', 'Mey', 'mey.tristan@onf.fr', '0606060606', 2, 89, 2, 1, 'Milhouse', 1);

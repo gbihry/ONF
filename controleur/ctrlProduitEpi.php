@@ -15,6 +15,11 @@
         
         $login = ModeleObjetDAO::getLoginById($_GET["ref"]);
         $employeur = ModeleObjetDAO::getEmployeurById($login["login"]);
+        if ($employeur == false){
+            $employeur = 'onf';
+        }else{
+            $employeur = $employeur['roleEmployeur'];
+        }
         $unStatut = ModeleObjetDAO::getStatut($login["login"]);
         $nomCategorie = ModeleObjetDAO::getNomCategorie($idCateg);
         $array = array(
@@ -63,7 +68,6 @@
         }
     }
     elseif($_GET["ref"] == "0"){  
-        $employeur = ModeleObjetDAO::getEmployeurById($_SESSION['login']);
         $unStatut = ModeleObjetDAO::getStatut($_SESSION['login']);
         $unIdStatut = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login']);
         $idCateg = $_GET["id"];
@@ -78,7 +82,12 @@
             "login" => $_SESSION['login'],
         );
     
-        
+        $employeur = ModeleObjetDAO::getEmployeurById($login["login"]);
+        if ($employeur == false){
+            $employeur = 'onf';
+        }else{
+            $employeur = $employeur['roleEmployeur'];
+        }
         switch($role){
             case 'Responsable' : 
                 $responsable = ModeleObjetDAO::getResponsableCommande(ModeleObjetDAO::getIdUtilisateur($_SESSION['login'])['id']);
