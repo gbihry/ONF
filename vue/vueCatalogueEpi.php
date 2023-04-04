@@ -131,19 +131,18 @@ if(isset($reload) && $reload == true) {
                     if($statutUser == 1 && $idProduit == 10 || 
                     ($statutUser == 1 &&  $idProduit != 6  && $detail['idType'] == 2) ||
                     ($statutUser !=1 && $statutUser !=2 && $idProduit == 2) || 
-                    ($statutUser == 2 && $idProduit == 6) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 1) ||
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
-                    ($statutUser != 1 && $statutUser != 2 && $statutUser != 3 && $statutUser != 9 && $idProduit == 3) || 
+                    ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 3) || 
                     ($statutUser != 3 && $statutUser != 4 && $idProduit == 4) ||
-                    ($statutUser != 9 && $idProduit == 16) || ($statutUser != 4 && $idProduit == 36) ||
+                    ($statutUser != 9 && $idProduit == 16) ||
                     ($statutUser == 1 && $idProduit != 207 && $idProduit != 6  && $detail['idType'] == 2) || 
                     ($statutUser != 1 && $statutUser != 2 && $idProduit == 6) || 
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
-                    ($statutUser != 9 && $idProduit == 16) || ($statutUser != 4 && $idProduit == 36) ||
-                    ($idProduit == 209 && $employeur['roleEmployeur'] == "onf")|| ($idProduit == 33 && $employeur['roleEmployeur'] == "syndicat") ||
+                    ($statutUser != 9 && $idProduit == 16) || 
+                    ($idProduit == 209 && $employeur == "onf")|| ($idProduit == 33 && $employeur == "syndicat") ||
                     ($statutUser != 4 && $statutUser != 3 && $statutUser != 9 && $idProduit == 36) ||
-                    ($statutUser != 2 && $statutUser != 3 && $idProduit == 8) || 
+                    ($statutUser != 2 && $statutUser != 9 && $idProduit == 8) || 
                     ($statutUser != 2 && $idProduit == 7)){
                     
                     }else{
@@ -164,19 +163,18 @@ if(isset($reload) && $reload == true) {
                     if($statutUser == 1 && $idProduit == 10 || 
                     ($statutUser == 1 &&  $idProduit != 6  && $detail['idType'] == 2) ||
                     ($statutUser !=1 && $statutUser !=2 && $idProduit == 2) || 
-                    ($statutUser == 2 && $idProduit == 6) || 
                     ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 1) ||
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
-                    ($statutUser != 1 && $statutUser != 2 && $statutUser != 3 && $statutUser != 9 && $idProduit == 3) || 
+                    ($statutUser != 1 && $statutUser != 2 && $statutUser != 9 && $idProduit == 3) || 
                     ($statutUser != 3 && $statutUser != 4 && $idProduit == 4) ||
-                    ($statutUser != 9 && $idProduit == 16) || ($statutUser != 4 && $idProduit == 36) ||
+                    ($statutUser != 9 && $idProduit == 16) ||
                     ($statutUser == 1 && $idProduit != 207 && $idProduit != 6  && $detail['idType'] == 2) || 
                     ($statutUser != 1 && $statutUser != 2 && $idProduit == 6) || 
                     ($statutUser != 3 && $statutUser != 4 && $statutUser != 9 && $idProduit == 18) || 
-                    ($statutUser != 9 && $idProduit == 16) || ($statutUser != 4 && $idProduit == 36) ||
-                    ($idProduit == 209 && $employeur['roleEmployeur'] == "onf")|| ($idProduit == 33 && $employeur['roleEmployeur'] == "syndicat") ||
+                    ($statutUser != 9 && $idProduit == 16) || 
+                    ($idProduit == 209 && $employeur == "onf")|| ($idProduit == 33 && $employeur == "syndicat") ||
                     ($statutUser != 4 && $statutUser != 3 && $statutUser != 9 && $idProduit == 36) ||
-                    ($statutUser != 2 && $statutUser != 3 && $idProduit == 8) || 
+                    ($statutUser != 2 && $statutUser != 9 && $idProduit == 8) || 
                     ($statutUser != 2 && $idProduit == 7)){
                         
                     
