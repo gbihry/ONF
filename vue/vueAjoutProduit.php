@@ -86,6 +86,7 @@ if(isset($reload) && $reload == true) {
                 ?>
                 </select>
             </div>
+            <p>Ajouter taille existante à gauche / Ajouter taille inexistante à droite</p>
             <div class="taille_box">
                 <div class="taille_box_btn" id="taille_box_btn">
                     <div>
