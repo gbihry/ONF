@@ -56,7 +56,7 @@
                 }
                 echo ('</table>');
             }else{
-                if($metier['id'] == 1 || $metier['id'] == 2 ||$metier['id'] == 3|| $metier['id'] == 4){
+                if(($metier['id'] == 1 || $metier['id'] == 2 ||$metier['id'] == 3|| $metier['id'] == 4) && $dateAuj < $dateFin){
                     echo ('<p>Aucune commande VET</p>');
                     echo('<a href="./?action=catalogueVet&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue VET</a>');
                 }
@@ -88,9 +88,10 @@
                 }
                 echo ('</table>');
             }else{
-                echo ('<p>Aucune commande EPI</p>');
+                
                 if($metier['id'] == 5 || $metier['id'] == 6 ||$metier['id'] == 7|| $metier['id'] == 8){
                     if($dateAuj < $dateFin){
+                        echo ('<p>Aucune commande EPI</p>');
                         echo('<a href="./?action=catalogueEpiNonOuvrier&&id=0" class="btn btn-success"><i class="fa-regular fa-eye"></i> Catalogue EPI</a>');
                     }
                 }

@@ -4,7 +4,7 @@
   include_once "$racine/modele/ModeleObjetDAO.php";
   date_default_timezone_set('Europe/Paris');
   $dateAuj = new DateTime();
-  $dateFin = new DateTime(" 07-04-2023 16:30:00");
+  $dateFin = new DateTime(" 07-06-2023 16:30:00");
   if(isset($_SESSION['autorise'])) {
     $metierUtilisateur = ModeleObjetDAO::getMetierUtilisateur($_SESSION['login'])['idMetier'];
     $roleUser = ModeleObjetDAO::getRole($_SESSION['login'])['libelle'];

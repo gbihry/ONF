@@ -45,7 +45,7 @@
                     echo ('<div class="alert alert-success" role="alert">Vous avez fait une commande EPI <br> le '.$date.' à '.$time.'</div>');
                 echo ('</div>');
             }
-            if ($verifCommandeEPI == 0 || $verifCommandeVET == 0){
+            if (($verifCommandeEPI == 0 || $verifCommandeVET == 0) && $dateAuj < $dateFin){
                 ?>
                 <div>
                     <?php 

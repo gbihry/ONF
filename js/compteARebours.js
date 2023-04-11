@@ -6,7 +6,7 @@ if(document.getElementById("compte_a_rebours")) {
     
     function getChrono(){
         var date_actuelle = new Date();
-        var date_evenement = new Date("Apr 7 16:30:00 2023 GMT+02:00");
+        var date_evenement = new Date("Jun 7 16:30:00 2023 GMT+02:00");
         var total_secondes = (date_evenement - date_actuelle) / 1000;
         if (total_secondes < 0)
         {

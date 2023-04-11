@@ -3,6 +3,9 @@
     include_once "$racine/vue/vueEntete.php";
     
     
+    if ($dateAuj > $dateFin){
+        header("location:./?action=accueil");
+    }
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }

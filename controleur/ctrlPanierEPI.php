@@ -6,7 +6,8 @@
     if (!isset($_SESSION['autorise'])){
         header("location:./?action=login");
     }
-    if ($verifCommandeEPI == 1){
+
+    if ($verifCommandeEPI == 1 || $dateAuj > $dateFin){
         header("location:./?action=accueil");
     }else{  
         $idUtilisateur = ModeleObjetDAO::getIdUtilisateur($_SESSION['login']);

@@ -10,6 +10,10 @@
     if ($verifCommandeVET == 1 && $_GET['id'] == '0'){
         header("location:./?action=accueil");
     }
+    if ($dateAuj > $dateFin){
+        header("location:./?action=accueil");
+    }
+
     $role = $roleUser;
     if($_GET["ref"] != "0"){
         $idCateg = $_GET["id"];
